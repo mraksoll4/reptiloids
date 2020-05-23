@@ -162,6 +162,7 @@ public:
         checkpointData = {
             {
                 {0, uint256S("0x00000d57b0c008a382bf149d8e55a4ab029d8abe067df78b9088f76d3326d2ee")},
+			}	
         };
         // Assign last checkpoint height, used to estimate initial load time
         for (const auto & item : checkpointData.mapCheckpoints) {
