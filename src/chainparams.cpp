@@ -111,7 +111,7 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00"); // block 1367315
 
         // Last POW block
-        consensus.lastPOWBlock = 2000;
+        consensus.lastPOWBlock = 400;
         consensus.stakeMinAge = 3600;
         consensus.stakingModiferV2Block = 615800;
         consensus.coinMaturity = 100;
