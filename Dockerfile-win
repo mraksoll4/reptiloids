@@ -58,4 +58,4 @@ RUN mkdir -p $DISTDIR \
 WORKDIR /opt/blocknetdx/dist
 
 # Port, RPC, Test Port, Test RPC
-EXPOSE 41412 41414 41474 41419
+EXPOSE 41420 41421 41474 41419

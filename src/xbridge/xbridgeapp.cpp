@@ -323,7 +323,7 @@ bool App::createConf()
                 "# Title=Blocknet"                                                             + eol +
                 "# Address="                                                                   + eol +
                 "# Ip=127.0.0.1"                                                               + eol +
-                "# Port=41414"                                                                 + eol +
+                "# Port=41421"                                                                 + eol +
                 "# Username=test"                                                              + eol +
                 "# Password=testpassword"                                                      + eol +
                 "# AddressPrefix=26"                                                           + eol +
