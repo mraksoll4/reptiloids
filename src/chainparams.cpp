@@ -113,11 +113,11 @@ public:
         // Last POW block
         consensus.lastPOWBlock = 400;
         consensus.stakeMinAge = 3600;
-        consensus.stakingModiferV2Block = 2;
+        consensus.stakingModiferV2Block = 1;
         consensus.coinMaturity = 100;
-        consensus.stakingV05UpgradeTime = 1590200727; // Sep 23 '19 6pm UTC
-        consensus.stakingV06UpgradeTime = 1590200728; // Apr 15, 2020 6pm UTC
-        consensus.stakingV07UpgradeTime = 1590200729; // June 8, 2020 6pm UTC
+        consensus.stakingV05UpgradeTime = 1590200730; // Sep 23 '19 6pm UTC
+        consensus.stakingV06UpgradeTime = 1590200731; // Apr 15, 2020 6pm UTC
+        consensus.stakingV07UpgradeTime = 1590200732; // June 8, 2020 6pm UTC
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -182,11 +182,11 @@ public:
         consensus.defaultFallbackFee = CFeeRate(2000);
 
         // Governance
-        consensus.superblock = 43200;6
+        consensus.superblock = 43200;
         consensus.proposalCutoff = 2880;
         consensus.votingCutoff = 60;
         consensus.proposalMaxAmount = 40000 * COIN;
-        consensus.governanceBlock = 1296001;
+        consensus.governanceBlock = 1;
 
         // subsidy func mainnet
         consensus.GetBlockSubsidy = [](const int & blockHeight, const Consensus::Params & consensusParams) {
