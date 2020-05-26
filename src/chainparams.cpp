@@ -91,18 +91,18 @@ public:
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1590200729; // March 15, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1590675742; // May 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // Deployment of staker network fees
         consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].bit = 25;
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = 1590200729; // March 15, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = 1590675742; // May 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // Deployment of staker p2pkh support
         consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].bit = 24;
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = 1590200729; // March 15, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = 1590675742; // May 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00"); // block 1367315
@@ -114,10 +114,10 @@ public:
         consensus.lastPOWBlock = 150;
         consensus.stakeMinAge = 60;
         consensus.stakingModiferV2Block = 151;
-        consensus.coinMaturity = 50;
-        consensus.stakingV05UpgradeTime = 1590200726; // Sep 23 '19 6pm UTC
-        consensus.stakingV06UpgradeTime = 1590200727; // Apr 15, 2020 6pm UTC
-        consensus.stakingV07UpgradeTime = 1590200728; // June 8, 2020 6pm UTC
+        consensus.coinMaturity = 10;
+        consensus.stakingV05UpgradeTime = 1590200730; // Sep 23 '19 6pm UTC
+        consensus.stakingV06UpgradeTime = 1590200731; // Apr 15, 2020 6pm UTC
+        consensus.stakingV07UpgradeTime = 1590200732; // June 8, 2020 6pm UTC
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -182,18 +182,18 @@ public:
         consensus.defaultFallbackFee = CFeeRate(2000);
 
         // Governance
-        consensus.superblock = 400;
+        consensus.superblock = 300;
         consensus.proposalCutoff = 80;
         consensus.votingCutoff = 30;
         consensus.proposalMaxAmount = 40000 * COIN;
-        consensus.governanceBlock = 153;
+        consensus.governanceBlock = 152;
 
         // subsidy func mainnet
         consensus.GetBlockSubsidy = [](const int & blockHeight, const Consensus::Params & consensusParams) {
             CAmount baseReward = 1 * COIN;
             if (blockHeight == 1)                 return 14160024 * COIN; // from previous mainnet
             else if (blockHeight % consensusParams.superblock == 0) { // superblocks
-               if (blockHeight >= 152)         return consensusParams.proposalMaxAmount + baseReward; // phase 2 superblock
+               if (blockHeight >= 151)         return consensusParams.proposalMaxAmount + baseReward; // phase 2 superblock
                else                               return 1 * COIN + baseReward; // phase 1 superblock
             }
             else
@@ -234,18 +234,18 @@ public:
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1573850059; // November 15, 2019
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1573936459; // November 16, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // Deployment of staker network fees
         consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = 1559692800; // June 5, 2019
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = 1577750400; // December 31, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // Deployment of staker p2pkh support
         consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].bit = 3;
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = 1559692800; // June 5, 2019
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = 1577750400; // December 31, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
