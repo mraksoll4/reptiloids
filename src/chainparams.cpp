@@ -112,7 +112,7 @@ public:
 
         // Last POW block
         consensus.lastPOWBlock = 150;
-        consensus.stakeMinAge = 3600;
+        consensus.stakeMinAge = 60;
         consensus.stakingModiferV2Block = 151;
         consensus.coinMaturity = 50;
         consensus.stakingV05UpgradeTime = 1590200726; // Sep 23 '19 6pm UTC
