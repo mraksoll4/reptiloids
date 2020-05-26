@@ -234,17 +234,17 @@ public:
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // Deployment of staker network fees
         consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // Deployment of staker p2pkh support
         consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].bit = 3;
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // The best chain should have at least this much work.
