@@ -78,8 +78,8 @@ public:
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.stakingAllowsMinDifficultyBlocks = false;
-        consensus.nRuleChangeActivationThreshold = 1368; // 95% of 1440
-        consensus.nMinerConfirmationWindow = 1440; // 1 day
+        consensus.nRuleChangeActivationThreshold = 57; // 95% of 1440
+        consensus.nMinerConfirmationWindow = 60; // 1 day
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
@@ -91,18 +91,18 @@ public:
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1584295200; // March 15, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1589565600; // May 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1590200729; // March 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1590675742; // May 15, 2020
 
         // Deployment of staker network fees
         consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].bit = 25;
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = 1584295200; // March 15, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = 1589565600; // May 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nStartTime = 1590200729; // March 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_NETWORKFEES].nTimeout = 1590675742; // May 15, 2020
 
         // Deployment of staker p2pkh support
         consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].bit = 24;
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = 1584295200; // March 15, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = 1589565600; // May 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nStartTime = 1590200729; // March 15, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_STAKEP2PKH].nTimeout = 1590675742; // May 15, 2020
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00"); // block 1367315
@@ -186,14 +186,14 @@ public:
         consensus.proposalCutoff = 80;
         consensus.votingCutoff = 30;
         consensus.proposalMaxAmount = 40000 * COIN;
-        consensus.governanceBlock = 152;
+        consensus.governanceBlock = 153;
 
         // subsidy func mainnet
         consensus.GetBlockSubsidy = [](const int & blockHeight, const Consensus::Params & consensusParams) {
             CAmount baseReward = 1 * COIN;
             if (blockHeight == 1)                 return 14160024 * COIN; // from previous mainnet
             else if (blockHeight % consensusParams.superblock == 0) { // superblocks
-               if (blockHeight >= 151)         return consensusParams.proposalMaxAmount + baseReward; // phase 2 superblock
+               if (blockHeight >= 152)         return consensusParams.proposalMaxAmount + baseReward; // phase 2 superblock
                else                               return 1 * COIN + baseReward; // phase 1 superblock
             }
             else
