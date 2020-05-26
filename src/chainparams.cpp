@@ -111,13 +111,13 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00"); // block 1367315
 
         // Last POW block
-        consensus.lastPOWBlock = 400;
+        consensus.lastPOWBlock = 150;
         consensus.stakeMinAge = 3600;
-        consensus.stakingModiferV2Block = 1;
-        consensus.coinMaturity = 100;
-        consensus.stakingV05UpgradeTime = 1590200730; // Sep 23 '19 6pm UTC
-        consensus.stakingV06UpgradeTime = 1590200731; // Apr 15, 2020 6pm UTC
-        consensus.stakingV07UpgradeTime = 1590200732; // June 8, 2020 6pm UTC
+        consensus.stakingModiferV2Block = 151;
+        consensus.coinMaturity = 50;
+        consensus.stakingV05UpgradeTime = 1590200726; // Sep 23 '19 6pm UTC
+        consensus.stakingV06UpgradeTime = 1590200727; // Apr 15, 2020 6pm UTC
+        consensus.stakingV07UpgradeTime = 1590200728; // June 8, 2020 6pm UTC
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -182,19 +182,19 @@ public:
         consensus.defaultFallbackFee = CFeeRate(2000);
 
         // Governance
-        consensus.superblock = 43200;
-        consensus.proposalCutoff = 2880;
-        consensus.votingCutoff = 60;
+        consensus.superblock = 400;
+        consensus.proposalCutoff = 80;
+        consensus.votingCutoff = 30;
         consensus.proposalMaxAmount = 40000 * COIN;
-        consensus.governanceBlock = 1;
+        consensus.governanceBlock = 152;
 
         // subsidy func mainnet
         consensus.GetBlockSubsidy = [](const int & blockHeight, const Consensus::Params & consensusParams) {
             CAmount baseReward = 1 * COIN;
-            if (blockHeight == 1)                 return 4160024 * COIN; // from previous mainnet
+            if (blockHeight == 1)                 return 14160024 * COIN; // from previous mainnet
             else if (blockHeight % consensusParams.superblock == 0) { // superblocks
-               if (blockHeight >= 2)         return consensusParams.proposalMaxAmount + baseReward; // phase 2 superblock
-               else                               return 4320  * COIN + baseReward; // phase 1 superblock
+               if (blockHeight >= 151)         return consensusParams.proposalMaxAmount + baseReward; // phase 2 superblock
+               else                               return 1 * COIN + baseReward; // phase 1 superblock
             }
             else
                 return 1 * COIN;
