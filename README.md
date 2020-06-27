@@ -30,18 +30,18 @@ Block DX
 ReptiloidsCoin Specifications:
 -------
 
-| BLOCK Detail          |                    |
+| REPT Detail          |                    |
 ------------------------|--------------------
 Creation Date           | October 20th, 2014
 Release Method          | ITO, No Premine
 Proof Type              | Proof of Stake (PoS)
 Algo                    | Quark
 Block Time              | 60 seconds
-Block Reward / Fees     | 1.0 BLOCK awarded to stakers <br>0.015 BLOCK awarded to Service Nodes on DX trades <br>XRouter fees awarded to Service Nodes (customizable)
-Superblock              | Up to 40,000 BLOCK
+Block Reward / Fees     | 1.0 REPT awarded to stakers <br>0.015 REPT awarded to Service Nodes on DX trades <br>XRouter fees awarded to Service Nodes (customizable)
+Superblock              | Up to 40,000 REPT
 Difficulty              | Adjusted per block
 Staking Requirement     | No minimum
-Service Node Requirement| 5000 BLOCK (SPV)
+Service Node Requirement| 5000 REPT (SPV)
 Circulation             | [View on explorer](https://chainz.cryptoid.info/block/)
 Max Supply              | No maximum supply (PoS), but there is a maximum to [inflation](https://docs.reptiloidscoin.co/blockchain/introduction/#inflation)
 

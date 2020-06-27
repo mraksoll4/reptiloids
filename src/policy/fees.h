@@ -137,13 +137,13 @@ class CBlockPolicyEstimator
 {
 private:
     /** Track confirm delays up to 5 blocks for short horizon */
-    static constexpr unsigned int SHORT_BLOCK_PERIODS = 5; // ReptiloidsCoin 5 minutes
+    static constexpr unsigned int SHORT_REPT_PERIODS = 5; // ReptiloidsCoin 5 minutes
     static constexpr unsigned int SHORT_SCALE = 1;
     /** Track confirm delays up to 10 blocks for medium horizon */
-    static constexpr unsigned int MED_BLOCK_PERIODS = 5; // ReptiloidsCoin 10 minutes
+    static constexpr unsigned int MED_REPT_PERIODS = 5; // ReptiloidsCoin 10 minutes
     static constexpr unsigned int MED_SCALE = 2;
     /** Track confirm delays up to 40 blocks for long horizon */
-    static constexpr unsigned int LONG_BLOCK_PERIODS = 10; // ReptiloidsCoin 40 minutes
+    static constexpr unsigned int LONG_REPT_PERIODS = 10; // ReptiloidsCoin 40 minutes
     static constexpr unsigned int LONG_SCALE = 4;
     /** Historical estimates that are older than this aren't valid */
     static const unsigned int OLDEST_ESTIMATE_HISTORY = 7200; // ReptiloidsCoin 5 days

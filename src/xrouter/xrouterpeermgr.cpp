@@ -62,7 +62,7 @@ static bool ProcessMessage(XRouterPeerMgr & peerMgr, CNode* pfrom, const std::st
                 std::ostringstream ss;
                 ss << strMsg << " code " << itostr(ccode) << ": " << strReason;
 
-                if (strMsg == NetMsgType::BLOCK || strMsg == NetMsgType::TX)
+                if (strMsg == NetMsgType::REPT || strMsg == NetMsgType::TX)
                 {
                     uint256 hash;
                     vRecv >> hash;

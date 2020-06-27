@@ -82,7 +82,7 @@ public:
     /**
      * Grace period in blocks for invalid servicenode collateral.
      */
-    static const int VALID_GRACEPERIOD_BLOCKS = 2;
+    static const int VALID_GRACEPERIOD_REPTS = 2;
 
     /**
      * Supported Servicenode Tiers
@@ -242,7 +242,7 @@ public:
      * @return
      */
     bool running() const {
-        return (!invalid || (currentBlock - invalidBlock >= 0 && currentBlock - invalidBlock < VALID_GRACEPERIOD_BLOCKS))
+        return (!invalid || (currentBlock - invalidBlock >= 0 && currentBlock - invalidBlock < VALID_GRACEPERIOD_REPTS))
                && GetAdjustedTime() - pingtime < 300;
     }
 
@@ -450,7 +450,7 @@ public:
             if (!tx)
                 return false;
             if (invalidBlock > 0) {
-                if (GetChainTipHeight() - invalidBlock >= VALID_GRACEPERIOD_BLOCKS)
+                if (GetChainTipHeight() - invalidBlock >= VALID_GRACEPERIOD_REPTS)
                     return false; // if grace period has expired
             } else if (!success)
                 return false; // not valid if no transaction found or utxo is already spent

@@ -24,8 +24,8 @@ By default, this endpoint will only search the mempool.
 To query for a confirmed transaction, enable the transaction index via "txindex=1" command line / configuration option.
 
 #### Blocks
-`GET /rest/block/<BLOCK-HASH>.<bin|hex|json>`
-`GET /rest/block/notxdetails/<BLOCK-HASH>.<bin|hex|json>`
+`GET /rest/block/<REPT-HASH>.<bin|hex|json>`
+`GET /rest/block/notxdetails/<REPT-HASH>.<bin|hex|json>`
 
 Given a block hash: returns a block, in binary, hex-encoded binary or JSON formats.
 Responds with 404 if the block doesn't exist.
@@ -35,7 +35,7 @@ The HTTP request and response are both handled entirely in-memory, thus making m
 With the /notxdetails/ option JSON response will only contain the transaction hash instead of the complete transaction details. The option only affects the JSON response.
 
 #### Blockheaders
-`GET /rest/headers/<COUNT>/<BLOCK-HASH>.<bin|hex|json>`
+`GET /rest/headers/<COUNT>/<REPT-HASH>.<bin|hex|json>`
 
 Given a block hash: returns <COUNT> amount of blockheaders in upward direction.
 Returns empty if the block doesn't exist or it isn't in the active chain.

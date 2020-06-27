@@ -726,7 +726,7 @@ bool createConf(const boost::filesystem::path & confDir, const bool & skipPlugin
                      "#! tls=1"                                                                                          + eol +
                      "tls=0"                                                                                             + eol +
                      ""                                                                                                  + eol +
-                     "#! maxfee is the maximum fee (in BLOCK) you're willing to pay on a single xrouter call"            + eol +
+                     "#! maxfee is the maximum fee (in REPT) you're willing to pay on a single xrouter call"            + eol +
                      "#! 0 means you only want free calls"                                                               + eol +
                      "maxfee=0"                                                                                          + eol +
                      ""                                                                                                  + eol +
@@ -741,7 +741,7 @@ bool createConf(const boost::filesystem::path & confDir, const bool & skipPlugin
                      "#! [xrGetBlockCount]"                                                                              + eol +
                      "#! maxfee=0.01"                                                                                    + eol +
                      ""                                                                                                  + eol +
-                     "#! [BLOCK::xrGetBlockCount]"                                                                       + eol +
+                     "#! [REPT::xrGetBlockCount]"                                                                       + eol +
                      "#! maxfee=0.01"                                                                                    + eol +
                      ""                                                                                                  + eol +
                      "#! [SYS::xrGetBlockCount]"                                                                         + eol +
@@ -780,8 +780,8 @@ bool createConf(const boost::filesystem::path & confDir, const bool & skipPlugin
                      "#! parameter from an XRouter client."                                                              + eol +
                      "parameters="                                                                                       + eol +
                      ""                                                                                                  + eol +
-                     "#! Set the fee in BLOCK to how much you want to charge for requests to this custom plugin."        + eol +
-                     "#! Example fee=0.1 if you want to accept 0.1 BLOCK or 0 if you want the plugin to be free."        + eol +
+                     "#! Set the fee in REPT to how much you want to charge for requests to this custom plugin."        + eol +
+                     "#! Example fee=0.1 if you want to accept 0.1 REPT or 0 if you want the plugin to be free."        + eol +
                      "fee=0"                                                                                             + eol +
                      ""                                                                                                  + eol +
                      "#! Set the client request limit in milliseconds. -1 means unlimited. 50 means that a client"       + eol +
@@ -831,8 +831,8 @@ bool createConf(const boost::filesystem::path & confDir, const bool & skipPlugin
                      "#! parameter from an XRouter client."                                                                + eol +
                      "parameters=string"                                                                                   + eol +
                      ""                                                                                                    + eol +
-                     "#! Set the fee in BLOCK to how much you want to charge for requests to this custom plugin."          + eol +
-                     "#! Example fee=0.1 if you want to accept 0.1 BLOCK or 0 if you want the plugin to be free."          + eol +
+                     "#! Set the fee in REPT to how much you want to charge for requests to this custom plugin."          + eol +
+                     "#! Example fee=0.1 if you want to accept 0.1 REPT or 0 if you want the plugin to be free."          + eol +
                      "fee=0"                                                                                               + eol +
                      ""                                                                                                    + eol +
                      "#! Set the client request limit in milliseconds. -1 means unlimited. 50 means that a client"         + eol +

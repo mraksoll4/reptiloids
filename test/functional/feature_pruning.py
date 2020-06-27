@@ -14,7 +14,7 @@ from test_framework.util import assert_equal, assert_greater_than, assert_raises
 
 import os
 
-MIN_BLOCKS_TO_KEEP = 288
+MIN_REPTS_TO_KEEP = 288
 
 # Rescans start at the earliest block up to 2 hours before a key timestamp, so
 # the manual prune RPC avoids pruning blocks in the same window to be
@@ -308,7 +308,7 @@ class PruneTest(BitcoinTestFramework):
             raise AssertionError("blk00001.dat is still there, should be pruned by now")
 
         # height=1000 should not prune anything more, because tip-288 is in blk00002.dat.
-        prune(1000, 1001 - MIN_BLOCKS_TO_KEEP)
+        prune(1000, 1001 - MIN_REPTS_TO_KEEP)
         if not has_block(2):
             raise AssertionError("blk00002.dat is still there, should be pruned by now")
 

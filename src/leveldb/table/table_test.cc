@@ -398,7 +398,7 @@ class DBConstructor: public Constructor {
 
 enum TestType {
   TABLE_TEST,
-  BLOCK_TEST,
+  REPT_TEST,
   MEMTABLE_TEST,
   DB_TEST
 };
@@ -417,12 +417,12 @@ static const TestArgs kTestArgList[] = {
   { TABLE_TEST, true, 1 },
   { TABLE_TEST, true, 1024 },
 
-  { BLOCK_TEST, false, 16 },
-  { BLOCK_TEST, false, 1 },
-  { BLOCK_TEST, false, 1024 },
-  { BLOCK_TEST, true, 16 },
-  { BLOCK_TEST, true, 1 },
-  { BLOCK_TEST, true, 1024 },
+  { REPT_TEST, false, 16 },
+  { REPT_TEST, false, 1 },
+  { REPT_TEST, false, 1024 },
+  { REPT_TEST, true, 16 },
+  { REPT_TEST, true, 1 },
+  { REPT_TEST, true, 1024 },
 
   // Restart interval does not matter for memtables
   { MEMTABLE_TEST, false, 16 },
@@ -454,7 +454,7 @@ class Harness {
       case TABLE_TEST:
         constructor_ = new TableConstructor(options_.comparator);
         break;
-      case BLOCK_TEST:
+      case REPT_TEST:
         constructor_ = new BlockConstructor(options_.comparator);
         break;
       case MEMTABLE_TEST:

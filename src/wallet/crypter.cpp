@@ -77,8 +77,8 @@ bool CCrypter::Encrypt(const CKeyingMaterial& vchPlaintext, std::vector<unsigned
         return false;
 
     // max ciphertext len for a n bytes of plaintext is
-    // n + AES_BLOCKSIZE bytes
-    vchCiphertext.resize(vchPlaintext.size() + AES_BLOCKSIZE);
+    // n + AES_REPTSIZE bytes
+    vchCiphertext.resize(vchPlaintext.size() + AES_REPTSIZE);
 
     AES256CBCEncrypt enc(vchKey.data(), vchIV.data(), true);
     size_t nLen = enc.Encrypt(&vchPlaintext[0], vchPlaintext.size(), vchCiphertext.data());

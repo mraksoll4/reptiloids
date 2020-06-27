@@ -58,13 +58,13 @@ class ZMQHandler():
           msgSequence = struct.unpack('<I', msg[-1])[-1]
           sequence = str(msgSequence)
         if topic == b"hashblock":
-            print('- HASH BLOCK ('+sequence+') -')
+            print('- HASH REPT ('+sequence+') -')
             print(binascii.hexlify(body))
         elif topic == b"hashtx":
             print('- HASH TX  ('+sequence+') -')
             print(binascii.hexlify(body))
         elif topic == b"rawblock":
-            print('- RAW BLOCK HEADER ('+sequence+') -')
+            print('- RAW REPT HEADER ('+sequence+') -')
             print(binascii.hexlify(body[:80]))
         elif topic == b"rawtx":
             print('- RAW TX ('+sequence+') -')

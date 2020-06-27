@@ -21,12 +21,12 @@ const char *VERACK="verack";
 const char *ADDR="addr";
 const char *INV="inv";
 const char *GETDATA="getdata";
-const char *MERKLEBLOCK="merkleblock";
-const char *GETBLOCKS="getblocks";
+const char *MERKLEREPT="merkleblock";
+const char *GETREPTS="getblocks";
 const char *GETHEADERS="getheaders";
 const char *TX="tx";
 const char *HEADERS="headers";
-const char *BLOCK="block";
+const char *REPT="block";
 const char *GETADDR="getaddr";
 const char *MEMPOOL="mempool";
 const char *PING="ping";
@@ -39,9 +39,9 @@ const char *REJECT="reject";
 const char *SENDHEADERS="sendheaders";
 const char *FEEFILTER="feefilter";
 const char *SENDCMPCT="sendcmpct";
-const char *CMPCTBLOCK="cmpctblock";
-const char *GETBLOCKTXN="getblocktxn";
-const char *BLOCKTXN="blocktxn";
+const char *CMPCTREPT="cmpctblock";
+const char *GETREPTTXN="getblocktxn";
+const char *REPTTXN="blocktxn";
 const char *XBRIDGE="xbridge";
 const char *SNREGISTER="snr";
 const char *SNPING="snp";
@@ -59,12 +59,12 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::ADDR,
     NetMsgType::INV,
     NetMsgType::GETDATA,
-    NetMsgType::MERKLEBLOCK,
-    NetMsgType::GETBLOCKS,
+    NetMsgType::MERKLEREPT,
+    NetMsgType::GETREPTS,
     NetMsgType::GETHEADERS,
     NetMsgType::TX,
     NetMsgType::HEADERS,
-    NetMsgType::BLOCK,
+    NetMsgType::REPT,
     NetMsgType::GETADDR,
     NetMsgType::MEMPOOL,
     NetMsgType::PING,
@@ -77,9 +77,9 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::SENDHEADERS,
     NetMsgType::FEEFILTER,
     NetMsgType::SENDCMPCT,
-    NetMsgType::CMPCTBLOCK,
-    NetMsgType::GETBLOCKTXN,
-    NetMsgType::BLOCKTXN,
+    NetMsgType::CMPCTREPT,
+    NetMsgType::GETREPTTXN,
+    NetMsgType::REPTTXN,
     NetMsgType::XBRIDGE,
     NetMsgType::SNREGISTER,
     NetMsgType::SNPING,
@@ -195,9 +195,9 @@ std::string CInv::GetCommand() const
     switch (masked)
     {
     case MSG_TX:             return cmd.append(NetMsgType::TX);
-    case MSG_BLOCK:          return cmd.append(NetMsgType::BLOCK);
-    case MSG_FILTERED_BLOCK: return cmd.append(NetMsgType::MERKLEBLOCK);
-    case MSG_CMPCT_BLOCK:    return cmd.append(NetMsgType::CMPCTBLOCK);
+    case MSG_REPT:          return cmd.append(NetMsgType::REPT);
+    case MSG_FILTERED_REPT: return cmd.append(NetMsgType::MERKLEREPT);
+    case MSG_CMPCT_REPT:    return cmd.append(NetMsgType::CMPCTREPT);
     default:
         throw std::out_of_range(strprintf("CInv::GetCommand(): type=%d unknown type", type));
     }

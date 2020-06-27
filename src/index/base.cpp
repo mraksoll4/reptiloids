@@ -7,7 +7,7 @@
 #include <tinyformat.h>
 #include <util/system.h>
 
-constexpr char DB_BEST_BLOCK = 'B';
+constexpr char DB_BEST_REPT = 'B';
 
 constexpr int64_t SYNC_LOG_INTERVAL = 10; // seconds
 constexpr int64_t SYNC_LOCATOR_WRITE_INTERVAL = 30; // seconds
@@ -18,7 +18,7 @@ BaseIndex::DB::DB(const fs::path& path, size_t n_cache_size, bool f_memory, bool
 
 bool BaseIndex::DB::ReadBestBlock(CBlockLocator& locator) const
 {
-    bool success = Read(DB_BEST_BLOCK, locator);
+    bool success = Read(DB_BEST_REPT, locator);
     if (!success) {
         locator.SetNull();
     }
@@ -27,7 +27,7 @@ bool BaseIndex::DB::ReadBestBlock(CBlockLocator& locator) const
 
 bool BaseIndex::DB::WriteBestBlock(const CBlockLocator& locator)
 {
-    return Write(DB_BEST_BLOCK, locator);
+    return Write(DB_BEST_REPT, locator);
 }
 
 BaseIndex::~BaseIndex()

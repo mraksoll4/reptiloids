@@ -68,7 +68,7 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         # Mine one period worth of blocks
         node.generatetoaddress(VB_PERIOD, node_deterministic_address)
 
-        self.log.info("Check that there is no warning if previous VB_BLOCKS have <VB_THRESHOLD blocks with unknown versionbits version.")
+        self.log.info("Check that there is no warning if previous VB_REPTS have <VB_THRESHOLD blocks with unknown versionbits version.")
         # Build one period of blocks with < VB_THRESHOLD blocks signaling some unknown bit
         self.send_blocks_with_version(node.p2p, VB_THRESHOLD - 1, VB_UNKNOWN_VERSION)
         node.generatetoaddress(VB_PERIOD - VB_THRESHOLD + 1, node_deterministic_address)
@@ -81,7 +81,7 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         self.send_blocks_with_version(node.p2p, VB_THRESHOLD, VB_UNKNOWN_VERSION)
         node.generatetoaddress(VB_PERIOD - VB_THRESHOLD, node_deterministic_address)
 
-        self.log.info("Check that there is a warning if previous VB_BLOCKS have >=VB_THRESHOLD blocks with unknown versionbits version.")
+        self.log.info("Check that there is a warning if previous VB_REPTS have >=VB_THRESHOLD blocks with unknown versionbits version.")
         # Mine a period worth of expected blocks so the generic block-version warning
         # is cleared. This will move the versionbit state to ACTIVE.
         node.generatetoaddress(VB_PERIOD, node_deterministic_address)

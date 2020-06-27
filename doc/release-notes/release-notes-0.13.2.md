@@ -88,7 +88,7 @@ git merge commit are mentioned.
 - #9196 `0c09d9f` Send tip change notification from invalidateblock (ryanofsky)
 
 ### P2P protocol and network code
-- #8995 `9ef3875` Add missing cs_main lock to ::GETBLOCKTXN processing (TheBlueMatt)
+- #8995 `9ef3875` Add missing cs_main lock to ::GETREPTTXN processing (TheBlueMatt)
 - #9234 `94531b5` torcontrol: Explicitly request RSA1024 private key (laanwj)
 - #8637 `2cad5db` Compact Block Tweaks (rebase of #8235) (sipa)
 - #9058 `286e548` Fixes for p2p-compactblocks.py test timeouts on travis (#8842) (ryanofsky)

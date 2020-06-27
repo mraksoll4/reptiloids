@@ -346,7 +346,7 @@ BOOST_AUTO_TEST_CASE(rpc_getblockstats_calculate_percentiles_by_weight)
 {
     int64_t total_weight = 200;
     std::vector<std::pair<CAmount, int64_t>> feerates;
-    CAmount result[NUM_GETBLOCKSTATS_PERCENTILES] = { 0 };
+    CAmount result[NUM_GETREPTSTATS_PERCENTILES] = { 0 };
 
     for (int64_t i = 0; i < 100; i++) {
         feerates.emplace_back(std::make_pair(1 ,1));
@@ -365,7 +365,7 @@ BOOST_AUTO_TEST_CASE(rpc_getblockstats_calculate_percentiles_by_weight)
 
     // Test with more pairs, and two pairs overlapping 2 percentiles.
     total_weight = 100;
-    CAmount result2[NUM_GETBLOCKSTATS_PERCENTILES] = { 0 };
+    CAmount result2[NUM_GETREPTSTATS_PERCENTILES] = { 0 };
     feerates.clear();
 
     feerates.emplace_back(std::make_pair(1, 9));
@@ -384,7 +384,7 @@ BOOST_AUTO_TEST_CASE(rpc_getblockstats_calculate_percentiles_by_weight)
 
     // Same test as above, but one of the percentile-overlapping pairs is split in 2.
     total_weight = 100;
-    CAmount result3[NUM_GETBLOCKSTATS_PERCENTILES] = { 0 };
+    CAmount result3[NUM_GETREPTSTATS_PERCENTILES] = { 0 };
     feerates.clear();
 
     feerates.emplace_back(std::make_pair(1, 9));
@@ -404,7 +404,7 @@ BOOST_AUTO_TEST_CASE(rpc_getblockstats_calculate_percentiles_by_weight)
 
     // Test with one transaction spanning all percentiles.
     total_weight = 104;
-    CAmount result4[NUM_GETBLOCKSTATS_PERCENTILES] = { 0 };
+    CAmount result4[NUM_GETREPTSTATS_PERCENTILES] = { 0 };
     feerates.clear();
 
     feerates.emplace_back(std::make_pair(1, 100));
@@ -415,7 +415,7 @@ BOOST_AUTO_TEST_CASE(rpc_getblockstats_calculate_percentiles_by_weight)
 
     CalculatePercentilesByWeight(result4, feerates, total_weight);
 
-    for (int64_t i = 0; i < NUM_GETBLOCKSTATS_PERCENTILES; i++) {
+    for (int64_t i = 0; i < NUM_GETREPTSTATS_PERCENTILES; i++) {
         BOOST_CHECK_EQUAL(result4[i], 1);
     }
 }

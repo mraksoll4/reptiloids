@@ -203,7 +203,7 @@ bool createFeeTransaction(const CScript & dstScript, const double amount, const 
 
         vouts.emplace_back(static_cast<CAmount>(amount*COIN), dstScript);
 
-        if (changeAmt >= 5460) // BLOCK dust check
+        if (changeAmt >= 5460) // REPT dust check
             vouts.emplace_back(changeAmt, GetScriptForDestination(DecodeDestination(changeAddr)));
 
         CMutableTransaction mtx;

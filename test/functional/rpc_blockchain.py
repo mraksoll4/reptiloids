@@ -35,7 +35,7 @@ from test_framework.util import (
 from test_framework.blocktools import (
     create_block,
     create_coinbase,
-    TIME_GENESIS_BLOCK,
+    TIME_GENESIS_REPT,
 )
 from test_framework.messages import (
     msg_block,
@@ -67,7 +67,7 @@ class BlockchainTest(BitcoinTestFramework):
     def mine_chain(self):
         self.log.info('Create some old blocks')
         address = self.nodes[0].get_deterministic_priv_key().address
-        for t in range(TIME_GENESIS_BLOCK, TIME_GENESIS_BLOCK + 200 * 600, 600):
+        for t in range(TIME_GENESIS_REPT, TIME_GENESIS_REPT + 200 * 600, 600):
             # ten-minute steps from genesis block time
             self.nodes[0].setmocktime(t)
             self.nodes[0].generatetoaddress(1, address)

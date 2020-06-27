@@ -160,7 +160,7 @@ static UniValue generatetoaddress(const JSONRPCRequest& request)
                 "\nMine blocks immediately to a specified address (before the RPC call returns)\n",
                 {
                     {"nblocks", RPCArg::Type::NUM, RPCArg::Optional::NO, "How many blocks are generated immediately."},
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The address to send the newly generated BLOCK to."},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The address to send the newly generated REPT to."},
                     {"maxtries", RPCArg::Type::NUM, /* default */ "1000000", "How many iterations to try."},
                 },
                 RPCResult{
@@ -169,7 +169,7 @@ static UniValue generatetoaddress(const JSONRPCRequest& request)
                 RPCExamples{
             "\nGenerate 11 blocks to myaddress\n"
             + HelpExampleCli("generatetoaddress", "11 \"myaddress\"")
-            + "If you are running the ReptiloidsCoin wallet, you can get a new address to send the newly generated BLOCK to with:\n"
+            + "If you are running the ReptiloidsCoin wallet, you can get a new address to send the newly generated REPT to with:\n"
             + HelpExampleCli("getnewaddress", "")
                 },
             }.ToString());
@@ -412,9 +412,9 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
             uint256 hash = block.GetHash();
             const CBlockIndex* pindex = LookupBlockIndex(hash);
             if (pindex) {
-                if (pindex->IsValid(BLOCK_VALID_SCRIPTS))
+                if (pindex->IsValid(REPT_VALID_SCRIPTS))
                     return "duplicate";
-                if (pindex->nStatus & BLOCK_FAILED_MASK)
+                if (pindex->nStatus & REPT_FAILED_MASK)
                     return "duplicate-invalid";
                 return "duplicate-inconclusive";
             }
@@ -661,8 +661,8 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     result.pushKV("mintime", (int64_t)pindexPrev->GetMedianTimePast()+1);
     result.pushKV("mutable", aMutable);
     result.pushKV("noncerange", "00000000ffffffff");
-    int64_t nSigOpLimit = MAX_BLOCK_SIGOPS_COST;
-    int64_t nSizeLimit = MAX_BLOCK_SERIALIZED_SIZE;
+    int64_t nSigOpLimit = MAX_REPT_SIGOPS_COST;
+    int64_t nSizeLimit = MAX_REPT_SERIALIZED_SIZE;
     if (fPreSegWit) {
         assert(nSigOpLimit % WITNESS_SCALE_FACTOR == 0);
         nSigOpLimit /= WITNESS_SCALE_FACTOR;
@@ -672,7 +672,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     result.pushKV("sigoplimit", nSigOpLimit);
     result.pushKV("sizelimit", nSizeLimit);
     if (!fPreSegWit) {
-        result.pushKV("weightlimit", (int64_t)MAX_BLOCK_WEIGHT);
+        result.pushKV("weightlimit", (int64_t)MAX_REPT_WEIGHT);
     }
     result.pushKV("curtime", pblock->GetBlockTime());
     result.pushKV("bits", strprintf("%08x", pblock->nBits));
@@ -738,10 +738,10 @@ static UniValue submitblock(const JSONRPCRequest& request)
         LOCK(cs_main);
         const CBlockIndex* pindex = LookupBlockIndex(hash);
         if (pindex) {
-            if (pindex->IsValid(BLOCK_VALID_SCRIPTS)) {
+            if (pindex->IsValid(REPT_VALID_SCRIPTS)) {
                 return "duplicate";
             }
-            if (pindex->nStatus & BLOCK_FAILED_MASK) {
+            if (pindex->nStatus & REPT_FAILED_MASK) {
                 return "duplicate-invalid";
             }
         }

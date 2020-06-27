@@ -21,7 +21,7 @@ from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import connect_nodes, assert_equal
 
 # 2 hashes required per regtest block (with no difficulty adjustment)
-REGTEST_WORK_PER_BLOCK = 2
+REGTEST_WORK_PER_REPT = 2
 
 class MinimumChainWorkTest(BitcoinTestFramework):
     def set_test_params(self):
@@ -44,12 +44,12 @@ class MinimumChainWorkTest(BitcoinTestFramework):
     def run_test(self):
         # Start building a chain on node0.  node2 shouldn't be able to sync until node1's
         # minchainwork is exceeded
-        starting_chain_work = REGTEST_WORK_PER_BLOCK # Genesis block's work
+        starting_chain_work = REGTEST_WORK_PER_REPT # Genesis block's work
         self.log.info("Testing relay across node %d (minChainWork = %d)", 1, self.node_min_work[1])
 
         starting_blockcount = self.nodes[2].getblockcount()
 
-        num_blocks_to_generate = int((self.node_min_work[1] - starting_chain_work) / REGTEST_WORK_PER_BLOCK)
+        num_blocks_to_generate = int((self.node_min_work[1] - starting_chain_work) / REGTEST_WORK_PER_REPT)
         self.log.info("Generating %d blocks on node0", num_blocks_to_generate)
         hashes = self.nodes[0].generatetoaddress(num_blocks_to_generate,
                                                  self.nodes[0].get_deterministic_priv_key().address)

@@ -112,7 +112,7 @@ bool CheckPoS(const CBlockHeader & block, CValidationState & state, uint256 & ha
         state.DoS(0, error("%s : prev block %s not found", __func__, block.hashPrevBlock.ToString().c_str()), 0, "bad-prevblk");
         return false;
     }
-    if (pindexPrev->nStatus & BLOCK_FAILED_MASK) {
+    if (pindexPrev->nStatus & REPT_FAILED_MASK) {
         state.DoS(100, error("%s : prev block invalid", __func__), REJECT_INVALID, "bad-prevblk");
         return false;
     }

@@ -50,7 +50,7 @@ typedef unsigned int SOCKET;
 #define WSAGetLastError()   errno
 #define WSAEINVAL           EINVAL
 #define WSAEALREADY         EALREADY
-#define WSAEWOULDBLOCK      EWOULDBLOCK
+#define WSAEWOULDREPT      EWOULDREPT
 #define WSAEMSGSIZE         EMSGSIZE
 #define WSAEINTR            EINTR
 #define WSAEINPROGRESS      EINPROGRESS

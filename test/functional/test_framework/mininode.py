@@ -26,7 +26,7 @@ from test_framework.messages import (
     MIN_VERSION_SUPPORTED,
     msg_addr,
     msg_block,
-    MSG_BLOCK,
+    MSG_REPT,
     msg_blocktxn,
     msg_cmpctblock,
     msg_feefilter,
@@ -474,7 +474,7 @@ class P2PDataStore(P2PInterface):
             self.getdata_requests.append(inv.hash)
             if (inv.type & MSG_TYPE_MASK) == MSG_TX and inv.hash in self.tx_store.keys():
                 self.send_message(msg_tx(self.tx_store[inv.hash]))
-            elif (inv.type & MSG_TYPE_MASK) == MSG_BLOCK and inv.hash in self.block_store.keys():
+            elif (inv.type & MSG_TYPE_MASK) == MSG_REPT and inv.hash in self.block_store.keys():
                 self.send_message(msg_block(self.block_store[inv.hash]))
             else:
                 logger.debug('getdata message type {} received.'.format(hex(inv.type)))

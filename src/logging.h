@@ -44,7 +44,7 @@ namespace BCLog {
         ADDRMAN     = (1 <<  9),
         SELECTCOINS = (1 << 10),
         REINDEX     = (1 << 11),
-        CMPCTBLOCK  = (1 << 12),
+        CMPCTREPT  = (1 << 12),
         RAND        = (1 << 13),
         PRUNE       = (1 << 14),
         PROXY       = (1 << 15),

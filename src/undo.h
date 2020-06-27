@@ -63,7 +63,7 @@ public:
 };
 
 static const size_t MIN_TRANSACTION_INPUT_WEIGHT = WITNESS_SCALE_FACTOR * ::GetSerializeSize(CTxIn(), PROTOCOL_VERSION);
-static const size_t MAX_INPUTS_PER_BLOCK = MAX_BLOCK_WEIGHT / MIN_TRANSACTION_INPUT_WEIGHT;
+static const size_t MAX_INPUTS_PER_REPT = MAX_REPT_WEIGHT / MIN_TRANSACTION_INPUT_WEIGHT;
 
 /** Undo information for a CTransaction */
 class CTxUndo
@@ -87,7 +87,7 @@ public:
         // TODO: avoid reimplementing vector deserializer
         uint64_t count = 0;
         ::Unserialize(s, COMPACTSIZE(count));
-        if (count > MAX_INPUTS_PER_BLOCK) {
+        if (count > MAX_INPUTS_PER_REPT) {
             throw std::ios_base::failure("Too many input undo records");
         }
         vprevout.resize(count);

@@ -313,11 +313,11 @@ static void test_cache_generations()
         }
     };
 
-    const uint32_t BLOCK_SIZE = 1000;
+    const uint32_t REPT_SIZE = 1000;
     // We expect window size 60 to perform reasonably given that each epoch
     // stores 45% of the cache size (~472k).
     const uint32_t WINDOW_SIZE = 60;
-    const uint32_t POP_AMOUNT = (BLOCK_SIZE / WINDOW_SIZE) / 2;
+    const uint32_t POP_AMOUNT = (REPT_SIZE / WINDOW_SIZE) / 2;
     const double load = 10;
     const size_t megabytes = 4;
     const size_t bytes = megabytes * (1 << 20);
@@ -326,17 +326,17 @@ static void test_cache_generations()
     std::vector<block_activity> hashes;
     Cache set{};
     set.setup_bytes(bytes);
-    hashes.reserve(n_insert / BLOCK_SIZE);
+    hashes.reserve(n_insert / REPT_SIZE);
     std::deque<block_activity> last_few;
     uint32_t out_of_tight_tolerance = 0;
-    uint32_t total = n_insert / BLOCK_SIZE;
+    uint32_t total = n_insert / REPT_SIZE;
     // we use the deque last_few to model a sliding window of blocks. at each
     // step, each of the last WINDOW_SIZE block_activities checks the cache for
     // POP_AMOUNT of the hashes that they inserted, and marks these erased.
     for (uint32_t i = 0; i < total; ++i) {
         if (last_few.size() == WINDOW_SIZE)
             last_few.pop_front();
-        last_few.emplace_back(BLOCK_SIZE, set);
+        last_few.emplace_back(REPT_SIZE, set);
         uint32_t count = 0;
         for (auto& act : last_few)
             for (uint32_t k = 0; k < POP_AMOUNT; ++k) {

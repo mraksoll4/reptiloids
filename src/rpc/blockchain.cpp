@@ -1024,9 +1024,9 @@ static UniValue pruneblockchain(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_MISC_ERROR, "Blockchain is too short for pruning.");
     else if (height > chainHeight)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Blockchain is shorter than the attempted prune height.");
-    else if (height > chainHeight - MIN_BLOCKS_TO_KEEP) {
+    else if (height > chainHeight - MIN_REPTS_TO_KEEP) {
         LogPrint(BCLog::RPC, "Attempt to prune blocks close to the tip.  Retaining the minimum number of blocks.\n");
-        height = chainHeight - MIN_BLOCKS_TO_KEEP;
+        height = chainHeight - MIN_REPTS_TO_KEEP;
     }
 
     PruneBlockFilesManual(height);
@@ -1160,7 +1160,7 @@ UniValue gettxout(const JSONRPCRequest& request)
 static UniValue verifychain(const JSONRPCRequest& request)
 {
     int nCheckLevel = gArgs.GetArg("-checklevel", DEFAULT_CHECKLEVEL);
-    int nCheckDepth = gArgs.GetArg("-checkblocks", DEFAULT_CHECKBLOCKS);
+    int nCheckDepth = gArgs.GetArg("-checkblocks", DEFAULT_CHECKREPTS);
     if (request.fHelp || request.params.size() > 2)
         throw std::runtime_error(
             RPCHelpMan{"verifychain",
@@ -1331,7 +1331,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     if (fPruneMode) {
         const CBlockIndex* block = tip;
         assert(block);
-        while (block->pprev && (block->pprev->nStatus & BLOCK_HAVE_DATA)) {
+        while (block->pprev && (block->pprev->nStatus & REPT_HAVE_DATA)) {
             block = block->pprev;
         }
 
@@ -1453,16 +1453,16 @@ static UniValue getchaintips(const JSONRPCRequest& request)
         if (chainActive.Contains(block)) {
             // This block is part of the currently active chain.
             status = "active";
-        } else if (block->nStatus & BLOCK_FAILED_MASK) {
+        } else if (block->nStatus & REPT_FAILED_MASK) {
             // This block or one of its ancestors is invalid.
             status = "invalid";
         } else if (!block->HaveTxsDownloaded()) {
             // This block cannot be connected because full block data for it or one of its parents is missing.
             status = "headers-only";
-        } else if (block->IsValid(BLOCK_VALID_SCRIPTS)) {
+        } else if (block->IsValid(REPT_VALID_SCRIPTS)) {
             // This block is fully validated, but no longer part of the active chain. It was probably the active block once, but was reorganized.
             status = "valid-fork";
-        } else if (block->IsValid(BLOCK_VALID_TREE)) {
+        } else if (block->IsValid(REPT_VALID_TREE)) {
             // The headers for this block are valid, but it has not been validated. It was probably never part of the most-work chain.
             status = "valid-headers";
         } else {
@@ -1728,7 +1728,7 @@ static T CalculateTruncatedMedian(std::vector<T>& scores)
     }
 }
 
-void CalculatePercentilesByWeight(CAmount result[NUM_GETBLOCKSTATS_PERCENTILES], std::vector<std::pair<CAmount, int64_t>>& scores, int64_t total_weight)
+void CalculatePercentilesByWeight(CAmount result[NUM_GETREPTSTATS_PERCENTILES], std::vector<std::pair<CAmount, int64_t>>& scores, int64_t total_weight)
 {
     if (scores.empty()) {
         return;
@@ -1737,7 +1737,7 @@ void CalculatePercentilesByWeight(CAmount result[NUM_GETBLOCKSTATS_PERCENTILES],
     std::sort(scores.begin(), scores.end());
 
     // 10th, 25th, 50th, 75th, and 90th percentile weight units.
-    const double weights[NUM_GETBLOCKSTATS_PERCENTILES] = {
+    const double weights[NUM_GETREPTSTATS_PERCENTILES] = {
         total_weight / 10.0, total_weight / 4.0, total_weight / 2.0, (total_weight * 3.0) / 4.0, (total_weight * 9.0) / 10.0
     };
 
@@ -1745,14 +1745,14 @@ void CalculatePercentilesByWeight(CAmount result[NUM_GETBLOCKSTATS_PERCENTILES],
     int64_t cumulative_weight = 0;
     for (const auto& element : scores) {
         cumulative_weight += element.second;
-        while (next_percentile_index < NUM_GETBLOCKSTATS_PERCENTILES && cumulative_weight >= weights[next_percentile_index]) {
+        while (next_percentile_index < NUM_GETREPTSTATS_PERCENTILES && cumulative_weight >= weights[next_percentile_index]) {
             result[next_percentile_index] = element.first;
             ++next_percentile_index;
         }
     }
 
     // Fill any remaining percentiles with the last value.
-    for (int64_t i = next_percentile_index; i < NUM_GETBLOCKSTATS_PERCENTILES; i++) {
+    for (int64_t i = next_percentile_index; i < NUM_GETREPTSTATS_PERCENTILES; i++) {
         result[i] = scores.back().first;
     }
 }
@@ -1893,7 +1893,7 @@ static UniValue getblockstats(const JSONRPCRequest& request)
     CAmount totalfee = 0;
     int64_t inputs = 0;
     int64_t maxtxsize = 0;
-    int64_t mintxsize = MAX_BLOCK_SERIALIZED_SIZE;
+    int64_t mintxsize = MAX_REPT_SERIALIZED_SIZE;
     int64_t outputs = 0;
     int64_t swtotal_size = 0;
     int64_t swtotal_weight = 0;
@@ -1981,11 +1981,11 @@ static UniValue getblockstats(const JSONRPCRequest& request)
         }
     }
 
-    CAmount feerate_percentiles[NUM_GETBLOCKSTATS_PERCENTILES] = { 0 };
+    CAmount feerate_percentiles[NUM_GETREPTSTATS_PERCENTILES] = { 0 };
     CalculatePercentilesByWeight(feerate_percentiles, feerate_array, total_weight);
 
     UniValue feerates_res(UniValue::VARR);
-    for (int64_t i = 0; i < NUM_GETBLOCKSTATS_PERCENTILES; i++) {
+    for (int64_t i = 0; i < NUM_GETREPTSTATS_PERCENTILES; i++) {
         feerates_res.push_back(feerate_percentiles[i]);
     }
 
@@ -2005,7 +2005,7 @@ static UniValue getblockstats(const JSONRPCRequest& request)
     ret_all.pushKV("mediantxsize", CalculateTruncatedMedian(txsize_array));
     ret_all.pushKV("minfee", (minfee == MAX_MONEY) ? 0 : minfee);
     ret_all.pushKV("minfeerate", (minfeerate == MAX_MONEY) ? 0 : minfeerate);
-    ret_all.pushKV("mintxsize", mintxsize == MAX_BLOCK_SERIALIZED_SIZE ? 0 : mintxsize);
+    ret_all.pushKV("mintxsize", mintxsize == MAX_REPT_SERIALIZED_SIZE ? 0 : mintxsize);
     ret_all.pushKV("outs", outputs);
     ret_all.pushKV("subsidy", GetBlockSubsidy(pindex->nHeight, Params().GetConsensus()));
     ret_all.pushKV("swtotal_size", swtotal_size);

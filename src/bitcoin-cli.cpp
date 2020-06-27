@@ -222,7 +222,7 @@ class GetinfoRequestHandler: public BaseRequestHandler
 {
 public:
     const int ID_NETWORKINFO = 0;
-    const int ID_BLOCKCHAININFO = 1;
+    const int ID_REPTCHAININFO = 1;
     const int ID_WALLETINFO = 2;
 
     /** Create a simulated `getinfo` request. */
@@ -233,7 +233,7 @@ public:
         }
         UniValue result(UniValue::VARR);
         result.push_back(JSONRPCRequestObj("getnetworkinfo", NullUniValue, ID_NETWORKINFO));
-        result.push_back(JSONRPCRequestObj("getblockchaininfo", NullUniValue, ID_BLOCKCHAININFO));
+        result.push_back(JSONRPCRequestObj("getblockchaininfo", NullUniValue, ID_REPTCHAININFO));
         result.push_back(JSONRPCRequestObj("getwalletinfo", NullUniValue, ID_WALLETINFO));
         return result;
     }
@@ -248,8 +248,8 @@ public:
         if (!batch[ID_NETWORKINFO]["error"].isNull()) {
             return batch[ID_NETWORKINFO];
         }
-        if (!batch[ID_BLOCKCHAININFO]["error"].isNull()) {
-            return batch[ID_BLOCKCHAININFO];
+        if (!batch[ID_REPTCHAININFO]["error"].isNull()) {
+            return batch[ID_REPTCHAININFO];
         }
         result.pushKV("version", batch[ID_NETWORKINFO]["result"]["version"]);
         result.pushKV("protocolversion", batch[ID_NETWORKINFO]["result"]["protocolversion"]);
@@ -257,12 +257,12 @@ public:
             result.pushKV("walletversion", batch[ID_WALLETINFO]["result"]["walletversion"]);
             result.pushKV("balance", batch[ID_WALLETINFO]["result"]["balance"]);
         }
-        result.pushKV("blocks", batch[ID_BLOCKCHAININFO]["result"]["blocks"]);
+        result.pushKV("blocks", batch[ID_REPTCHAININFO]["result"]["blocks"]);
         result.pushKV("timeoffset", batch[ID_NETWORKINFO]["result"]["timeoffset"]);
         result.pushKV("connections", batch[ID_NETWORKINFO]["result"]["connections"]);
         result.pushKV("proxy", batch[ID_NETWORKINFO]["result"]["networks"][0]["proxy"]);
-        result.pushKV("difficulty", batch[ID_BLOCKCHAININFO]["result"]["difficulty"]);
-        result.pushKV("testnet", UniValue(batch[ID_BLOCKCHAININFO]["result"]["chain"].get_str() == "test"));
+        result.pushKV("difficulty", batch[ID_REPTCHAININFO]["result"]["difficulty"]);
+        result.pushKV("testnet", UniValue(batch[ID_REPTCHAININFO]["result"]["chain"].get_str() == "test"));
         if (!batch[ID_WALLETINFO].isNull()) {
             result.pushKV("walletversion", batch[ID_WALLETINFO]["result"]["walletversion"]);
             result.pushKV("balance", batch[ID_WALLETINFO]["result"]["balance"]);

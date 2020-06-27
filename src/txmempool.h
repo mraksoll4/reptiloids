@@ -348,7 +348,7 @@ enum class MemPoolRemovalReason {
     EXPIRY,      //!< Expired from mempool
     SIZELIMIT,   //!< Removed in size limiting
     REORG,       //!< Removed for reorganization
-    BLOCK,       //!< Removed for block
+    REPT,       //!< Removed for block
     CONFLICT,    //!< Removed for conflict with in-block transaction
     REPLACED,    //!< Removed for replacement
 };
