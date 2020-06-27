@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSTOOLBAR_H
-#define REPTILOIDS_QT_REPTILOIDSTOOLBAR_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLBAR_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLBAR_H
 
-#include <qt/reptiloidslockmenu.h>
+#include <qt/reptiloidscoinlockmenu.h>
 
 #include <QBoxLayout>
 #include <QDateTime>
@@ -15,11 +15,11 @@
 #include <QProgressBar>
 #include <QPushButton>
 
-class ReptiloidsPeersIndicator : public QFrame
+class ReptiloidsCoinPeersIndicator : public QFrame
 {
 Q_OBJECT
 public:
-    explicit ReptiloidsPeersIndicator(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinPeersIndicator(QFrame *parent = nullptr);
     void setPeers(int peers);
 
 Q_SIGNALS:
@@ -31,11 +31,11 @@ private:
     QLabel *peersLbl;
 };
 
-class ReptiloidsStakingIndicator : public QFrame
+class ReptiloidsCoinStakingIndicator : public QFrame
 {
 Q_OBJECT
 public:
-    explicit ReptiloidsStakingIndicator(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinStakingIndicator(QFrame *parent = nullptr);
     void setOn(bool on);
 
 Q_SIGNALS:
@@ -47,11 +47,11 @@ private:
     QLabel *stakingIcon = nullptr;
 };
 
-class ReptiloidsLockIndicator : public QPushButton
+class ReptiloidsCoinLockIndicator : public QPushButton
 {
 Q_OBJECT
 public:
-    explicit ReptiloidsLockIndicator(QPushButton *parent = nullptr);
+    explicit ReptiloidsCoinLockIndicator(QPushButton *parent = nullptr);
     void setTime(QDateTime time);
     void setLock(bool locked, bool stakingOnly = false);
 
@@ -75,11 +75,11 @@ private:
     void clearTimer();
 };
 
-class ReptiloidsToolBar : public QFrame
+class ReptiloidsCoinToolBar : public QFrame
 {
 Q_OBJECT
 public:
-    explicit ReptiloidsToolBar(QWidget *popups, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinToolBar(QWidget *popups, QFrame *parent = nullptr);
     void setPeers(int peers);
     void setStaking(bool on, const QString &msg);
     void setLock(bool lock, bool stakingOnly);
@@ -99,13 +99,13 @@ protected:
 
 private:
     QHBoxLayout *layout;
-    ReptiloidsPeersIndicator *peersIndicator;
-    ReptiloidsStakingIndicator *stakingIndicator;
+    ReptiloidsCoinPeersIndicator *peersIndicator;
+    ReptiloidsCoinStakingIndicator *stakingIndicator;
     QFrame *progressIndicator;
     QProgressBar *progressBar;
-    ReptiloidsLockIndicator *lockIndicator;
-    ReptiloidsLockMenu *lockMenu = nullptr;
+    ReptiloidsCoinLockIndicator *lockIndicator;
+    ReptiloidsCoinLockMenu *lockMenu = nullptr;
     QWidget *popupWidget;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSTOOLBAR_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLBAR_H

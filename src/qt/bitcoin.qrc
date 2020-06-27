@@ -151,8 +151,8 @@
         <file alias="RobotoMono-Regular.ttf">res/redesign/fonts/RobotoMono/RobotoMono-Regular.ttf</file>
         <file alias="RobotoMono-Thin.ttf">res/redesign/fonts/RobotoMono/RobotoMono-Thin.ttf</file>
         <file alias="RobotoMono-ThinItalic.ttf">res/redesign/fonts/RobotoMono/RobotoMono-ThinItalic.ttf</file>
-        <file alias="white_reptiloids_logo.png">res/redesign/white_reptiloids_logo.png</file>
-        <file alias="images/ReptiloidsSplash">res/redesign/ReptiloidsSplash.png</file>
+        <file alias="white_reptiloidscoin_logo.png">res/redesign/white_reptiloidscoin_logo.png</file>
+        <file alias="images/ReptiloidsCoinSplash">res/redesign/ReptiloidsCoinSplash.png</file>
         <file alias="css/default">res/redesign/css/stylesheet.qss</file>
     </qresource>
 </RCC>

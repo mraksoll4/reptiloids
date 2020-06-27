@@ -95,7 +95,7 @@ static UniValue xrGetBlockCount(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | int  | The latest block number of the specified blockchain from the
                  |      | respective node.
     uuid         | str  | The response ID, which can be used to view this response again
@@ -178,7 +178,7 @@ static UniValue xrGetBlockHash(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | int  | The latest block hash of the specified blockchain from the
                  |      | respective node.
     uuid         | str  | The response ID, which can be used to view this response again
@@ -353,7 +353,7 @@ static UniValue xrGetBlock(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | obj  | An object containing the block data for the specified block hash
                  |      | and blockchain from the respective node.
     uuid         | str  | The response ID, which can be used to view this response again
@@ -491,7 +491,7 @@ static UniValue xrGetTransaction(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | obj  | An object containing the transaction data for the specified
                  |      | transaction ID and blockchain from the respective node.
     uuid         | str  | The response ID, which can be used to view this response again
@@ -630,7 +630,7 @@ static UniValue xrDecodeRawTransaction(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | obj  | An object containing the decoded transaction data from the
                  |      | respective node.
     uuid         | str  | The response ID, which can be used to view this response again
@@ -758,7 +758,7 @@ static UniValue xrGetBlocks(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | arr  | An array containing objects of the block data for each requested
                  |      | block on the specified blockchain from the respective node.
     uuid         | str  | The response ID, which can be used to view this response again
@@ -911,7 +911,7 @@ static UniValue xrGetTransactions(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | arr  | An array containing objects with the transaction data for each
                  |      | requested transaction on the specified blockchain from the
                  |      | respective node.
@@ -1225,7 +1225,7 @@ static UniValue xrServiceConsensus(const JSONRPCRequest& request)
     nodepubkey*  | str  | The node ID.
     score*       | int  | The respective node's score based on quality of service. A score
                  |      | of -200 will ban the node for a 24hr period. You can change the
-                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidsdx.conf.
+                 |      | ban threshold with the "xrouterbanscore" setting in reptiloidscoindx.conf.
     reply*       | arr  | The service's response data from the respective node.
     error        | obj  | The native error response if an error occurred, otherwise a
                  |      | successful response will contain a null error.
@@ -1522,7 +1522,7 @@ static UniValue xrConnectedNodes(const JSONRPCRequest& request)
     nodepubkey     | str   | The node ID.
     score          | int   | The node's score based on quality of service. A score of -200
                    |       | will ban the node for a 24hr period. You can change the ban
-                   |       | threshold with the xrouterbanscore setting in reptiloids.conf.
+                   |       | threshold with the xrouterbanscore setting in reptiloidscoin.conf.
     banned         | bool  | Signifies if the node is currently banned.
                    |       | true: Node is banned
                    |       | false: Node is not banned
@@ -1617,7 +1617,7 @@ static UniValue xrConnect(const JSONRPCRequest& request)
     nodepubkey     | str   | The node ID.
     score          | int   | The node's score based on quality of service. A score of -200
                    |       | will ban the node for a 24hr period. You can change the ban
-                   |       | threshold with the xrouterbanscore setting in reptiloids.conf.
+                   |       | threshold with the xrouterbanscore setting in reptiloidscoin.conf.
     banned         | bool  | Signifies if the node is currently banned.
                    |       | true: Node is banned
                    |       | false: Node is not banned

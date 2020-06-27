@@ -2,24 +2,24 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSTOOLSPAGE_H
-#define REPTILOIDS_QT_REPTILOIDSTOOLSPAGE_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLSPAGE_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLSPAGE_H
 
-#include <qt/reptiloidstabbar.h>
+#include <qt/reptiloidscointabbar.h>
 
 #include <qt/clientmodel.h>
 #include <qt/walletmodel.h>
 
 #include <QFrame>
 
-class ReptiloidsToolsPage : public QFrame {
+class ReptiloidsCoinToolsPage : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsToolsPage(int id, QFrame *parent = nullptr) {}
+    explicit ReptiloidsCoinToolsPage(int id, QFrame *parent = nullptr) {}
 
 protected:
     WalletModel *walletModel = nullptr;
     int pageID{0};
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSTOOLSPAGE_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLSPAGE_H

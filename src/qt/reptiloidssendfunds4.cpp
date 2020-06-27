@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssendfunds4.h>
+#include <qt/reptiloidscoinsendfunds4.h>
 
-#include <qt/reptiloidsavatar.h>
-#include <qt/reptiloidscircle.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidssendfundsrequest.h>
+#include <qt/reptiloidscoinavatar.h>
+#include <qt/reptiloidscoincircle.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinsendfundsrequest.h>
 
 #include <qt/optionsmodel.h>
 #include <qt/sendcoinsdialog.h>
@@ -19,7 +19,7 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-ReptiloidsSendFunds4::ReptiloidsSendFunds4(WalletModel *w, int id, QFrame *parent) : ReptiloidsSendFundsPage(w, id, parent),
+ReptiloidsCoinSendFunds4::ReptiloidsCoinSendFunds4(WalletModel *w, int id, QFrame *parent) : ReptiloidsCoinSendFundsPage(w, id, parent),
                                                                                  layout(new QVBoxLayout) {
 //    this->setStyleSheet("border: 1px solid red");
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -37,11 +37,11 @@ ReptiloidsSendFunds4::ReptiloidsSendFunds4(WalletModel *w, int id, QFrame *paren
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    auto *backBtn = new ReptiloidsFormBtn;
+    auto *backBtn = new ReptiloidsCoinFormBtn;
     backBtn->setText(tr("Back"));
-    continueBtn = new ReptiloidsFormBtn;
+    continueBtn = new ReptiloidsCoinFormBtn;
     continueBtn->setText(tr("Confirm Payment"));
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     btnBoxLayout->addWidget(backBtn, 0, Qt::AlignLeft | Qt::AlignBottom);
@@ -65,11 +65,11 @@ ReptiloidsSendFunds4::ReptiloidsSendFunds4(WalletModel *w, int id, QFrame *paren
     totalsLayout->setVerticalSpacing(0);
     totals->setLayout(totalsLayout);
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
     auto *feeLbl = new QLabel(tr("Transaction Fee")); feeLbl->setObjectName("header");
     feeValueLbl = new QLabel; feeValueLbl->setObjectName("standard");
 
-    auto *div2 = new ReptiloidsHDiv;
+    auto *div2 = new ReptiloidsCoinHDiv;
     auto *totalLbl = new QLabel(tr("Total")); totalLbl->setObjectName("header");
     totalValueLbl = new QLabel; totalValueLbl->setObjectName("header");
 
@@ -105,17 +105,17 @@ ReptiloidsSendFunds4::ReptiloidsSendFunds4(WalletModel *w, int id, QFrame *paren
     layout->addSpacing(BGU::spi(10));
     layout->addWidget(btnBox);
 
-    connect(continueBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds4::onSubmit);
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds4::onCancel);
-    connect(backBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds4::onBack);
+    connect(continueBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds4::onSubmit);
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds4::onCancel);
+    connect(backBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds4::onBack);
 }
 
 /**
  * @brief Builds the summary list.
  * @param data
  */
-void ReptiloidsSendFunds4::setData(ReptiloidsSendFundsModel *model) {
-    ReptiloidsSendFundsPage::setData(model);
+void ReptiloidsCoinSendFunds4::setData(ReptiloidsCoinSendFundsModel *model) {
+    ReptiloidsCoinSendFundsPage::setData(model);
     displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
     displayMultiple();
     if (!walletModel->wallet().isLocked()) {
@@ -124,7 +124,7 @@ void ReptiloidsSendFunds4::setData(ReptiloidsSendFundsModel *model) {
     fillWalletData();
 }
 
-void ReptiloidsSendFunds4::onEncryptionStatus() {
+void ReptiloidsCoinSendFunds4::onEncryptionStatus() {
     if (!this->isHidden() && walletModel && !walletModel->wallet().isLocked()) {
         CCoinControl cc; model->prepareFunds(walletModel, cc);
         fillWalletData();
@@ -134,7 +134,7 @@ void ReptiloidsSendFunds4::onEncryptionStatus() {
 /**
  * Update labels with latest state.
  */
-void ReptiloidsSendFunds4::fillWalletData() {
+void ReptiloidsCoinSendFunds4::fillWalletData() {
     // Disable the confirm button if there are any problems
     continueBtn->setDisabled(model->txStatus().status != WalletModel::OK);
 
@@ -143,7 +143,7 @@ void ReptiloidsSendFunds4::fillWalletData() {
         feeValueLbl->setText(tr("n/a"));
         totalValueLbl->setText(tr("n/a"));
         auto status = model->txStatus();
-        warningLbl->setText(ReptiloidsSendFundsRequest::sendStatusMsg(status, "", displayUnit));
+        warningLbl->setText(ReptiloidsCoinSendFundsRequest::sendStatusMsg(status, "", displayUnit));
         return;
     }
 
@@ -160,7 +160,7 @@ void ReptiloidsSendFunds4::fillWalletData() {
 /**
  * @brief Clears the summary list.
  */
-void ReptiloidsSendFunds4::clear() {
+void ReptiloidsCoinSendFunds4::clear() {
     clearRecipients();
 }
 
@@ -168,7 +168,7 @@ void ReptiloidsSendFunds4::clear() {
  * @brief  Validates the transaction details. Fails if there are no transactions, or invalid addresses and amounts.
  * @return
  */
-bool ReptiloidsSendFunds4::validated() {
+bool ReptiloidsCoinSendFunds4::validated() {
     if (model->txRecipients().isEmpty()) {
         auto msg = tr("Please add recipients.");
         QMessageBox::warning(this->parentWidget(), tr("Issue"), msg);
@@ -193,7 +193,7 @@ bool ReptiloidsSendFunds4::validated() {
     return true;
 }
 
-void ReptiloidsSendFunds4::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinSendFunds4::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -203,22 +203,22 @@ void ReptiloidsSendFunds4::keyPressEvent(QKeyEvent *event) {
         onBack();
 }
 
-void ReptiloidsSendFunds4::showEvent(QShowEvent *event) {
+void ReptiloidsCoinSendFunds4::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
-    connect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsSendFunds4::onEncryptionStatus);
-    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsSendFunds4::onDisplayUnit);
+    connect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsCoinSendFunds4::onEncryptionStatus);
+    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinSendFunds4::onDisplayUnit);
 }
 
-void ReptiloidsSendFunds4::hideEvent(QHideEvent *event) {
+void ReptiloidsCoinSendFunds4::hideEvent(QHideEvent *event) {
     QWidget::hideEvent(event);
-    disconnect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsSendFunds4::onEncryptionStatus);
-    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsSendFunds4::onDisplayUnit);
+    disconnect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsCoinSendFunds4::onEncryptionStatus);
+    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinSendFunds4::onDisplayUnit);
 }
 
 /**
  * @brief Draws the summary list. The amounts are formatted with the BitcoinUnits utilities.
  */
-void ReptiloidsSendFunds4::displayMultiple() {
+void ReptiloidsCoinSendFunds4::displayMultiple() {
     clearRecipients();
 
     recipients = new QFrame;
@@ -265,7 +265,7 @@ void ReptiloidsSendFunds4::displayMultiple() {
         auto recipient = drawRecipients[i];
 
         if (recipient.address.isEmpty()) {
-            auto *div = new ReptiloidsHDiv;
+            auto *div = new ReptiloidsCoinHDiv;
             scrollcLayout->addWidget(div, row, 0, 1, 3, Qt::AlignVCenter);
             scrollcLayout->setRowMinimumHeight(row, BGU::spi(15));
             continue;
@@ -278,20 +278,20 @@ void ReptiloidsSendFunds4::displayMultiple() {
         box->setLayout(boxLayout);
         auto *addrLbl = new QLabel(recipient.label.isEmpty() ? recipient.address : recipient.label);
         addrLbl->setObjectName("standard");
-        auto *avatar = new ReptiloidsAvatar(recipient.address, BGU::spi(34), BGU::spi(34));
+        auto *avatar = new ReptiloidsCoinAvatar(recipient.address, BGU::spi(34), BGU::spi(34));
         boxLayout->addWidget(avatar, 0, Qt::AlignVCenter);
         boxLayout->addWidget(addrLbl, 1);
         scrollcLayout->addWidget(box, row, 0, Qt::AlignLeft | Qt::AlignVCenter); scrollcLayout->setColumnStretch(0, 0);
 
         auto *amountLbl = new QLabel;
         amountLbl->setObjectName("standard");
-        amountLbl->setText(ReptiloidsSendFundsModel::intToString(model->txAmountMinusFee(recipient.amount), displayUnit));
+        amountLbl->setText(ReptiloidsCoinSendFundsModel::intToString(model->txAmountMinusFee(recipient.amount), displayUnit));
         scrollcLayout->addWidget(amountLbl, row, 1, Qt::AlignLeft | Qt::AlignVCenter); scrollcLayout->setColumnStretch(0, 1);
 
         auto *edit = new QPushButton(tr("Edit"));
         edit->setObjectName("linkBtn");
         edit->setCursor(Qt::PointingHandCursor);
-        connect(edit, &QPushButton::clicked, this, &ReptiloidsSendFunds4::onEdit);
+        connect(edit, &QPushButton::clicked, this, &ReptiloidsCoinSendFunds4::onEdit);
         scrollcLayout->addWidget(edit, row, 10, Qt::AlignRight | Qt::AlignVCenter);  scrollcLayout->setColumnStretch(0, 2);
 
         scrollcLayout->setRowMinimumHeight(row, BGU::spi(40));
@@ -314,7 +314,7 @@ void ReptiloidsSendFunds4::displayMultiple() {
 /**
  * @brief Clears the summary data, including removing the recipients list.
  */
-void ReptiloidsSendFunds4::clearRecipients() {
+void ReptiloidsCoinSendFunds4::clearRecipients() {
     if (recipients == nullptr)
         return;
     totalValueLbl->clear();
@@ -327,11 +327,11 @@ void ReptiloidsSendFunds4::clearRecipients() {
     scrollArea = nullptr;
 }
 
-void ReptiloidsSendFunds4::onEdit() {
+void ReptiloidsCoinSendFunds4::onEdit() {
     Q_EMIT edit();
 }
 
-void ReptiloidsSendFunds4::onSubmit() {
+void ReptiloidsCoinSendFunds4::onSubmit() {
     if (!this->validated())
         return;
 
@@ -350,7 +350,7 @@ void ReptiloidsSendFunds4::onSubmit() {
         // Check for bad status
         if (sendStatus.status != WalletModel::OK) {
             // process prepareStatus and on error generate message shown to user
-            auto res = ReptiloidsSendFundsPage::processSendCoinsReturn(walletModel, sendStatus, feeMsg);
+            auto res = ReptiloidsCoinSendFundsPage::processSendCoinsReturn(walletModel, sendStatus, feeMsg);
             if (res.second)
                 QMessageBox::critical(this->parentWidget(), tr("Issue"), res.first);
             else
@@ -388,7 +388,7 @@ void ReptiloidsSendFunds4::onSubmit() {
                 // now send the prepared transaction
                 sendStatus = walletModel->sendCoins(*model->walletTx());
                 // process sendStatus and on error generate message shown to user
-                auto res = ReptiloidsSendFundsPage::processSendCoinsReturn(walletModel, sendStatus, feeMsg);
+                auto res = ReptiloidsCoinSendFundsPage::processSendCoinsReturn(walletModel, sendStatus, feeMsg);
                 if (sendStatus.status != WalletModel::OK) {
                     if (res.second)
                         QMessageBox::critical(this->parentWidget(), tr("Issue"), res.first);
@@ -402,7 +402,7 @@ void ReptiloidsSendFunds4::onSubmit() {
         if (!canceledSend && sendStatus.status != WalletModel::OK) {
             if (feeValueLbl) feeValueLbl->setText(tr("n/a"));
             if (totalValueLbl) totalValueLbl->setText(tr("n/a"));
-            if (warningLbl) warningLbl->setText(ReptiloidsSendFundsRequest::sendStatusMsg(sendStatus, "", displayUnit));
+            if (warningLbl) warningLbl->setText(ReptiloidsCoinSendFundsRequest::sendStatusMsg(sendStatus, "", displayUnit));
             return;
         }
 
@@ -431,7 +431,7 @@ void ReptiloidsSendFunds4::onSubmit() {
     send();
 }
 
-void ReptiloidsSendFunds4::onDisplayUnit(int unit) {
+void ReptiloidsCoinSendFunds4::onDisplayUnit(int unit) {
     displayUnit = unit;
     if (walletModel && !walletModel->wallet().isLocked()) {
         CCoinControl cc; model->prepareFunds(walletModel, cc);
@@ -440,7 +440,7 @@ void ReptiloidsSendFunds4::onDisplayUnit(int unit) {
     fillWalletData();
 }
 
-QString ReptiloidsSendFunds4::feeText(QString fee) {
+QString ReptiloidsCoinSendFunds4::feeText(QString fee) {
     if (!model->customFee()) {
         // The fee is an estimate if the wallet is locked
         bool estimatingFee = walletModel->wallet().isLocked();
@@ -451,7 +451,7 @@ QString ReptiloidsSendFunds4::feeText(QString fee) {
     return fee;
 }
 
-QString ReptiloidsSendFunds4::totalText(QString total) {
+QString ReptiloidsCoinSendFunds4::totalText(QString total) {
     if (model->subtractFee())
         return QString("%1 %2").arg(total, tr("(including fee)"));
     return total;

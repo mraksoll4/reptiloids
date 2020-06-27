@@ -1016,7 +1016,7 @@
         <translation>مبلغ</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
         <translation>یک آدرس بیت‌کوین وارد کنید (مثلاً %1)</translation>
     </message>
     <message>

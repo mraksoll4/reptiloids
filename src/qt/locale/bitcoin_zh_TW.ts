@@ -1466,8 +1466,8 @@
         <translation>金額</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>輸入 Reptiloids 位址 (比如說 %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>輸入 ReptiloidsCoin 位址 (比如說 %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

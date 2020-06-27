@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_SERVICENODE_SERVICENODE_H
-#define REPTILOIDS_SERVICENODE_SERVICENODE_H
+#ifndef REPTILOIDSCOIN_SERVICENODE_SERVICENODE_H
+#define REPTILOIDSCOIN_SERVICENODE_SERVICENODE_H
 
 #include <amount.h>
 #include <base58.h>
@@ -176,7 +176,7 @@ public:
      * @return
      */
     CKeyID getPaymentAddress() const {
-        // TODO Reptiloids Servicenode allow overriding default payment address in config
+        // TODO ReptiloidsCoin Servicenode allow overriding default payment address in config
         return paymentAddress;
     }
 
@@ -405,7 +405,7 @@ public:
         if (!snodePubKey.IsFullyValid())
             return false;
 
-        // TODO Reptiloids OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
+        // TODO ReptiloidsCoin OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
         if (tier != ServiceNode::Tier::SPV)
             return false;
 
@@ -783,7 +783,7 @@ public:
         if (!skipBlockchainValidation && !isBlockValid(bestBlock, bestBlockHash, true))
             return false; // fail if ping is stale
 
-        // TODO Reptiloids OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
+        // TODO ReptiloidsCoin OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
         if (snode.getTier() != ServiceNode::Tier::SPV)
             return false;
 
@@ -832,4 +832,4 @@ protected:
 
 }
 
-#endif //REPTILOIDS_SERVICENODE_SERVICENODE_H
+#endif //REPTILOIDSCOIN_SERVICENODE_SERVICENODE_H

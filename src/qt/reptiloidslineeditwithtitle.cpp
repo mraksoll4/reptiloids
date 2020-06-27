@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidslineeditwithtitle.h>
+#include <qt/reptiloidscoinlineeditwithtitle.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QEvent>
 
-ReptiloidsLineEditWithTitle::ReptiloidsLineEditWithTitle(QString title, QString placeholder, int w, QFrame *parent)
+ReptiloidsCoinLineEditWithTitle::ReptiloidsCoinLineEditWithTitle(QString title, QString placeholder, int w, QFrame *parent)
                                                     : QFrame(parent), layout(new QVBoxLayout)
 {
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
@@ -22,7 +22,7 @@ ReptiloidsLineEditWithTitle::ReptiloidsLineEditWithTitle(QString title, QString 
     titleLbl->setTextInteractionFlags(Qt::TextSelectableByMouse);
     layout->addWidget(titleLbl);
 
-    lineEdit = new ReptiloidsLineEdit(w);
+    lineEdit = new ReptiloidsCoinLineEdit(w);
     lineEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
     lineEdit->setPlaceholderText(placeholder);
     layout->addWidget(lineEdit, 1);
@@ -30,31 +30,31 @@ ReptiloidsLineEditWithTitle::ReptiloidsLineEditWithTitle(QString title, QString 
     this->setFocusProxy(lineEdit);
 }
 
-QSize ReptiloidsLineEditWithTitle::sizeHint() const {
+QSize ReptiloidsCoinLineEditWithTitle::sizeHint() const {
     return { lineEdit->width(), BGU::spi(30) + layout->spacing() + titleLbl->height() };
 }
 
-bool ReptiloidsLineEditWithTitle::isEmpty() {
+bool ReptiloidsCoinLineEditWithTitle::isEmpty() {
     return lineEdit->text().trimmed().isEmpty();
 }
 
-void ReptiloidsLineEditWithTitle::setID(const QString id) {
+void ReptiloidsCoinLineEditWithTitle::setID(const QString id) {
     this->id = id;
 }
 
-QString ReptiloidsLineEditWithTitle::getID() {
+QString ReptiloidsCoinLineEditWithTitle::getID() {
     return this->id;
 }
 
-void ReptiloidsLineEditWithTitle::setError(bool flag) {
+void ReptiloidsCoinLineEditWithTitle::setError(bool flag) {
     lineEdit->setProperty("error", flag);
 }
 
-void ReptiloidsLineEditWithTitle::setTitle(const QString &title) {
+void ReptiloidsCoinLineEditWithTitle::setTitle(const QString &title) {
     titleLbl->setText(title);
 }
 
-void ReptiloidsLineEditWithTitle::setExpanding() {
+void ReptiloidsCoinLineEditWithTitle::setExpanding() {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     this->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 }

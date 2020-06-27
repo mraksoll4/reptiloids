@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_XSERIES_H
-#define REPTILOIDS_XBRIDGE_UTIL_XSERIES_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_XSERIES_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_XSERIES_H
 
 #include <xbridge/currencypair.h>
 #include <xbridge/xbridgetransactiondescr.h>
@@ -247,4 +247,4 @@ private:
     std::unordered_map<pairSymbol, xAggregateContainer> mSparseSeries;
 };
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_XSERIES_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_XSERIES_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_TEST_XROUTER_TESTS_H
-#define REPTILOIDS_TEST_XROUTER_TESTS_H
+#ifndef REPTILOIDSCOIN_TEST_XROUTER_TESTS_H
+#define REPTILOIDSCOIN_TEST_XROUTER_TESTS_H
 
 #include <chainparamsbase.h>
 #include <xrouter/xrouterclient.h>
@@ -25,4 +25,4 @@ struct XRouterTestClientTestnet : public XRouterTestClient {
     explicit XRouterTestClientTestnet();
 };
 
-#endif //REPTILOIDS_TEST_XROUTER_TESTS_H
+#endif //REPTILOIDSCOIN_TEST_XROUTER_TESTS_H

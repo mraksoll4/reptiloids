@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSDASHBOARD_H
-#define REPTILOIDS_QT_REPTILOIDSDASHBOARD_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINDASHBOARD_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINDASHBOARD_H
 
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/optionsmodel.h>
 #include <qt/transactionrecord.h>
@@ -25,14 +25,14 @@
 #include <QVBoxLayout>
 #include <QVector>
 
-class ReptiloidsDashboardTable;
+class ReptiloidsCoinDashboardTable;
 
-class ReptiloidsDashboard : public QFrame
+class ReptiloidsCoinDashboard : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsDashboard(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinDashboard(QFrame *parent = nullptr);
     void setWalletModel(WalletModel *w);
 
 Q_SIGNALS:
@@ -71,17 +71,17 @@ private:
     QPushButton *viewAll;
     QLabel *recentTxsLbl;
     QFrame *recentTransactions;
-    ReptiloidsDashboardTable *transactionsTbl;
+    ReptiloidsCoinDashboardTable *transactionsTbl;
 
     void updateBalance();
     void walletEvents(bool on);
 };
 
-class ReptiloidsDashboardTable : public QTableView {
+class ReptiloidsCoinDashboardTable : public QTableView {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsDashboardTable(QWidget *parent = nullptr);
+    explicit ReptiloidsCoinDashboardTable(QWidget *parent = nullptr);
     void setWalletModel(WalletModel *w);
     void leave();
     void enter();
@@ -94,11 +94,11 @@ private:
     WalletModel *walletModel;
 };
 
-class ReptiloidsDashboardFilterProxy : public QSortFilterProxyModel {
+class ReptiloidsCoinDashboardFilterProxy : public QSortFilterProxyModel {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsDashboardFilterProxy(OptionsModel *o, QObject *parent = nullptr);
+    explicit ReptiloidsCoinDashboardFilterProxy(OptionsModel *o, QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent) const override;
@@ -132,15 +132,15 @@ private:
  * @param o
  * @param parent
  */
-class ReptiloidsDashboardCellItem : public QStyledItemDelegate {
+class ReptiloidsCoinDashboardCellItem : public QStyledItemDelegate {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsDashboardCellItem(QObject *parent = nullptr);
+    explicit ReptiloidsCoinDashboardCellItem(QObject *parent = nullptr);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSDASHBOARD_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINDASHBOARD_H

@@ -2,21 +2,21 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSAVATAR_H
-#define REPTILOIDS_QT_REPTILOIDSAVATAR_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINAVATAR_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINAVATAR_H
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QFrame>
 
-class ReptiloidsAvatar : public QFrame
+class ReptiloidsCoinAvatar : public QFrame
 {
     Q_OBJECT
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 public:
-    explicit ReptiloidsAvatar(QString title = "",
+    explicit ReptiloidsCoinAvatar(QString title = "",
                             qreal w = BGU::spi(40), qreal h = BGU::spi(40),
                             QColor color1 = QColor(0xFB, 0x7F, 0x70), QColor color2 = QColor(0xF6, 0x50, 0x8A),
                             QWidget *parent = nullptr);
@@ -33,14 +33,14 @@ protected:
     qreal h;
 };
 
-class ReptiloidsAvatarBlue : public ReptiloidsAvatar
+class ReptiloidsCoinAvatarBlue : public ReptiloidsCoinAvatar
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsAvatarBlue(QString title = "",
+    explicit ReptiloidsCoinAvatarBlue(QString title = "",
                             qreal w = BGU::spi(40), qreal h = BGU::spi(40),
                             QColor color1 = QColor(0x00, 0xC9, 0xFF), QColor color2 = QColor(0x4B, 0xF5, 0xC6),
                             QWidget *parent = nullptr);
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSAVATAR_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINAVATAR_H

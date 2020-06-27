@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSADDRESSBOOK_H
-#define REPTILOIDS_QT_REPTILOIDSADDRESSBOOK_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSBOOK_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSBOOK_H
 
-#include <qt/reptiloidsactionbtn.h>
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidsfundsmenu.h>
+#include <qt/reptiloidscoinactionbtn.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinfundsmenu.h>
 
 #include <qt/walletmodel.h>
 
@@ -20,12 +20,12 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-class ReptiloidsAddressBook : public QFrame 
+class ReptiloidsCoinAddressBook : public QFrame 
 {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsAddressBook(bool slimMode = false, int filter = FILTER_DEFAULT, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinAddressBook(bool slimMode = false, int filter = FILTER_DEFAULT, QWidget *parent = nullptr);
     void setWalletModel(WalletModel *w);
 
     struct Address {
@@ -48,7 +48,7 @@ private:
     QLabel *titleLbl;
     QLabel *addButtonLbl;
     QLabel *filterLbl;
-    ReptiloidsDropdown *addressDropdown;
+    ReptiloidsCoinDropdown *addressDropdown;
     QTableWidget *table;
     QVector<Address> dataModel;
     QVector<Address> filteredData;
@@ -86,12 +86,12 @@ private Q_SLOTS:
     void onDoubleClick(int row, int col);
 };
 
-class ReptiloidsAddressBookDialog : public QDialog {
+class ReptiloidsCoinAddressBookDialog : public QDialog {
     Q_OBJECT
 public:
-    explicit ReptiloidsAddressBookDialog(WalletModel *model, Qt::WindowFlags f, int filter = ReptiloidsAddressBook::FILTER_DEFAULT, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinAddressBookDialog(WalletModel *model, Qt::WindowFlags f, int filter = ReptiloidsCoinAddressBook::FILTER_DEFAULT, QWidget *parent = nullptr);
     void singleShotMode() { ssMode = true; } // this "accepts" the dialog on select address
-    ReptiloidsAddressBook *form;
+    ReptiloidsCoinAddressBook *form;
 Q_SIGNALS:
     void send(const QString &);
 protected:
@@ -100,4 +100,4 @@ private:
     bool ssMode = false;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSADDRESSBOOK_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSBOOK_H

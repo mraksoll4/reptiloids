@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGESESSIONDCR_H
-#define REPTILOIDS_XBRIDGE_XBRIDGESESSIONDCR_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGESESSIONDCR_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGESESSIONDCR_H
 //
 //#include <xbridge/util/fastdelegate.h>
 //#include <xbridge/xbridgesession.h>
@@ -55,4 +55,4 @@
 //
 //typedef std::shared_ptr<XBridgeSessionDcr> XBridgeSessionDecPtr;
 //
-#endif // REPTILOIDS_XBRIDGE_XBRIDGESESSIONDCR_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGESESSIONDCR_H

@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEAPP_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEAPP_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEAPP_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEAPP_H
 
 #include <xbridge/util/xbridgeerror.h>
 #include <xbridge/util/xutil.h>
@@ -691,4 +691,4 @@ extern std::string TxCancelReasonText(uint32_t reason);
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEAPP_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEAPP_H

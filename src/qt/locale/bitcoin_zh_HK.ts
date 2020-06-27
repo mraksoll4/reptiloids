@@ -448,8 +448,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>輸入一個 Reptiloids 位址 (例如 %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>輸入一個 ReptiloidsCoin 位址 (例如 %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

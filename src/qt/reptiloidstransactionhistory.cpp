@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidstransactionhistory.h>
+#include <qt/reptiloidscointransactionhistory.h>
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidssendfundsutil.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/csvmodelwriter.h>
@@ -22,7 +22,7 @@
 #include <QKeyEvent>
 #include <QSettings>
 
-ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidget *parent) : QFrame(parent), walletModel(w),
+ReptiloidsCoinTransactionHistory::ReptiloidsCoinTransactionHistory(WalletModel *w, QWidget *parent) : QFrame(parent), walletModel(w),
                                                                                           layout(new QVBoxLayout) {
 //    this->setStyleSheet("border: 1px solid red");
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -39,7 +39,7 @@ ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidg
     titleBoxLayout->setContentsMargins(QMargins());
     titleLbl = new QLabel(tr("Transaction History"));
     titleLbl->setObjectName("h4");
-    auto *exportBtn = new ReptiloidsFormBtn;
+    auto *exportBtn = new ReptiloidsCoinFormBtn;
     exportBtn->setText(tr("Export History"));
     titleBoxLayout->addWidget(titleLbl, 0, Qt::AlignTop | Qt::AlignLeft);
     titleBoxLayout->addStretch(1);
@@ -55,7 +55,7 @@ ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidg
     searchBoxLayout->setContentsMargins(QMargins());
     searchBox->setLayout(searchBoxLayout);
 
-    dateCb = new ReptiloidsDropdown;
+    dateCb = new ReptiloidsCoinDropdown;
     dateCb->addItem(tr("All"),        All);
     dateCb->addItem(tr("Today"),      Today);
     dateCb->addItem(tr("This week"),  ThisWeek);
@@ -64,25 +64,25 @@ ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidg
     dateCb->addItem(tr("This year"),  ThisYear);
     dateCb->addItem(tr("Range..."),   Range);
 
-    typeCb = new ReptiloidsDropdown;
-    typeCb->addItem(tr("All"),            ReptiloidsTransactionHistoryFilterProxy::ALL_TYPES);
-    typeCb->addItem(tr("Most Common"),    ReptiloidsTransactionHistoryFilterProxy::COMMON_TYPES);
-    typeCb->addItem(tr("Received"),       ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::RecvWithAddress) | ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::RecvFromOther));
-    typeCb->addItem(tr("Sent"),           ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::SendToAddress) | ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::SendToOther));
-    typeCb->addItem(tr("To yourself"),    ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::SendToSelf));
-    typeCb->addItem(tr("Staked"),         ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::Generated));
-    typeCb->addItem(tr("Other"),          ReptiloidsTransactionHistoryFilterProxy::TYPE(TransactionRecord::Other));
+    typeCb = new ReptiloidsCoinDropdown;
+    typeCb->addItem(tr("All"),            ReptiloidsCoinTransactionHistoryFilterProxy::ALL_TYPES);
+    typeCb->addItem(tr("Most Common"),    ReptiloidsCoinTransactionHistoryFilterProxy::COMMON_TYPES);
+    typeCb->addItem(tr("Received"),       ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::RecvWithAddress) | ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::RecvFromOther));
+    typeCb->addItem(tr("Sent"),           ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::SendToAddress) | ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::SendToOther));
+    typeCb->addItem(tr("To yourself"),    ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::SendToSelf));
+    typeCb->addItem(tr("Staked"),         ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::Generated));
+    typeCb->addItem(tr("Other"),          ReptiloidsCoinTransactionHistoryFilterProxy::TYPE(TransactionRecord::Other));
 
-    addressTi = new ReptiloidsLineEdit;
+    addressTi = new ReptiloidsCoinLineEdit;
     addressTi->setParent(this);
     addressTi->setPlaceholderText(tr("Enter address or label to search"));
 
-    amountTi = new ReptiloidsLineEdit;
+    amountTi = new ReptiloidsCoinLineEdit;
     amountTi->setFixedWidth(BGU::spi(120));
     amountTi->setParent(this);
     amountTi->setPlaceholderText(tr("Min amount"));
-    amountTi->setValidator(new ReptiloidsNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
-    amountTi->setMaxLength(REPTILOIDSGUI_MAXCHARS);
+    amountTi->setValidator(new ReptiloidsCoinNumberValidator(0, REPTILOIDSCOINGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setMaxLength(REPTILOIDSCOINGUI_MAXCHARS);
 
     searchBoxLayout->addWidget(dateCb);
     searchBoxLayout->addWidget(typeCb);
@@ -115,7 +115,7 @@ ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidg
     dateRangeWidgetLayout->addWidget(dateTo);
     dateRangeWidgetLayout->addStretch();
 
-    transactionsTbl = new ReptiloidsTransactionHistoryTable(this);
+    transactionsTbl = new ReptiloidsCoinTransactionHistoryTable(this);
     transactionsTbl->setObjectName("transactionHistory");
     transactionsTbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     transactionsTbl->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -161,15 +161,15 @@ ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidg
 
     // Set transaction data and adjust section sizes
     transactionsTbl->setWalletModel(walletModel);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsTransactionHistoryFilterProxy::HistoryStatus, QHeaderView::Fixed);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsTransactionHistoryFilterProxy::HistoryDate, QHeaderView::Fixed);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsTransactionHistoryFilterProxy::HistoryTime, QHeaderView::Fixed);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsTransactionHistoryFilterProxy::HistoryToAddress, QHeaderView::Stretch);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsTransactionHistoryFilterProxy::HistoryType, QHeaderView::ResizeToContents);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsTransactionHistoryFilterProxy::HistoryAmount, QHeaderView::ResizeToContents);
-    transactionsTbl->setColumnWidth(ReptiloidsTransactionHistoryFilterProxy::HistoryStatus, BGU::spi(3));
-    transactionsTbl->setColumnWidth(ReptiloidsTransactionHistoryFilterProxy::HistoryDate, BGU::spi(105));
-    transactionsTbl->setColumnWidth(ReptiloidsTransactionHistoryFilterProxy::HistoryTime, BGU::spi(72));
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryStatus, QHeaderView::Fixed);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryDate, QHeaderView::Fixed);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryTime, QHeaderView::Fixed);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryToAddress, QHeaderView::Stretch);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryType, QHeaderView::ResizeToContents);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryAmount, QHeaderView::ResizeToContents);
+    transactionsTbl->setColumnWidth(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryStatus, BGU::spi(3));
+    transactionsTbl->setColumnWidth(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryDate, BGU::spi(105));
+    transactionsTbl->setColumnWidth(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryTime, BGU::spi(72));
 
     // Restore from last visit
     QSettings settings;
@@ -178,51 +178,51 @@ ReptiloidsTransactionHistory::ReptiloidsTransactionHistory(WalletModel *w, QWidg
     dateChanged(settings.value("transactionDate").toInt());
     typeChanged(settings.value("transactionType").toInt());
 
-    connect(copyAddressAction, &QAction::triggered, this, &ReptiloidsTransactionHistory::copyAddress);
-    connect(copyLabelAction, &QAction::triggered, this, &ReptiloidsTransactionHistory::copyLabel);
-    connect(copyAmountAction, &QAction::triggered, this, &ReptiloidsTransactionHistory::copyAmount);
-    connect(copyTxIDAction, &QAction::triggered, this, &ReptiloidsTransactionHistory::copyTxID);
-    connect(showDetailsAction, &QAction::triggered, this, &ReptiloidsTransactionHistory::showDetails);
-    connect(dateFrom, &QDateTimeEdit::dateChanged, this, &ReptiloidsTransactionHistory::dateRangeChanged);
-    connect(dateTo, &QDateTimeEdit::dateChanged, this, &ReptiloidsTransactionHistory::dateRangeChanged);
-    connect(exportBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsTransactionHistory::exportClicked);
+    connect(copyAddressAction, &QAction::triggered, this, &ReptiloidsCoinTransactionHistory::copyAddress);
+    connect(copyLabelAction, &QAction::triggered, this, &ReptiloidsCoinTransactionHistory::copyLabel);
+    connect(copyAmountAction, &QAction::triggered, this, &ReptiloidsCoinTransactionHistory::copyAmount);
+    connect(copyTxIDAction, &QAction::triggered, this, &ReptiloidsCoinTransactionHistory::copyTxID);
+    connect(showDetailsAction, &QAction::triggered, this, &ReptiloidsCoinTransactionHistory::showDetails);
+    connect(dateFrom, &QDateTimeEdit::dateChanged, this, &ReptiloidsCoinTransactionHistory::dateRangeChanged);
+    connect(dateTo, &QDateTimeEdit::dateChanged, this, &ReptiloidsCoinTransactionHistory::dateRangeChanged);
+    connect(exportBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinTransactionHistory::exportClicked);
     connect(transactionsTbl->selectionModel(), &QItemSelectionModel::selectionChanged, this,
-            &ReptiloidsTransactionHistory::displayTotalSelected);
+            &ReptiloidsCoinTransactionHistory::displayTotalSelected);
 }
 
-void ReptiloidsTransactionHistory::showEvent(QShowEvent *event) {
+void ReptiloidsCoinTransactionHistory::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
-    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsTransactionHistory::onDisplayUnit);
-    connect(addressTi, &ReptiloidsLineEdit::textChanged, this, &ReptiloidsTransactionHistory::addressChanged);
-    connect(amountTi, &ReptiloidsLineEdit::textChanged, this, &ReptiloidsTransactionHistory::amountChanged);
-    connect(dateCb, static_cast<void(ReptiloidsDropdown::*)(int)>(&ReptiloidsDropdown::activated), this, &ReptiloidsTransactionHistory::dateChanged);
-    connect(typeCb, static_cast<void(ReptiloidsDropdown::*)(int)>(&ReptiloidsDropdown::activated), this, &ReptiloidsTransactionHistory::typeChanged);
-    connect(transactionsTbl, &ReptiloidsTransactionHistoryTable::doubleClicked, this, &ReptiloidsTransactionHistory::showDetails);
-    connect(transactionsTbl, &ReptiloidsTransactionHistoryTable::customContextMenuRequested, this, &ReptiloidsTransactionHistory::contextualMenu);
+    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinTransactionHistory::onDisplayUnit);
+    connect(addressTi, &ReptiloidsCoinLineEdit::textChanged, this, &ReptiloidsCoinTransactionHistory::addressChanged);
+    connect(amountTi, &ReptiloidsCoinLineEdit::textChanged, this, &ReptiloidsCoinTransactionHistory::amountChanged);
+    connect(dateCb, static_cast<void(ReptiloidsCoinDropdown::*)(int)>(&ReptiloidsCoinDropdown::activated), this, &ReptiloidsCoinTransactionHistory::dateChanged);
+    connect(typeCb, static_cast<void(ReptiloidsCoinDropdown::*)(int)>(&ReptiloidsCoinDropdown::activated), this, &ReptiloidsCoinTransactionHistory::typeChanged);
+    connect(transactionsTbl, &ReptiloidsCoinTransactionHistoryTable::doubleClicked, this, &ReptiloidsCoinTransactionHistory::showDetails);
+    connect(transactionsTbl, &ReptiloidsCoinTransactionHistoryTable::customContextMenuRequested, this, &ReptiloidsCoinTransactionHistory::contextualMenu);
     onDisplayUnit(walletModel->getOptionsModel()->getDisplayUnit());
 }
 
-void ReptiloidsTransactionHistory::hideEvent(QHideEvent *event) {
+void ReptiloidsCoinTransactionHistory::hideEvent(QHideEvent *event) {
     QWidget::hideEvent(event);
-    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsTransactionHistory::onDisplayUnit);
-    disconnect(addressTi, &ReptiloidsLineEdit::textChanged, this, &ReptiloidsTransactionHistory::addressChanged);
-    disconnect(amountTi, &ReptiloidsLineEdit::textChanged, this, &ReptiloidsTransactionHistory::amountChanged);
-    connect(dateCb, static_cast<void(ReptiloidsDropdown::*)(int)>(&ReptiloidsDropdown::activated), this, &ReptiloidsTransactionHistory::dateChanged);
-    connect(typeCb, static_cast<void(ReptiloidsDropdown::*)(int)>(&ReptiloidsDropdown::activated), this, &ReptiloidsTransactionHistory::typeChanged);
-    disconnect(transactionsTbl, &ReptiloidsTransactionHistoryTable::doubleClicked, this, &ReptiloidsTransactionHistory::showDetails);
-    disconnect(transactionsTbl, &ReptiloidsTransactionHistoryTable::customContextMenuRequested, this, &ReptiloidsTransactionHistory::contextualMenu);
+    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinTransactionHistory::onDisplayUnit);
+    disconnect(addressTi, &ReptiloidsCoinLineEdit::textChanged, this, &ReptiloidsCoinTransactionHistory::addressChanged);
+    disconnect(amountTi, &ReptiloidsCoinLineEdit::textChanged, this, &ReptiloidsCoinTransactionHistory::amountChanged);
+    connect(dateCb, static_cast<void(ReptiloidsCoinDropdown::*)(int)>(&ReptiloidsCoinDropdown::activated), this, &ReptiloidsCoinTransactionHistory::dateChanged);
+    connect(typeCb, static_cast<void(ReptiloidsCoinDropdown::*)(int)>(&ReptiloidsCoinDropdown::activated), this, &ReptiloidsCoinTransactionHistory::typeChanged);
+    disconnect(transactionsTbl, &ReptiloidsCoinTransactionHistoryTable::doubleClicked, this, &ReptiloidsCoinTransactionHistory::showDetails);
+    disconnect(transactionsTbl, &ReptiloidsCoinTransactionHistoryTable::customContextMenuRequested, this, &ReptiloidsCoinTransactionHistory::contextualMenu);
 }
 
-void ReptiloidsTransactionHistory::onDisplayUnit(int unit) {
+void ReptiloidsCoinTransactionHistory::onDisplayUnit(int unit) {
     displayUnit = unit;
-    amountTi->setValidator(new ReptiloidsNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setValidator(new ReptiloidsCoinNumberValidator(0, REPTILOIDSCOINGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
 }
 
-void ReptiloidsTransactionHistory::addressChanged(const QString &prefix) {
+void ReptiloidsCoinTransactionHistory::addressChanged(const QString &prefix) {
     transactionsTbl->setAddressPrefix(prefix);
 }
 
-void ReptiloidsTransactionHistory::amountChanged(const QString &amount) {
+void ReptiloidsCoinTransactionHistory::amountChanged(const QString &amount) {
     CAmount amount_parsed = 0;
     QString newAmount = amount;
     newAmount.replace(QString(","), QString("."));
@@ -234,32 +234,32 @@ void ReptiloidsTransactionHistory::amountChanged(const QString &amount) {
     }
 }
 
-void ReptiloidsTransactionHistory::dateChanged(int idx) {
+void ReptiloidsCoinTransactionHistory::dateChanged(int idx) {
     QDate current = QDate::currentDate();
     dateRangeWidget->setVisible(false);
     switch (dateCb->itemData(idx).toInt()) {
         case All:
             transactionsTbl->setDateRange(
-                    ReptiloidsTransactionHistoryFilterProxy::MIN_DATE,
-                    ReptiloidsTransactionHistoryFilterProxy::MAX_DATE);
+                    ReptiloidsCoinTransactionHistoryFilterProxy::MIN_DATE,
+                    ReptiloidsCoinTransactionHistoryFilterProxy::MAX_DATE);
             break;
         case Today:
             transactionsTbl->setDateRange(
                     QDateTime(current),
-                    ReptiloidsTransactionHistoryFilterProxy::MAX_DATE);
+                    ReptiloidsCoinTransactionHistoryFilterProxy::MAX_DATE);
             break;
         case ThisWeek: {
             // Find last Monday
             QDate startOfWeek = current.addDays(-(current.dayOfWeek() - 1));
             transactionsTbl->setDateRange(
                     QDateTime(startOfWeek),
-                    ReptiloidsTransactionHistoryFilterProxy::MAX_DATE);
+                    ReptiloidsCoinTransactionHistoryFilterProxy::MAX_DATE);
 
         } break;
         case ThisMonth:
             transactionsTbl->setDateRange(
                     QDateTime(QDate(current.year(), current.month(), 1)),
-                    ReptiloidsTransactionHistoryFilterProxy::MAX_DATE);
+                    ReptiloidsCoinTransactionHistoryFilterProxy::MAX_DATE);
             break;
         case LastMonth:
             transactionsTbl->setDateRange(
@@ -269,7 +269,7 @@ void ReptiloidsTransactionHistory::dateChanged(int idx) {
         case ThisYear:
             transactionsTbl->setDateRange(
                     QDateTime(QDate(current.year(), 1, 1)),
-                    ReptiloidsTransactionHistoryFilterProxy::MAX_DATE);
+                    ReptiloidsCoinTransactionHistoryFilterProxy::MAX_DATE);
             break;
         case Range:
             dateRangeWidget->setVisible(true);
@@ -282,40 +282,40 @@ void ReptiloidsTransactionHistory::dateChanged(int idx) {
     }
 }
 
-void ReptiloidsTransactionHistory::typeChanged(int idx) {
+void ReptiloidsCoinTransactionHistory::typeChanged(int idx) {
     transactionsTbl->setTypeFilter(static_cast<quint32>(typeCb->itemData(idx).toInt()));
     QSettings settings;
     settings.setValue("transactionType", idx);
 }
 
-void ReptiloidsTransactionHistory::dateRangeChanged() {
+void ReptiloidsCoinTransactionHistory::dateRangeChanged() {
     transactionsTbl->setDateRange(QDateTime(dateFrom->date()),
                                   QDateTime(dateTo->date()).addDays(1));
 }
 
-void ReptiloidsTransactionHistory::contextualMenu(const QPoint& point) {
+void ReptiloidsCoinTransactionHistory::contextualMenu(const QPoint& point) {
     auto index = transactionsTbl->indexAt(point);
     if (index.isValid())
         contextMenu->exec(QCursor::pos());
 }
 
-void ReptiloidsTransactionHistory::copyAddress() {
+void ReptiloidsCoinTransactionHistory::copyAddress() {
     GUIUtil::copyEntryData(transactionsTbl, 0, TransactionTableModel::AddressRole);
 }
 
-void ReptiloidsTransactionHistory::copyLabel() {
+void ReptiloidsCoinTransactionHistory::copyLabel() {
     GUIUtil::copyEntryData(transactionsTbl, 0, TransactionTableModel::LabelRole);
 }
 
-void ReptiloidsTransactionHistory::copyAmount() {
+void ReptiloidsCoinTransactionHistory::copyAmount() {
     GUIUtil::copyEntryData(transactionsTbl, 0, TransactionTableModel::FormattedAmountRole);
 }
 
-void ReptiloidsTransactionHistory::copyTxID() {
+void ReptiloidsCoinTransactionHistory::copyTxID() {
     GUIUtil::copyEntryData(transactionsTbl, 0, TransactionTableModel::TxHashRole);
 }
 
-void ReptiloidsTransactionHistory::showDetails() {
+void ReptiloidsCoinTransactionHistory::showDetails() {
     auto selection = transactionsTbl->selectionModel()->selectedRows();
     if (!selection.isEmpty()) {
         TransactionDescDialog dlg(selection.at(0));
@@ -324,7 +324,7 @@ void ReptiloidsTransactionHistory::showDetails() {
     }
 }
 
-void ReptiloidsTransactionHistory::exportClicked() {
+void ReptiloidsCoinTransactionHistory::exportClicked() {
     // CSV is currently the only supported format
     QString filename = GUIUtil::getSaveFileName(this, tr("Export Transaction History"), QString(),
                                                 tr("Comma separated file (*.csv)"), NULL);
@@ -340,7 +340,7 @@ void ReptiloidsTransactionHistory::exportClicked() {
 //    if (model && model->haveWatchOnly())
 //        writer.addColumn(tr("Watch-only"), TransactionTableModel::Watchonly);
     writer.addColumn(tr("Date"), 0, TransactionTableModel::DateRole);
-    writer.addColumn(tr("Type"), ReptiloidsTransactionHistoryFilterProxy::HistoryType, Qt::DisplayRole);
+    writer.addColumn(tr("Type"), ReptiloidsCoinTransactionHistoryFilterProxy::HistoryType, Qt::DisplayRole);
     writer.addColumn(tr("Label"), 0, TransactionTableModel::LabelRole);
     writer.addColumn(tr("Address"), 0, TransactionTableModel::AddressRole);
     writer.addColumn(BitcoinUnits::getAmountColumnTitle(displayUnit), 0, TransactionTableModel::FormattedAmountRole);
@@ -352,7 +352,7 @@ void ReptiloidsTransactionHistory::exportClicked() {
         QMessageBox::warning(this->parentWidget(), tr("Export Successful"), tr("The transaction history was successfully saved to %1.").arg(filename), QMessageBox::Ok);
 }
 
-void ReptiloidsTransactionHistory::displayTotalSelected(const QItemSelection &, const QItemSelection &) {
+void ReptiloidsCoinTransactionHistory::displayTotalSelected(const QItemSelection &, const QItemSelection &) {
     if (!transactionsTbl->selectionModel()) {
         totalSelectedLbl->clear();
         totalSelectedLbl->hide();
@@ -373,11 +373,11 @@ void ReptiloidsTransactionHistory::displayTotalSelected(const QItemSelection &, 
     totalSelectedLbl->show();
 }
 
-ReptiloidsTransactionHistoryTable::ReptiloidsTransactionHistoryTable(QWidget *parent) : QTableView(parent),
+ReptiloidsCoinTransactionHistoryTable::ReptiloidsCoinTransactionHistoryTable(QWidget *parent) : QTableView(parent),
                                                                                     walletModel(nullptr) {
 }
 
-void ReptiloidsTransactionHistoryTable::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinTransactionHistoryTable::setWalletModel(WalletModel *w) {
     if (walletModel == w)
         return;
     walletModel = w;
@@ -387,52 +387,52 @@ void ReptiloidsTransactionHistoryTable::setWalletModel(WalletModel *w) {
         return;
     }
 
-    this->setItemDelegateForColumn(ReptiloidsTransactionHistoryFilterProxy::HistoryStatus, new ReptiloidsTransactionHistoryCellItem(this));
+    this->setItemDelegateForColumn(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryStatus, new ReptiloidsCoinTransactionHistoryCellItem(this));
 
     // Set up transaction list
-    auto *filter = new ReptiloidsTransactionHistoryFilterProxy(walletModel->getOptionsModel(), this);
+    auto *filter = new ReptiloidsCoinTransactionHistoryFilterProxy(walletModel->getOptionsModel(), this);
     filter->setSourceModel(walletModel->getTransactionTableModel());
     filter->setDynamicSortFilter(true);
     filter->setSortRole(Qt::EditRole);
     filter->setFilterRole(Qt::EditRole);
     filter->setSortCaseSensitivity(Qt::CaseInsensitive);
     filter->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    filter->sort(ReptiloidsTransactionHistoryFilterProxy::HistoryDate, Qt::DescendingOrder);
+    filter->sort(ReptiloidsCoinTransactionHistoryFilterProxy::HistoryDate, Qt::DescendingOrder);
     setModel(filter);
 }
 
-void ReptiloidsTransactionHistoryTable::leave() {
+void ReptiloidsCoinTransactionHistoryTable::leave() {
     this->blockSignals(true);
     model()->blockSignals(true);
 }
-void ReptiloidsTransactionHistoryTable::enter() {
+void ReptiloidsCoinTransactionHistoryTable::enter() {
     this->blockSignals(false);
     model()->blockSignals(false);
 }
 
-void ReptiloidsTransactionHistoryTable::setAddressPrefix(const QString &prefix) {
-    auto *m = dynamic_cast<ReptiloidsTransactionHistoryFilterProxy*>(this->model());
+void ReptiloidsCoinTransactionHistoryTable::setAddressPrefix(const QString &prefix) {
+    auto *m = dynamic_cast<ReptiloidsCoinTransactionHistoryFilterProxy*>(this->model());
     m->setAddressPrefix(prefix);
 }
 
-void ReptiloidsTransactionHistoryTable::setMinAmount(const CAmount &minimum) {
-    auto *m = dynamic_cast<ReptiloidsTransactionHistoryFilterProxy*>(this->model());
+void ReptiloidsCoinTransactionHistoryTable::setMinAmount(const CAmount &minimum) {
+    auto *m = dynamic_cast<ReptiloidsCoinTransactionHistoryFilterProxy*>(this->model());
     m->setMinAmount(minimum);
 }
 
-void ReptiloidsTransactionHistoryTable::setTypeFilter(quint32 types) {
-    auto *m = dynamic_cast<ReptiloidsTransactionHistoryFilterProxy*>(this->model());
+void ReptiloidsCoinTransactionHistoryTable::setTypeFilter(quint32 types) {
+    auto *m = dynamic_cast<ReptiloidsCoinTransactionHistoryFilterProxy*>(this->model());
     m->setTypeFilter(types);
 }
 
-void ReptiloidsTransactionHistoryTable::setDateRange(const QDateTime &from, const QDateTime &to) {
-    auto *m = dynamic_cast<ReptiloidsTransactionHistoryFilterProxy*>(this->model());
+void ReptiloidsCoinTransactionHistoryTable::setDateRange(const QDateTime &from, const QDateTime &to) {
+    auto *m = dynamic_cast<ReptiloidsCoinTransactionHistoryFilterProxy*>(this->model());
     m->setDateRange(from, to);
 }
 
-const QDateTime ReptiloidsTransactionHistoryFilterProxy::MIN_DATE = QDateTime::fromTime_t(0);
-const QDateTime ReptiloidsTransactionHistoryFilterProxy::MAX_DATE = QDateTime::fromTime_t(0xFFFFFFFF);
-ReptiloidsTransactionHistoryFilterProxy::ReptiloidsTransactionHistoryFilterProxy(OptionsModel *o, QObject *parent) : QSortFilterProxyModel(parent),
+const QDateTime ReptiloidsCoinTransactionHistoryFilterProxy::MIN_DATE = QDateTime::fromTime_t(0);
+const QDateTime ReptiloidsCoinTransactionHistoryFilterProxy::MAX_DATE = QDateTime::fromTime_t(0xFFFFFFFF);
+ReptiloidsCoinTransactionHistoryFilterProxy::ReptiloidsCoinTransactionHistoryFilterProxy(OptionsModel *o, QObject *parent) : QSortFilterProxyModel(parent),
                                                                                                                  optionsModel(o),
                                                                                                                  limitRows(-1),
                                                                                                                  addrPrefix(QString()),
@@ -441,32 +441,32 @@ ReptiloidsTransactionHistoryFilterProxy::ReptiloidsTransactionHistoryFilterProxy
                                                                                                                  dateFrom(MIN_DATE),
                                                                                                                  dateTo(MAX_DATE) { }
 
-void ReptiloidsTransactionHistoryFilterProxy::setLimit(int limit) {
+void ReptiloidsCoinTransactionHistoryFilterProxy::setLimit(int limit) {
     this->limitRows = limit;
 }
 
-void ReptiloidsTransactionHistoryFilterProxy::setAddressPrefix(const QString &prefix) {
+void ReptiloidsCoinTransactionHistoryFilterProxy::setAddressPrefix(const QString &prefix) {
     this->addrPrefix = prefix;
     invalidateFilter();
 }
 
-void ReptiloidsTransactionHistoryFilterProxy::setMinAmount(const CAmount &minimum) {
+void ReptiloidsCoinTransactionHistoryFilterProxy::setMinAmount(const CAmount &minimum) {
     this->minAmount = minimum;
     invalidateFilter();
 }
 
-void ReptiloidsTransactionHistoryFilterProxy::setTypeFilter(quint32 types) {
+void ReptiloidsCoinTransactionHistoryFilterProxy::setTypeFilter(quint32 types) {
     this->typeFilter = types;
     invalidateFilter();
 }
 
-void ReptiloidsTransactionHistoryFilterProxy::setDateRange(const QDateTime &from, const QDateTime &to) {
+void ReptiloidsCoinTransactionHistoryFilterProxy::setDateRange(const QDateTime &from, const QDateTime &to) {
     this->dateFrom = from;
     this->dateTo = to;
     invalidateFilter();
 }
 
-bool ReptiloidsTransactionHistoryFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const {
+bool ReptiloidsCoinTransactionHistoryFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     auto type = index.data(TransactionTableModel::TypeRole).toInt();
@@ -491,7 +491,7 @@ bool ReptiloidsTransactionHistoryFilterProxy::filterAcceptsRow(int sourceRow, co
     return true;
 }
 
-bool ReptiloidsTransactionHistoryFilterProxy::lessThan(const QModelIndex &left, const QModelIndex &right) const {
+bool ReptiloidsCoinTransactionHistoryFilterProxy::lessThan(const QModelIndex &left, const QModelIndex &right) const {
     switch (left.column()) {
         case HistoryDate: {
             auto l1 = sourceModel()->index(left.row(), TransactionTableModel::Date).data(Qt::EditRole);
@@ -517,18 +517,18 @@ bool ReptiloidsTransactionHistoryFilterProxy::lessThan(const QModelIndex &left, 
     return QSortFilterProxyModel::lessThan(left, right);
 }
 
-int ReptiloidsTransactionHistoryFilterProxy::columnCount(const QModelIndex &) const {
-    return ReptiloidsTransactionHistoryFilterProxy::HistoryAmount + 1;
+int ReptiloidsCoinTransactionHistoryFilterProxy::columnCount(const QModelIndex &) const {
+    return ReptiloidsCoinTransactionHistoryFilterProxy::HistoryAmount + 1;
 }
 
-int ReptiloidsTransactionHistoryFilterProxy::rowCount(const QModelIndex& parent) const {
+int ReptiloidsCoinTransactionHistoryFilterProxy::rowCount(const QModelIndex& parent) const {
     if (limitRows != -1)
         return std::min(QSortFilterProxyModel::rowCount(parent), limitRows);
     else
         return QSortFilterProxyModel::rowCount(parent);
 }
 
-QVariant ReptiloidsTransactionHistoryFilterProxy::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant ReptiloidsCoinTransactionHistoryFilterProxy::headerData(int section, Qt::Orientation orientation, int role) const {
     if (orientation == Qt::Horizontal) {
         if (role == Qt::DisplayRole) {
             switch (section) {
@@ -554,7 +554,7 @@ QVariant ReptiloidsTransactionHistoryFilterProxy::headerData(int section, Qt::Or
     return QSortFilterProxyModel::headerData(section, orientation, role);
 }
 
-QVariant ReptiloidsTransactionHistoryFilterProxy::data(const QModelIndex &index, int role) const {
+QVariant ReptiloidsCoinTransactionHistoryFilterProxy::data(const QModelIndex &index, int role) const {
     if (!index.isValid())
         return QVariant();
 
@@ -644,10 +644,10 @@ QVariant ReptiloidsTransactionHistoryFilterProxy::data(const QModelIndex &index,
     return QSortFilterProxyModel::data(index, role);
 }
 
-ReptiloidsTransactionHistoryCellItem::ReptiloidsTransactionHistoryCellItem(QObject *parent) : QStyledItemDelegate(parent) { }
+ReptiloidsCoinTransactionHistoryCellItem::ReptiloidsCoinTransactionHistoryCellItem(QObject *parent) : QStyledItemDelegate(parent) { }
 
-void ReptiloidsTransactionHistoryCellItem::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
-    if (index.column() == ReptiloidsTransactionHistoryFilterProxy::HistoryStatus) {
+void ReptiloidsCoinTransactionHistoryCellItem::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+    if (index.column() == ReptiloidsCoinTransactionHistoryFilterProxy::HistoryStatus) {
         painter->save();
         QColor color;
         auto status = static_cast<TransactionStatus::Status>(index.data(Qt::DisplayRole).toInt());
@@ -676,8 +676,8 @@ void ReptiloidsTransactionHistoryCellItem::paint(QPainter *painter, const QStyle
     }
 }
 
-QSize ReptiloidsTransactionHistoryCellItem::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
-    if (index.column() == ReptiloidsTransactionHistoryFilterProxy::HistoryStatus)
+QSize ReptiloidsCoinTransactionHistoryCellItem::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
+    if (index.column() == ReptiloidsCoinTransactionHistoryFilterProxy::HistoryStatus)
         return {BGU::spi(3), option.rect.height()};
     return QStyledItemDelegate::sizeHint(option, index);
 }

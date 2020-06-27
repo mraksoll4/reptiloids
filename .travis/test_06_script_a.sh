@@ -34,7 +34,7 @@ BEGIN_FOLD distdir
 DOCKER_EXEC make distdir VERSION=$HOST
 END_FOLD
 
-cd "reptiloids-$HOST" || (echo "could not enter distdir reptiloids-$HOST"; exit 1)
+cd "reptiloidscoin-$HOST" || (echo "could not enter distdir reptiloidscoin-$HOST"; exit 1)
 
 BEGIN_FOLD configure
 DOCKER_EXEC ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)

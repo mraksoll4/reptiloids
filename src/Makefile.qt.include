@@ -3,7 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-bin_PROGRAMS += qt/reptiloids-qt
+bin_PROGRAMS += qt/reptiloidscoin-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
 # bitcoin qt core #
@@ -163,68 +163,68 @@ QT_MOC_CPP = \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp
 
-# Reptiloids moc files
+# ReptiloidsCoin moc files
 QT_MOC_CPP += \
-  qt/moc_reptiloidsguiutil.cpp \
-  qt/moc_reptiloidssplashscreen.cpp
+  qt/moc_reptiloidscoinguiutil.cpp \
+  qt/moc_reptiloidscoinsplashscreen.cpp
 if ENABLE_WALLET
 QT_MOC_CPP += \
-  qt/moc_reptiloidsactionbtn.cpp \
-  qt/moc_reptiloidsaddressbook.cpp \
-  qt/moc_reptiloidsaddressbtn.cpp \
-  qt/moc_reptiloidsaddressedit.cpp \
-  qt/moc_reptiloidsaddresseditor.cpp \
-  qt/moc_reptiloidsavatar.cpp \
-  qt/moc_reptiloidsbip38tool.cpp \
-  qt/moc_reptiloidsbreadcrumb.cpp \
-  qt/moc_reptiloidscheckbox.cpp \
-  qt/moc_reptiloidscircle.cpp \
-  qt/moc_reptiloidsclosebtn.cpp \
-  qt/moc_reptiloidscoincontrol.cpp \
-  qt/moc_reptiloidscreateproposalutil.cpp \
-  qt/moc_reptiloidscreateproposal.cpp \
-  qt/moc_reptiloidscreateproposal1.cpp \
-  qt/moc_reptiloidscreateproposal2.cpp \
-  qt/moc_reptiloidscreateproposal3.cpp \
-  qt/moc_reptiloidsdashboard.cpp \
-  qt/moc_reptiloidsdebugconsole.cpp \
-  qt/moc_reptiloidsdialog.cpp \
-  qt/moc_reptiloidsdropdown.cpp \
-  qt/moc_reptiloidsfontmgr.cpp \
-  qt/moc_reptiloidsformbtn.cpp \
-  qt/moc_reptiloidsfundsmenu.cpp \
-  qt/moc_reptiloidsgui.cpp \
-  qt/moc_reptiloidshdiv.cpp \
-  qt/moc_reptiloidsiconbtn.cpp \
-  qt/moc_reptiloidsiconlabel.cpp \
-  qt/moc_reptiloidskeydialog.cpp \
-  qt/moc_reptiloidslabelbtn.cpp \
-  qt/moc_reptiloidsleftmenu.cpp \
-  qt/moc_reptiloidslineedit.cpp \
-  qt/moc_reptiloidslineeditwithtitle.cpp \
-  qt/moc_reptiloidslockmenu.cpp \
-  qt/moc_reptiloidspeerdetails.cpp \
-  qt/moc_reptiloidspeerslist.cpp \
-  qt/moc_reptiloidsproposals.cpp \
-  qt/moc_reptiloidsquicksend.cpp \
-  qt/moc_reptiloidssendfunds.cpp \
-  qt/moc_reptiloidssendfunds1.cpp \
-  qt/moc_reptiloidssendfunds2.cpp \
-  qt/moc_reptiloidssendfunds3.cpp \
-  qt/moc_reptiloidssendfunds4.cpp \
-  qt/moc_reptiloidssendfundsdone.cpp \
-  qt/moc_reptiloidssendfundsrequest.cpp \
-  qt/moc_reptiloidssendfundsutil.cpp \
-  qt/moc_reptiloidsservicenodes.cpp \
-  qt/moc_reptiloidssettings.cpp \
-  qt/moc_reptiloidstabbar.cpp \
-  qt/moc_reptiloidstabbtn.cpp \
-  qt/moc_reptiloidstoolbar.cpp \
-  qt/moc_reptiloidstools.cpp \
-  qt/moc_reptiloidstoolspage.cpp \
-  qt/moc_reptiloidstransactionhistory.cpp \
-  qt/moc_reptiloidswallet.cpp \
-  qt/moc_reptiloidswalletrepair.cpp
+  qt/moc_reptiloidscoinactionbtn.cpp \
+  qt/moc_reptiloidscoinaddressbook.cpp \
+  qt/moc_reptiloidscoinaddressbtn.cpp \
+  qt/moc_reptiloidscoinaddressedit.cpp \
+  qt/moc_reptiloidscoinaddresseditor.cpp \
+  qt/moc_reptiloidscoinavatar.cpp \
+  qt/moc_reptiloidscoinbip38tool.cpp \
+  qt/moc_reptiloidscoinbreadcrumb.cpp \
+  qt/moc_reptiloidscoincheckbox.cpp \
+  qt/moc_reptiloidscoincircle.cpp \
+  qt/moc_reptiloidscoinclosebtn.cpp \
+  qt/moc_reptiloidscoincoincontrol.cpp \
+  qt/moc_reptiloidscoincreateproposalutil.cpp \
+  qt/moc_reptiloidscoincreateproposal.cpp \
+  qt/moc_reptiloidscoincreateproposal1.cpp \
+  qt/moc_reptiloidscoincreateproposal2.cpp \
+  qt/moc_reptiloidscoincreateproposal3.cpp \
+  qt/moc_reptiloidscoindashboard.cpp \
+  qt/moc_reptiloidscoindebugconsole.cpp \
+  qt/moc_reptiloidscoindialog.cpp \
+  qt/moc_reptiloidscoindropdown.cpp \
+  qt/moc_reptiloidscoinfontmgr.cpp \
+  qt/moc_reptiloidscoinformbtn.cpp \
+  qt/moc_reptiloidscoinfundsmenu.cpp \
+  qt/moc_reptiloidscoingui.cpp \
+  qt/moc_reptiloidscoinhdiv.cpp \
+  qt/moc_reptiloidscoiniconbtn.cpp \
+  qt/moc_reptiloidscoiniconlabel.cpp \
+  qt/moc_reptiloidscoinkeydialog.cpp \
+  qt/moc_reptiloidscoinlabelbtn.cpp \
+  qt/moc_reptiloidscoinleftmenu.cpp \
+  qt/moc_reptiloidscoinlineedit.cpp \
+  qt/moc_reptiloidscoinlineeditwithtitle.cpp \
+  qt/moc_reptiloidscoinlockmenu.cpp \
+  qt/moc_reptiloidscoinpeerdetails.cpp \
+  qt/moc_reptiloidscoinpeerslist.cpp \
+  qt/moc_reptiloidscoinproposals.cpp \
+  qt/moc_reptiloidscoinquicksend.cpp \
+  qt/moc_reptiloidscoinsendfunds.cpp \
+  qt/moc_reptiloidscoinsendfunds1.cpp \
+  qt/moc_reptiloidscoinsendfunds2.cpp \
+  qt/moc_reptiloidscoinsendfunds3.cpp \
+  qt/moc_reptiloidscoinsendfunds4.cpp \
+  qt/moc_reptiloidscoinsendfundsdone.cpp \
+  qt/moc_reptiloidscoinsendfundsrequest.cpp \
+  qt/moc_reptiloidscoinsendfundsutil.cpp \
+  qt/moc_reptiloidscoinservicenodes.cpp \
+  qt/moc_reptiloidscoinsettings.cpp \
+  qt/moc_reptiloidscointabbar.cpp \
+  qt/moc_reptiloidscointabbtn.cpp \
+  qt/moc_reptiloidscointoolbar.cpp \
+  qt/moc_reptiloidscointools.cpp \
+  qt/moc_reptiloidscointoolspage.cpp \
+  qt/moc_reptiloidscointransactionhistory.cpp \
+  qt/moc_reptiloidscoinwallet.cpp \
+  qt/moc_reptiloidscoinwalletrepair.cpp
 endif
 
 BITCOIN_MM = \
@@ -310,67 +310,67 @@ BITCOIN_QT_H = \
   qt/walletview.h \
   qt/winshutdownmonitor.h
 
-# Reptiloids Qt files
+# ReptiloidsCoin Qt files
 BITCOIN_QT_H += \
-  qt/reptiloidsactionbtn.h \
-  qt/reptiloidsaddressbook.h \
-  qt/reptiloidsaddressbtn.h \
-  qt/reptiloidsaddressedit.h \
-  qt/reptiloidsaddresseditor.h \
-  qt/reptiloidsavatar.h \
-  qt/reptiloidsbip38tool.h \
-  qt/reptiloidsbreadcrumb.h \
-  qt/reptiloidscheckbox.h \
-  qt/reptiloidscircle.h \
-  qt/reptiloidsclosebtn.h \
-  qt/reptiloidscoincontrol.h \
-  qt/reptiloidscreateproposal.h \
-  qt/reptiloidscreateproposal1.h \
-  qt/reptiloidscreateproposal2.h \
-  qt/reptiloidscreateproposal3.h \
-  qt/reptiloidscreateproposalutil.h \
-  qt/reptiloidsdashboard.h \
-  qt/reptiloidsdebugconsole.h \
-  qt/reptiloidsdialog.h \
-  qt/reptiloidsdropdown.h \
-  qt/reptiloidsfontmgr.h \
-  qt/reptiloidsformbtn.h \
-  qt/reptiloidsfundsmenu.h \
-  qt/reptiloidsgui.h \
-  qt/reptiloidsguiutil.h \
-  qt/reptiloidshdiv.h \
-  qt/reptiloidsiconbtn.h \
-  qt/reptiloidsiconlabel.h \
-  qt/reptiloidskeydialog.h \
-  qt/reptiloidslabelbtn.h \
-  qt/reptiloidsleftmenu.h \
-  qt/reptiloidslineedit.h \
-  qt/reptiloidslineeditwithtitle.h \
-  qt/reptiloidslockmenu.h \
-  qt/reptiloidspeerdetails.h \
-  qt/reptiloidspeerslist.h \
-  qt/reptiloidsproposals.h \
-  qt/reptiloidsquicksend.h \
-  qt/reptiloidssendfunds.h \
-  qt/reptiloidssendfunds1.h \
-  qt/reptiloidssendfunds2.h \
-  qt/reptiloidssendfunds3.h \
-  qt/reptiloidssendfunds4.h \
-  qt/reptiloidssendfundsdone.h \
-  qt/reptiloidssendfundsrequest.h \
-  qt/reptiloidssendfundsutil.h \
-  qt/reptiloidsservicenodes.h \
-  qt/reptiloidssettings.h \
-  qt/reptiloidssplashscreen.h \
-  qt/reptiloidstabbar.h \
-  qt/reptiloidstabbtn.h \
-  qt/reptiloidstoolbar.h \
-  qt/reptiloidstools.h \
-  qt/reptiloidstoolspage.h \
-  qt/reptiloidstransactionhistory.h \
-  qt/reptiloidsvars.h \
-  qt/reptiloidswallet.h \
-  qt/reptiloidswalletrepair.h
+  qt/reptiloidscoinactionbtn.h \
+  qt/reptiloidscoinaddressbook.h \
+  qt/reptiloidscoinaddressbtn.h \
+  qt/reptiloidscoinaddressedit.h \
+  qt/reptiloidscoinaddresseditor.h \
+  qt/reptiloidscoinavatar.h \
+  qt/reptiloidscoinbip38tool.h \
+  qt/reptiloidscoinbreadcrumb.h \
+  qt/reptiloidscoincheckbox.h \
+  qt/reptiloidscoincircle.h \
+  qt/reptiloidscoinclosebtn.h \
+  qt/reptiloidscoincoincontrol.h \
+  qt/reptiloidscoincreateproposal.h \
+  qt/reptiloidscoincreateproposal1.h \
+  qt/reptiloidscoincreateproposal2.h \
+  qt/reptiloidscoincreateproposal3.h \
+  qt/reptiloidscoincreateproposalutil.h \
+  qt/reptiloidscoindashboard.h \
+  qt/reptiloidscoindebugconsole.h \
+  qt/reptiloidscoindialog.h \
+  qt/reptiloidscoindropdown.h \
+  qt/reptiloidscoinfontmgr.h \
+  qt/reptiloidscoinformbtn.h \
+  qt/reptiloidscoinfundsmenu.h \
+  qt/reptiloidscoingui.h \
+  qt/reptiloidscoinguiutil.h \
+  qt/reptiloidscoinhdiv.h \
+  qt/reptiloidscoiniconbtn.h \
+  qt/reptiloidscoiniconlabel.h \
+  qt/reptiloidscoinkeydialog.h \
+  qt/reptiloidscoinlabelbtn.h \
+  qt/reptiloidscoinleftmenu.h \
+  qt/reptiloidscoinlineedit.h \
+  qt/reptiloidscoinlineeditwithtitle.h \
+  qt/reptiloidscoinlockmenu.h \
+  qt/reptiloidscoinpeerdetails.h \
+  qt/reptiloidscoinpeerslist.h \
+  qt/reptiloidscoinproposals.h \
+  qt/reptiloidscoinquicksend.h \
+  qt/reptiloidscoinsendfunds.h \
+  qt/reptiloidscoinsendfunds1.h \
+  qt/reptiloidscoinsendfunds2.h \
+  qt/reptiloidscoinsendfunds3.h \
+  qt/reptiloidscoinsendfunds4.h \
+  qt/reptiloidscoinsendfundsdone.h \
+  qt/reptiloidscoinsendfundsrequest.h \
+  qt/reptiloidscoinsendfundsutil.h \
+  qt/reptiloidscoinservicenodes.h \
+  qt/reptiloidscoinsettings.h \
+  qt/reptiloidscoinsplashscreen.h \
+  qt/reptiloidscointabbar.h \
+  qt/reptiloidscointabbtn.h \
+  qt/reptiloidscointoolbar.h \
+  qt/reptiloidscointools.h \
+  qt/reptiloidscointoolspage.h \
+  qt/reptiloidscointransactionhistory.h \
+  qt/reptiloidscoinvars.h \
+  qt/reptiloidscoinwallet.h \
+  qt/reptiloidscoinwalletrepair.h
 
 RES_ICONS = \
   qt/res/icons/add.png \
@@ -430,9 +430,9 @@ RES_ICONS = \
   qt/res/icons/warning.png \
   qt/res/icons/verify.png
 
-# Reptiloids qt resources
+# ReptiloidsCoin qt resources
 RES_ICONS += \
-  qt/res/redesign/ReptiloidsSplash.png \
+  qt/res/redesign/ReptiloidsCoinSplash.png \
   qt/res/redesign/fonts/Roboto/Roboto-Black.ttf \
   qt/res/redesign/fonts/Roboto/Roboto-BlackItalic.ttf \
   qt/res/redesign/fonts/Roboto/Roboto-Bold.ttf \
@@ -490,7 +490,7 @@ RES_ICONS += \
   qt/res/redesign/icons/UtilityBar/StakingNodeIconActive.png \
   qt/res/redesign/icons/UtilityBar/StakingNodeIconInactive.png \
   qt/res/redesign/icons/UtilityBar/UnlockedIcon.png \
-  qt/res/redesign/white_reptiloids_logo.png \
+  qt/res/redesign/white_reptiloidscoin_logo.png \
   qt/res/redesign/css/stylesheet.qss
 
 BITCOIN_QT_BASE_CPP = \
@@ -500,7 +500,7 @@ BITCOIN_QT_BASE_CPP = \
   qt/bitcoinamountfield.cpp \
   qt/bitcoingui.cpp \
   qt/bitcoinunits.cpp \
-  qt/reptiloidssplashscreen.cpp \
+  qt/reptiloidscoinsplashscreen.cpp \
   qt/clientmodel.cpp \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
@@ -549,61 +549,61 @@ BITCOIN_QT_WALLET_CPP = \
   qt/walletmodeltransaction.cpp \
   qt/walletview.cpp
 
-# Reptiloids wallet files
+# ReptiloidsCoin wallet files
 BITCOIN_QT_WALLET_CPP += \
-  qt/reptiloidsactionbtn.cpp \
-  qt/reptiloidsaddressbook.cpp \
-  qt/reptiloidsaddressbtn.cpp \
-  qt/reptiloidsaddressedit.cpp \
-  qt/reptiloidsaddresseditor.cpp \
-  qt/reptiloidsavatar.cpp \
-  qt/reptiloidsbip38tool.cpp \
-  qt/reptiloidsbreadcrumb.cpp \
-  qt/reptiloidscheckbox.cpp \
-  qt/reptiloidscircle.cpp \
-  qt/reptiloidsclosebtn.cpp \
-  qt/reptiloidscoincontrol.cpp \
-  qt/reptiloidscreateproposal.cpp \
-  qt/reptiloidscreateproposal1.cpp \
-  qt/reptiloidscreateproposal2.cpp \
-  qt/reptiloidscreateproposal3.cpp \
-  qt/reptiloidsdashboard.cpp \
-  qt/reptiloidsdebugconsole.cpp \
-  qt/reptiloidsdialog.cpp \
-  qt/reptiloidsdropdown.cpp \
-  qt/reptiloidsfontmgr.cpp \
-  qt/reptiloidsformbtn.cpp \
-  qt/reptiloidsfundsmenu.cpp \
-  qt/reptiloidsgui.cpp \
-  qt/reptiloidshdiv.cpp \
-  qt/reptiloidsiconbtn.cpp \
-  qt/reptiloidsiconlabel.cpp \
-  qt/reptiloidskeydialog.cpp \
-  qt/reptiloidslabelbtn.cpp \
-  qt/reptiloidsleftmenu.cpp \
-  qt/reptiloidslineedit.cpp \
-  qt/reptiloidslineeditwithtitle.cpp \
-  qt/reptiloidslockmenu.cpp \
-  qt/reptiloidspeerdetails.cpp \
-  qt/reptiloidspeerslist.cpp \
-  qt/reptiloidsproposals.cpp \
-  qt/reptiloidsquicksend.cpp \
-  qt/reptiloidssendfunds.cpp \
-  qt/reptiloidssendfunds1.cpp \
-  qt/reptiloidssendfunds2.cpp \
-  qt/reptiloidssendfunds3.cpp \
-  qt/reptiloidssendfunds4.cpp \
-  qt/reptiloidssendfundsdone.cpp \
-  qt/reptiloidssendfundsrequest.cpp \
-  qt/reptiloidsservicenodes.cpp \
-  qt/reptiloidssettings.cpp \
-  qt/reptiloidstabbar.cpp \
-  qt/reptiloidstabbtn.cpp \
-  qt/reptiloidstoolbar.cpp \
-  qt/reptiloidstools.cpp \
-  qt/reptiloidstransactionhistory.cpp \
-  qt/reptiloidswallet.cpp \
-  qt/reptiloidswalletrepair.cpp
+  qt/reptiloidscoinactionbtn.cpp \
+  qt/reptiloidscoinaddressbook.cpp \
+  qt/reptiloidscoinaddressbtn.cpp \
+  qt/reptiloidscoinaddressedit.cpp \
+  qt/reptiloidscoinaddresseditor.cpp \
+  qt/reptiloidscoinavatar.cpp \
+  qt/reptiloidscoinbip38tool.cpp \
+  qt/reptiloidscoinbreadcrumb.cpp \
+  qt/reptiloidscoincheckbox.cpp \
+  qt/reptiloidscoincircle.cpp \
+  qt/reptiloidscoinclosebtn.cpp \
+  qt/reptiloidscoincoincontrol.cpp \
+  qt/reptiloidscoincreateproposal.cpp \
+  qt/reptiloidscoincreateproposal1.cpp \
+  qt/reptiloidscoincreateproposal2.cpp \
+  qt/reptiloidscoincreateproposal3.cpp \
+  qt/reptiloidscoindashboard.cpp \
+  qt/reptiloidscoindebugconsole.cpp \
+  qt/reptiloidscoindialog.cpp \
+  qt/reptiloidscoindropdown.cpp \
+  qt/reptiloidscoinfontmgr.cpp \
+  qt/reptiloidscoinformbtn.cpp \
+  qt/reptiloidscoinfundsmenu.cpp \
+  qt/reptiloidscoingui.cpp \
+  qt/reptiloidscoinhdiv.cpp \
+  qt/reptiloidscoiniconbtn.cpp \
+  qt/reptiloidscoiniconlabel.cpp \
+  qt/reptiloidscoinkeydialog.cpp \
+  qt/reptiloidscoinlabelbtn.cpp \
+  qt/reptiloidscoinleftmenu.cpp \
+  qt/reptiloidscoinlineedit.cpp \
+  qt/reptiloidscoinlineeditwithtitle.cpp \
+  qt/reptiloidscoinlockmenu.cpp \
+  qt/reptiloidscoinpeerdetails.cpp \
+  qt/reptiloidscoinpeerslist.cpp \
+  qt/reptiloidscoinproposals.cpp \
+  qt/reptiloidscoinquicksend.cpp \
+  qt/reptiloidscoinsendfunds.cpp \
+  qt/reptiloidscoinsendfunds1.cpp \
+  qt/reptiloidscoinsendfunds2.cpp \
+  qt/reptiloidscoinsendfunds3.cpp \
+  qt/reptiloidscoinsendfunds4.cpp \
+  qt/reptiloidscoinsendfundsdone.cpp \
+  qt/reptiloidscoinsendfundsrequest.cpp \
+  qt/reptiloidscoinservicenodes.cpp \
+  qt/reptiloidscoinsettings.cpp \
+  qt/reptiloidscointabbar.cpp \
+  qt/reptiloidscointabbtn.cpp \
+  qt/reptiloidscointoolbar.cpp \
+  qt/reptiloidscointools.cpp \
+  qt/reptiloidscointransactionhistory.cpp \
+  qt/reptiloidscoinwallet.cpp \
+  qt/reptiloidscoinwalletrepair.cpp
 
 BITCOIN_QT_WALLET_BIP70_CPP = \
   qt/paymentrequestplus.cpp
@@ -647,7 +647,7 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_reptiloids_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_reptiloidscoin_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
@@ -655,34 +655,34 @@ $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
 # bitcoin-qt binary #
-qt_reptiloids_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+qt_reptiloidscoin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_reptiloids_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_reptiloidscoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_reptiloids_qt_SOURCES = qt/main.cpp
+qt_reptiloidscoin_qt_SOURCES = qt/main.cpp
 if TARGET_WINDOWS
-  qt_reptiloids_qt_SOURCES += $(BITCOIN_RC)
+  qt_reptiloidscoin_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_reptiloids_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_reptiloidscoin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_reptiloids_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+qt_reptiloidscoin_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_reptiloids_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+qt_reptiloidscoin_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_reptiloids_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+qt_reptiloidscoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 
-# Reptiloids XBridge
-qt_reptiloids_qt_LDADD += $(LIBXBRIDGE)
+# ReptiloidsCoin XBridge
+qt_reptiloidscoin_qt_LDADD += $(LIBXBRIDGE)
 
-# Reptiloids XRouter
-qt_reptiloids_qt_LDADD += $(LIBXROUTER) $(EVENT_LIBS) $(SSL_LIBS)
+# ReptiloidsCoin XRouter
+qt_reptiloidscoin_qt_LDADD += $(LIBXROUTER) $(EVENT_LIBS) $(SSL_LIBS)
 
-qt_reptiloids_qt_LDADD += $(CRYPTO_LIBS)
-qt_reptiloids_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_reptiloids_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+qt_reptiloidscoin_qt_LDADD += $(CRYPTO_LIBS)
+qt_reptiloidscoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_reptiloidscoin_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
@@ -713,10 +713,10 @@ CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda 
 
 CLEANFILES += $(CLEAN_QT)
 
-reptiloids_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_reptiloids_qt_OBJECTS) qt/reptiloids-qt$(EXEEXT) $(LIBBITCOINQT)
+reptiloidscoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_reptiloidscoin_qt_OBJECTS) qt/reptiloidscoin-qt$(EXEEXT) $(LIBBITCOINQT)
 
-reptiloids_qt : qt/reptiloids-qt$(EXEEXT)
+reptiloidscoin_qt : qt/reptiloidscoin-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

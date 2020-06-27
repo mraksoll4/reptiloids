@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidscoincontrol.h>
+#include <qt/reptiloidscoincoincontrol.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/addresstablemodel.h>
 #include <qt/bitcoinunits.h>
@@ -26,7 +26,7 @@
  * @brief Dialog encapsulates the coin control table. The default size is 960x580
  * @param parent
  */
-ReptiloidsCoinControlDialog::ReptiloidsCoinControlDialog(WalletModel *w, QWidget *parent, Qt::WindowFlags f, bool standaloneMode) : 
+ReptiloidsCoinCoinControlDialog::ReptiloidsCoinCoinControlDialog(WalletModel *w, QWidget *parent, Qt::WindowFlags f, bool standaloneMode) : 
     QDialog(parent, f), walletModel(w), standaloneMode(standaloneMode) 
 {
     //this->setStyleSheet("border: 1px solid red;");
@@ -42,9 +42,9 @@ ReptiloidsCoinControlDialog::ReptiloidsCoinControlDialog(WalletModel *w, QWidget
     contentLayout->setContentsMargins(0, 0, 0, BGU::spi(20));
     content->setLayout(contentLayout);
 
-    confirmBtn = new ReptiloidsFormBtn;
+    confirmBtn = new ReptiloidsCoinFormBtn;
     confirmBtn->setText(tr("Confirm"));
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(standaloneMode ? tr("Close") : tr("Cancel"));
 
@@ -60,7 +60,7 @@ ReptiloidsCoinControlDialog::ReptiloidsCoinControlDialog(WalletModel *w, QWidget
     btnBoxLayout->addStretch(1);
 
     // Manages the coin list
-    cc = new ReptiloidsCoinControl;
+    cc = new ReptiloidsCoinCoinControl;
 
     // Manages the selected coin details
     feePanel = new QFrame;
@@ -122,26 +122,26 @@ ReptiloidsCoinControlDialog::ReptiloidsCoinControlDialog(WalletModel *w, QWidget
         Q_EMIT accept();
     });
     connect(cancelBtn, &QPushButton::clicked, this, [this]() {
-        cc->setData(std::make_shared<ReptiloidsCoinControl::Model>());
+        cc->setData(std::make_shared<ReptiloidsCoinCoinControl::Model>());
         Q_EMIT reject();
     });
-    connect(cc, &ReptiloidsCoinControl::tableUpdated, this, &ReptiloidsCoinControlDialog::updateLabels);
+    connect(cc, &ReptiloidsCoinCoinControl::tableUpdated, this, &ReptiloidsCoinCoinControlDialog::updateLabels);
 
     updateLabels();
 }
 
-void ReptiloidsCoinControlDialog::resizeEvent(QResizeEvent *evt) {
+void ReptiloidsCoinCoinControlDialog::resizeEvent(QResizeEvent *evt) {
     QDialog::resizeEvent(evt);
     content->resize(evt->size().width(), evt->size().height());
 }
 
-void ReptiloidsCoinControlDialog::showEvent(QShowEvent *event) {
+void ReptiloidsCoinCoinControlDialog::showEvent(QShowEvent *event) {
     QDialog::showEvent(event);
     updateLabels();
 }
 
-void ReptiloidsCoinControlDialog::updateLabels() {
-    // TODO Reptiloids Qt handle fee info
+void ReptiloidsCoinCoinControlDialog::updateLabels() {
+    // TODO ReptiloidsCoin Qt handle fee info
     feePanel->setHidden(true);
 //    auto displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
 //    int64_t totalSelectedAmount = 0;
@@ -171,9 +171,9 @@ void ReptiloidsCoinControlDialog::updateLabels() {
 //    feePanel->setHidden(totalSelectedAmount == 0);
 }
 
-void ReptiloidsCoinControlDialog::populateUnspentTransactions(const QVector<ReptiloidsSimpleUTXO> & txSelectedUtxos) {
+void ReptiloidsCoinCoinControlDialog::populateUnspentTransactions(const QVector<ReptiloidsCoinSimpleUTXO> & txSelectedUtxos) {
     int displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
-    QVector<ReptiloidsCoinControl::UTXO*> utxos;
+    QVector<ReptiloidsCoinCoinControl::UTXO*> utxos;
 
     auto mapCoins = walletModel->wallet().listCoins();
     for (auto & item : mapCoins) {
@@ -190,7 +190,7 @@ void ReptiloidsCoinControlDialog::populateUnspentTransactions(const QVector<Rept
             nSum += walletTx.txout.nValue;
             nChildren++;
 
-            auto *utxo = new ReptiloidsCoinControl::UTXO;
+            auto *utxo = new ReptiloidsCoinCoinControl::UTXO;
             utxo->checked = false;
 
             // address
@@ -252,16 +252,16 @@ void ReptiloidsCoinControlDialog::populateUnspentTransactions(const QVector<Rept
         }
     }
 
-    auto ccData = std::make_shared<ReptiloidsCoinControl::Model>();
-    ccData->freeThreshold = COIN * 576 / 250; // TODO Reptiloids Qt handle free threshold
+    auto ccData = std::make_shared<ReptiloidsCoinCoinControl::Model>();
+    ccData->freeThreshold = COIN * 576 / 250; // TODO ReptiloidsCoin Qt handle free threshold
     ccData->data = utxos;
     getCC()->setData(ccData);
     
     if (standaloneMode) // only process utxo state changes in standalone mode
-        connect(getCC(), &ReptiloidsCoinControl::tableUpdated, this, &ReptiloidsCoinControlDialog::updateUTXOState);
+        connect(getCC(), &ReptiloidsCoinCoinControl::tableUpdated, this, &ReptiloidsCoinCoinControlDialog::updateUTXOState);
 }
 
-void ReptiloidsCoinControlDialog::updateUTXOState() {
+void ReptiloidsCoinCoinControlDialog::updateUTXOState() {
     for (auto *data : getCC()->getData()->data) {
         if (data->locked) {
             COutPoint utxo(uint256S(data->transaction.toStdString()), data->vout);
@@ -278,7 +278,7 @@ void ReptiloidsCoinControlDialog::updateUTXOState() {
  * @brief Manages and displays the coin control input list.
  * @param parent
  */
-ReptiloidsCoinControl::ReptiloidsCoinControl(QWidget *parent) : QFrame(parent), layout(new QVBoxLayout),
+ReptiloidsCoinCoinControl::ReptiloidsCoinCoinControl(QWidget *parent) : QFrame(parent), layout(new QVBoxLayout),
                                                            table(new QTableWidget), contextMenu(new QMenu) {
     // this->setStyleSheet("border: 1px solid red");
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -348,7 +348,7 @@ ReptiloidsCoinControl::ReptiloidsCoinControl(QWidget *parent) : QFrame(parent), 
         table->horizontalHeader()->setSortIndicator(s.value("nCoinControlSortColumn").toInt(),
                 static_cast<Qt::SortOrder>(s.value("nCoinControlSortOrder").toInt()));
 
-    connect(table, &QTableWidget::customContextMenuRequested, this, &ReptiloidsCoinControl::showContextMenu);
+    connect(table, &QTableWidget::customContextMenuRequested, this, &ReptiloidsCoinCoinControl::showContextMenu);
     connect(table->horizontalHeader(), &QHeaderView::sortIndicatorChanged, this, [this](int column, Qt::SortOrder order) {
         QSettings settings;
         settings.setValue("nCoinControlSortOrder", table->horizontalHeader()->sortIndicatorOrder());
@@ -509,7 +509,7 @@ ReptiloidsCoinControl::ReptiloidsCoinControl(QWidget *parent) : QFrame(parent), 
     });
 }
 
-void ReptiloidsCoinControl::setData(ModelPtr dataModel) {
+void ReptiloidsCoinCoinControl::setData(ModelPtr dataModel) {
     this->dataModel = dataModel;
 
     unwatch();
@@ -528,7 +528,7 @@ void ReptiloidsCoinControl::setData(ModelPtr dataModel) {
         table->setItem(i, COLUMN_CHECKBOX, cbItem);
 
         // amount
-        auto *amountItem = new ReptiloidsCoinControl::NumberItem;
+        auto *amountItem = new ReptiloidsCoinCoinControl::NumberItem;
         amountItem->setData(Qt::DisplayRole, d->amount);
         table->setItem(i, COLUMN_AMOUNT, amountItem);
 
@@ -549,12 +549,12 @@ void ReptiloidsCoinControl::setData(ModelPtr dataModel) {
         table->setItem(i, COLUMN_DATE, dateItem);
 
         // confirmations
-        auto *confItem = new ReptiloidsCoinControl::NumberItem;
+        auto *confItem = new ReptiloidsCoinCoinControl::NumberItem;
         confItem->setData(Qt::DisplayRole, QString::number(d->confirmations));
         table->setItem(i, COLUMN_CONFIRMATIONS, confItem);
 
         // priority
-        auto *priorityItem = new ReptiloidsCoinControl::PriorityItem;
+        auto *priorityItem = new ReptiloidsCoinCoinControl::PriorityItem;
         priorityItem->setData(PriorityItem::PriorityRole, d->priority);
         priorityItem->setData(Qt::DisplayRole, getPriorityLabel(d->priority));
         table->setItem(i, COLUMN_PRIORITY, priorityItem);
@@ -574,18 +574,18 @@ void ReptiloidsCoinControl::setData(ModelPtr dataModel) {
     watch();
 }
 
-ReptiloidsCoinControl::ModelPtr ReptiloidsCoinControl::getData() {
+ReptiloidsCoinCoinControl::ModelPtr ReptiloidsCoinCoinControl::getData() {
     return dataModel;
 }
 
-void ReptiloidsCoinControl::sizeTo(const int minimumHeight, const int maximumHeight) {
+void ReptiloidsCoinCoinControl::sizeTo(const int minimumHeight, const int maximumHeight) {
     int h = dataModel ? dataModel->data.count() * 60 : minimumHeight;
     if (h > maximumHeight)
         h = maximumHeight;
     table->setFixedHeight(h);
 }
 
-void ReptiloidsCoinControl::showContextMenu(QPoint pt) {
+void ReptiloidsCoinCoinControl::showContextMenu(QPoint pt) {
     auto *select = table->selectionModel();
     selectCoins->setEnabled(select->hasSelection());
     deselectCoins->setEnabled(select->hasSelection());
@@ -598,7 +598,7 @@ void ReptiloidsCoinControl::showContextMenu(QPoint pt) {
     contextMenu->exec(QCursor::pos());
 }
 
-void ReptiloidsCoinControl::setClipboard(const QString &str) {
+void ReptiloidsCoinCoinControl::setClipboard(const QString &str) {
     QApplication::clipboard()->setText(str, QClipboard::Clipboard);
 }
 
@@ -607,7 +607,7 @@ void ReptiloidsCoinControl::setClipboard(const QString &str) {
  * @param  dPriority
  * @return
  */
-QString ReptiloidsCoinControl::getPriorityLabel(double dPriority) {
+QString ReptiloidsCoinCoinControl::getPriorityLabel(double dPriority) {
     double dPriorityMedium = dataModel->mempoolPriority;
 
     if (dPriorityMedium <= 0)
@@ -633,17 +633,17 @@ QString ReptiloidsCoinControl::getPriorityLabel(double dPriority) {
         return tr("lowest");
 }
 
-void ReptiloidsCoinControl::unwatch() {
+void ReptiloidsCoinCoinControl::unwatch() {
     table->setEnabled(false);
-    disconnect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinControl::onItemChanged);
+    disconnect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinCoinControl::onItemChanged);
 }
 
-void ReptiloidsCoinControl::watch() {
+void ReptiloidsCoinCoinControl::watch() {
     table->setEnabled(true);
-    connect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinControl::onItemChanged);
+    connect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinCoinControl::onItemChanged);
 }
 
-bool ReptiloidsCoinControl::utxoForHash(const QString transaction, const uint vout, UTXO *&utxo) {
+bool ReptiloidsCoinCoinControl::utxoForHash(const QString transaction, const uint vout, UTXO *&utxo) {
     for (auto *item : dataModel->data) {
         if (transaction == item->transaction && vout == item->vout) {
             utxo = item;
@@ -653,15 +653,15 @@ bool ReptiloidsCoinControl::utxoForHash(const QString transaction, const uint vo
     return false;
 }
 
-QString ReptiloidsCoinControl::getTransactionHash(QTableWidgetItem *item) {
+QString ReptiloidsCoinCoinControl::getTransactionHash(QTableWidgetItem *item) {
     return table->item(item->row(), COLUMN_TXHASH)->data(Qt::DisplayRole).toString();
 }
 
-uint ReptiloidsCoinControl::getVOut(QTableWidgetItem *item) {
+uint ReptiloidsCoinCoinControl::getVOut(QTableWidgetItem *item) {
     return table->item(item->row(), COLUMN_TXVOUT)->data(Qt::DisplayRole).toUInt();
 }
 
-void ReptiloidsCoinControl::onItemChanged(QTableWidgetItem *item) {
+void ReptiloidsCoinCoinControl::onItemChanged(QTableWidgetItem *item) {
     UTXO *utxo = nullptr;
     if (utxoForHash(getTransactionHash(item), getVOut(item), utxo) && utxo != nullptr && utxo->isValid()) {
         utxo->checked = item->checkState() == Qt::Checked;

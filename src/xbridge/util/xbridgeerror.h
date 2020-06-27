@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_XBRIDGEERROR_H
-#define REPTILOIDS_XBRIDGE_UTIL_XBRIDGEERROR_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_XBRIDGEERROR_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_XBRIDGEERROR_H
 
 //******************************************************************************
 //******************************************************************************
@@ -58,4 +58,4 @@ namespace xbridge
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_XBRIDGEERROR_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_XBRIDGEERROR_H

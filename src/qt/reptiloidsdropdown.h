@@ -2,23 +2,23 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSDROPDOWN_H
-#define REPTILOIDS_QT_REPTILOIDSDROPDOWN_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINDROPDOWN_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINDROPDOWN_H
 
 #include <QComboBox>
 #include <QVariant>
 #include <QWheelEvent>
 
 /* QComboBox that can be used with QDataWidgetMapper to select ordinal values from a model. */
-class ReptiloidsDropdown : public QComboBox
+class ReptiloidsCoinDropdown : public QComboBox
 {
     Q_OBJECT
 
     Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:
-    explicit ReptiloidsDropdown(QWidget* parent = nullptr);
-    explicit ReptiloidsDropdown(const QStringList &list, QWidget* parent = nullptr);
+    explicit ReptiloidsCoinDropdown(QWidget* parent = nullptr);
+    explicit ReptiloidsCoinDropdown(const QStringList &list, QWidget* parent = nullptr);
 
     QVariant value() const;
     void setValue(const QVariant& value);
@@ -38,4 +38,4 @@ private:
     const int ddH;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSDROPDOWN_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINDROPDOWN_H

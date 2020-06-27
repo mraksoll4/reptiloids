@@ -30,7 +30,7 @@ static UniValue servicenodesetup(const JSONRPCRequest& request)
             RPCHelpMan{"servicenodesetup",
                 "\nAdds a Service Node to the servicenode.conf. Note* new snodes are appended to servicenode.conf\n",
                 {
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "Reptiloids address containing the service node collateral"},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "ReptiloidsCoin address containing the service node collateral"},
                     {"alias", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "Service node alias, alpha numeric with no spaces (a-z,A-Z,0-9,_-)"},
                 },
                 RPCResult{
@@ -39,7 +39,7 @@ static UniValue servicenodesetup(const JSONRPCRequest& request)
                 "  \"tier\": \"xxxx\",               (string) Tier of this service node\n"
                 "  \"snodekey\":\"xxxxxx\",          (string) Base58 encoded public key\n"
                 "  \"snodeprivkey\":\"xxxxxx\",      (string) Base58 encoded private key\n"
-                "  \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+                "  \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
                 "}\n"
                 },
                 RPCExamples{
@@ -134,7 +134,7 @@ static UniValue servicenodesetuplist(const JSONRPCRequest& request)
             "    \"tier\": \"xxxx\",               (string) Tier of this service node\n"
             "    \"snodekey\":\"xxxxxx\",          (string) Base58 encoded public key\n"
             "    \"snodeprivkey\":\"xxxxxx\",      (string) Base58 encoded private key\n"
-            "    \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+            "    \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
             "  }\n"
             "  ,...\n"
             "]\n"
@@ -283,7 +283,7 @@ static UniValue servicenodecreateinputs(const JSONRPCRequest& request)
                 strprintf("\nCreates service node unspent transaction outputs prior to snode registration. This will also create "
                 "a %s BLOCK voting input. The voting input is separate from the service node UTXOs and is used to cast votes.\n", FormatMoney(gov::VOTING_UTXO_INPUT_AMOUNT)),
                 {
-                    {"nodeaddress", RPCArg::Type::STR, RPCArg::Optional::NO, "Reptiloids address for the service node. Funds will be sent here from the wallet."},
+                    {"nodeaddress", RPCArg::Type::STR, RPCArg::Optional::NO, "ReptiloidsCoin address for the service node. Funds will be sent here from the wallet."},
                     {"nodecount", RPCArg::Type::NUM, "1", "Number of service nodes to create"},
                     {"inputsize", RPCArg::Type::NUM, strprintf("%u", defaultInputSize), strprintf("Coin amount for each input size, must be larger than or equal to %u", smallestInputSize)},
                 },
@@ -438,7 +438,7 @@ static UniValue servicenoderegister(const JSONRPCRequest& request)
                 "    \"tier\": \"xxxx\",               (string) Tier of this service node\n"
                 "    \"snodekey\":\"xxxxxx\",          (string) Base58 encoded public key\n"
                 "    \"snodeprivkey\":\"xxxxxx\",      (string) Base58 encoded private key\n"
-                "    \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+                "    \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
                 "  }\n"
                 "  ,...\n"
                 "]\n"
@@ -636,7 +636,7 @@ static UniValue servicenodestatus(const JSONRPCRequest& request)
                 "    \"tier\": \"xxxx\",               (string) Tier of this service node\n"
                 "    \"snodekey\":\"xxxxxx\",          (string) Base58 encoded public key\n"
                 "    \"snodeprivkey\":\"xxxxxx\",      (string) Base58 encoded private key\n"
-                "    \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+                "    \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
                 "    \"timelastseen\": n,              (numeric) Unix time of when this service node was last seen\n"
                 "    \"timelastseenstr\":\"xxxx\",     (string) ISO 8601 of last seen date\n"
                 "    \"status\":\"xxxx\",              (string) Status of service node (e.g. running, offline)\n"
@@ -686,14 +686,14 @@ static UniValue servicenodelist(const JSONRPCRequest& request)
     if (request.fHelp || !request.params.empty())
         throw std::runtime_error(
             RPCHelpMan{"servicenodelist",
-                "\nLists all service nodes registered on the Reptiloids network\n",
+                "\nLists all service nodes registered on the ReptiloidsCoin network\n",
                 {},
                 RPCResult{
                 "[\n"
                 "  {\n"
                 "    \"snodekey\":\"xxxxxx\",          (string) Service node's pubkey\n"
                 "    \"tier\": \"xxxx\",               (string) Tier of this Service Node\n"
-                "    \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+                "    \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
                 "    \"timelastseen\": n,              (numeric) Unix time of when this service node was last seen\n"
                 "    \"timelastseenstr\":\"xxxx\",     (string) ISO 8601 of last seen date\n"
                 "    \"exr\": n,                       (boolean) Enterprise XRouter compatibility\n"
@@ -738,14 +738,14 @@ static UniValue servicenodesendping(const JSONRPCRequest& request)
     if (request.fHelp || !request.params.empty())
         throw std::runtime_error(
             RPCHelpMan{"servicenodesendping",
-                "\nSends the service node ping to the Reptiloids network for the active node. This updates the network "
+                "\nSends the service node ping to the ReptiloidsCoin network for the active node. This updates the network "
                 "with the latest service node configs.\n",
                 {},
                 RPCResult{
                 "{\n"
                 "  \"snodekey\":\"xxxxxx\",          (string) Service node's pubkey\n"
                 "  \"tier\": \"xxxx\",               (string) Tier of this Service Node\n"
-                "  \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+                "  \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
                 "  \"timelastseen\": n,              (numeric) Unix time of when this service node was last seen\n"
                 "  \"timelastseenstr\":\"xxxx\",     (string) ISO 8601 of last seen date\n"
                 "  \"status\":\"xxxx\",              (string) Status of this service node (e.g. running, offline)\n"
@@ -843,9 +843,9 @@ static UniValue servicenodelegacy(const JSONRPCRequest& request)
                 "    servicenode count\n"
                 "\n"
                 "\"status\" lists your running service nodes\n"
-                "\"list\" lists all running service nodes registered on the Reptiloids network\n"
-                "\"start\" starts specified service node by registering it with the Reptiloids network\n"
-                "\"start-all\" starts all known service nodes by registering it with the Reptiloids network\n"
+                "\"list\" lists all running service nodes registered on the ReptiloidsCoin network\n"
+                "\"start\" starts specified service node by registering it with the ReptiloidsCoin network\n"
+                "\"start-all\" starts all known service nodes by registering it with the ReptiloidsCoin network\n"
                 "\"count\" lists the number of service nodes\n",
                 {
                     {"command", RPCArg::Type::STR, RPCArg::Optional::NO, "Legacy service node command to run"},
@@ -855,7 +855,7 @@ static UniValue servicenodelegacy(const JSONRPCRequest& request)
                 "  {\n"
                 "    \"snodekey\":\"xxxxxx\",          (string) Service node's pubkey\n"
                 "    \"tier\": \"xxxx\",               (string) Tier of this Service Node\n"
-                "    \"address\":\"reptiloids address\", (string) Reptiloids address associated with the service node\n"
+                "    \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin address associated with the service node\n"
                 "    \"timelastseen\": n,              (numeric) Unix time of when this service node was last seen\n"
                 "    \"timelastseenstr\":\"xxxx\",     (string) ISO 8601 of last seen date\n"
                 "    \"status\":\"xxxx\",              (string) Status of this service node (e.g. running, offline)\n"

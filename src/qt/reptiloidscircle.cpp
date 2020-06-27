@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidscircle.h>
+#include <qt/reptiloidscoincircle.h>
 
 #include <QPainter>
 
-ReptiloidsCircle::ReptiloidsCircle(qreal w, qreal h, QColor color1,
+ReptiloidsCoinCircle::ReptiloidsCoinCircle(qreal w, qreal h, QColor color1,
                                QColor color2, QWidget *parent) : QWidget(parent),
                                                                  w(w),
                                                                  h(h),
@@ -15,7 +15,7 @@ ReptiloidsCircle::ReptiloidsCircle(qreal w, qreal h, QColor color1,
     this->setFixedSize(static_cast<int>(w), static_cast<int>(h));
 }
 
-void ReptiloidsCircle::paintEvent(QPaintEvent *) {
+void ReptiloidsCoinCircle::paintEvent(QPaintEvent *) {
     QPainter p(this);
     p.setPen(Qt::NoPen);
 

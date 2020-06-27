@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsavatar.h>
+#include <qt/reptiloidscoinavatar.h>
 
 #include <QLabel>
 #include <QPainter>
 
-ReptiloidsAvatar::ReptiloidsAvatar(QString title, qreal w, qreal h, QColor color1,
+ReptiloidsCoinAvatar::ReptiloidsCoinAvatar(QString title, qreal w, qreal h, QColor color1,
                                QColor color2, QWidget *parent) : QFrame(parent),
                                                                 title(title),
                                                                  w(w),
@@ -22,11 +22,11 @@ ReptiloidsAvatar::ReptiloidsAvatar(QString title, qreal w, qreal h, QColor color
     lbl->setFixedSize(w, h);
 }
 
-ReptiloidsAvatarBlue::ReptiloidsAvatarBlue(QString title, qreal w, qreal h, QColor color1,
-                                       QColor color2, QWidget *parent) : ReptiloidsAvatar(title, w, h,
+ReptiloidsCoinAvatarBlue::ReptiloidsCoinAvatarBlue(QString title, qreal w, qreal h, QColor color1,
+                                       QColor color2, QWidget *parent) : ReptiloidsCoinAvatar(title, w, h,
                                                                                         color1, color2, parent) { }
 
-void ReptiloidsAvatar::paintEvent(QPaintEvent *) {
+void ReptiloidsCoinAvatar::paintEvent(QPaintEvent *) {
     QPainter p(this);
     p.setRenderHint(QPainter::HighQualityAntialiasing);
     p.setPen(Qt::NoPen);

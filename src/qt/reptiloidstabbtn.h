@@ -2,18 +2,18 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSTABBTN_H
-#define REPTILOIDS_QT_REPTILOIDSTABBTN_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINTABBTN_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINTABBTN_H
 
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
 
-class ReptiloidsTabBtn : public QPushButton
+class ReptiloidsCoinTabBtn : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsTabBtn(QPushButton *parent = nullptr);
+    explicit ReptiloidsCoinTabBtn(QPushButton *parent = nullptr);
 
 protected:
     bool event(QEvent *event) override;
@@ -23,4 +23,4 @@ private:
     QLabel *subLine;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSTABBTN_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINTABBTN_H

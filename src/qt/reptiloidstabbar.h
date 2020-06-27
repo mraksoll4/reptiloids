@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSTABBAR_H
-#define REPTILOIDS_QT_REPTILOIDSTABBAR_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINTABBAR_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINTABBAR_H
 
 #include <QButtonGroup>
 #include <QFrame>
@@ -12,11 +12,11 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-class ReptiloidsTabBar : public QFrame {
+class ReptiloidsCoinTabBar : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsTabBar(QFrame *parent = nullptr);
-    ~ReptiloidsTabBar() override;
+    explicit ReptiloidsCoinTabBar(QFrame *parent = nullptr);
+    ~ReptiloidsCoinTabBar() override;
 
     void addTab(QString title, int tab);
     int getTab() {
@@ -24,7 +24,7 @@ public:
     }
     bool showTab(int tab);
 
-    struct ReptiloidsTab {
+    struct ReptiloidsCoinTab {
         int tab;
         QString title;
     };
@@ -38,9 +38,9 @@ public Q_SLOTS:
 private:
     QVBoxLayout *mainLayout;
     QHBoxLayout *layout;
-    QVector<ReptiloidsTab> tabs;
+    QVector<ReptiloidsCoinTab> tabs;
     QButtonGroup *group;
     int currentTab;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSTABBAR_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINTABBAR_H

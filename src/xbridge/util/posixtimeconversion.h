@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_POSIXTIMECONVERSION_H
-#define REPTILOIDS_XBRIDGE_UTIL_POSIXTIMECONVERSION_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_POSIXTIMECONVERSION_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_POSIXTIMECONVERSION_H
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/version.hpp>
@@ -24,4 +24,4 @@ namespace boost {
 
 #endif
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_POSIXTIMECONVERSION_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_POSIXTIMECONVERSION_H

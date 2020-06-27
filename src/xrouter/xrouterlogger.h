@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_XROUTERLOGGER_H
-#define REPTILOIDS_XROUTER_XROUTERLOGGER_H
+#ifndef REPTILOIDSCOIN_XROUTER_XROUTERLOGGER_H
+#define REPTILOIDSCOIN_XROUTER_XROUTERLOGGER_H
 
 #include <sstream>
 

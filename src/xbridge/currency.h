@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_CURRENCY_H
-#define REPTILOIDS_XBRIDGE_CURRENCY_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_CURRENCY_H
+#define REPTILOIDSCOIN_XBRIDGE_CURRENCY_H
 
 #include <boost/rational.hpp>
 
@@ -150,4 +150,4 @@ namespace ccy {
 
 } // namespace ccy
 
-#endif // REPTILOIDS_XBRIDGE_CURRENCY_H
+#endif // REPTILOIDSCOIN_XBRIDGE_CURRENCY_H

@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssendfunds1.h>
+#include <qt/reptiloidscoinsendfunds1.h>
 
-#include <qt/reptiloidsaddressbook.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidsiconbtn.h>
+#include <qt/reptiloidscoinaddressbook.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoiniconbtn.h>
 
 #include <QKeyEvent>
 #include <QMessageBox>
 
-ReptiloidsSendFunds1::ReptiloidsSendFunds1(WalletModel *w, int id, QFrame *parent) : ReptiloidsSendFundsPage(w, id, parent),
+ReptiloidsCoinSendFunds1::ReptiloidsCoinSendFunds1(WalletModel *w, int id, QFrame *parent) : ReptiloidsCoinSendFundsPage(w, id, parent),
                                                                                  layout(new QVBoxLayout) {
 //    this->setStyleSheet("border: 1px solid red");
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -24,17 +24,17 @@ ReptiloidsSendFunds1::ReptiloidsSendFunds1(WalletModel *w, int id, QFrame *paren
     auto *subtitleLbl = new QLabel(tr("Who would you like to send funds to?"));
     subtitleLbl->setObjectName("h2");
 
-    addressTi = new ReptiloidsAddressEditor(BGU::spi(675));
-    addressTi->setPlaceholderText(tr("Enter Reptiloids Address..."));
+    addressTi = new ReptiloidsCoinAddressEditor(BGU::spi(675));
+    addressTi->setPlaceholderText(tr("Enter ReptiloidsCoin Address..."));
     addressTi->setAddressValidator([w](QString &addr) -> bool {
         if (w == nullptr)
             return false;
         else return w->validateAddress(addr);
     });
 
-    auto *addAddressBtn = new ReptiloidsIconBtn(QString("Open Address Book"), ":/redesign/QuickActions/AddressBookIcon.png");
+    auto *addAddressBtn = new ReptiloidsCoinIconBtn(QString("Open Address Book"), ":/redesign/QuickActions/AddressBookIcon.png");
 
-    continueBtn = new ReptiloidsFormBtn;
+    continueBtn = new ReptiloidsCoinFormBtn;
     continueBtn->setText(tr("Continue"));
     continueBtn->setDisabled(true);
 
@@ -55,15 +55,15 @@ ReptiloidsSendFunds1::ReptiloidsSendFunds1(WalletModel *w, int id, QFrame *paren
     layout->addWidget(continueBtn);
     layout->addStretch(1);
 
-    connect(addressTi, &ReptiloidsAddressEditor::textChanged, this, &ReptiloidsSendFunds1::textChanged);
-    connect(addressTi, &ReptiloidsAddressEditor::addresses, this, &ReptiloidsSendFunds1::onAddressesChanged);
-    connect(addressTi, &ReptiloidsAddressEditor::returnPressed, this, &ReptiloidsSendFunds1::onNext);
-    connect(addAddressBtn, &ReptiloidsIconBtn::clicked, this, &ReptiloidsSendFunds1::openAddressBook);
-    connect(continueBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds1::onNext);
+    connect(addressTi, &ReptiloidsCoinAddressEditor::textChanged, this, &ReptiloidsCoinSendFunds1::textChanged);
+    connect(addressTi, &ReptiloidsCoinAddressEditor::addresses, this, &ReptiloidsCoinSendFunds1::onAddressesChanged);
+    connect(addressTi, &ReptiloidsCoinAddressEditor::returnPressed, this, &ReptiloidsCoinSendFunds1::onNext);
+    connect(addAddressBtn, &ReptiloidsCoinIconBtn::clicked, this, &ReptiloidsCoinSendFunds1::openAddressBook);
+    connect(continueBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds1::onNext);
 }
 
-void ReptiloidsSendFunds1::setData(ReptiloidsSendFundsModel *model) {
-    ReptiloidsSendFundsPage::setData(model);
+void ReptiloidsCoinSendFunds1::setData(ReptiloidsCoinSendFundsModel *model) {
+    ReptiloidsCoinSendFundsPage::setData(model);
     addressTi->blockSignals(true);
     // Add addresses to display
     for (const SendCoinsRecipient & r : model->txRecipients())
@@ -71,30 +71,30 @@ void ReptiloidsSendFunds1::setData(ReptiloidsSendFundsModel *model) {
     addressTi->blockSignals(false);
 }
 
-void ReptiloidsSendFunds1::addAddress(const QString &address) {
+void ReptiloidsCoinSendFunds1::addAddress(const QString &address) {
     addressTi->addAddress(address);
 }
 
-void ReptiloidsSendFunds1::openAddressBook() {
-    ReptiloidsAddressBookDialog dlg(walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
-    connect(&dlg, &ReptiloidsAddressBookDialog::send, [this](const QString &address) {
+void ReptiloidsCoinSendFunds1::openAddressBook() {
+    ReptiloidsCoinAddressBookDialog dlg(walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+    connect(&dlg, &ReptiloidsCoinAddressBookDialog::send, [this](const QString &address) {
         addAddress(address);
     });
     dlg.exec();
 }
 
-void ReptiloidsSendFunds1::clear() {
+void ReptiloidsCoinSendFunds1::clear() {
     addressTi->blockSignals(true);
     addressTi->clearData();
     addressTi->blockSignals(false);
 }
 
-void ReptiloidsSendFunds1::focusInEvent(QFocusEvent *event) {
+void ReptiloidsCoinSendFunds1::focusInEvent(QFocusEvent *event) {
     QWidget::focusInEvent(event);
     addressTi->setFocus();
 }
 
-void ReptiloidsSendFunds1::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinSendFunds1::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -102,11 +102,11 @@ void ReptiloidsSendFunds1::keyPressEvent(QKeyEvent *event) {
         onNext();
 }
 
-void ReptiloidsSendFunds1::textChanged() {
+void ReptiloidsCoinSendFunds1::textChanged() {
     continueBtn->setDisabled(addressTi->getAddresses().isEmpty());
 }
 
-bool ReptiloidsSendFunds1::validated() {
+bool ReptiloidsCoinSendFunds1::validated() {
     if (addressTi->getAddresses().isEmpty()) {
         QMessageBox::warning(this->parentWidget(), tr("Issue"), tr("Please add a valid address to the send box."));
         return false;
@@ -130,7 +130,7 @@ bool ReptiloidsSendFunds1::validated() {
     return true;
 }
 
-void ReptiloidsSendFunds1::onAddressesChanged() {
+void ReptiloidsCoinSendFunds1::onAddressesChanged() {
     // First add any new addresses (do not overwrite existing)
     auto addresses = addressTi->getAddresses();
     QSet<QString> setAddresses;

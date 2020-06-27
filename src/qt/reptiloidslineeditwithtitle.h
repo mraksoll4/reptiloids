@@ -2,20 +2,20 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSLINEEDITWITHTITLE_H
-#define REPTILOIDS_QT_REPTILOIDSLINEEDITWITHTITLE_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINLINEEDITWITHTITLE_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINLINEEDITWITHTITLE_H
 
-#include <qt/reptiloidslineedit.h>
+#include <qt/reptiloidscoinlineedit.h>
 
 #include <QBoxLayout>
 #include <QFrame>
 #include <QLabel>
 
-class ReptiloidsLineEditWithTitle : public QFrame
+class ReptiloidsCoinLineEditWithTitle : public QFrame
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsLineEditWithTitle(QString title = "", QString placeholder = "",
+    explicit ReptiloidsCoinLineEditWithTitle(QString title = "", QString placeholder = "",
             int w = BGU::spi(250), QFrame *parent = nullptr);
     void setID(QString id);
     void setError(bool flag = true);
@@ -23,7 +23,7 @@ public:
     QString getID();
     bool isEmpty();
     QSize sizeHint() const override;
-    ReptiloidsLineEdit *lineEdit;
+    ReptiloidsCoinLineEdit *lineEdit;
     void setExpanding();
 
 Q_SIGNALS:
@@ -36,4 +36,4 @@ private:
     QVBoxLayout *layout;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSLINEEDITWITHTITLE_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINLINEEDITWITHTITLE_H

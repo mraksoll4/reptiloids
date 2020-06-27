@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidscreateproposal3.h>
+#include <qt/reptiloidscoincreateproposal3.h>
 
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
 
 #include <qt/bitcoinunits.h>
 
@@ -15,7 +15,7 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : ReptiloidsCreateProposalPage(id, parent),
+ReptiloidsCoinCreateProposal3::ReptiloidsCoinCreateProposal3(int id, QFrame *parent) : ReptiloidsCoinCreateProposalPage(id, parent),
                                                                            layout(new QVBoxLayout)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -32,7 +32,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     descLbl->setObjectName("h6");
     descLbl->setWordWrap(true);
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
     auto *titleGrid = new QFrame;
     auto *titleLayout = new QGridLayout;
@@ -48,7 +48,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     titleLayout->addWidget(proposalTitleLbl, 0, 0);
     titleLayout->addWidget(proposalLbl, 0, 1, Qt::AlignRight);
 
-    auto *div2 = new ReptiloidsHDiv;
+    auto *div2 = new ReptiloidsCoinHDiv;
 
     auto *proposalGrid = new QFrame;
     auto *proposalLayout = new QGridLayout;
@@ -64,7 +64,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     proposalLayout->addWidget(proposalDetailTitleLbl, 0, 0);
     proposalLayout->addWidget(proposalDetailLbl, 0, 1, Qt::AlignRight);
 
-    auto *div3 = new ReptiloidsHDiv;
+    auto *div3 = new ReptiloidsCoinHDiv;
 
     auto *feeGrid = new QFrame;
     auto *feeLayout = new QGridLayout;
@@ -80,7 +80,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     feeLayout->addWidget(feeTitleLbl, 0, 0);
     feeLayout->addWidget(feeLbl, 0, 1, Qt::AlignRight);
 
-    auto *div4 = new ReptiloidsHDiv;
+    auto *div4 = new ReptiloidsCoinHDiv;
 
     auto *feeHashGrid = new QFrame;
     auto *feeHashGridLayout = new QGridLayout;
@@ -94,7 +94,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     feeHashGridLayout->addWidget(feeHashLbl, 0, 0);
     feeHashGridLayout->addWidget(feeHashValLbl, 1, 0);
 
-    auto *div5 = new ReptiloidsHDiv;
+    auto *div5 = new ReptiloidsCoinHDiv;
 
     // Cancel/continue buttons
     auto *btnBox = new QFrame;
@@ -103,7 +103,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    doneBtn = new ReptiloidsFormBtn;
+    doneBtn = new ReptiloidsCoinFormBtn;
     doneBtn->setText(tr("Done"));
     btnBoxLayout->addWidget(doneBtn, 0, Qt::AlignCenter | Qt::AlignBottom);
     btnBoxLayout->addStretch(1);
@@ -138,7 +138,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     layout->addWidget(btnBox);
     layout->addSpacing(BGU::spi(20));
 
-    connect(doneBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsCreateProposal3::onSubmit);
+    connect(doneBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinCreateProposal3::onSubmit);
     // Timer used to check for vote capabilities and refresh proposals
     int timerInterval = 30000;
     timer = new QTimer(this);
@@ -148,7 +148,7 @@ ReptiloidsCreateProposal3::ReptiloidsCreateProposal3(int id, QFrame *parent) : R
     });
 }
 
-void ReptiloidsCreateProposal3::setModel(const ReptiloidsCreateProposalPageModel & m) {
+void ReptiloidsCoinCreateProposal3::setModel(const ReptiloidsCoinCreateProposalPageModel & m) {
     this->model = m;
 
     subtitleLbl->setText(tr("Superblock %1").arg(model.superblock));
@@ -168,7 +168,7 @@ void ReptiloidsCreateProposal3::setModel(const ReptiloidsCreateProposalPageModel
         timer->start();
 }
 
-void ReptiloidsCreateProposal3::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinCreateProposal3::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -176,11 +176,11 @@ void ReptiloidsCreateProposal3::keyPressEvent(QKeyEvent *event) {
         onSubmit();
 }
 
-bool ReptiloidsCreateProposal3::validated() {
+bool ReptiloidsCoinCreateProposal3::validated() {
     return true;
 }
 
-void ReptiloidsCreateProposal3::onCancel() {
+void ReptiloidsCoinCreateProposal3::onCancel() {
     QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Cancel Proposal Submission"),
             tr("Are you sure you want to cancel this proposal submission? You will need to use the debug console to "
                "resubmit this proposal later (the command is in your debug.log) otherwise you will forfeit the "
@@ -193,15 +193,15 @@ void ReptiloidsCreateProposal3::onCancel() {
     Q_EMIT cancel(pageID);
 }
 
-void ReptiloidsCreateProposal3::onSubmit() {
+void ReptiloidsCoinCreateProposal3::onSubmit() {
     Q_EMIT done();
 }
 
-void ReptiloidsCreateProposal3::clear() {
+void ReptiloidsCoinCreateProposal3::clear() {
     timer->stop();
 }
 
-int ReptiloidsCreateProposal3::collateralConfirmations() {
+int ReptiloidsCoinCreateProposal3::collateralConfirmations() {
     CTransactionRef tx;
     uint256 block;
     if (!GetTransaction(model.feehash, tx, Params().GetConsensus(), block))

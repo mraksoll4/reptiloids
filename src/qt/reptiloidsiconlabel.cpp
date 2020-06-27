@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsiconlabel.h>
+#include <qt/reptiloidscoiniconlabel.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QApplication>
 #include <QStyle>
 #include <QVariant>
 
-ReptiloidsIconLabel::ReptiloidsIconLabel(QPushButton *parent) : QPushButton(parent),
+ReptiloidsCoinIconLabel::ReptiloidsCoinIconLabel(QPushButton *parent) : QPushButton(parent),
     icon(new QLabel), label(new QLabel), layout(new QHBoxLayout)
 {
     this->setCheckable(true);
@@ -28,25 +28,25 @@ ReptiloidsIconLabel::ReptiloidsIconLabel(QPushButton *parent) : QPushButton(pare
 
     this->setLayout(layout);
 
-    connect(this, &ReptiloidsIconLabel::toggled, this, &ReptiloidsIconLabel::onSelected);
+    connect(this, &ReptiloidsCoinIconLabel::toggled, this, &ReptiloidsCoinIconLabel::onSelected);
 
     onSelected(false);
 }
 
-void ReptiloidsIconLabel::setIcon(const QString active, const QString disabled) {
+void ReptiloidsCoinIconLabel::setIcon(const QString active, const QString disabled) {
     iconActive = active;
     iconDisabled = disabled;
     this->update();
 }
 
-void ReptiloidsIconLabel::setLabel(const QString &label) {
+void ReptiloidsCoinIconLabel::setLabel(const QString &label) {
     labelText = label;
     if (this->label->text() != labelText)
         this->label->setText(labelText);
     this->update();
 }
 
-void ReptiloidsIconLabel::paintEvent(QPaintEvent *e) {
+void ReptiloidsCoinIconLabel::paintEvent(QPaintEvent *e) {
     // Only draw the icon if it hasn't already been drawn
     if (iconActiveState == nullptr || *iconActiveState != this->isChecked()) {
         iconActiveState = new bool(this->isChecked());
@@ -65,10 +65,10 @@ void ReptiloidsIconLabel::paintEvent(QPaintEvent *e) {
     QPushButton::paintEvent(e);
 }
 
-void ReptiloidsIconLabel::onSelected(bool selected) {
+void ReptiloidsCoinIconLabel::onSelected(bool selected) {
     label->setProperty("selected", selected);
     label->style()->unpolish(label);
     label->style()->polish(label);
 }
 
-ReptiloidsIconLabel::~ReptiloidsIconLabel() = default;
+ReptiloidsCoinIconLabel::~ReptiloidsCoinIconLabel() = default;

@@ -7,8 +7,8 @@
 #include <config/bitcoin-config.h>
 #endif
 
-#include <qt/reptiloidssplashscreen.h>
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinsplashscreen.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/networkstyle.h>
 
@@ -31,21 +31,21 @@
 #include <QVBoxLayout>
 
 
-ReptiloidsSplashScreen::ReptiloidsSplashScreen(interfaces::Node& node, Qt::WindowFlags f, const NetworkStyle *networkStyle) :
+ReptiloidsCoinSplashScreen::ReptiloidsCoinSplashScreen(interfaces::Node& node, Qt::WindowFlags f, const NetworkStyle *networkStyle) :
     QWidget(nullptr, f), m_node(node)
 {
     // define text to place
     QString titleText = tr(PACKAGE_NAME);
     QString versionText = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()));
     QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-2019 ") + QString(tr("The Bitcoin Core developers"));
-    QString copyrightTextReptiloids = QChar(0xA9) + QString(" 2014-2020 ") + QString(tr("The Blocknet developers"));
+    QString copyrightTextReptiloidsCoin = QChar(0xA9) + QString(" 2014-2020 ") + QString(tr("The Blocknet developers"));
     const QString &titleAddText = networkStyle->getTitleAddText();
 
     QString font = QApplication::font().toString();
 
     // load the bitmap for writing some text over it
     bg = new QLabel(this);
-    auto pixmap = QPixmap(":/redesign/images/ReptiloidsSplash");
+    auto pixmap = QPixmap(":/redesign/images/ReptiloidsCoinSplash");
     QSize splashSize = QSize(BGU::spi(960), BGU::spi(640));
     pixmap.setDevicePixelRatio(BGU::dpr());
     pixmap = pixmap.scaled(static_cast<int>(splashSize.width()*pixmap.devicePixelRatio()),
@@ -56,7 +56,7 @@ ReptiloidsSplashScreen::ReptiloidsSplashScreen(interfaces::Node& node, Qt::Windo
 
     auto *versionLbl = new QLabel(versionText);
     auto *btcCopyLbl = new QLabel(copyrightTextBtc);
-    auto *blockCopyLbl = new QLabel(copyrightTextReptiloids);
+    auto *blockCopyLbl = new QLabel(copyrightTextReptiloidsCoin);
     auto *networkLbl = new QLabel(titleAddText);
     msg = new QLabel;
     msg->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -91,12 +91,12 @@ ReptiloidsSplashScreen::ReptiloidsSplashScreen(interfaces::Node& node, Qt::Windo
     installEventFilter(this);
 }
 
-ReptiloidsSplashScreen::~ReptiloidsSplashScreen()
+ReptiloidsCoinSplashScreen::~ReptiloidsCoinSplashScreen()
 {
     unsubscribeFromCoreSignals();
 }
 
-bool ReptiloidsSplashScreen::eventFilter(QObject * obj, QEvent * ev) {
+bool ReptiloidsCoinSplashScreen::eventFilter(QObject * obj, QEvent * ev) {
     if (ev->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(ev);
         if(keyEvent->text()[0] == 'q') {
@@ -106,7 +106,7 @@ bool ReptiloidsSplashScreen::eventFilter(QObject * obj, QEvent * ev) {
     return QObject::eventFilter(obj, ev);
 }
 
-void ReptiloidsSplashScreen::finish()
+void ReptiloidsCoinSplashScreen::finish()
 {
     /* If the window is minimized, hide() will be ignored. */
     /* Make sure we de-minimize the splashscreen window before hiding */
@@ -116,25 +116,25 @@ void ReptiloidsSplashScreen::finish()
     deleteLater(); // No more need for this
 }
 
-static void InitMessage(ReptiloidsSplashScreen *splash, const std::string &message)
+static void InitMessage(ReptiloidsCoinSplashScreen *splash, const std::string &message)
 {
     QMetaObject::invokeMethod(splash, "showMessage", Qt::QueuedConnection,
             Q_ARG(QString, QString::fromStdString(message)));
 }
 
-static void ShowProgress(ReptiloidsSplashScreen *splash, const std::string &title, int nProgress, bool resume_possible)
+static void ShowProgress(ReptiloidsCoinSplashScreen *splash, const std::string &title, int nProgress, bool resume_possible)
 {
     InitMessage(splash, title + strprintf(" %d", nProgress) + "%");
 }
 #ifdef ENABLE_WALLET
-void ReptiloidsSplashScreen::ConnectWallet(std::unique_ptr<interfaces::Wallet> wallet)
+void ReptiloidsCoinSplashScreen::ConnectWallet(std::unique_ptr<interfaces::Wallet> wallet)
 {
     m_connected_wallet_handlers.emplace_back(wallet->handleShowProgress(std::bind(ShowProgress, this, std::placeholders::_1, std::placeholders::_2, false)));
     m_connected_wallets.emplace_back(std::move(wallet));
 }
 #endif
 
-void ReptiloidsSplashScreen::subscribeToCoreSignals()
+void ReptiloidsCoinSplashScreen::subscribeToCoreSignals()
 {
     // Connect signals to client
     m_handler_init_message = m_node.handleInitMessage(std::bind(InitMessage, this, std::placeholders::_1));
@@ -144,7 +144,7 @@ void ReptiloidsSplashScreen::subscribeToCoreSignals()
 #endif
 }
 
-void ReptiloidsSplashScreen::unsubscribeFromCoreSignals()
+void ReptiloidsCoinSplashScreen::unsubscribeFromCoreSignals()
 {
     // Disconnect signals from client
     m_handler_init_message->disconnect();
@@ -156,12 +156,12 @@ void ReptiloidsSplashScreen::unsubscribeFromCoreSignals()
     m_connected_wallets.clear();
 }
 
-void ReptiloidsSplashScreen::showMessage(const QString &message)
+void ReptiloidsCoinSplashScreen::showMessage(const QString &message)
 {
     msg->setText(message);
 }
 
-void ReptiloidsSplashScreen::closeEvent(QCloseEvent *event)
+void ReptiloidsCoinSplashScreen::closeEvent(QCloseEvent *event)
 {
     m_node.startShutdown(); // allows an "emergency" shutdown during startup
     event->ignore();

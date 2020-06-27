@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORBTC_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORBTC_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTORBTC_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTORBTC_H
 
 #include <xbridge/xbridgewalletconnector.h>
 
@@ -170,7 +170,7 @@ static json_spirit::Object CallRPC(const std::string & rpcuser, const std::strin
         if (response.error != -1) {
             responseErrorMessage = strprintf(" (error code %d - \"%s\")", response.error, http_errorstring(response.error));
         }
-        throw std::runtime_error(strprintf("Could not connect to the server %s:%d%s\n\nMake sure the reptiloidsd server is running and that you are connecting to the correct RPC port.", host, port, responseErrorMessage));
+        throw std::runtime_error(strprintf("Could not connect to the server %s:%d%s\n\nMake sure the reptiloidscoind server is running and that you are connecting to the correct RPC port.", host, port, responseErrorMessage));
     } else if (response.status == HTTP_UNAUTHORIZED) {
         throw std::runtime_error("Authorization failed: Incorrect rpcuser or rpcpassword");
     } else if (response.status >= 400 && response.status != HTTP_BAD_REQUEST && response.status != HTTP_NOT_FOUND && response.status != HTTP_INTERNAL_SERVER_ERROR)
@@ -308,4 +308,4 @@ protected:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORBTC_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTORBTC_H

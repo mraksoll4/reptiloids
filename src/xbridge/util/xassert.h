@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_XASSERT_H
-#define REPTILOIDS_XBRIDGE_UTIL_XASSERT_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_XASSERT_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_XASSERT_H
 
 #ifdef _XDEBUG
 #define xassert(__expr) assert(__expr)
@@ -14,4 +14,4 @@
 #define xassert(__expr) void(0)
 #endif
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_XASSERT_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_XASSERT_H

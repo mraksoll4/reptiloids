@@ -182,8 +182,8 @@
         <translation>Marii </translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>Nyora kero ye Reptiloids (sekuti %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>Nyora kero ye ReptiloidsCoin (sekuti %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

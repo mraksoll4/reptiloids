@@ -19,7 +19,7 @@ KNOWN_VIOLATIONS=(
     "src/util/strencodings.cpp:.*strtoul"
     "src/util/strencodings.h:.*atoi"
     "src/util/system.cpp:.*atoi"
-    # Reptiloids
+    # ReptiloidsCoin
     "src/json/json_spirit_writer_template.h:.*iswprint"
     "src/validation.cpp:.*normalize"
     "src/xbridge/xbridgerpc.cpp:.*sprintf"

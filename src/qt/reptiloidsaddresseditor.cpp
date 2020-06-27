@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsaddresseditor.h>
+#include <qt/reptiloidscoinaddresseditor.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QApplication>
 #include <QKeyEvent>
@@ -16,7 +16,7 @@
 
 /**
  * @brief The requirement for this Text Edit widget is that it utilizes html to display the
- *        addresses. Valid Reptiloids addresses inserted into the widget are parsed into
+ *        addresses. Valid ReptiloidsCoin addresses inserted into the widget are parsed into
  *        <img>'s and displayed inline. This allows for copy/cut/paste actions users would
  *        normally expect. Regarding copy actions from within the text edit, the clipboard
  *        data is mutated on copy, by inserting the actual address values in place of the
@@ -30,16 +30,16 @@
  * @param width
  * @param parent
  */
-ReptiloidsAddressEditor::ReptiloidsAddressEditor(int width, QTextEdit *parent) : QTextEdit(parent), minHeight(BGU::spi(46)) {
+ReptiloidsCoinAddressEditor::ReptiloidsCoinAddressEditor(int width, QTextEdit *parent) : QTextEdit(parent), minHeight(BGU::spi(46)) {
     this->setFixedSize(width, minHeight);
     this->setAcceptRichText(true);
     this->setCursor(Qt::IBeamCursor);
     clipboard = QApplication::clipboard();
-    connect(this, &ReptiloidsAddressEditor::textChanged, this, &ReptiloidsAddressEditor::onTextChanged);
-    connect(this, &ReptiloidsAddressEditor::selectionChanged, this, &ReptiloidsAddressEditor::onSelectionChanged);
+    connect(this, &ReptiloidsCoinAddressEditor::textChanged, this, &ReptiloidsCoinAddressEditor::onTextChanged);
+    connect(this, &ReptiloidsCoinAddressEditor::selectionChanged, this, &ReptiloidsCoinAddressEditor::onSelectionChanged);
 }
 
-void ReptiloidsAddressEditor::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinAddressEditor::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
         Q_EMIT returnPressed();
         return;
@@ -54,7 +54,7 @@ void ReptiloidsAddressEditor::keyPressEvent(QKeyEvent *event) {
  *        converted to a QImage in order to properly display parsed addresses inline.
  * @param addr
  */
-void ReptiloidsAddressEditor::addAddress(QString addr) {
+void ReptiloidsCoinAddressEditor::addAddress(QString addr) {
     addrs << addr;
 
     const qreal r = BGU::spr(16); // border radius
@@ -121,14 +121,14 @@ void ReptiloidsAddressEditor::addAddress(QString addr) {
  *        end of this handler. This method redraws the text edit content on each call, removing
  *        duplicates in any pasted or inserted text.
  */
-void ReptiloidsAddressEditor::onTextChanged() {
+void ReptiloidsCoinAddressEditor::onTextChanged() {
     auto a = this->toHtml().replace(" ", "");
     if (backspacePressed && a == prevText.replace(" ", "")) {
         backspacePressed = false;
         return;
     }
 
-    disconnect(this, &ReptiloidsAddressEditor::textChanged, this, &ReptiloidsAddressEditor::onTextChanged);
+    disconnect(this, &ReptiloidsCoinAddressEditor::textChanged, this, &ReptiloidsCoinAddressEditor::onTextChanged);
 
     // clear existing addresses
     addrs.clear();
@@ -157,7 +157,7 @@ void ReptiloidsAddressEditor::onTextChanged() {
     // The assumption is that the <p> and <img> tags that we want are after all these.
     bool skipGibberish = true;
 
-    // Grab all the Reptiloids addresses represented both as images and text.
+    // Grab all the ReptiloidsCoin addresses represented both as images and text.
     QXmlStreamReader xml(htmlText);
     while (!xml.atEnd()) {
         auto t = xml.readNext();
@@ -220,14 +220,14 @@ void ReptiloidsAddressEditor::onTextChanged() {
     // Notify addresses changed
     Q_EMIT addresses();
 
-    connect(this, &ReptiloidsAddressEditor::textChanged, this, &ReptiloidsAddressEditor::onTextChanged);
+    connect(this, &ReptiloidsCoinAddressEditor::textChanged, this, &ReptiloidsCoinAddressEditor::onTextChanged);
 }
 
 /**
  * @brief  Returns the optimal size for the widget.
  * @return
  */
-QSize ReptiloidsAddressEditor::optimalSize() const {
+QSize ReptiloidsCoinAddressEditor::optimalSize() const {
     // resize the text edit to fit the content
     int newH = static_cast<int>(this->document()->size().height()) + BGU::spi(5);
     if (newH > minHeight)
@@ -247,7 +247,7 @@ QSize ReptiloidsAddressEditor::optimalSize() const {
  *
  *        Note the space between addresses. Duplicates are also removed from the copied text.
  */
-void ReptiloidsAddressEditor::onClipboard() {
+void ReptiloidsCoinAddressEditor::onClipboard() {
     QTextCursor tc = this->textCursor();
     auto sel = tc.selection();
     auto selHtml = sel.toHtml();
@@ -292,11 +292,11 @@ void ReptiloidsAddressEditor::onClipboard() {
     cbOn();
 }
 
-void ReptiloidsAddressEditor::onSelectionChanged() {
+void ReptiloidsCoinAddressEditor::onSelectionChanged() {
     cbOn();
 }
 
-void ReptiloidsAddressEditor::focusOutEvent(QFocusEvent *e) {
+void ReptiloidsCoinAddressEditor::focusOutEvent(QFocusEvent *e) {
     QTextEdit::focusOutEvent(e);
     cbOn(false);
 }
@@ -305,22 +305,22 @@ void ReptiloidsAddressEditor::focusOutEvent(QFocusEvent *e) {
  * @brief Turn the clipboard events on or off.
  * @param on [default=true]
  */
-void ReptiloidsAddressEditor::cbOn(bool on) {
+void ReptiloidsCoinAddressEditor::cbOn(bool on) {
     if (on)
-        connect(clipboard, &QClipboard::dataChanged, this, &ReptiloidsAddressEditor::onClipboard);
+        connect(clipboard, &QClipboard::dataChanged, this, &ReptiloidsCoinAddressEditor::onClipboard);
     else
-        disconnect(clipboard, &QClipboard::dataChanged, this, &ReptiloidsAddressEditor::onClipboard);
+        disconnect(clipboard, &QClipboard::dataChanged, this, &ReptiloidsCoinAddressEditor::onClipboard);
 }
 
 /**
- * @brief Returns true if the specified Reptiloids address is valid.
+ * @brief Returns true if the specified ReptiloidsCoin address is valid.
  * @param addr
  * @return
  */
-bool ReptiloidsAddressEditor::isValidAddress(QString &addr) {
+bool ReptiloidsCoinAddressEditor::isValidAddress(QString &addr) {
     return this->validator(addr);
 }
 
-bool ReptiloidsAddressEditor::equalS(QString s1, QString s2, Qt::CaseSensitivity sensitivity) {
+bool ReptiloidsCoinAddressEditor::equalS(QString s1, QString s2, Qt::CaseSensitivity sensitivity) {
     return QString::compare(s1, s2, sensitivity) == 0;
 }

@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(updatecoins_simulation_test)
             // 2/20 times create a new coinbase
             if (randiter % 20 < 2 || coinbase_coins.size() < 10) {
                 // 1/10 of those times create a duplicate coinbase
-                /*if (InsecureRandRange(10) == 0 && coinbase_coins.size()) { // Reptiloids PoS no duplicate coinbases
+                /*if (InsecureRandRange(10) == 0 && coinbase_coins.size()) { // ReptiloidsCoin PoS no duplicate coinbases
                     auto utxod = FindRandomFrom(coinbase_coins);
                     // Reuse the exact same coinbase
                     tx = CMutableTransaction{std::get<0>(utxod->second)};
@@ -473,7 +473,7 @@ BOOST_AUTO_TEST_CASE(updatecoins_simulation_test)
     }
 
     // Verify coverage.
-//    BOOST_CHECK(spent_a_duplicate_coinbase); // Reptiloids PoS no duplicate coinbases
+//    BOOST_CHECK(spent_a_duplicate_coinbase); // ReptiloidsCoin PoS no duplicate coinbases
 }
 
 BOOST_AUTO_TEST_CASE(ccoins_serialization)

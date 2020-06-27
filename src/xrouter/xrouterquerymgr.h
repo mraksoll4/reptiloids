@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_XROUTERQUERYMGR_H
-#define REPTILOIDS_XROUTER_XROUTERQUERYMGR_H
+#ifndef REPTILOIDSCOIN_XROUTER_XROUTERQUERYMGR_H
+#define REPTILOIDSCOIN_XROUTER_XROUTERQUERYMGR_H
 
 #include <hash.h>
 #include <sync.h>
@@ -225,4 +225,4 @@ private:
 
 }
 
-#endif //REPTILOIDS_XROUTER_XROUTERQUERYMGR_H
+#endif //REPTILOIDSCOIN_XROUTER_XROUTERQUERYMGR_H

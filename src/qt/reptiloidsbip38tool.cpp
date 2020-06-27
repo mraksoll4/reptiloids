@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsbip38tool.h>
+#include <qt/reptiloidscoinbip38tool.h>
 
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidskeydialog.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinkeydialog.h>
 
 #include <QDoubleValidator>
 #include <QHBoxLayout>
 
-ReptiloidsBIP38Tool::ReptiloidsBIP38Tool(QWidget *popup, int id, QFrame *parent) : ReptiloidsToolsPage(id, parent), popupWidget(popup), layout(new QVBoxLayout) {
+ReptiloidsCoinBIP38Tool::ReptiloidsCoinBIP38Tool(QWidget *popup, int id, QFrame *parent) : ReptiloidsCoinToolsPage(id, parent), popupWidget(popup), layout(new QVBoxLayout) {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setLayout(layout);
     layout->setContentsMargins(QMargins());
@@ -35,14 +35,14 @@ ReptiloidsBIP38Tool::ReptiloidsBIP38Tool(QWidget *popup, int id, QFrame *parent)
     titleLbl = new QLabel(tr("BIP38 Encrypt"));
     titleLbl->setObjectName("h2");
 
-    addressTi = new ReptiloidsLineEditWithTitle(tr("Address"), tr("Enter Reptiloids address..."), BGU::spi(100));
+    addressTi = new ReptiloidsCoinLineEditWithTitle(tr("Address"), tr("Enter ReptiloidsCoin address..."), BGU::spi(100));
     addressTi->setObjectName("proposal");
     addressTi->setMaximumWidth(BGU::spi(500));
     addressTi->lineEdit->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     addressTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9-_]+"), this));
     addressTi->lineEdit->setMaxLength(20);
 
-    addressBtn = new ReptiloidsAddressBtn;
+    addressBtn = new ReptiloidsCoinAddressBtn;
 
     auto *addressBtnFrame = new QFrame;
     auto *addressBtnLayout = new QVBoxLayout;
@@ -61,31 +61,31 @@ ReptiloidsBIP38Tool::ReptiloidsBIP38Tool(QWidget *popup, int id, QFrame *parent)
     addressLayout->addWidget(addressBtnFrame, 0, Qt::AlignJustify);
     addressLayout->addStretch(1);
 
-    addressPasswordTi = new ReptiloidsLineEditWithTitle(tr("Password"), tr("Enter password..."), BGU::spi(100));
+    addressPasswordTi = new ReptiloidsCoinLineEditWithTitle(tr("Password"), tr("Enter password..."), BGU::spi(100));
     addressPasswordTi->setObjectName("proposal");
     addressPasswordTi->setMaximumWidth(BGU::spi(500));
     addressPasswordTi->lineEdit->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     addressPasswordTi->lineEdit->setMaxLength(20);
 
-    generateBtn = new ReptiloidsFormBtn;
+    generateBtn = new ReptiloidsCoinFormBtn;
     generateBtn->setText(tr("Generate Encryption Key"));
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
-    keyTi = new ReptiloidsLineEditWithTitle(tr("Encrypted Key"), tr("Enter encrypted key..."), BGU::spi(100));
+    keyTi = new ReptiloidsCoinLineEditWithTitle(tr("Encrypted Key"), tr("Enter encrypted key..."), BGU::spi(100));
     keyTi->setObjectName("proposal");
     keyTi->setMaximumWidth(500);
     keyTi->lineEdit->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     keyTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9-_]+"), this));
     keyTi->lineEdit->setMaxLength(20);
 
-    keyPasswordTi = new ReptiloidsLineEditWithTitle(tr("Password"), tr("Enter password..."), BGU::spi(100));
+    keyPasswordTi = new ReptiloidsCoinLineEditWithTitle(tr("Password"), tr("Enter password..."), BGU::spi(100));
     keyPasswordTi->setObjectName("proposal");
     keyPasswordTi->setMaximumWidth(BGU::spi(500));
     keyPasswordTi->lineEdit->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     keyPasswordTi->lineEdit->setMaxLength(20);
 
-    decryptBtn = new ReptiloidsFormBtn;
+    decryptBtn = new ReptiloidsCoinFormBtn;
     decryptBtn->setText(tr("Decrypt Key"));
 
     contentLayout->addWidget(titleLbl, 0, Qt::AlignTop | Qt::AlignLeft);
@@ -107,19 +107,19 @@ ReptiloidsBIP38Tool::ReptiloidsBIP38Tool(QWidget *popup, int id, QFrame *parent)
 
     layout->addWidget(scrollArea);
 
-    connect(generateBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsBIP38Tool::onGenerateEncryptedKey);
-    connect(decryptBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsBIP38Tool::onDecryptKey);
+    connect(generateBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinBIP38Tool::onGenerateEncryptedKey);
+    connect(decryptBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinBIP38Tool::onDecryptKey);
 }
 
-void ReptiloidsBIP38Tool::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinBIP38Tool::setWalletModel(WalletModel *w) {
     if (!walletModel)
         return;
 
     walletModel = w;
 }
 
-void ReptiloidsBIP38Tool::onGenerateEncryptedKey() {
-    ReptiloidsKeyDialog dlg(tr("MlgLuh-fsFDJ-Fjhabcsc-dIOJbda-nbcsc-dIOJbda-ncacjttt"), tr("Address: POKLuhfsFDJFjhabcscdIOJbdancacnksd"), tr("Add to Address Book"), tr("Your Encrypted Key"), this);
+void ReptiloidsCoinBIP38Tool::onGenerateEncryptedKey() {
+    ReptiloidsCoinKeyDialog dlg(tr("MlgLuh-fsFDJ-Fjhabcsc-dIOJbda-nbcsc-dIOJbda-ncacjttt"), tr("Address: POKLuhfsFDJFjhabcscdIOJbdancacnksd"), tr("Add to Address Book"), tr("Your Encrypted Key"), this);
     dlg.setFixedSize(BGU::spi(500), BGU::spi(280));
     connect(&dlg, &QDialog::accepted, this, [this, &dlg]() {
         // ...
@@ -127,8 +127,8 @@ void ReptiloidsBIP38Tool::onGenerateEncryptedKey() {
     dlg.exec();
 } 
 
-void ReptiloidsBIP38Tool::onDecryptKey() {
-    ReptiloidsKeyDialog dlg(tr("MlgLuh-fsFDJ-Fjhabcsc-dIOJbda-nbcsc-dIOJbda-ncacjttt"), tr("Address: POKLuhfsFDJFjhabcscdIOJbdancacnksd"), tr("Add to Address Book"), tr("Your Decrypted Key"), this);
+void ReptiloidsCoinBIP38Tool::onDecryptKey() {
+    ReptiloidsCoinKeyDialog dlg(tr("MlgLuh-fsFDJ-Fjhabcsc-dIOJbda-nbcsc-dIOJbda-ncacjttt"), tr("Address: POKLuhfsFDJFjhabcscdIOJbdancacnksd"), tr("Add to Address Book"), tr("Your Decrypted Key"), this);
     dlg.setFixedSize(BGU::spi(500), BGU::spi(280));
     connect(&dlg, &QDialog::accepted, this, [this, &dlg]() {
         // ...

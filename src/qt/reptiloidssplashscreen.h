@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_REPTILOIDSSPLASHSCREEN_H
-#define BITCOIN_QT_REPTILOIDSSPLASHSCREEN_H
+#ifndef BITCOIN_QT_REPTILOIDSCOINSPLASHSCREEN_H
+#define BITCOIN_QT_REPTILOIDSCOINSPLASHSCREEN_H
 
 #include <QLabel>
 #include <QWidget>
@@ -25,13 +25,13 @@ class Wallet;
  * can take a long time, and in that case a progress window that cannot be
  * moved around and minimized has turned out to be frustrating to the user.
  */
-class ReptiloidsSplashScreen : public QWidget
+class ReptiloidsCoinSplashScreen : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsSplashScreen(interfaces::Node& node, Qt::WindowFlags f, const NetworkStyle *networkStyle);
-    ~ReptiloidsSplashScreen();
+    explicit ReptiloidsCoinSplashScreen(interfaces::Node& node, Qt::WindowFlags f, const NetworkStyle *networkStyle);
+    ~ReptiloidsCoinSplashScreen();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -65,4 +65,4 @@ private:
     std::list<std::unique_ptr<interfaces::Handler>> m_connected_wallet_handlers;
 };
 
-#endif // BITCOIN_QT_REPTILOIDSSPLASHSCREEN_H
+#endif // BITCOIN_QT_REPTILOIDSCOINSPLASHSCREEN_H

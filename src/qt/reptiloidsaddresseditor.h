@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSADDRESSEDITOR_H
-#define REPTILOIDS_QT_REPTILOIDSADDRESSEDITOR_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSEDITOR_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSEDITOR_H
 
 #include <utility>
 #include <functional>
@@ -16,11 +16,11 @@
 #include <QStyleOption>
 #include <QTextEdit>
 
-class ReptiloidsAddressEditor : public QTextEdit
+class ReptiloidsCoinAddressEditor : public QTextEdit
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsAddressEditor(int width = 675, QTextEdit *parent = nullptr);
+    explicit ReptiloidsCoinAddressEditor(int width = 675, QTextEdit *parent = nullptr);
     void addAddress(QString addr);
     QSet<QString> getAddresses() {
         return this->addrs;
@@ -66,4 +66,4 @@ private:
     std::function<bool (QString&)> validator;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSADDRESSEDITOR_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSEDITOR_H

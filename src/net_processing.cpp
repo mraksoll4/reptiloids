@@ -37,7 +37,7 @@
 #include <memory>
 
 #if defined(NDEBUG)
-# error "Reptiloids cannot be compiled without assertions."
+# error "ReptiloidsCoin cannot be compiled without assertions."
 #endif
 
 /** Expiration time for orphan transactions in seconds */

@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsproposals.h>
+#include <qt/reptiloidscoinproposals.h>
 
-#include <qt/reptiloidscheckbox.h>
-#include <qt/reptiloidscreateproposal.h>
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoincheckbox.h>
+#include <qt/reptiloidscoincreateproposal.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
@@ -33,7 +33,7 @@
 #include <QSettings>
 #include <QVariant>
 
-ReptiloidsProposals::ReptiloidsProposals(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
+ReptiloidsCoinProposals::ReptiloidsCoinProposals(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
                                                        clientModel(nullptr), walletModel(nullptr),
                                                        contextMenu(new QMenu)
 {
@@ -52,7 +52,7 @@ ReptiloidsProposals::ReptiloidsProposals(QFrame *parent) : QFrame(parent), layou
     filterLbl = new QLabel(tr("Filter by:"));
     filterLbl->setObjectName("title");
     QStringList list{tr("All Proposals"), tr("Current"), tr("Upcoming"), tr("Completed")};
-    proposalsDropdown = new ReptiloidsDropdown(list);
+    proposalsDropdown = new ReptiloidsCoinDropdown(list);
     topBoxLayout->addStretch(1);
     topBoxLayout->addWidget(filterLbl);
     topBoxLayout->addWidget(proposalsDropdown);
@@ -96,10 +96,10 @@ ReptiloidsProposals::ReptiloidsProposals(QFrame *parent) : QFrame(parent), layou
     auto *btnBoxLayout = new QHBoxLayout;
     btnBoxLayout->setContentsMargins(QMargins());
     btnBox->setLayout(btnBoxLayout);
-    voteBtn = new ReptiloidsFormBtn;
+    voteBtn = new ReptiloidsCoinFormBtn;
     voteBtn->setObjectName("delete");
     voteBtn->setText(tr("Cast Votes"));
-    auto *createProposalBtn = new ReptiloidsFormBtn;
+    auto *createProposalBtn = new ReptiloidsCoinFormBtn;
     createProposalBtn->setText(tr("Create New Proposal"));
     btnBoxLayout->addWidget(voteBtn);
     btnBoxLayout->addStretch(1);
@@ -156,8 +156,8 @@ ReptiloidsProposals::ReptiloidsProposals(QFrame *parent) : QFrame(parent), layou
     });
     timer->start(timerInterval);
 
-    connect(createProposalBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsProposals::onCreateProposal);
-    connect(voteBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsProposals::onVote);
+    connect(createProposalBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinProposals::onCreateProposal);
+    connect(voteBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinProposals::onVote);
 
     connect(table, &QTableWidget::itemSelectionChanged, this, [this]() {
         lastSelection = QDateTime::currentMSecsSinceEpoch();
@@ -177,8 +177,8 @@ ReptiloidsProposals::ReptiloidsProposals(QFrame *parent) : QFrame(parent), layou
         if (hashItem)
             showProposalDetails(proposalForHash(hashItem->data(Qt::DisplayRole).toString()));
     });
-    connect(table, &QTableWidget::customContextMenuRequested, this, &ReptiloidsProposals::showContextMenu);
-    connect(proposalsDropdown, &ReptiloidsDropdown::valueChanged, this, &ReptiloidsProposals::onFilter);
+    connect(table, &QTableWidget::customContextMenuRequested, this, &ReptiloidsCoinProposals::showContextMenu);
+    connect(proposalsDropdown, &ReptiloidsCoinDropdown::valueChanged, this, &ReptiloidsCoinProposals::onFilter);
 
     connect(viewDetails, &QAction::triggered, this, [this]() {
         if (contextItem == nullptr || contextItem->row() >= filteredData.size())
@@ -232,7 +232,7 @@ ReptiloidsProposals::ReptiloidsProposals(QFrame *parent) : QFrame(parent), layou
     syncInProgress = false;
 }
 
-void ReptiloidsProposals::initialize() {
+void ReptiloidsCoinProposals::initialize() {
     if (!walletModel)
         return;
     dataModel.clear();
@@ -328,7 +328,7 @@ void ReptiloidsProposals::initialize() {
                 userVote = tr("Insufficient funds");
         }
 
-        ReptiloidsProposal proposalData = {
+        ReptiloidsCoinProposal proposalData = {
             proposal.getHash(),
             statusColor,
             QString::fromStdString(proposal.getName()),
@@ -347,14 +347,14 @@ void ReptiloidsProposals::initialize() {
     }
 
     // Sort on superblock descending
-    std::sort(dataModel.begin(), dataModel.end(), [](const ReptiloidsProposal &a, const ReptiloidsProposal &b) {
+    std::sort(dataModel.begin(), dataModel.end(), [](const ReptiloidsCoinProposal &a, const ReptiloidsCoinProposal &b) {
         return a.superblock > b.superblock;
     });
 
     onFilter();
 }
 
-void ReptiloidsProposals::setModels(ClientModel *c, WalletModel *w) {
+void ReptiloidsCoinProposals::setModels(ClientModel *c, WalletModel *w) {
     if (walletModel == w && clientModel == c)
         return;
 
@@ -363,17 +363,17 @@ void ReptiloidsProposals::setModels(ClientModel *c, WalletModel *w) {
         return;
 
     if (clientModel)
-        disconnect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsProposals::setNumBlocks);
+        disconnect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsCoinProposals::setNumBlocks);
 
     clientModel = c;
     if (!clientModel)
         return;
-    connect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsProposals::setNumBlocks);
+    connect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsCoinProposals::setNumBlocks);
 
     initialize();
 }
 
-void ReptiloidsProposals::setData(QVector<ReptiloidsProposal> data) {
+void ReptiloidsCoinProposals::setData(QVector<ReptiloidsCoinProposal> data) {
     this->filteredData = std::move(data);
 
     unwatch();
@@ -414,7 +414,7 @@ void ReptiloidsProposals::setData(QVector<ReptiloidsProposal> data) {
         table->setItem(i, COLUMN_SUPERBLOCK, blockItem);
 
         // amount
-        auto *amountItem = new ReptiloidsProposals::NumberItem;
+        auto *amountItem = new ReptiloidsCoinProposals::NumberItem;
         amountItem->amount = d.amount;
         amountItem->setData(Qt::DisplayRole, BitcoinUnits::floorWithUnit(walletModel->getOptionsModel()->getDisplayUnit(),
                 d.amount, 0, false, BitcoinUnits::separatorStandard));
@@ -501,8 +501,8 @@ void ReptiloidsProposals::setData(QVector<ReptiloidsProposal> data) {
     watch();
 }
 
-QVector<ReptiloidsProposals::ReptiloidsProposal> ReptiloidsProposals::filtered(int filter, int chainHeight) {
-    QVector<ReptiloidsProposal> r;
+QVector<ReptiloidsCoinProposals::ReptiloidsCoinProposal> ReptiloidsCoinProposals::filtered(int filter, int chainHeight) {
+    QVector<ReptiloidsCoinProposal> r;
     for (auto &d : dataModel) {
         const auto endblock = gov::NextSuperblock(Params().GetConsensus(), d.superblock);
         switch (filter) {
@@ -530,7 +530,7 @@ QVector<ReptiloidsProposals::ReptiloidsProposal> ReptiloidsProposals::filtered(i
     return r;
 }
 
-bool ReptiloidsProposals::canVote() {
+bool ReptiloidsCoinProposals::canVote() {
     const auto balance = walletModel->wallet().getBalance() + walletModel->wallet().getImmatureBalance()
             + walletModel->wallet().getUnconfirmedBalance();
     CCoinControl cc;
@@ -542,7 +542,7 @@ bool ReptiloidsProposals::canVote() {
  * @brief Refreshes the display if necessary.
  * @param force Set true to force a refresh (bypass all checks).
  */
-void ReptiloidsProposals::refresh(bool force) {
+void ReptiloidsCoinProposals::refresh(bool force) {
     if (!force && dataModel.size() == static_cast<int>(gov::Governance::instance().getProposals().size())) // ignore if the proposal list hasn't changed
         return;
     initialize();
@@ -552,14 +552,14 @@ void ReptiloidsProposals::refresh(bool force) {
 /**
  * @brief Filters the data model based on the current filter dropdown filter flag.
  */
-void ReptiloidsProposals::onFilter() {
+void ReptiloidsCoinProposals::onFilter() {
     setData(filtered(proposalsDropdown->currentIndex(), getChainHeight()));
     QSettings settings;
     settings.setValue("proposalsFilter", proposalsDropdown->currentIndex());
 }
 
-void ReptiloidsProposals::onVote() {
-    QVector<ReptiloidsProposals::ReptiloidsProposal> proposals;
+void ReptiloidsCoinProposals::onVote() {
+    QVector<ReptiloidsCoinProposals::ReptiloidsCoinProposal> proposals;
     const auto nextSB = gov::Governance::nextSuperblock(Params().GetConsensus());
     for (const auto & prop : dataModel) {
         if (prop.superblock >= nextSB)
@@ -570,9 +570,9 @@ void ReptiloidsProposals::onVote() {
         return;
     }
 
-    auto *dialog = new ReptiloidsProposalsVoteDialog(proposals, walletModel->getOptionsModel()->getDisplayUnit());
+    auto *dialog = new ReptiloidsCoinProposalsVoteDialog(proposals, walletModel->getOptionsModel()->getDisplayUnit());
     dialog->setStyleSheet(GUIUtil::loadStyleSheet());
-    connect(dialog, &ReptiloidsProposalsVoteDialog::submitVotes, this, [this, dialog](const std::vector<gov::ProposalVote> & votes) {
+    connect(dialog, &ReptiloidsCoinProposalsVoteDialog::submitVotes, this, [this, dialog](const std::vector<gov::ProposalVote> & votes) {
         QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Cast Votes"),
                 tr("Are you sure you want to cast these votes?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (retval != QMessageBox::Yes)
@@ -597,23 +597,23 @@ void ReptiloidsProposals::onVote() {
     dialog->exec();
 }
 
-void ReptiloidsProposals::onItemChanged(QTableWidgetItem *item) {
+void ReptiloidsCoinProposals::onItemChanged(QTableWidgetItem *item) {
     if (dataModel.count() > item->row()) {
         Q_EMIT tableUpdated();
     }
 }
 
-void ReptiloidsProposals::unwatch() {
+void ReptiloidsCoinProposals::unwatch() {
     table->setEnabled(false);
-    disconnect(table, &QTableWidget::itemChanged, this, &ReptiloidsProposals::onItemChanged);
+    disconnect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinProposals::onItemChanged);
 }
 
-void ReptiloidsProposals::watch() {
+void ReptiloidsCoinProposals::watch() {
     table->setEnabled(true);
-    connect(table, &QTableWidget::itemChanged, this, &ReptiloidsProposals::onItemChanged);
+    connect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinProposals::onItemChanged);
 }
 
-void ReptiloidsProposals::showContextMenu(QPoint pt) {
+void ReptiloidsCoinProposals::showContextMenu(QPoint pt) {
     auto *item = table->itemAt(pt);
     if (!item) {
         contextItem = nullptr;
@@ -623,13 +623,13 @@ void ReptiloidsProposals::showContextMenu(QPoint pt) {
     contextMenu->exec(QCursor::pos());
 }
 
-void ReptiloidsProposals::showProposalDetails(const ReptiloidsProposal & proposal) {
-    auto *dialog = new ReptiloidsProposalsDetailsDialog(proposal, walletModel->getOptionsModel()->getDisplayUnit());
+void ReptiloidsCoinProposals::showProposalDetails(const ReptiloidsCoinProposal & proposal) {
+    auto *dialog = new ReptiloidsCoinProposalsDetailsDialog(proposal, walletModel->getOptionsModel()->getDisplayUnit());
     dialog->setStyleSheet(GUIUtil::loadStyleSheet());
     dialog->exec();
 }
 
-void ReptiloidsProposals::setNumBlocks(int count, const QDateTime &blockDate, double nVerificationProgress,
+void ReptiloidsCoinProposals::setNumBlocks(int count, const QDateTime &blockDate, double nVerificationProgress,
                                      bool header)
 {
     // Only refresh proposal data if the cache changes
@@ -643,13 +643,13 @@ void ReptiloidsProposals::setNumBlocks(int count, const QDateTime &blockDate, do
     }
 }
 
-ReptiloidsProposals::ReptiloidsProposal ReptiloidsProposals::proposalForHash(const QString & propHash) {
+ReptiloidsCoinProposals::ReptiloidsCoinProposal ReptiloidsCoinProposals::proposalForHash(const QString & propHash) {
     const auto & hash = uint256S(propHash.toStdString());
     for (const auto & proposal : filteredData) {
         if (proposal.hash == hash)
             return proposal;
     }
-    return ReptiloidsProposal{};
+    return ReptiloidsCoinProposal{};
 }
 
 /**
@@ -657,7 +657,7 @@ ReptiloidsProposals::ReptiloidsProposal ReptiloidsProposals::proposalForHash(con
  * @param proposal Proposal that's being voting on
  * @param parent Optional parent widget to attach to
  */
-ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsProposals::ReptiloidsProposal> proposals,
+ReptiloidsCoinProposalsVoteDialog::ReptiloidsCoinProposalsVoteDialog(QVector<ReptiloidsCoinProposals::ReptiloidsCoinProposal> proposals,
         int displayUnit, QWidget *parent) : QDialog(parent)
 {
     auto *layout = new QVBoxLayout;
@@ -692,7 +692,7 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
     auto *amountLbl = new QLabel(tr("Amount"));           amountLbl->setObjectName("description");
     auto *approveLbl = new QLabel(tr("Do you approve?")); approveLbl->setObjectName("description");
     auto *pl = new QLabel;
-    auto *headerDiv = new ReptiloidsHDiv; headerDiv->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    auto *headerDiv = new ReptiloidsCoinHDiv; headerDiv->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     gridLayout->addWidget(nameLbl,        0, 0, Qt::AlignTop | Qt::AlignLeft);
     gridLayout->addWidget(superblockLbl,  0, 1, Qt::AlignTop | Qt::AlignLeft);
     gridLayout->addWidget(amountLbl,      0, 2, Qt::AlignTop | Qt::AlignLeft);
@@ -705,7 +705,7 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
 
     int row = 2; // account for header + div rows
 
-    std::sort(proposals.begin(), proposals.end(), [](const ReptiloidsProposals::ReptiloidsProposal & a, const ReptiloidsProposals::ReptiloidsProposal & b) -> bool {
+    std::sort(proposals.begin(), proposals.end(), [](const ReptiloidsCoinProposals::ReptiloidsCoinProposal & a, const ReptiloidsCoinProposals::ReptiloidsCoinProposal & b) -> bool {
         return a.superblock < b.superblock; // ascending (later proposals last)
     });
     for (int i = 0; i < proposals.size(); ++i) {
@@ -740,7 +740,7 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
         gridLayout->addWidget(pl,             row, 3);
         gridLayout->addWidget(approveBox,     row, 4);
         gridLayout->addWidget(pl,             row, 5);
-        auto *div = new ReptiloidsHDiv; div->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        auto *div = new ReptiloidsCoinHDiv; div->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         gridLayout->addWidget(div, row+1, 0, 1, 5, Qt::AlignTop);
 
         // Store ref to button groups
@@ -773,15 +773,15 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    auto *voteBtn = new ReptiloidsFormBtn;
+    auto *voteBtn = new ReptiloidsCoinFormBtn;
     voteBtn->setText(tr("Submit Votes"));
-    auto *cancelBtn = new ReptiloidsFormBtn;
+    auto *cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     btnBoxLayout->addWidget(cancelBtn, 0, Qt::AlignRight | Qt::AlignBottom);
     btnBoxLayout->addWidget(voteBtn, 0, Qt::AlignLeft | Qt::AlignBottom);
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
     layout->addSpacing(BGU::spi(20));
     layout->addWidget(titleLbl);
@@ -793,7 +793,7 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
     layout->addWidget(btnBox);
     layout->addSpacing(BGU::spi(10));
 
-    connect(voteBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(voteBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         std::vector<gov::ProposalVote> votes;
         for (const auto & item : approveButtons) {
             const int bid = item.second->checkedId();
@@ -809,7 +809,7 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
         }
         Q_EMIT submitVotes(votes);
     });
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         close();
     });
 }
@@ -820,7 +820,7 @@ ReptiloidsProposalsVoteDialog::ReptiloidsProposalsVoteDialog(QVector<ReptiloidsP
  * @param displayUnit
  * @param parent Optional parent widget to attach to
  */
-ReptiloidsProposalsDetailsDialog::ReptiloidsProposalsDetailsDialog(const ReptiloidsProposals::ReptiloidsProposal & proposal,
+ReptiloidsCoinProposalsDetailsDialog::ReptiloidsCoinProposalsDetailsDialog(const ReptiloidsCoinProposals::ReptiloidsCoinProposal & proposal,
                                                              int displayUnit, QWidget *parent) : QDialog(parent)
 {
     auto *layout = new QVBoxLayout;
@@ -906,13 +906,13 @@ ReptiloidsProposalsDetailsDialog::ReptiloidsProposalsDetailsDialog(const Reptilo
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    auto *closeBtn = new ReptiloidsFormBtn;
+    auto *closeBtn = new ReptiloidsCoinFormBtn;
     closeBtn->setText(tr("Close"));
     btnBoxLayout->addWidget(closeBtn, 0, Qt::AlignCenter);
 
-    auto *div1 = new ReptiloidsHDiv;
-    auto *div2 = new ReptiloidsHDiv;
-    auto *div3 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
+    auto *div2 = new ReptiloidsCoinHDiv;
+    auto *div3 = new ReptiloidsCoinHDiv;
 
     layout->addSpacing(BGU::spi(20));
     layout->addWidget(titleLbl);
@@ -937,7 +937,7 @@ ReptiloidsProposalsDetailsDialog::ReptiloidsProposalsDetailsDialog(const Reptilo
     layout->addWidget(btnBox);
     layout->addSpacing(BGU::spi(10));
 
-    connect(closeBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(closeBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         close();
     });
 }

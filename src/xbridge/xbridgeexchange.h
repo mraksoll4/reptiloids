@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEEXCHANGE_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEEXCHANGE_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEEXCHANGE_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEEXCHANGE_H
 
 #include <xbridge/xbridgepacket.h>
 #include <xbridge/xbridgetransaction.h>
@@ -279,4 +279,4 @@ private:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEEXCHANGE_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEEXCHANGE_H

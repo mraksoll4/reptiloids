@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSADDRESSEDIT_H
-#define REPTILOIDS_QT_REPTILOIDSADDRESSEDIT_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSEDIT_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSEDIT_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslineeditwithtitle.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlineeditwithtitle.h>
 
 #include <qt/walletmodel.h>
 #include <qt/addresstablemodel.h>
@@ -20,10 +20,10 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-class ReptiloidsAddressEdit : public QFrame {
+class ReptiloidsCoinAddressEdit : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsAddressEdit(bool editMode, const QString &title, const QString &buttonString, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinAddressEdit(bool editMode, const QString &title, const QString &buttonString, QWidget *parent = nullptr);
     QSize sizeHint() const override;
     bool validated();
     bool setNewAddress(const CTxDestination & dest);
@@ -57,22 +57,22 @@ private:
     QString buttonString;
     bool editMode;
     QLabel *titleLbl;
-    ReptiloidsLineEditWithTitle *addressTi;
-    ReptiloidsLineEditWithTitle *createAddressTi;
-    ReptiloidsLineEditWithTitle *aliasTi;
+    ReptiloidsCoinLineEditWithTitle *addressTi;
+    ReptiloidsCoinLineEditWithTitle *createAddressTi;
+    ReptiloidsCoinLineEditWithTitle *aliasTi;
     QRadioButton *myAddressBtn;
     QRadioButton *otherUserBtn;
-    ReptiloidsFormBtn *confirmBtn;
-    ReptiloidsFormBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *confirmBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
 };
 
-class ReptiloidsAddressEditDialog : public QDialog {
+class ReptiloidsCoinAddressEditDialog : public QDialog {
     Q_OBJECT
 public:
-    explicit ReptiloidsAddressEditDialog(AddressTableModel *model, WalletModel *walletModel, Qt::WindowFlags f, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinAddressEditDialog(AddressTableModel *model, WalletModel *walletModel, Qt::WindowFlags f, QWidget *parent = nullptr);
     void accept() override;
     void setData(const QString &address, const QString &alias, const int &type, const QString &key);
-    ReptiloidsAddressEdit *form;
+    ReptiloidsCoinAddressEdit *form;
 protected:
     void resizeEvent(QResizeEvent *evt) override;
 private:
@@ -80,12 +80,12 @@ private:
     WalletModel *walletModel;
 };
 
-class ReptiloidsAddressAddDialog : public QDialog {
+class ReptiloidsCoinAddressAddDialog : public QDialog {
 Q_OBJECT
 public:
-    explicit ReptiloidsAddressAddDialog(AddressTableModel *model, WalletModel *walletModel, Qt::WindowFlags f, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinAddressAddDialog(AddressTableModel *model, WalletModel *walletModel, Qt::WindowFlags f, QWidget *parent = nullptr);
     void accept() override;
-    ReptiloidsAddressEdit *form;
+    ReptiloidsCoinAddressEdit *form;
 protected:
     void resizeEvent(QResizeEvent *evt) override;
     bool importPrivateKey(CKey & key, const QString & alias);
@@ -94,4 +94,4 @@ private:
     WalletModel *walletModel;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSADDRESSEDIT_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSEDIT_H

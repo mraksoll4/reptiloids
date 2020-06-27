@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_LOGGER_H
-#define REPTILOIDS_XBRIDGE_UTIL_LOGGER_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_LOGGER_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_LOGGER_H
 
 #include <sstream>
 
@@ -44,4 +44,4 @@ private:
     static std::string m_logFileName;
 };
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_LOGGER_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_LOGGER_H

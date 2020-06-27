@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidstools.h>
+#include <qt/reptiloidscointools.h>
 
-#include <qt/reptiloidsbip38tool.h>
-#include <qt/reptiloidsdebugconsole.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidspeerslist.h>
-#include <qt/reptiloidswalletrepair.h>
+#include <qt/reptiloidscoinbip38tool.h>
+#include <qt/reptiloidscoindebugconsole.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinpeerslist.h>
+#include <qt/reptiloidscoinwalletrepair.h>
 
 #include <QEvent>
 #include <QList>
@@ -25,7 +25,7 @@ enum BToolsTabs {
     MULTISEND,
 };
 
-ReptiloidsTools::ReptiloidsTools(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent)
+ReptiloidsCoinTools::ReptiloidsCoinTools(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent)
                             : QFrame(parent), layout(new QVBoxLayout)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -36,15 +36,15 @@ ReptiloidsTools::ReptiloidsTools(interfaces::Node & node, const PlatformStyle *p
     titleLbl->setObjectName("h4");
     titleLbl->setFixedHeight(BGU::spi(26));
 
-    debugConsole = new ReptiloidsDebugConsole(node, platformStyle, this, DEBUG_CONSOLE);
-//    networkMonitor = new ReptiloidsPeersList(this, NETWORK_MONITOR);
-    peersList = new ReptiloidsPeersList(this, PEERS_LIST);
-//    bip38Tool = new ReptiloidsBIP38Tool(this, BIP38_TOOL);
-    walletRepair = new ReptiloidsWalletRepair(this, WALLET_REPAIR);
-//    multisend = new ReptiloidsPeersList(this, MULTISEND);
+    debugConsole = new ReptiloidsCoinDebugConsole(node, platformStyle, this, DEBUG_CONSOLE);
+//    networkMonitor = new ReptiloidsCoinPeersList(this, NETWORK_MONITOR);
+    peersList = new ReptiloidsCoinPeersList(this, PEERS_LIST);
+//    bip38Tool = new ReptiloidsCoinBIP38Tool(this, BIP38_TOOL);
+    walletRepair = new ReptiloidsCoinWalletRepair(this, WALLET_REPAIR);
+//    multisend = new ReptiloidsCoinPeersList(this, MULTISEND);
     pages = { debugConsole, /*networkMonitor,*/ peersList, /*bip38Tool,*/ walletRepair/*, multisend*/ };
 
-    tabBar = new ReptiloidsTabBar;
+    tabBar = new ReptiloidsCoinTabBar;
     tabBar->setParent(this);
     tabBar->addTab(tr("Debug Console"), DEBUG_CONSOLE);
 //    tabBar->addTab(tr("Network Monitor"), NETWORK_MONITOR); // TODO Network monitor
@@ -54,8 +54,8 @@ ReptiloidsTools::ReptiloidsTools(interfaces::Node & node, const PlatformStyle *p
 //    tabBar->addTab(tr("Multisend"), MULTISEND); // TODO Multisend
     tabBar->show();
 
-    connect(tabBar, &ReptiloidsTabBar::tabChanged, this, &ReptiloidsTools::tabChanged);
-    connect(walletRepair, &ReptiloidsWalletRepair::handleRestart, this, [this](QStringList args) {
+    connect(tabBar, &ReptiloidsCoinTabBar::tabChanged, this, &ReptiloidsCoinTools::tabChanged);
+    connect(walletRepair, &ReptiloidsCoinWalletRepair::handleRestart, this, [this](QStringList args) {
         Q_EMIT handleRestart(args);
     });
 
@@ -66,7 +66,7 @@ ReptiloidsTools::ReptiloidsTools(interfaces::Node & node, const PlatformStyle *p
     tabChanged(settings.value("nToolsTab", DEBUG_CONSOLE).toInt());
 }
 
-void ReptiloidsTools::setModels(ClientModel *c, WalletModel *w) {
+void ReptiloidsCoinTools::setModels(ClientModel *c, WalletModel *w) {
     if (clientModel == c && walletModel == w)
         return;
     clientModel = c;
@@ -80,13 +80,13 @@ void ReptiloidsTools::setModels(ClientModel *c, WalletModel *w) {
 //    multisend->setWalletModel(walletModel);
 }
 
-void ReptiloidsTools::focusInEvent(QFocusEvent *evt) {
+void ReptiloidsCoinTools::focusInEvent(QFocusEvent *evt) {
     QWidget::focusInEvent(evt);
     if (screen)
         screen->setFocus();
 }
 
-void ReptiloidsTools::tabChanged(int tab) {
+void ReptiloidsCoinTools::tabChanged(int tab) {
     tabBar->showTab(tab);
     QSettings settings;
     settings.setValue("nToolsTab", tab);

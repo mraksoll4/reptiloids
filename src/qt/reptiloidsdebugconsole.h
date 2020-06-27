@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSDEBUGCONSOLE_H
-#define REPTILOIDS_QT_REPTILOIDSDEBUGCONSOLE_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINDEBUGCONSOLE_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINDEBUGCONSOLE_H
 
-#include <qt/reptiloidslabelbtn.h>
-#include <qt/reptiloidspeerdetails.h>
-#include <qt/reptiloidstoolspage.h>
+#include <qt/reptiloidscoinlabelbtn.h>
+#include <qt/reptiloidscoinpeerdetails.h>
+#include <qt/reptiloidscointoolspage.h>
 
 #include <qt/platformstyle.h>
 
@@ -24,7 +24,7 @@
 #include <QThread>
 #include <QVBoxLayout>
 
-namespace ReptiloidsDebugConsoleRPC {
+namespace ReptiloidsCoinDebugConsoleRPC {
 
 class RPCExecutor : public QObject
 {
@@ -58,12 +58,12 @@ private:
 };
 }
 
-class ReptiloidsDebugConsole : public ReptiloidsToolsPage {
+class ReptiloidsCoinDebugConsole : public ReptiloidsCoinToolsPage {
     Q_OBJECT
 public:
-    explicit ReptiloidsDebugConsole(interfaces::Node& node, const PlatformStyle* platformStyle,
+    explicit ReptiloidsCoinDebugConsole(interfaces::Node& node, const PlatformStyle* platformStyle,
                                   QWidget *popup, int id, QFrame *parent = nullptr);
-    ~ReptiloidsDebugConsole();
+    ~ReptiloidsCoinDebugConsole();
 
     static bool RPCParseCommandLine(interfaces::Node* node, std::string &strResult, const std::string &strCommand, bool fExecute, std::string * const pstrFilteredOut = nullptr, const WalletModel* wallet_model = nullptr);
     static bool RPCExecuteCommandLine(interfaces::Node& node, std::string &strResult, const std::string &strCommand, std::string * const pstrFilteredOut = nullptr, const WalletModel* wallet_model = nullptr) {
@@ -121,7 +121,7 @@ private:
     QFrame *consoleBox;
     QLabel *inputLbl;
     QLineEdit *lineEdit;
-    ReptiloidsLabelBtn *clearButton;
+    ReptiloidsCoinLabelBtn *clearButton;
 
     const PlatformStyle *platformStyle;
     QPushButton *fontBiggerButton;
@@ -136,4 +136,4 @@ private:
     WalletModel *m_last_wallet_model{nullptr};
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSDEBUGCONSOLE_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINDEBUGCONSOLE_H

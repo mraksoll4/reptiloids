@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORBCH_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORBCH_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTORBCH_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTORBCH_H
 
 #include <xbridge/xbridgewalletconnectorbtc.h>
 #include <xbridge/xbridgecryptoproviderbtc.h>
@@ -56,4 +56,4 @@ public:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORBCH_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTORBCH_H

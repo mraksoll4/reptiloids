@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidstabbtn.h>
+#include <qt/reptiloidscointabbtn.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QPainter>
 #include <QStyle>
 #include <QStyleOption>
 
-ReptiloidsTabBtn::ReptiloidsTabBtn(QPushButton *parent) : QPushButton(parent), layout(new QVBoxLayout), subLine(new QLabel) {
+ReptiloidsCoinTabBtn::ReptiloidsCoinTabBtn(QPushButton *parent) : QPushButton(parent), layout(new QVBoxLayout), subLine(new QLabel) {
     this->setObjectName("tab");
     this->setFlat(true);
     this->setCursor(Qt::PointingHandCursor);
@@ -27,7 +27,7 @@ ReptiloidsTabBtn::ReptiloidsTabBtn(QPushButton *parent) : QPushButton(parent), l
     layout->addWidget(subLine, 1, Qt::AlignBottom);
 }
 
-bool ReptiloidsTabBtn::event(QEvent *event) {
+bool ReptiloidsCoinTabBtn::event(QEvent *event) {
     if (isChecked()) {
         subLine->show();
     } else {

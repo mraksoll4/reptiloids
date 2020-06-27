@@ -2,17 +2,17 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSCHECKBOX_H
-#define REPTILOIDS_QT_REPTILOIDSCHECKBOX_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINCHECKBOX_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINCHECKBOX_H
 
 #include <QCheckBox>
 
-class ReptiloidsCheckBox : public QCheckBox {
+class ReptiloidsCoinCheckBox : public QCheckBox {
     Q_OBJECT
 public:
-    explicit ReptiloidsCheckBox(const QString & text, QWidget* parent = nullptr);
-    explicit ReptiloidsCheckBox(QWidget* parent = nullptr);
+    explicit ReptiloidsCoinCheckBox(const QString & text, QWidget* parent = nullptr);
+    explicit ReptiloidsCoinCheckBox(QWidget* parent = nullptr);
 };
 
 
-#endif //REPTILOIDS_QT_REPTILOIDSCHECKBOX_H
+#endif //REPTILOIDSCOIN_QT_REPTILOIDSCOINCHECKBOX_H

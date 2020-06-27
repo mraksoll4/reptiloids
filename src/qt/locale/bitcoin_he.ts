@@ -1406,7 +1406,7 @@
         <translation>כמות</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
         <translation>נא להזין כתובת ביטקוין (למשל: %1)</translation>
     </message>
     <message>

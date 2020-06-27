@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSFONTMGR_H
-#define REPTILOIDS_QT_REPTILOIDSFONTMGR_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINFONTMGR_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINFONTMGR_H
 
 #include <QFont>
 #include <QHash>
 
-class ReptiloidsFontMgr
+class ReptiloidsCoinFontMgr
 {
 public:
-    ReptiloidsFontMgr() = default;
+    ReptiloidsCoinFontMgr() = default;
     enum Fonts { Roboto, RobotoMono };
     static void setup();
     static QFont getFont(Fonts font);
@@ -19,4 +19,4 @@ private:
     static QHash<Fonts, int> fonts;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSFONTMGR_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINFONTMGR_H

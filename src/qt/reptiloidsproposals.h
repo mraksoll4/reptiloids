@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSPROPOSALS_H
-#define REPTILOIDS_QT_REPTILOIDSPROPOSALS_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINPROPOSALS_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINPROPOSALS_H
 
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/clientmodel.h>
 #include <qt/walletmodel.h>
@@ -29,12 +29,12 @@
 #include <QVBoxLayout>
 #include <QVector>
 
-class ReptiloidsProposals : public QFrame
+class ReptiloidsCoinProposals : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsProposals(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinProposals(QFrame *parent = nullptr);
     void setModels(ClientModel *c, WalletModel *w);
 
     enum statusflags {
@@ -43,7 +43,7 @@ public:
         STATUS_REJECTED = 2,
     };
 
-    struct ReptiloidsProposal {
+    struct ReptiloidsCoinProposal {
         uint256 hash;
         statusflags color;
         QString name;
@@ -81,7 +81,7 @@ public Q_SLOTS:
 private Q_SLOTS:
     void onItemChanged(QTableWidgetItem *item);
     void onFilter();
-    void showProposalDetails(const ReptiloidsProposal & proposal);
+    void showProposalDetails(const ReptiloidsCoinProposal & proposal);
     void setNumBlocks(int count, const QDateTime & blockDate, double nVerificationProgress, bool header);
 
 private:
@@ -101,12 +101,12 @@ private:
     QLabel *titleLbl;
     QLabel *filterLbl;
     QTableWidget *table;
-    ReptiloidsFormBtn *voteBtn;
+    ReptiloidsCoinFormBtn *voteBtn;
     QMenu *contextMenu;
     QTableWidgetItem *contextItem = nullptr;
-    ReptiloidsDropdown *proposalsDropdown;
-    QVector<ReptiloidsProposal> dataModel;
-    QVector<ReptiloidsProposal> filteredData;
+    ReptiloidsCoinDropdown *proposalsDropdown;
+    QVector<ReptiloidsCoinProposal> dataModel;
+    QVector<ReptiloidsCoinProposal> filteredData;
     QTimer *timer;
     int lastRow = -1;
     qint64 lastSelection = 0;
@@ -114,14 +114,14 @@ private:
     int lastVotes{0};
 
     void initialize();
-    void setData(QVector<ReptiloidsProposal> data);
-    QVector<ReptiloidsProposal> filtered(int filter, int chainHeight);
+    void setData(QVector<ReptiloidsCoinProposal> data);
+    QVector<ReptiloidsCoinProposal> filtered(int filter, int chainHeight);
     void unwatch();
     void watch();
     bool canVote();
     void refresh(bool force = false);
     void showContextMenu(QPoint pt);
-    ReptiloidsProposal proposalForHash(const QString & propHash);
+    ReptiloidsCoinProposal proposalForHash(const QString & propHash);
 
     enum {
         COLUMN_HASH,
@@ -156,10 +156,10 @@ private:
     };
 };
 
-class ReptiloidsProposalsVoteDialog : public QDialog {
+class ReptiloidsCoinProposalsVoteDialog : public QDialog {
     Q_OBJECT
 public:
-    explicit ReptiloidsProposalsVoteDialog(QVector<ReptiloidsProposals::ReptiloidsProposal> proposals, int displayUnit, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinProposalsVoteDialog(QVector<ReptiloidsCoinProposals::ReptiloidsCoinProposal> proposals, int displayUnit, QWidget *parent = nullptr);
 
 Q_SIGNALS:
     void submitVotes(const std::vector<gov::ProposalVote> & votes);
@@ -168,14 +168,14 @@ private:
     std::map<uint256, QButtonGroup*> approveButtons;
 };
 
-class ReptiloidsProposalsDetailsDialog : public QDialog {
+class ReptiloidsCoinProposalsDetailsDialog : public QDialog {
     Q_OBJECT
 public:
-    explicit ReptiloidsProposalsDetailsDialog(const ReptiloidsProposals::ReptiloidsProposal & proposal, int displayUnit, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinProposalsDetailsDialog(const ReptiloidsCoinProposals::ReptiloidsCoinProposal & proposal, int displayUnit, QWidget *parent = nullptr);
 
 protected:
 
 private:
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSPROPOSALS_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINPROPOSALS_H

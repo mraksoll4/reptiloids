@@ -2,21 +2,21 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsclosebtn.h>
+#include <qt/reptiloidscoinclosebtn.h>
 
 #include <QPainter>
 #include <QPainterPath>
 #include <QPainterPathStroker>
 #include <QPen>
 
-ReptiloidsCloseBtn::ReptiloidsCloseBtn(qreal w, qreal h, QColor xColor, QColor fillColor, QWidget *parent) : QPushButton(parent),
+ReptiloidsCoinCloseBtn::ReptiloidsCoinCloseBtn(qreal w, qreal h, QColor xColor, QColor fillColor, QWidget *parent) : QPushButton(parent),
                                                                      w(w), h(h), xColor(xColor), fillColor(fillColor),
                                                                      id(QString()) {
     this->setFixedSize(static_cast<int>(w), static_cast<int>(h));
     this->setCursor(Qt::PointingHandCursor);
 }
 
-void ReptiloidsCloseBtn::paintEvent(QPaintEvent *) {
+void ReptiloidsCoinCloseBtn::paintEvent(QPaintEvent *) {
     QPainter p(this);
 
     // draw circle

@@ -3,9 +3,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsdebugconsole.h>
+#include <qt/reptiloidscoindebugconsole.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/guiutil.h>
 #include <qt/peertablemodel.h>
@@ -34,7 +34,7 @@ const struct {
     {nullptr, nullptr}
 };
 
-namespace ReptiloidsDebugConsoleRPC {
+namespace ReptiloidsCoinDebugConsoleRPC {
 
 const int CONSOLE_HISTORY = 50;
 const QSize FONT_RANGE(4, 40);
@@ -56,9 +56,9 @@ static QString categoryClass(int category)
     {
         switch(category)
         {
-            case ReptiloidsDebugConsole::CMD_REQUEST:  return "cmd-request"; break;
-            case ReptiloidsDebugConsole::CMD_REPLY:    return "cmd-reply"; break;
-            case ReptiloidsDebugConsole::CMD_ERROR:    return "cmd-error"; break;
+            case ReptiloidsCoinDebugConsole::CMD_REQUEST:  return "cmd-request"; break;
+            case ReptiloidsCoinDebugConsole::CMD_REPLY:    return "cmd-reply"; break;
+            case ReptiloidsCoinDebugConsole::CMD_ERROR:    return "cmd-error"; break;
             default:                       return "misc";
         }
 }
@@ -83,7 +83,7 @@ void RPCExecutor::request(const QString &command, const WalletModel* wallet_mode
 
         // Catch the console-only-help command before RPC call is executed and reply with help text as-if a RPC reply.
         if(executableCommand == "help-console\n") {
-            Q_EMIT reply(ReptiloidsDebugConsole::CMD_REPLY, QString(("\n"
+            Q_EMIT reply(ReptiloidsCoinDebugConsole::CMD_REPLY, QString(("\n"
                 "This console accepts RPC commands using the standard syntax.\n"
                 "   example:    getblockhash 0\n\n"
 
@@ -104,12 +104,12 @@ void RPCExecutor::request(const QString &command, const WalletModel* wallet_mode
                 "   example:    getblock(getblockhash(0),1)[tx][0]\n\n")));
             return;
         }
-        if (!ReptiloidsDebugConsole::RPCExecuteCommandLine(m_node, result, executableCommand, nullptr, wallet_model)) {
-            Q_EMIT reply(ReptiloidsDebugConsole::CMD_ERROR, QString("Parse error: unbalanced ' or \""));
+        if (!ReptiloidsCoinDebugConsole::RPCExecuteCommandLine(m_node, result, executableCommand, nullptr, wallet_model)) {
+            Q_EMIT reply(ReptiloidsCoinDebugConsole::CMD_ERROR, QString("Parse error: unbalanced ' or \""));
             return;
         }
 
-        Q_EMIT reply(ReptiloidsDebugConsole::CMD_REPLY, QString::fromStdString(result));
+        Q_EMIT reply(ReptiloidsCoinDebugConsole::CMD_REPLY, QString::fromStdString(result));
     }
     catch (UniValue& objError)
     {
@@ -117,24 +117,24 @@ void RPCExecutor::request(const QString &command, const WalletModel* wallet_mode
         {
             int code = find_value(objError, "code").get_int();
             std::string message = find_value(objError, "message").get_str();
-            Q_EMIT reply(ReptiloidsDebugConsole::CMD_ERROR, QString::fromStdString(message) + " (code " + QString::number(code) + ")");
+            Q_EMIT reply(ReptiloidsCoinDebugConsole::CMD_ERROR, QString::fromStdString(message) + " (code " + QString::number(code) + ")");
         }
         catch (const std::runtime_error&) // raised when converting to invalid type, i.e. missing code or message
         {   // Show raw JSON object
-            Q_EMIT reply(ReptiloidsDebugConsole::CMD_ERROR, QString::fromStdString(objError.write()));
+            Q_EMIT reply(ReptiloidsCoinDebugConsole::CMD_ERROR, QString::fromStdString(objError.write()));
         }
     }
     catch (const std::exception& e)
     {
-        Q_EMIT reply(ReptiloidsDebugConsole::CMD_ERROR, QString("Error: ") + QString::fromStdString(e.what()));
+        Q_EMIT reply(ReptiloidsCoinDebugConsole::CMD_ERROR, QString("Error: ") + QString::fromStdString(e.what()));
     }
 }
 
 }
 
-ReptiloidsDebugConsole::ReptiloidsDebugConsole(interfaces::Node& node, const PlatformStyle* platformStyle,
+ReptiloidsCoinDebugConsole::ReptiloidsCoinDebugConsole(interfaces::Node& node, const PlatformStyle* platformStyle,
                                            QWidget *popup, int id, QFrame *parent)
-                                                                : ReptiloidsToolsPage(id, parent),
+                                                                : ReptiloidsCoinToolsPage(id, parent),
                                                                   m_node(node),
                                                                   platformStyle(platformStyle),
                                                                   popupWidget(popup),
@@ -166,7 +166,7 @@ ReptiloidsDebugConsole::ReptiloidsDebugConsole(interfaces::Node& node, const Pla
     lineEdit = new QLineEdit;
     lineEdit->setObjectName("console");
     lineEdit->setMinimumHeight(BGU::spi(35));
-    clearButton = new ReptiloidsLabelBtn;
+    clearButton = new ReptiloidsCoinLabelBtn;
     clearButton->setText(tr("Clear window"));
 
     auto fontBtnsBox = new QFrame;
@@ -205,30 +205,30 @@ ReptiloidsDebugConsole::ReptiloidsDebugConsole(interfaces::Node& node, const Pla
     messagesWidget->installEventFilter(this);
 
     // Register RPC timer interface
-    rpcTimerInterface = new ReptiloidsDebugConsoleRPC::QtRPCTimerInterface();
+    rpcTimerInterface = new ReptiloidsCoinDebugConsoleRPC::QtRPCTimerInterface();
     // avoid accidentally overwriting an existing, non QTThread
     // based timer interface
     m_node.rpcSetTimerInterfaceIfUnset(rpcTimerInterface);
 
-    connect(clearButton, &ReptiloidsLabelBtn::clicked, this, &ReptiloidsDebugConsole::clear);
-    connect(lineEdit, &QLineEdit::returnPressed, this, &ReptiloidsDebugConsole::on_lineEdit_returnPressed);
-    connect(clearButton, &QPushButton::clicked, this, &ReptiloidsDebugConsole::clear);
-    connect(fontBiggerButton, &QPushButton::clicked, this, &ReptiloidsDebugConsole::fontBigger);
-    connect(fontSmallerButton, &QPushButton::clicked, this, &ReptiloidsDebugConsole::fontSmaller);
+    connect(clearButton, &ReptiloidsCoinLabelBtn::clicked, this, &ReptiloidsCoinDebugConsole::clear);
+    connect(lineEdit, &QLineEdit::returnPressed, this, &ReptiloidsCoinDebugConsole::on_lineEdit_returnPressed);
+    connect(clearButton, &QPushButton::clicked, this, &ReptiloidsCoinDebugConsole::clear);
+    connect(fontBiggerButton, &QPushButton::clicked, this, &ReptiloidsCoinDebugConsole::fontBigger);
+    connect(fontSmallerButton, &QPushButton::clicked, this, &ReptiloidsCoinDebugConsole::fontSmaller);
 
     QSettings settings;
-    consoleFontSize = settings.value(ReptiloidsDebugConsoleRPC::fontSizeSettingsKey, QFontInfo(QFont()).pointSize()).toInt();
+    consoleFontSize = settings.value(ReptiloidsCoinDebugConsoleRPC::fontSizeSettingsKey, QFontInfo(QFont()).pointSize()).toInt();
     clear();
 }
 
-ReptiloidsDebugConsole::~ReptiloidsDebugConsole() {
+ReptiloidsCoinDebugConsole::~ReptiloidsCoinDebugConsole() {
     thread.quit();
     thread.wait();
     m_node.rpcUnsetTimerInterface(rpcTimerInterface);
     delete rpcTimerInterface;
 }
 
-void ReptiloidsDebugConsole::setModels(ClientModel *c, WalletModel *w) {
+void ReptiloidsCoinDebugConsole::setModels(ClientModel *c, WalletModel *w) {
     clientModel = c;
     walletModel = w;
 
@@ -260,7 +260,7 @@ void ReptiloidsDebugConsole::setModels(ClientModel *c, WalletModel *w) {
     }
 }
 
-void ReptiloidsDebugConsole::focusInEvent(QFocusEvent *event) {
+void ReptiloidsCoinDebugConsole::focusInEvent(QFocusEvent *event) {
     QWidget::focusInEvent(event);
     lineEdit->setFocus();
 }
@@ -284,7 +284,7 @@ void ReptiloidsDebugConsole::focusInEvent(QFocusEvent *event) {
  * @param[in]    fExecute    set true if you want the command to be executed
  * @param[out]   pstrFilteredOut  Command line, filtered to remove any sensitive data
  */
-bool ReptiloidsDebugConsole::RPCParseCommandLine(interfaces::Node* node, std::string &strResult, const std::string &strCommand, const bool fExecute, std::string * const pstrFilteredOut, const WalletModel* wallet_model)
+bool ReptiloidsCoinDebugConsole::RPCParseCommandLine(interfaces::Node* node, std::string &strResult, const std::string &strCommand, const bool fExecute, std::string * const pstrFilteredOut, const WalletModel* wallet_model)
 {
     std::vector< std::vector<std::string> > stack;
     stack.push_back(std::vector<std::string>());
@@ -309,7 +309,7 @@ bool ReptiloidsDebugConsole::RPCParseCommandLine(interfaces::Node* node, std::st
     std::vector<std::pair<size_t, size_t>> filter_ranges;
 
     auto add_to_current_stack = [&](const std::string& strArg) {
-        if (stack.back().empty() && (!nDepthInsideSensitive) && ReptiloidsDebugConsoleRPC::historyFilter.contains(QString::fromStdString(strArg), Qt::CaseInsensitive)) {
+        if (stack.back().empty() && (!nDepthInsideSensitive) && ReptiloidsCoinDebugConsoleRPC::historyFilter.contains(QString::fromStdString(strArg), Qt::CaseInsensitive)) {
             nDepthInsideSensitive = 1;
             filter_begin_pos = chpos;
         }
@@ -523,7 +523,7 @@ bool ReptiloidsDebugConsole::RPCParseCommandLine(interfaces::Node* node, std::st
     }
 }
 
-bool ReptiloidsDebugConsole::eventFilter(QObject* obj, QEvent *event)
+bool ReptiloidsCoinDebugConsole::eventFilter(QObject* obj, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress) // Special key handling
     {
@@ -568,19 +568,19 @@ bool ReptiloidsDebugConsole::eventFilter(QObject* obj, QEvent *event)
     return QWidget::eventFilter(obj, event);
 }
 
-void ReptiloidsDebugConsole::fontBigger() {
+void ReptiloidsCoinDebugConsole::fontBigger() {
     setFontSize(consoleFontSize+1);
 }
 
-void ReptiloidsDebugConsole::fontSmaller() {
+void ReptiloidsCoinDebugConsole::fontSmaller() {
     setFontSize(consoleFontSize-1);
 }
 
-void ReptiloidsDebugConsole::setFontSize(int newSize) {
+void ReptiloidsCoinDebugConsole::setFontSize(int newSize) {
     QSettings settings;
 
     //don't allow an insane font size
-    if (newSize < ReptiloidsDebugConsoleRPC::FONT_RANGE.width() || newSize > ReptiloidsDebugConsoleRPC::FONT_RANGE.height())
+    if (newSize < ReptiloidsCoinDebugConsoleRPC::FONT_RANGE.width() || newSize > ReptiloidsCoinDebugConsoleRPC::FONT_RANGE.height())
         return;
 
     // temp. store the console content
@@ -591,7 +591,7 @@ void ReptiloidsDebugConsole::setFontSize(int newSize) {
 
     // store the new font size
     consoleFontSize = newSize;
-    settings.setValue(ReptiloidsDebugConsoleRPC::fontSizeSettingsKey, consoleFontSize);
+    settings.setValue(ReptiloidsCoinDebugConsoleRPC::fontSizeSettingsKey, consoleFontSize);
 
     // clear console (reset icon sizes, default stylesheet) and re-add the content
     float oldPosFactor = 1.0 / messagesWidget->verticalScrollBar()->maximum() * messagesWidget->verticalScrollBar()->value();
@@ -600,7 +600,7 @@ void ReptiloidsDebugConsole::setFontSize(int newSize) {
     messagesWidget->verticalScrollBar()->setValue(oldPosFactor * messagesWidget->verticalScrollBar()->maximum());
 }
 
-void ReptiloidsDebugConsole::clear(bool clearHistory) {
+void ReptiloidsCoinDebugConsole::clear(bool clearHistory) {
     messagesWidget->clear();
     if(clearHistory)
     {
@@ -650,19 +650,19 @@ void ReptiloidsDebugConsole::clear(bool clearHistory) {
                         true);
 }
 
-void ReptiloidsDebugConsole::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinDebugConsole::keyPressEvent(QKeyEvent *event) {
     if(windowType() != Qt::Widget && event->key() == Qt::Key_Escape)
         close();
 }
 
-void ReptiloidsDebugConsole::message(int category, const QString &message, bool html)
+void ReptiloidsCoinDebugConsole::message(int category, const QString &message, bool html)
 {
     QTime time = QTime::currentTime();
     QString timeString = time.toString();
     QString out;
     out += "<table><tr><td class=\"time\" width=\"65\">" + timeString + "</td>";
-    out += "<td class=\"icon\" width=\"32\"><img src=\"" + ReptiloidsDebugConsoleRPC::categoryClass(category) + "\"></td>";
-    out += "<td class=\"message " + ReptiloidsDebugConsoleRPC::categoryClass(category) + "\" valign=\"middle\">";
+    out += "<td class=\"icon\" width=\"32\"><img src=\"" + ReptiloidsCoinDebugConsoleRPC::categoryClass(category) + "\"></td>";
+    out += "<td class=\"message " + ReptiloidsCoinDebugConsoleRPC::categoryClass(category) + "\" valign=\"middle\">";
     if(html)
         out += message;
     else
@@ -671,7 +671,7 @@ void ReptiloidsDebugConsole::message(int category, const QString &message, bool 
     messagesWidget->append(out);
 }
 
-void ReptiloidsDebugConsole::on_lineEdit_returnPressed()
+void ReptiloidsCoinDebugConsole::on_lineEdit_returnPressed()
 {
     QString cmd = lineEdit->text();
 
@@ -715,7 +715,7 @@ void ReptiloidsDebugConsole::on_lineEdit_returnPressed()
         // Append command to history
         history.append(cmd);
         // Enforce maximum history size
-        while(history.size() > ReptiloidsDebugConsoleRPC::CONSOLE_HISTORY)
+        while(history.size() > ReptiloidsCoinDebugConsoleRPC::CONSOLE_HISTORY)
             history.removeFirst();
         // Set pointer to end of history
         historyPtr = history.size();
@@ -725,7 +725,7 @@ void ReptiloidsDebugConsole::on_lineEdit_returnPressed()
     }
 }
 
-void ReptiloidsDebugConsole::browseHistory(int offset) {
+void ReptiloidsCoinDebugConsole::browseHistory(int offset) {
     // store current text when start browsing through the history
     if (historyPtr == history.size()) {
         cmdBeforeBrowsing = lineEdit->text();
@@ -745,33 +745,33 @@ void ReptiloidsDebugConsole::browseHistory(int offset) {
     lineEdit->setText(cmd);
 }
 
-void ReptiloidsDebugConsole::startExecutor() {
-    auto *executor = new ReptiloidsDebugConsoleRPC::RPCExecutor(m_node);
+void ReptiloidsCoinDebugConsole::startExecutor() {
+    auto *executor = new ReptiloidsCoinDebugConsoleRPC::RPCExecutor(m_node);
     executor->moveToThread(&thread);
 
     // Replies from executor object must go to this object
-    connect(executor, &ReptiloidsDebugConsoleRPC::RPCExecutor::reply, this, static_cast<void (ReptiloidsDebugConsole::*)(int, const QString&)>(&ReptiloidsDebugConsole::message));
+    connect(executor, &ReptiloidsCoinDebugConsoleRPC::RPCExecutor::reply, this, static_cast<void (ReptiloidsCoinDebugConsole::*)(int, const QString&)>(&ReptiloidsCoinDebugConsole::message));
 
     // Requests from this object must go to executor
-    connect(this, &ReptiloidsDebugConsole::cmdRequest, executor, &ReptiloidsDebugConsoleRPC::RPCExecutor::request);
+    connect(this, &ReptiloidsCoinDebugConsole::cmdRequest, executor, &ReptiloidsCoinDebugConsoleRPC::RPCExecutor::request);
 
     // Make sure executor object is deleted in its own thread
-    connect(&thread, &QThread::finished, executor, &ReptiloidsDebugConsoleRPC::RPCExecutor::deleteLater);
+    connect(&thread, &QThread::finished, executor, &ReptiloidsCoinDebugConsoleRPC::RPCExecutor::deleteLater);
 
     // Default implementation of QThread::run() simply spins up an event loop in the thread,
     // which is what we want.
     thread.start();
 }
 
-void ReptiloidsDebugConsole::on_openDebugLogfileButton_clicked() {
+void ReptiloidsCoinDebugConsole::on_openDebugLogfileButton_clicked() {
     GUIUtil::openDebugLogfile();
 }
 
-void ReptiloidsDebugConsole::scrollToEnd() {
+void ReptiloidsCoinDebugConsole::scrollToEnd() {
     QScrollBar *scrollbar = messagesWidget->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
 }
 
-void ReptiloidsDebugConsole::resizeEvent(QResizeEvent *event) {
+void ReptiloidsCoinDebugConsole::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
 }

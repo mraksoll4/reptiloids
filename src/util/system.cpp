@@ -74,7 +74,7 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "reptiloids.conf";
+const char * const BITCOIN_CONF_FILENAME = "reptiloidscoin.conf";
 
 ArgsManager gArgs;
 
@@ -671,7 +671,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "reptiloids";
+    const char* pszModule = "reptiloidscoin";
 #endif
     if (pex)
         return strprintf(
@@ -690,13 +690,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 
 fs::path GetDefaultDataDir()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Reptiloids
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Reptiloids
-    // Mac: ~/Library/Application Support/Reptiloids
-    // Unix: ~/.reptiloids
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\ReptiloidsCoin
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\ReptiloidsCoin
+    // Mac: ~/Library/Application Support/ReptiloidsCoin
+    // Unix: ~/.reptiloidscoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Reptiloids";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "ReptiloidsCoin";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -706,23 +706,23 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Reptiloids";
+    return pathRet / "Library/Application Support/ReptiloidsCoin";
 #else
     // Unix
-    return pathRet / ".reptiloids";
+    return pathRet / ".reptiloidscoin";
 #endif
 #endif
 }
 
 fs::path GetDefaultDataDirLegacy()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\ReptiloidsDX
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\ReptiloidsDX
-    // Mac: ~/Library/Application Support/ReptiloidsDX
-    // Unix: ~/.reptiloidsdx
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\ReptiloidsCoinDX
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\ReptiloidsCoinDX
+    // Mac: ~/Library/Application Support/ReptiloidsCoinDX
+    // Unix: ~/.reptiloidscoindx
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "ReptiloidsDX";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "ReptiloidsCoinDX";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -732,10 +732,10 @@ fs::path GetDefaultDataDirLegacy()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/ReptiloidsDX";
+    return pathRet / "Library/Application Support/ReptiloidsCoinDX";
 #else
     // Unix
-    return pathRet / ".reptiloidsdx";
+    return pathRet / ".reptiloidscoindx";
 #endif
 #endif
 }

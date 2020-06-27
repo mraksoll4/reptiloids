@@ -1908,7 +1908,7 @@
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+107"/>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

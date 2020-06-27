@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_XUICONNECTOR_H
-#define REPTILOIDS_XBRIDGE_XUICONNECTOR_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XUICONNECTOR_H
+#define REPTILOIDSCOIN_XBRIDGE_XUICONNECTOR_H
 
 #include <uint256.h>
 
@@ -32,5 +32,5 @@ public:
 
 extern XUIConnector xuiConnector;
 
-#endif // REPTILOIDS_XBRIDGE_XUICONNECTOR_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XUICONNECTOR_H
 

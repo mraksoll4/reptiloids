@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDS2_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDS2_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS2_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS2_H
 
-#include <qt/reptiloidscoincontrol.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslineedit.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoincoincontrol.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlineedit.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -18,10 +18,10 @@
 #include <QRadioButton>
 #include <QScrollArea>
 
-class ReptiloidsSendFunds2List : public QFrame {
+class ReptiloidsCoinSendFunds2List : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsSendFunds2List(int displayUnit, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinSendFunds2List(int displayUnit, QFrame *parent = nullptr);
     QSize sizeHint() const override;
     static QString getName() {
         return QString("funds");
@@ -44,14 +44,14 @@ private:
     int displayUnit;
     QGridLayout *gridLayout;
     QSet<QWidget*> widgets;
-    QVector<ReptiloidsLineEdit*> tis;
+    QVector<ReptiloidsCoinLineEdit*> tis;
 };
 
-class ReptiloidsSendFunds2 : public ReptiloidsSendFundsPage {
+class ReptiloidsCoinSendFunds2 : public ReptiloidsCoinSendFundsPage {
     Q_OBJECT
 public:
-    explicit ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *parent = nullptr);
-    void setData(ReptiloidsSendFundsModel *model) override;
+    explicit ReptiloidsCoinSendFunds2(WalletModel *w, int id, QFrame *parent = nullptr);
+    void setData(ReptiloidsCoinSendFundsModel *model) override;
     bool validated() override;
     void clear() override;
 
@@ -76,18 +76,18 @@ private:
     QFrame *content;
     QVBoxLayout *contentLayout;
     QLabel *titleLbl;
-    ReptiloidsLineEdit *changeAddrTi;
+    ReptiloidsCoinLineEdit *changeAddrTi;
     QFrame *ccManualBox;
     QFrame *fundList;
-    ReptiloidsFormBtn *continueBtn;
-    ReptiloidsFormBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *continueBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
     QRadioButton *ccDefaultRb;
     QRadioButton *ccManualRb;
     QCheckBox *ccSplitOutputCb;
-    ReptiloidsLineEdit *ccSplitOutputTi;
+    ReptiloidsCoinLineEdit *ccSplitOutputTi;
     QLabel *ccSummary2Lbl;
-    ReptiloidsSendFunds2List *bFundList = nullptr;
-    ReptiloidsCoinControlDialog *ccDialog;
+    ReptiloidsCoinSendFunds2List *bFundList = nullptr;
+    ReptiloidsCoinCoinControlDialog *ccDialog;
     const uint maxSplitOutputs = 1500;
 
     void updateCoinControl();
@@ -96,4 +96,4 @@ private:
     void updateDisplayUnit();
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDS2_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS2_H

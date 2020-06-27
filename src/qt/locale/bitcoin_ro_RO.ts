@@ -1422,8 +1422,8 @@
         <translation>Cantitate</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>Introduceţi o adresă Reptiloids (de exemplu %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>Introduceţi o adresă ReptiloidsCoin (de exemplu %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

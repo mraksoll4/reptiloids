@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_COINVALIDATOR_H
-#define REPTILOIDS_COINVALIDATOR_H
+#ifndef REPTILOIDSCOIN_COINVALIDATOR_H
+#define REPTILOIDSCOIN_COINVALIDATOR_H
 
 #include <amount.h>
 #include <base58.h>
@@ -73,4 +73,4 @@ private:
     std::vector<std::string> getExplList();
 };
 
-#endif //REPTILOIDS_COINVALIDATOR_H
+#endif //REPTILOIDSCOIN_COINVALIDATOR_H

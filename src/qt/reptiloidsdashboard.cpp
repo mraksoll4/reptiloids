@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsdashboard.h>
+#include <qt/reptiloidscoindashboard.h>
 
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsiconbtn.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoiniconbtn.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/transactionrecord.h>
@@ -18,7 +18,7 @@
 #include <QFont>
 #include <QHeaderView>
 
-ReptiloidsDashboard::ReptiloidsDashboard(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
+ReptiloidsCoinDashboard::ReptiloidsCoinDashboard(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
                                                        walletModel(nullptr),
                                                        displayUnit(0), walletBalance(0),
                                                        unconfirmedBalance(0), immatureBalance(0) {
@@ -85,13 +85,13 @@ ReptiloidsDashboard::ReptiloidsDashboard(QFrame *parent) : QFrame(parent), layou
     balanceBoxLayout->addWidget(immatureBox);
     balanceBoxLayout->addWidget(totalBox);
 
-    auto *quickSend = new ReptiloidsIconBtn(tr("Quick Send"), ":/redesign/QuickActions/QuickSendIcon.png");
+    auto *quickSend = new ReptiloidsCoinIconBtn(tr("Quick Send"), ":/redesign/QuickActions/QuickSendIcon.png");
 
     balanceGridLayout->addWidget(balanceBox, 0, 0, Qt::AlignLeft);
     balanceGridLayout->addWidget(quickSend, 0, 1, Qt::AlignRight | Qt::AlignVCenter);
     balanceGridLayout->setColumnStretch(1, 1);
 
-    auto *hdiv = new ReptiloidsHDiv;
+    auto *hdiv = new ReptiloidsCoinHDiv;
 
     auto *recentBox = new QFrame;
     auto *recentLayout = new QHBoxLayout;
@@ -114,7 +114,7 @@ ReptiloidsDashboard::ReptiloidsDashboard(QFrame *parent) : QFrame(parent), layou
     auto *recentTransactionsGridLayout = new QVBoxLayout;
     recentTransactionsGridLayout->setContentsMargins(QMargins());
     recentTransactions->setLayout(recentTransactionsGridLayout);
-    transactionsTbl = new ReptiloidsDashboardTable;
+    transactionsTbl = new ReptiloidsCoinDashboardTable;
     transactionsTbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     transactionsTbl->setEditTriggers(QAbstractItemView::NoEditTriggers);
     transactionsTbl->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -145,11 +145,11 @@ ReptiloidsDashboard::ReptiloidsDashboard(QFrame *parent) : QFrame(parent), layou
     layout->addWidget(recentTransactions, 1);
     layout->addSpacing(BGU::spi(20));
 
-    connect(quickSend, &ReptiloidsIconBtn::clicked, this, &ReptiloidsDashboard::onQuickSend);
-    connect(viewAll, &QPushButton::clicked, this, &ReptiloidsDashboard::onViewAll);
+    connect(quickSend, &ReptiloidsCoinIconBtn::clicked, this, &ReptiloidsCoinDashboard::onQuickSend);
+    connect(viewAll, &QPushButton::clicked, this, &ReptiloidsCoinDashboard::onViewAll);
 }
 
-void ReptiloidsDashboard::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinDashboard::setWalletModel(WalletModel *w) {
     if (walletModel == w) {
         displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
         balanceChanged(walletModel->wallet().getBalances());
@@ -166,65 +166,65 @@ void ReptiloidsDashboard::setWalletModel(WalletModel *w) {
     balanceChanged(walletModel->wallet().getBalances());
 
     transactionsTbl->setWalletModel(walletModel);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsDashboardFilterProxy::DashboardStatus, QHeaderView::Fixed);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsDashboardFilterProxy::DashboardDate, QHeaderView::Fixed);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsDashboardFilterProxy::DashboardTime, QHeaderView::Fixed);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsDashboardFilterProxy::DashboardType, QHeaderView::ResizeToContents);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsDashboardFilterProxy::DashboardAmount, QHeaderView::ResizeToContents);
-    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsDashboardFilterProxy::DashboardToAddress, QHeaderView::Stretch);
-    transactionsTbl->setColumnWidth(ReptiloidsDashboardFilterProxy::DashboardStatus, BGU::spi(3));
-    transactionsTbl->setColumnWidth(ReptiloidsDashboardFilterProxy::DashboardDate, BGU::spi(60));
-    transactionsTbl->setColumnWidth(ReptiloidsDashboardFilterProxy::DashboardTime, BGU::spi(72));
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinDashboardFilterProxy::DashboardStatus, QHeaderView::Fixed);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinDashboardFilterProxy::DashboardDate, QHeaderView::Fixed);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinDashboardFilterProxy::DashboardTime, QHeaderView::Fixed);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinDashboardFilterProxy::DashboardType, QHeaderView::ResizeToContents);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinDashboardFilterProxy::DashboardAmount, QHeaderView::ResizeToContents);
+    transactionsTbl->horizontalHeader()->setSectionResizeMode(ReptiloidsCoinDashboardFilterProxy::DashboardToAddress, QHeaderView::Stretch);
+    transactionsTbl->setColumnWidth(ReptiloidsCoinDashboardFilterProxy::DashboardStatus, BGU::spi(3));
+    transactionsTbl->setColumnWidth(ReptiloidsCoinDashboardFilterProxy::DashboardDate, BGU::spi(60));
+    transactionsTbl->setColumnWidth(ReptiloidsCoinDashboardFilterProxy::DashboardTime, BGU::spi(72));
 
     // Watch for wallet changes
     walletEvents(true);
 }
 
-void ReptiloidsDashboard::showEvent(QShowEvent *event) {
+void ReptiloidsCoinDashboard::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
     walletEvents(true);
     transactionsTbl->enter();
 }
 
-void ReptiloidsDashboard::hideEvent(QHideEvent *event) {
+void ReptiloidsCoinDashboard::hideEvent(QHideEvent *event) {
     QWidget::hideEvent(event);
     walletEvents(false);
     transactionsTbl->leave();
 }
 
-void ReptiloidsDashboard::balanceChanged(const interfaces::WalletBalances & balances) {
+void ReptiloidsCoinDashboard::balanceChanged(const interfaces::WalletBalances & balances) {
     walletBalance = balances.balance;
     unconfirmedBalance = balances.unconfirmed_balance;
     immatureBalance = balances.immature_balance;
     updateBalance();
 }
 
-void ReptiloidsDashboard::displayUnitChanged(int unit) {
+void ReptiloidsCoinDashboard::displayUnitChanged(int unit) {
     displayUnit = unit;
     updateBalance();
 }
 
-void ReptiloidsDashboard::updateBalance() {
+void ReptiloidsCoinDashboard::updateBalance() {
     balanceValueLbl->setText(BitcoinUnits::formatWithUnit(displayUnit, walletBalance, false, BitcoinUnits::separatorAlways));
     pendingValueLbl->setText(BitcoinUnits::formatWithUnit(displayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     immatureValueLbl->setText(BitcoinUnits::formatWithUnit(displayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
     totalValueLbl->setText(BitcoinUnits::formatWithUnit(displayUnit, walletBalance + unconfirmedBalance + immatureBalance, false, BitcoinUnits::separatorAlways));
 }
 
-void ReptiloidsDashboard::walletEvents(const bool on) {
+void ReptiloidsCoinDashboard::walletEvents(const bool on) {
     if (walletModel && on) {
-        connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsDashboard::displayUnitChanged);
+        connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinDashboard::displayUnitChanged);
         displayUnitChanged(walletModel->getOptionsModel()->getDisplayUnit());
     } else if (walletModel) {
-        disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsDashboard::displayUnitChanged);
+        disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinDashboard::displayUnitChanged);
     }
 }
 
-ReptiloidsDashboardTable::ReptiloidsDashboardTable(QWidget *parent) : QTableView(parent),
+ReptiloidsCoinDashboardTable::ReptiloidsCoinDashboardTable(QWidget *parent) : QTableView(parent),
                                                                   walletModel(nullptr) {
 }
 
-void ReptiloidsDashboardTable::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinDashboardTable::setWalletModel(WalletModel *w) {
     if (walletModel == w)
         return;
     walletModel = w;
@@ -234,40 +234,40 @@ void ReptiloidsDashboardTable::setWalletModel(WalletModel *w) {
         return;
     }
 
-    this->setItemDelegateForColumn(ReptiloidsDashboardFilterProxy::DashboardStatus, new ReptiloidsDashboardCellItem(this));
-    this->setItemDelegateForColumn(ReptiloidsDashboardFilterProxy::DashboardDate, new ReptiloidsDashboardCellItem(this));
+    this->setItemDelegateForColumn(ReptiloidsCoinDashboardFilterProxy::DashboardStatus, new ReptiloidsCoinDashboardCellItem(this));
+    this->setItemDelegateForColumn(ReptiloidsCoinDashboardFilterProxy::DashboardDate, new ReptiloidsCoinDashboardCellItem(this));
 
     // Set up transaction list
-    auto *filter = new ReptiloidsDashboardFilterProxy(walletModel->getOptionsModel(), this);
+    auto *filter = new ReptiloidsCoinDashboardFilterProxy(walletModel->getOptionsModel(), this);
     filter->setSourceModel(walletModel->getTransactionTableModel());
     filter->setLimit(30);
     filter->setDynamicSortFilter(true);
     filter->setSortRole(Qt::EditRole);
     filter->setFilterRole(Qt::EditRole);
-    filter->sort(ReptiloidsDashboardFilterProxy::DashboardDate, Qt::DescendingOrder);
+    filter->sort(ReptiloidsCoinDashboardFilterProxy::DashboardDate, Qt::DescendingOrder);
     setModel(filter);
 }
 
-void ReptiloidsDashboardTable::leave() {
+void ReptiloidsCoinDashboardTable::leave() {
     this->blockSignals(true);
     model()->blockSignals(true);
 }
-void ReptiloidsDashboardTable::enter() {
+void ReptiloidsCoinDashboardTable::enter() {
     this->blockSignals(false);
     model()->blockSignals(false);
     setModel(model());
 }
 
-ReptiloidsDashboardFilterProxy::ReptiloidsDashboardFilterProxy(OptionsModel *o, QObject *parent) : QSortFilterProxyModel(parent),
+ReptiloidsCoinDashboardFilterProxy::ReptiloidsCoinDashboardFilterProxy(OptionsModel *o, QObject *parent) : QSortFilterProxyModel(parent),
                                                                                                optionsModel(o),
                                                                                                limitRows(-1) { }
 
 
-void ReptiloidsDashboardFilterProxy::setLimit(int limit) {
+void ReptiloidsCoinDashboardFilterProxy::setLimit(int limit) {
     this->limitRows = limit;
 }
 
-bool ReptiloidsDashboardFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const {
+bool ReptiloidsCoinDashboardFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     auto involvesWatchAddress = index.data(TransactionTableModel::WatchonlyRole).toBool();
@@ -281,8 +281,8 @@ bool ReptiloidsDashboardFilterProxy::filterAcceptsRow(int sourceRow, const QMode
     return true;
 }
 
-bool ReptiloidsDashboardFilterProxy::lessThan(const QModelIndex &left, const QModelIndex &right) const {
-    if (left.column() == ReptiloidsDashboardFilterProxy::DashboardDate) {
+bool ReptiloidsCoinDashboardFilterProxy::lessThan(const QModelIndex &left, const QModelIndex &right) const {
+    if (left.column() == ReptiloidsCoinDashboardFilterProxy::DashboardDate) {
         QVariant leftData = sourceModel()->index(left.row(), TransactionTableModel::Date).data(Qt::EditRole);
         QVariant rightData = sourceModel()->index(right.row(), TransactionTableModel::Date).data(Qt::EditRole);
         return leftData.toLongLong() < rightData.toLongLong();
@@ -290,18 +290,18 @@ bool ReptiloidsDashboardFilterProxy::lessThan(const QModelIndex &left, const QMo
     return QSortFilterProxyModel::lessThan(left, right);
 }
 
-int ReptiloidsDashboardFilterProxy::columnCount(const QModelIndex &) const {
-    return ReptiloidsDashboardFilterProxy::DashboardAmount + 1;
+int ReptiloidsCoinDashboardFilterProxy::columnCount(const QModelIndex &) const {
+    return ReptiloidsCoinDashboardFilterProxy::DashboardAmount + 1;
 }
 
-int ReptiloidsDashboardFilterProxy::rowCount(const QModelIndex& parent) const {
+int ReptiloidsCoinDashboardFilterProxy::rowCount(const QModelIndex& parent) const {
     if (limitRows != -1)
         return std::min(QSortFilterProxyModel::rowCount(parent), limitRows);
     else
         return QSortFilterProxyModel::rowCount(parent);
 }
 
-QVariant ReptiloidsDashboardFilterProxy::data(const QModelIndex &index, int role) const {
+QVariant ReptiloidsCoinDashboardFilterProxy::data(const QModelIndex &index, int role) const {
     if (!index.isValid())
         return QVariant();
 
@@ -391,13 +391,13 @@ QVariant ReptiloidsDashboardFilterProxy::data(const QModelIndex &index, int role
     return QSortFilterProxyModel::data(index, role);
 }
 
-ReptiloidsDashboardCellItem::ReptiloidsDashboardCellItem(QObject *parent) : QStyledItemDelegate(parent) { }
+ReptiloidsCoinDashboardCellItem::ReptiloidsCoinDashboardCellItem(QObject *parent) : QStyledItemDelegate(parent) { }
 
-void ReptiloidsDashboardCellItem::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+void ReptiloidsCoinDashboardCellItem::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
     painter->save();
 
     switch (index.column()) {
-        case ReptiloidsDashboardFilterProxy::DashboardStatus: {
+        case ReptiloidsCoinDashboardFilterProxy::DashboardStatus: {
             QColor color;
             auto status = static_cast<TransactionStatus::Status>(index.data(Qt::DisplayRole).toInt());
             switch (status) {
@@ -423,7 +423,7 @@ void ReptiloidsDashboardCellItem::paint(QPainter *painter, const QStyleOptionVie
             painter->fillRect(r, color);
             break;
         }
-        case ReptiloidsDashboardFilterProxy::DashboardDate: {
+        case ReptiloidsCoinDashboardFilterProxy::DashboardDate: {
             auto date = QDateTime::fromTime_t(index.data(Qt::EditRole).toULongLong());
             auto month = date.toString("MMM").toUpper();
             auto dt = date.toString("dd");
@@ -447,11 +447,11 @@ void ReptiloidsDashboardCellItem::paint(QPainter *painter, const QStyleOptionVie
     painter->restore();
 }
 
-QSize ReptiloidsDashboardCellItem::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
+QSize ReptiloidsCoinDashboardCellItem::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
     switch (index.column()) {
-        case ReptiloidsDashboardFilterProxy::DashboardStatus:
+        case ReptiloidsCoinDashboardFilterProxy::DashboardStatus:
             return {BGU::spi(3), option.rect.height()};
-        case ReptiloidsDashboardFilterProxy::DashboardDate:
+        case ReptiloidsCoinDashboardFilterProxy::DashboardDate:
             return {BGU::spi(60), option.rect.height()};
     }
     return QStyledItemDelegate::sizeHint(option, index);

@@ -2,20 +2,20 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSICONLABEL_H
-#define REPTILOIDS_QT_REPTILOIDSICONLABEL_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINICONLABEL_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINICONLABEL_H
 
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPixmap>
 #include <QPushButton>
 
-class ReptiloidsIconLabel : public QPushButton
+class ReptiloidsCoinIconLabel : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsIconLabel(QPushButton *parent = nullptr);
-    ~ReptiloidsIconLabel() override;
+    explicit ReptiloidsCoinIconLabel(QPushButton *parent = nullptr);
+    ~ReptiloidsCoinIconLabel() override;
     void setIcon(const QString active, const QString disabled);
     void setLabel(const QString &label);
 
@@ -35,4 +35,4 @@ private:
     bool *iconActiveState = nullptr;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSICONLABEL_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINICONLABEL_H

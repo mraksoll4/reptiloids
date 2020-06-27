@@ -447,7 +447,7 @@ bool SubmitVotes(const std::vector<ProposalVote> & proposalVotes, const std::vec
             cc.fAllowOtherInputs = false;
             cc.destChange = CTxDestination(inputsInUse.begin()->first); // pay change to the first input coin
             FeeCalculation feeCalc;
-            // TODO Reptiloids accurate input size estimation required
+            // TODO ReptiloidsCoin accurate input size estimation required
             const auto feeBytes = static_cast<unsigned int>(inputsInUse.size()*180) // inputs (~180 bytes)
                                   + static_cast<unsigned int>(voteOuts.size()*(MAX_OP_RETURN_RELAY+75)) // vote outs (~235 bytes)
                                   + static_cast<unsigned int>(inputsInUse.size()*50); // change, 1 per input (~50 bytes)

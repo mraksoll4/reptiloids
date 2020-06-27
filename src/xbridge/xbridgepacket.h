@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEPACKET_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEPACKET_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEPACKET_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEPACKET_H
 
 #include <xbridge/util/logger.h>
 #include <xbridge/version.h>
@@ -33,7 +33,7 @@ enum TxCancelReason
     crRpcRequest      = 10,
     crXbridgeRejected = 11,
     crInvalidAddress  = 12,
-    crReptiloidsError   = 13,
+    crReptiloidsCoinError   = 13,
     crBadADepositTx   = 14,
     crBadBDepositTx   = 15,
     crTimeout         = 16,
@@ -569,4 +569,4 @@ private:
 typedef std::shared_ptr<XBridgePacket> XBridgePacketPtr;
 typedef std::deque<XBridgePacketPtr>   XBridgePacketQueue;
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEPACKET_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEPACKET_H

@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDS3_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDS3_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS3_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS3_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslineedit.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlineedit.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -20,7 +20,7 @@
 #include <QShowEvent>
 #include <QHideEvent>
 
-class ReptiloidsSendFunds3 : public ReptiloidsSendFundsPage {
+class ReptiloidsCoinSendFunds3 : public ReptiloidsCoinSendFundsPage {
     Q_OBJECT
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -28,8 +28,8 @@ protected:
     void hideEvent(QHideEvent *event) override;
 
 public:
-    explicit ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *parent = nullptr);
-    void setData(ReptiloidsSendFundsModel *model) override;
+    explicit ReptiloidsCoinSendFunds3(WalletModel *w, int id, QFrame *parent = nullptr);
+    void setData(ReptiloidsCoinSendFundsModel *model) override;
     bool validated() override;
     void clear() override;
 
@@ -51,11 +51,11 @@ private:
     QLabel *recommendedDescLbl;
     QRadioButton *recommendedRb;
     QRadioButton *specificRb;
-    ReptiloidsLineEdit *specificFeeTi;
+    ReptiloidsCoinLineEdit *specificFeeTi;
     QLabel *specificFeeLbl;
     QLabel *totalFeeLbl;
-    ReptiloidsFormBtn *continueBtn;
-    ReptiloidsFormBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *continueBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
     QLabel *transactionFeeDesc;
     QCheckBox *subtractFeeCb;
     QLabel *warningLbl;
@@ -64,4 +64,4 @@ private:
     void updateModelTxFees(CAmount fee);
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDS3_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS3_H

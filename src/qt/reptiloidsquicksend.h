@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSQUICKSEND_H
-#define REPTILOIDS_QT_REPTILOIDSQUICKSEND_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINQUICKSEND_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINQUICKSEND_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslineedit.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlineedit.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -19,11 +19,11 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-class ReptiloidsQuickSend : public QFrame
+class ReptiloidsCoinQuickSend : public QFrame
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsQuickSend(WalletModel *w, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinQuickSend(WalletModel *w, QWidget *parent = nullptr);
     bool validated();
 
 Q_SIGNALS:
@@ -55,17 +55,17 @@ private:
 
     QVBoxLayout *layout;
     QLabel *titleLbl;
-    ReptiloidsLineEdit *addressTi;
-    ReptiloidsLineEdit *amountTi;
+    ReptiloidsCoinLineEdit *addressTi;
+    ReptiloidsCoinLineEdit *amountTi;
     QLabel *feeValueLbl;
     QLabel *totalValueLbl;
     QLabel *warningLbl;
-    ReptiloidsFormBtn *cancelBtn;
-    ReptiloidsFormBtn *confirmBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *confirmBtn;
 
     void addAddress(const QString &address);
     void updateLabels(const WalletModel::SendCoinsReturn & result);
     WalletModel::SendCoinsReturn submitFunds();
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSQUICKSEND_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINQUICKSEND_H

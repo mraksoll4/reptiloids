@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssendfundsrequest.h>
+#include <qt/reptiloidscoinsendfundsrequest.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/optionsmodel.h>
@@ -12,7 +12,7 @@
 
 #include <QMessageBox>
 
-ReptiloidsSendFundsRequest::ReptiloidsSendFundsRequest(QWidget *widget, WalletModel *w, CCoinControl *coinControl, QObject *parent)
+ReptiloidsCoinSendFundsRequest::ReptiloidsCoinSendFundsRequest(QWidget *widget, WalletModel *w, CCoinControl *coinControl, QObject *parent)
                                                   : QObject(parent), widget(widget), walletModel(w), coinControl(coinControl) {}
 
 /**
@@ -23,7 +23,7 @@ ReptiloidsSendFundsRequest::ReptiloidsSendFundsRequest(QWidget *widget, WalletMo
  * @param walletWasUnlocked Mutated, indicates that wallet was unlocked
  * @return
  */
-WalletModel::SendCoinsReturn ReptiloidsSendFundsRequest::send(QList<SendCoinsRecipient> &recipients, CAmount &txFees,
+WalletModel::SendCoinsReturn ReptiloidsCoinSendFundsRequest::send(QList<SendCoinsRecipient> &recipients, CAmount &txFees,
         CAmount &txAmount, bool &walletWasUnlocked)
 {
     if (recipients.isEmpty())
@@ -37,7 +37,7 @@ WalletModel::SendCoinsReturn ReptiloidsSendFundsRequest::send(QList<SendCoinsRec
 
         // Prepare tx
         CAmount payFee = 0;
-//        if (coinControl && coinControl->fOverrideFeeRate) // TODO Reptiloids Qt coincontrol fees
+//        if (coinControl && coinControl->fOverrideFeeRate) // TODO ReptiloidsCoin Qt coincontrol fees
 //            payFee = coinControl->m_feerate;
         auto result = walletModel->prepareTransaction(wtx, *coinControl); // always sign tx for submit
         amount = wtx.getTotalTransactionAmount();
@@ -100,7 +100,7 @@ WalletModel::SendCoinsReturn ReptiloidsSendFundsRequest::send(QList<SendCoinsRec
     return sendInt(wtx, txFees, txAmount);
 }
 
-QString ReptiloidsSendFundsRequest::sendStatusMsg(const WalletModel::SendCoinsReturn &scr, const QString &txFeeStr, const int displayUnit) {
+QString ReptiloidsCoinSendFundsRequest::sendStatusMsg(const WalletModel::SendCoinsReturn &scr, const QString &txFeeStr, const int displayUnit) {
     QString msg;
     switch (scr.status) {
         case WalletModel::InvalidAddress:
@@ -124,7 +124,7 @@ QString ReptiloidsSendFundsRequest::sendStatusMsg(const WalletModel::SendCoinsRe
         case WalletModel::TransactionCommitFailed:
             msg = tr("The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.");
             break;
-//        case WalletModel::AnonymizeOnlyUnlocked: // TODO Reptiloids Qt UnlockedForStakingOnly
+//        case WalletModel::AnonymizeOnlyUnlocked: // TODO ReptiloidsCoin Qt UnlockedForStakingOnly
 //            msg = tr("Error: The wallet was unlocked only to anonymize coins.");
 //            break;
         case WalletModel::AbsurdFee:

@@ -26,7 +26,7 @@ BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EX
 empty :=
 space := $(empty) $(empty)
 
-OSX_APP_NOEXT=Reptiloids
+OSX_APP_NOEXT=ReptiloidsCoin
 OSX_APP=$(OSX_APP_NOEXT).app
 OSX_VOLNAME = $(subst $(space),-,$(PACKAGE_NAME))
 OSX_DMG = $(OSX_VOLNAME).dmg

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSFUNDSMENU_H
-#define REPTILOIDS_QT_REPTILOIDSFUNDSMENU_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINFUNDSMENU_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINFUNDSMENU_H
 
 #include <functional>
 
@@ -13,12 +13,12 @@
 #include <QSharedPointer>
 #include <QVBoxLayout>
 
-class ReptiloidsFundsMenu : public QFrame
+class ReptiloidsCoinFundsMenu : public QFrame
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsFundsMenu(QFrame *parent = nullptr);
-    ~ReptiloidsFundsMenu() override;
+    explicit ReptiloidsCoinFundsMenu(QFrame *parent = nullptr);
+    ~ReptiloidsCoinFundsMenu() override;
     void setDisplayWidget(QWidget *widget);
     void show();
 
@@ -45,4 +45,4 @@ private:
 };
 
 
-#endif //REPTILOIDS_QT_REPTILOIDSFUNDSMENU_H
+#endif //REPTILOIDSCOIN_QT_REPTILOIDSCOINFUNDSMENU_H

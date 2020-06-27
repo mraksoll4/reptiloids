@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL1_H
-#define REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL1_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL1_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL1_H
 
-#include <qt/reptiloidscreateproposalutil.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslineeditwithtitle.h>
+#include <qt/reptiloidscoincreateproposalutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlineeditwithtitle.h>
 
 #include <qt/walletmodel.h>
 
@@ -18,12 +18,12 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-class ReptiloidsCreateProposal1 : public ReptiloidsCreateProposalPage {
+class ReptiloidsCoinCreateProposal1 : public ReptiloidsCoinCreateProposalPage {
     Q_OBJECT
 public:
-    explicit ReptiloidsCreateProposal1(int id, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinCreateProposal1(int id, QFrame *parent = nullptr);
     bool validated() override;
-    ReptiloidsCreateProposalPageModel getModel() {
+    ReptiloidsCoinCreateProposalPageModel getModel() {
         auto proposalAddr = paymentAddrTi->lineEdit->text().toStdString();
         auto proposalDest = DecodeDestination(proposalAddr);
         return {
@@ -52,16 +52,16 @@ private:
     QLabel *feeTitleLbl;
     QLabel *feeLbl;
     QLabel *charCountLbl;
-    ReptiloidsLineEditWithTitle *proposalTi;
-    ReptiloidsLineEditWithTitle *urlTi;
-    ReptiloidsLineEditWithTitle *descriptionTi;
-    ReptiloidsLineEditWithTitle *superBlockTi;
-    ReptiloidsLineEditWithTitle *amountTi;
-    ReptiloidsLineEditWithTitle *paymentAddrTi;
-    ReptiloidsFormBtn *continueBtn;
-    ReptiloidsFormBtn *cancelBtn;
+    ReptiloidsCoinLineEditWithTitle *proposalTi;
+    ReptiloidsCoinLineEditWithTitle *urlTi;
+    ReptiloidsCoinLineEditWithTitle *descriptionTi;
+    ReptiloidsCoinLineEditWithTitle *superBlockTi;
+    ReptiloidsCoinLineEditWithTitle *amountTi;
+    ReptiloidsCoinLineEditWithTitle *paymentAddrTi;
+    ReptiloidsCoinFormBtn *continueBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
 
     static int nextSuperblock();
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL1_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL1_H

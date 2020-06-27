@@ -1160,7 +1160,7 @@
         <translation>Сума</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
         <translation>Въведете Биткойн адрес (например: %1)</translation>
     </message>
     <message>

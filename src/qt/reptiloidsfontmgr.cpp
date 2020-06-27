@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsfontmgr.h>
+#include <qt/reptiloidscoinfontmgr.h>
 
 #include <QFontDatabase>
 
-QHash<ReptiloidsFontMgr::Fonts, int> ReptiloidsFontMgr::fonts = QHash<ReptiloidsFontMgr::Fonts, int>();
+QHash<ReptiloidsCoinFontMgr::Fonts, int> ReptiloidsCoinFontMgr::fonts = QHash<ReptiloidsCoinFontMgr::Fonts, int>();
 
-void ReptiloidsFontMgr::setup() {
+void ReptiloidsCoinFontMgr::setup() {
     // Setup fonts
     int id1 = QFontDatabase::addApplicationFont(":/redesign/Roboto-Black.ttf");
     QFontDatabase::addApplicationFont(":/redesign/Roboto-BlackItalic.ttf");
@@ -22,7 +22,7 @@ void ReptiloidsFontMgr::setup() {
     QFontDatabase::addApplicationFont(":/redesign/Roboto-Regular.ttf");
     QFontDatabase::addApplicationFont(":/redesign/Roboto-Thin.ttf");
     QFontDatabase::addApplicationFont(":/redesign/Roboto-ThinItalic.ttf");
-    ReptiloidsFontMgr::fonts[Roboto] = id1;
+    ReptiloidsCoinFontMgr::fonts[Roboto] = id1;
 
     int id2 = QFontDatabase::addApplicationFont(":/redesign/RobotoMono-Bold.ttf");
     QFontDatabase::addApplicationFont(":/redesign/RobotoMono-BoldItalic.ttf");
@@ -34,10 +34,10 @@ void ReptiloidsFontMgr::setup() {
     QFontDatabase::addApplicationFont(":/redesign/RobotoMono-Regular.ttf");
     QFontDatabase::addApplicationFont(":/redesign/RobotoMono-Thin.ttf");
     QFontDatabase::addApplicationFont(":/redesign/RobotoMono-ThinItalic.ttf");
-    ReptiloidsFontMgr::fonts[RobotoMono] = id2;
+    ReptiloidsCoinFontMgr::fonts[RobotoMono] = id2;
 }
 
-QFont ReptiloidsFontMgr::getFont(Fonts font) {
-    QString family = QFontDatabase::applicationFontFamilies(ReptiloidsFontMgr::fonts[font]).at(0);
+QFont ReptiloidsCoinFontMgr::getFont(Fonts font) {
+    QString family = QFontDatabase::applicationFontFamilies(ReptiloidsCoinFontMgr::fonts[font]).at(0);
     return QFont(family);
 }

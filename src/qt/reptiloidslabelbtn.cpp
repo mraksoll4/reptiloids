@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidslabelbtn.h>
+#include <qt/reptiloidscoinlabelbtn.h>
 
-ReptiloidsLabelBtn::ReptiloidsLabelBtn(QPushButton *parent) : QPushButton(parent) {
+ReptiloidsCoinLabelBtn::ReptiloidsCoinLabelBtn(QPushButton *parent) : QPushButton(parent) {
     this->setFlat(true);
     this->setCursor(Qt::PointingHandCursor);
 }

@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSTRANSACTIONHISTORY_H
-#define REPTILOIDS_QT_REPTILOIDSTRANSACTIONHISTORY_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINTRANSACTIONHISTORY_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINTRANSACTIONHISTORY_H
 
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidslineedit.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinlineedit.h>
 
 #include <qt/optionsmodel.h>
 #include <qt/transactionrecord.h>
@@ -29,13 +29,13 @@
 #include <QVBoxLayout>
 #include <QVector>
 
-class ReptiloidsTransactionHistoryTable;
+class ReptiloidsCoinTransactionHistoryTable;
 
-class ReptiloidsTransactionHistory : public QFrame {
+class ReptiloidsCoinTransactionHistory : public QFrame {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsTransactionHistory(WalletModel *w, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinTransactionHistory(WalletModel *w, QWidget *parent = nullptr);
 
     // Date ranges for filter
     enum {
@@ -77,11 +77,11 @@ private:
     int displayUnit;
     QVBoxLayout *layout;
     QLabel *titleLbl;
-    ReptiloidsTransactionHistoryTable *transactionsTbl;
-    ReptiloidsDropdown *dateCb;
-    ReptiloidsDropdown *typeCb;
-    ReptiloidsLineEdit *addressTi;
-    ReptiloidsLineEdit *amountTi;
+    ReptiloidsCoinTransactionHistoryTable *transactionsTbl;
+    ReptiloidsCoinDropdown *dateCb;
+    ReptiloidsCoinDropdown *typeCb;
+    ReptiloidsCoinLineEdit *addressTi;
+    ReptiloidsCoinLineEdit *amountTi;
     QMenu *contextMenu;
     QFrame *dateRangeWidget;
     QDateTimeEdit *dateFrom;
@@ -89,11 +89,11 @@ private:
     QLabel *totalSelectedLbl;
 };
 
-class ReptiloidsTransactionHistoryTable : public QTableView {
+class ReptiloidsCoinTransactionHistoryTable : public QTableView {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsTransactionHistoryTable(QWidget *parent = nullptr);
+    explicit ReptiloidsCoinTransactionHistoryTable(QWidget *parent = nullptr);
     void setWalletModel(WalletModel *w);
     void leave();
     void enter();
@@ -106,11 +106,11 @@ private:
     WalletModel *walletModel;
 };
 
-class ReptiloidsTransactionHistoryFilterProxy : public QSortFilterProxyModel {
+class ReptiloidsCoinTransactionHistoryFilterProxy : public QSortFilterProxyModel {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsTransactionHistoryFilterProxy(OptionsModel *o, QObject *parent = nullptr);
+    explicit ReptiloidsCoinTransactionHistoryFilterProxy(OptionsModel *o, QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent) const override;
@@ -159,15 +159,15 @@ private:
  * @param o
  * @param parent
  */
-class ReptiloidsTransactionHistoryCellItem : public QStyledItemDelegate {
+class ReptiloidsCoinTransactionHistoryCellItem : public QStyledItemDelegate {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsTransactionHistoryCellItem(QObject *parent = nullptr);
+    explicit ReptiloidsCoinTransactionHistoryCellItem(QObject *parent = nullptr);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSTRANSACTIONHISTORY_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINTRANSACTIONHISTORY_H

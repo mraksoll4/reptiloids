@@ -48,9 +48,9 @@ LIBBITCOIN_WALLET_TOOL=libbitcoin_wallet_tool.a
 endif
 
 LIBBITCOIN_CRYPTO= $(LIBBITCOIN_CRYPTO_BASE)
-# Reptiloids crypto lib
-LIBBITCOIN_CRYPTO_REPTILOIDS = crypto/libbitcoin_crypto_reptiloids.a
-LIBBITCOIN_CRYPTO += $(LIBBITCOIN_CRYPTO_REPTILOIDS)
+# ReptiloidsCoin crypto lib
+LIBBITCOIN_CRYPTO_REPTILOIDSCOIN = crypto/libbitcoin_crypto_reptiloidscoin.a
+LIBBITCOIN_CRYPTO += $(LIBBITCOIN_CRYPTO_REPTILOIDSCOIN)
 if ENABLE_SSE41
 LIBBITCOIN_CRYPTO_SSE41 = crypto/libbitcoin_crypto_sse41.a
 LIBBITCOIN_CRYPTO += $(LIBBITCOIN_CRYPTO_SSE41)
@@ -80,11 +80,11 @@ EXTRA_LIBRARIES += \
   $(LIBBITCOIN_WALLET_TOOL) \
   $(LIBBITCOIN_ZMQ)
 
-# Reptiloids XBridge
+# ReptiloidsCoin XBridge
 EXTRA_LIBRARIES += \
   $(LIBXBRIDGE)
 
-# Reptiloids XRouter
+# ReptiloidsCoin XRouter
 EXTRA_LIBRARIES += \
   $(LIBXROUTER)
 
@@ -96,18 +96,18 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += reptiloidsd
+  bin_PROGRAMS += reptiloidscoind
 endif
 
 if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += reptiloids-cli
+  bin_PROGRAMS += reptiloidscoin-cli
 endif
 if BUILD_BITCOIN_TX
-  bin_PROGRAMS += reptiloids-tx
+  bin_PROGRAMS += reptiloidscoin-tx
 endif
 if ENABLE_WALLET
 if BUILD_BITCOIN_WALLET
-  bin_PROGRAMS += reptiloids-wallet
+  bin_PROGRAMS += reptiloidscoin-wallet
 endif
 endif
 
@@ -248,7 +248,7 @@ BITCOIN_CORE_H = \
   zmq/zmqpublishnotifier.h \
   zmq/zmqrpc.h
 
-# Reptiloids requires the json spirit library
+# ReptiloidsCoin requires the json spirit library
 JSON_H = \
   json/json_spirit.h \
   json/json_spirit_error_position.h \
@@ -261,7 +261,7 @@ JSON_H = \
   json/json_spirit_writer_template.h \
   json/json_spirit_writer_options.h
 
-# Reptiloids XBridge
+# ReptiloidsCoin XBridge
 BITCOIN_CORE_H += \
   xbridge/bitcoinrpcconnector.h \
   xbridge/currency.h \
@@ -296,7 +296,7 @@ BITCOIN_CORE_H += \
   xbridge/xbridgewalletconnectordgb.h \
   xbridge/xuiconnector.h
 
-# Reptiloids XRouter
+# ReptiloidsCoin XRouter
 BITCOIN_CORE_H += \
   xrouter/version.h \
   xrouter/xrouterapp.h \
@@ -378,10 +378,10 @@ libbitcoin_server_a_SOURCES = \
   versionbits.cpp \
   $(BITCOIN_CORE_H)
 
-# Reptiloids requires json spirit library
+# ReptiloidsCoin requires json spirit library
 libbitcoin_server_a_SOURCES += $(JSON_H)
 
-# Reptiloids governance wallet methods
+# ReptiloidsCoin governance wallet methods
 if ENABLE_WALLET
 libbitcoin_server_a_SOURCES += governance/governancewallet.cpp
 endif
@@ -455,11 +455,11 @@ crypto_libbitcoin_crypto_base_a_SOURCES = \
   crypto/sha512.h \
   crypto/siphash.cpp
 
-# Reptiloids crypto library
-crypto_libbitcoin_crypto_reptiloids_a_CFLAGS = -fPIC
-crypto_libbitcoin_crypto_reptiloids_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libbitcoin_crypto_reptiloids_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libbitcoin_crypto_reptiloids_a_SOURCES = \
+# ReptiloidsCoin crypto library
+crypto_libbitcoin_crypto_reptiloidscoin_a_CFLAGS = -fPIC
+crypto_libbitcoin_crypto_reptiloidscoin_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libbitcoin_crypto_reptiloidscoin_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libbitcoin_crypto_reptiloidscoin_a_SOURCES = \
   crypto/siphash.h \
   crypto/blake.c \
   crypto/sph_blake.h \
@@ -665,16 +665,16 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-reptiloidsd_SOURCES = bitcoind.cpp
-reptiloidsd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-reptiloidsd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-reptiloidsd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+reptiloidscoind_SOURCES = bitcoind.cpp
+reptiloidscoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+reptiloidscoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+reptiloidscoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-reptiloidsd_SOURCES += bitcoind-res.rc
+reptiloidscoind_SOURCES += bitcoind-res.rc
 endif
 
-reptiloidsd_LDADD = \
+reptiloidscoind_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_SERVER) \
@@ -689,44 +689,44 @@ reptiloidsd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-# Reptiloids XBridge
-reptiloidsd_LDADD += $(LIBXBRIDGE)
+# ReptiloidsCoin XBridge
+reptiloidscoind_LDADD += $(LIBXBRIDGE)
 
-# Reptiloids XRouter
-reptiloidsd_LDADD += $(LIBXROUTER)
+# ReptiloidsCoin XRouter
+reptiloidscoind_LDADD += $(LIBXROUTER)
 
-reptiloidsd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(SSL_LIBS) $(ZMQ_LIBS)
+reptiloidscoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(SSL_LIBS) $(ZMQ_LIBS)
 
 # bitcoin-cli binary #
-reptiloids_cli_SOURCES = bitcoin-cli.cpp
-reptiloids_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-reptiloids_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-reptiloids_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+reptiloidscoin_cli_SOURCES = bitcoin-cli.cpp
+reptiloidscoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+reptiloidscoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+reptiloidscoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-reptiloids_cli_SOURCES += bitcoin-cli-res.rc
+reptiloidscoin_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-reptiloids_cli_LDADD = \
+reptiloidscoin_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-reptiloids_cli_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+reptiloidscoin_cli_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
 # bitcoin-tx binary #
-reptiloids_tx_SOURCES = bitcoin-tx.cpp
-reptiloids_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-reptiloids_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-reptiloids_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+reptiloidscoin_tx_SOURCES = bitcoin-tx.cpp
+reptiloidscoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+reptiloidscoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+reptiloidscoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-reptiloids_tx_SOURCES += bitcoin-tx-res.rc
+reptiloidscoin_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-reptiloids_tx_LDADD = \
+reptiloidscoin_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -734,20 +734,20 @@ reptiloids_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-reptiloids_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+reptiloidscoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoin-wallet binary #
-reptiloids_wallet_SOURCES = bitcoin-wallet.cpp
-reptiloids_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-reptiloids_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-reptiloids_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+reptiloidscoin_wallet_SOURCES = bitcoin-wallet.cpp
+reptiloidscoin_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+reptiloidscoin_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+reptiloidscoin_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-reptiloids_wallet_SOURCES += bitcoin-wallet-res.rc
+reptiloidscoin_wallet_SOURCES += bitcoin-wallet-res.rc
 endif
 
-reptiloids_wallet_LDADD = \
+reptiloidscoin_wallet_LDADD = \
   $(LIBBITCOIN_WALLET_TOOL) \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_SERVER) \
@@ -760,21 +760,21 @@ reptiloids_wallet_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-# Reptiloids XBridge
-reptiloids_wallet_LDADD += $(LIBXBRIDGE)
+# ReptiloidsCoin XBridge
+reptiloidscoin_wallet_LDADD += $(LIBXBRIDGE)
 
-# Reptiloids XRouter
-reptiloids_wallet_LDADD += $(LIBXROUTER) $(EVENT_LIBS) $(SSL_LIBS)
+# ReptiloidsCoin XRouter
+reptiloidscoin_wallet_LDADD += $(LIBXROUTER) $(EVENT_LIBS) $(SSL_LIBS)
 
-reptiloids_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
+reptiloidscoin_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
 #
 
 # bitcoinconsensus library #
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h
 libbitcoinconsensus_la_SOURCES = $(crypto_libbitcoin_crypto_base_a_SOURCES) $(libbitcoin_consensus_a_SOURCES)
-# Reptiloids crypto library
-libbitcoinconsensus_la_SOURCES += $(crypto_libbitcoin_crypto_reptiloids_a_SOURCES)
+# ReptiloidsCoin crypto library
+libbitcoinconsensus_la_SOURCES += $(crypto_libbitcoin_crypto_reptiloidscoin_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
   libbitcoinconsensus_la_SOURCES += compat/glibc_compat.cpp

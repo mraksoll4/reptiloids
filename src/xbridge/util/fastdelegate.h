@@ -45,8 +45,8 @@
 //                * Bugfix for Metrowerks: empty() was buggy because a valid MFP can be 0 on MWCC!
 //                * More optimal assignment,== and != operators for static function pointers.
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_FASTDELEGATE_H
-#define REPTILOIDS_XBRIDGE_UTIL_FASTDELEGATE_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_FASTDELEGATE_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_FASTDELEGATE_H
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
@@ -2115,5 +2115,5 @@ FastDelegate8<Param1, Param2, Param3, Param4, Param5, Param6, Param7, Param8, FA
 
 } // namespace fastdelegate
 
-#endif // !defined(REPTILOIDS_XBRIDGE_UTIL_FASTDELEGATE_H)
+#endif // !defined(REPTILOIDSCOIN_XBRIDGE_UTIL_FASTDELEGATE_H)
 

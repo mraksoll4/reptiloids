@@ -2,26 +2,26 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSDIALOG_H
-#define REPTILOIDS_QT_REPTILOIDSDIALOG_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINDIALOG_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINDIALOG_H
 
-#include <qt/reptiloidsformbtn.h>
+#include <qt/reptiloidscoinformbtn.h>
 
 #include <QBoxLayout>
 #include <QDialog>
 #include <QTextEdit>
 
-class ReptiloidsDialog : public QDialog
+class ReptiloidsCoinDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsDialog(QString message = "", QString actionMsg = "Delete", QString actionStyle = "delete", QWidget *parent = nullptr, Qt::WindowFlags f = Qt::CustomizeWindowHint);
+    explicit ReptiloidsCoinDialog(QString message = "", QString actionMsg = "Delete", QString actionStyle = "delete", QWidget *parent = nullptr, Qt::WindowFlags f = Qt::CustomizeWindowHint);
 
 private:
     QTextEdit *messageLbl;
-    ReptiloidsFormBtn *cancelBtn;
-    ReptiloidsFormBtn *deleteBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *deleteBtn;
     QVBoxLayout *layout;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSDIALOG_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINDIALOG_H

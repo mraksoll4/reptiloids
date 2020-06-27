@@ -1110,8 +1110,8 @@
         <translation>Montant</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>Entrer une adresse Reptiloids (e.g. %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>Entrer une adresse ReptiloidsCoin (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

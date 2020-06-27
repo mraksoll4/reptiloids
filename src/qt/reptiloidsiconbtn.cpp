@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsiconbtn.h>
+#include <qt/reptiloidscoiniconbtn.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>
 
-ReptiloidsIconBtn::ReptiloidsIconBtn(const QString &title, const QString &img, QFrame *parent) : QFrame(parent),
+ReptiloidsCoinIconBtn::ReptiloidsCoinIconBtn(const QString &title, const QString &img, QFrame *parent) : QFrame(parent),
                                                                                              circlew(BGU::spi(84)),
                                                                                              circleh(BGU::spi(84)),
                                                                                              hoverState(false),
@@ -51,9 +51,9 @@ ReptiloidsIconBtn::ReptiloidsIconBtn(const QString &title, const QString &img, Q
         this->setFixedSize(sh.width(), sh.height());
 }
 
-ReptiloidsIconBtn::ReptiloidsIconBtn(const QString &img, QFrame *parent) : ReptiloidsIconBtn(QString(), img, parent) {}
+ReptiloidsCoinIconBtn::ReptiloidsCoinIconBtn(const QString &img, QFrame *parent) : ReptiloidsCoinIconBtn(QString(), img, parent) {}
 
-QSize ReptiloidsIconBtn::sizeHint() const {
+QSize ReptiloidsCoinIconBtn::sizeHint() const {
     if (iconLbl)
         return { circlew + BGU::spi(30),
                  circleh + iconLbl->height() + BGU::spi(1) };
@@ -61,7 +61,7 @@ QSize ReptiloidsIconBtn::sizeHint() const {
         return { circlew + BGU::spi(1), circleh + BGU::spi(1) };
 }
 
-void ReptiloidsIconBtn::paintEvent(QPaintEvent *event) {
+void ReptiloidsCoinIconBtn::paintEvent(QPaintEvent *event) {
     QFrame::paintEvent(event);
 
     const int linew = BGU::spi(2);
@@ -85,7 +85,7 @@ void ReptiloidsIconBtn::paintEvent(QPaintEvent *event) {
     icon->move(w/2 - icon->width()/2, ch/2 - icon->height()/2);
 }
 
-void ReptiloidsIconBtn::mouseReleaseEvent(QMouseEvent *event) {
+void ReptiloidsCoinIconBtn::mouseReleaseEvent(QMouseEvent *event) {
     QWidget::mouseReleaseEvent(event);
     QRect rect(0, 0, this->width(), this->height());
     if (rect.intersects({static_cast<int>(event->localPos().x()), static_cast<int>(event->localPos().y()), 1, 1 }))

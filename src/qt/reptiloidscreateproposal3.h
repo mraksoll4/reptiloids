@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL3_H
-#define REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL3_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL3_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL3_H
 
-#include <qt/reptiloidscreateproposalutil.h>
-#include <qt/reptiloidsformbtn.h>
+#include <qt/reptiloidscoincreateproposalutil.h>
+#include <qt/reptiloidscoinformbtn.h>
 
 #include <qt/walletmodel.h>
 
@@ -15,11 +15,11 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-class ReptiloidsCreateProposal3 : public ReptiloidsCreateProposalPage {
+class ReptiloidsCoinCreateProposal3 : public ReptiloidsCoinCreateProposalPage {
     Q_OBJECT
 public:
-    explicit ReptiloidsCreateProposal3(int id, QFrame *parent = nullptr);
-    void setModel(const ReptiloidsCreateProposalPageModel &model);
+    explicit ReptiloidsCoinCreateProposal3(int id, QFrame *parent = nullptr);
+    void setModel(const ReptiloidsCoinCreateProposalPageModel &model);
     void clear() override;
     bool validated() override;
 
@@ -47,11 +47,11 @@ private:
     QLabel *feeHashValLbl;
     QLabel *feeTitleLbl;
     QLabel *feeLbl;
-    ReptiloidsFormBtn *doneBtn;
-    ReptiloidsCreateProposalPageModel model;
+    ReptiloidsCoinFormBtn *doneBtn;
+    ReptiloidsCoinCreateProposalPageModel model;
     QTimer *timer;
 
     int collateralConfirmations();
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL3_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL3_H

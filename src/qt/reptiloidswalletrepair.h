@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSWALLETREPAIR_H
-#define REPTILOIDS_QT_REPTILOIDSWALLETREPAIR_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINWALLETREPAIR_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINWALLETREPAIR_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidstoolspage.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscointoolspage.h>
 
 #include <QFrame>
 #include <QHBoxLayout>
@@ -15,11 +15,11 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
-class ReptiloidsWalletRepair : public ReptiloidsToolsPage {
+class ReptiloidsCoinWalletRepair : public ReptiloidsCoinToolsPage {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinWalletRepair(QWidget *popup, int id, QFrame *parent = nullptr);
     void setWalletModel(WalletModel *w);
 
 public Q_SLOTS:
@@ -48,42 +48,42 @@ private:
     QVBoxLayout *salvageLayout;
     QLabel *salvageTitleLbl;
     QLabel *salvageDescLbl;
-    ReptiloidsFormBtn *salvageWalletBtn;
+    ReptiloidsCoinFormBtn *salvageWalletBtn;
     QFrame *rescanFrame;
     QHBoxLayout *rescanLayout;
     QFrame *blockchainFrame;
     QVBoxLayout *blockchainLayout;
     QLabel *rescanTitleLbl;
     QLabel *rescanDescLbl;
-    ReptiloidsFormBtn *rescanBlockchainBtn;
+    ReptiloidsCoinFormBtn *rescanBlockchainBtn;
     QFrame *transaction1Frame;
     QHBoxLayout *transaction1Layout;
     QFrame *recoverFrame;
     QVBoxLayout *recoverLayout;
     QLabel *transaction1TitleLbl;
     QLabel *transaction1DescLbl;
-    ReptiloidsFormBtn *transaction1Btn;
+    ReptiloidsCoinFormBtn *transaction1Btn;
     QFrame *transaction2Frame;
     QHBoxLayout *transaction2Layout;
     QFrame *recover2Frame;
     QVBoxLayout *recover2Layout;
     QLabel *transaction2TitleLbl;
     QLabel *transaction2DescLbl;
-    ReptiloidsFormBtn *transaction2Btn;
+    ReptiloidsCoinFormBtn *transaction2Btn;
     QFrame *upgradeFrame;
     QHBoxLayout *upgradeLayout;
     QFrame *formatFrame;
     QVBoxLayout *formatLayout;
     QLabel *formatTitleLbl;
     QLabel *formatDescLbl;
-    ReptiloidsFormBtn *upgradeBtn;
+    ReptiloidsCoinFormBtn *upgradeBtn;
     QFrame *rebuildFrame;
     QHBoxLayout *rebuildLayout;
     QFrame *indexFrame;
     QVBoxLayout *indexLayout;
     QLabel *indexTitleLbl;
     QLabel *indexDescLbl;
-    ReptiloidsFormBtn *rebuildBtn;
+    ReptiloidsCoinFormBtn *rebuildBtn;
 
     /** Build parameter list for restart */
     void buildParameterlist(QString arg);
@@ -91,4 +91,4 @@ private:
     bool displayConfirmationBox(const QString & title, const QString & msg);
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSWALLETREPAIR_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINWALLETREPAIR_H

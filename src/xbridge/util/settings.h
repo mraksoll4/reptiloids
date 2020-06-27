@@ -4,8 +4,8 @@
 
 //******************************************************************************
 //******************************************************************************
-#ifndef REPTILOIDS_XBRIDGE_UTIL_SETTINGS_H
-#define REPTILOIDS_XBRIDGE_UTIL_SETTINGS_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_SETTINGS_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_SETTINGS_H
 
 #include <xbridge/util/logger.h>
 #include <sync.h>
@@ -118,4 +118,4 @@ private:
 
 Settings & settings();
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_SETTINGS_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_SETTINGS_H

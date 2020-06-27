@@ -2,14 +2,14 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSICONBTN_H
-#define REPTILOIDS_QT_REPTILOIDSICONBTN_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINICONBTN_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINICONBTN_H
 
 #include <QFrame>
 #include <QLabel>
 #include <QVBoxLayout>
 
-class ReptiloidsIconBtn : public QFrame
+class ReptiloidsCoinIconBtn : public QFrame
 {
     Q_OBJECT
 protected:
@@ -28,8 +28,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 public:
-    explicit ReptiloidsIconBtn(const QString &title, const QString &img, QFrame *parent = nullptr);
-    explicit ReptiloidsIconBtn(const QString &img, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinIconBtn(const QString &title, const QString &img, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinIconBtn(const QString &img, QFrame *parent = nullptr);
     QSize sizeHint() const override;
 
 Q_SIGNALS:
@@ -45,4 +45,4 @@ private:
     QLabel *iconLbl;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSICONBTN_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINICONBTN_H

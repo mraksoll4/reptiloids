@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsdialog.h>
+#include <qt/reptiloidscoindialog.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QEvent>
 
-ReptiloidsDialog::ReptiloidsDialog(QString message, QString actionMsg, QString actionStyle, QWidget *parent, Qt::WindowFlags flags) : QDialog(parent, flags), layout(new QVBoxLayout) {
+ReptiloidsCoinDialog::ReptiloidsCoinDialog(QString message, QString actionMsg, QString actionStyle, QWidget *parent, Qt::WindowFlags flags) : QDialog(parent, flags), layout(new QVBoxLayout) {
     this->setFixedSize(BGU::spi(500), BGU::spi(250));
     this->setLayout(layout);
     this->setModal(true);
@@ -28,12 +28,12 @@ ReptiloidsDialog::ReptiloidsDialog(QString message, QString actionMsg, QString a
     auto *btnBoxLayout = new QHBoxLayout;
     btnBox->setLayout(btnBoxLayout);
 
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     btnBoxLayout->addWidget(cancelBtn);
 
-    deleteBtn = new ReptiloidsFormBtn;
+    deleteBtn = new ReptiloidsCoinFormBtn;
     deleteBtn->setObjectName(actionStyle);
     deleteBtn->setText(actionMsg);
     btnBoxLayout->addWidget(deleteBtn);

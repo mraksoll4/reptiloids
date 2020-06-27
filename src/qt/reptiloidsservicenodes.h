@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSERVICENODES_H
-#define REPTILOIDS_QT_REPTILOIDSSERVICENODES_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSERVICENODES_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSERVICENODES_H
 
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/clientmodel.h>
 
@@ -27,11 +27,11 @@
 #include <QVBoxLayout>
 #include <QVector>
 
-class ReptiloidsServiceNodes : public QFrame {
+class ReptiloidsCoinServiceNodes : public QFrame {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsServiceNodes(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinServiceNodes(QFrame *parent = nullptr);
     void setClientModel(ClientModel *c);
 
     void clear() {
@@ -60,7 +60,7 @@ private:
     QTableWidget *table;
     QMenu *contextMenu;
     QTableWidgetItem *contextItem = nullptr;
-    ReptiloidsDropdown *filterDd;
+    ReptiloidsCoinDropdown *filterDd;
     QVector<sn::ServiceNode> dataModel;
     QVector<sn::ServiceNode> filteredData;
     QTimer *timer;
@@ -99,14 +99,14 @@ private:
 
 };
 
-class ReptiloidsServiceNodeDetailsDialog : public QDialog {
+class ReptiloidsCoinServiceNodeDetailsDialog : public QDialog {
 Q_OBJECT
 public:
-    explicit ReptiloidsServiceNodeDetailsDialog(const sn::ServiceNode & snode, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinServiceNodeDetailsDialog(const sn::ServiceNode & snode, QWidget *parent = nullptr);
 
 protected:
 
 private:
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSERVICENODES_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSERVICENODES_H

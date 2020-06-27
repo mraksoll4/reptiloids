@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsformbtn.h>
+#include <qt/reptiloidscoinformbtn.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
-ReptiloidsFormBtn::ReptiloidsFormBtn(QPushButton *parent) : QPushButton(parent) {
+ReptiloidsCoinFormBtn::ReptiloidsCoinFormBtn(QPushButton *parent) : QPushButton(parent) {
     this->setFixedSize(BGU::spi(160), BGU::spi(40));
     this->setFlat(true);
     this->setCursor(Qt::PointingHandCursor);

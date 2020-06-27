@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidspeerslist.h>
+#include <qt/reptiloidscoinpeerslist.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/peertablemodel.h>
 
 #include <QHeaderView>
 #include <QMessageBox>
 
-ReptiloidsPeersList::ReptiloidsPeersList(QWidget *, int id, QFrame *parent) : ReptiloidsToolsPage(id, parent), layout(new QVBoxLayout) {
+ReptiloidsCoinPeersList::ReptiloidsCoinPeersList(QWidget *, int id, QFrame *parent) : ReptiloidsCoinToolsPage(id, parent), layout(new QVBoxLayout) {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setLayout(layout);
     layout->setContentsMargins(0, BGU::spi(10), 0, BGU::spi(10));
@@ -43,7 +43,7 @@ ReptiloidsPeersList::ReptiloidsPeersList(QWidget *, int id, QFrame *parent) : Re
     layout->addSpacing(BGU::spi(5));
 }
 
-void ReptiloidsPeersList::setClientModel(ClientModel *c) {
+void ReptiloidsCoinPeersList::setClientModel(ClientModel *c) {
     if (!c)
         return;
     clientModel = c;
@@ -53,19 +53,19 @@ void ReptiloidsPeersList::setClientModel(ClientModel *c) {
     table->horizontalHeader()->setSectionResizeMode(PeerTableModel::Subversion, QHeaderView::Stretch);
 }
 
-void ReptiloidsPeersList::showEvent(QShowEvent *event) {
+void ReptiloidsCoinPeersList::showEvent(QShowEvent *event) {
     QFrame::showEvent(event);
     if (clientModel)
         clientModel->getPeerTableModel()->startAutoRefresh();
 }
 
-void ReptiloidsPeersList::hideEvent(QHideEvent *event) {
+void ReptiloidsCoinPeersList::hideEvent(QHideEvent *event) {
     QFrame::hideEvent(event);
     if (clientModel)
         clientModel->getPeerTableModel()->stopAutoRefresh();
 }
 
-void ReptiloidsPeersList::displayPeerDetails(const QItemSelection &, const QItemSelection &) {
+void ReptiloidsCoinPeersList::displayPeerDetails(const QItemSelection &, const QItemSelection &) {
     if (!table->selectionModel()) {
         return;
     }
@@ -73,7 +73,7 @@ void ReptiloidsPeersList::displayPeerDetails(const QItemSelection &, const QItem
 //    if (peerDetails->isHidden()) {
 //        peerDetails->setFixedSize(table->width(), 250);
 //        peerDetails->move(QPoint(table->pos().x() + 46, table->pos().y() + table->height() - peerDetails->height() / 2));
-//        ReptiloidsPeerDetails::PeerDetails detailsData = {
+//        ReptiloidsCoinPeerDetails::PeerDetails detailsData = {
 //            tr("N/A"),
 //            tr("N/A"),
 //            tr("N/A"),

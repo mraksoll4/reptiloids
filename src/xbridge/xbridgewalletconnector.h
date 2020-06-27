@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTOR_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTOR_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTOR_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTOR_H
 
 #include <xbridge/xbridgewallet.h>
 
@@ -182,4 +182,4 @@ public:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTOR_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLETCONNECTOR_H

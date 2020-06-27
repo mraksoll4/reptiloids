@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidspeerdetails.h>
+#include <qt/reptiloidscoinpeerdetails.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
-ReptiloidsPeerDetails::ReptiloidsPeerDetails(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
+ReptiloidsCoinPeerDetails::ReptiloidsCoinPeerDetails(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
                                                            detailsLayout(new QGridLayout), detailsFrame(new QFrame)
 {
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -24,7 +24,7 @@ ReptiloidsPeerDetails::ReptiloidsPeerDetails(QFrame *parent) : QFrame(parent), l
     layout->addWidget(detailsFrame);
 }
 
-void ReptiloidsPeerDetails::show(PeerDetails details) {
+void ReptiloidsCoinPeerDetails::show(PeerDetails details) {
     directionLbl = new QLabel(tr("Direction: ") + details.direction);
     directionLbl->setObjectName("detailLbl");
     detailsLayout->addWidget(directionLbl, 0, 0, Qt::AlignLeft);
@@ -66,7 +66,7 @@ void ReptiloidsPeerDetails::show(PeerDetails details) {
     QWidget::show();
 }
 
-void ReptiloidsPeerDetails::setDisplayWidget(QWidget *widget) {
+void ReptiloidsCoinPeerDetails::setDisplayWidget(QWidget *widget) {
     if (!widget)
         return;
     this->setParent(widget);
@@ -74,18 +74,18 @@ void ReptiloidsPeerDetails::setDisplayWidget(QWidget *widget) {
     displayWidget->installEventFilter(this);
 }
 
-void ReptiloidsPeerDetails::removeSelf(bool kill) {
+void ReptiloidsCoinPeerDetails::removeSelf(bool kill) {
     if ((!this->underMouse() || kill))
         this->hide();
 }
 
-bool ReptiloidsPeerDetails::eventFilter(QObject *obj, QEvent *event) {
+bool ReptiloidsCoinPeerDetails::eventFilter(QObject *obj, QEvent *event) {
     if (event->type() == QEvent::MouseButtonPress && !this->isHidden() && !this->underMouse()) {
         removeSelf(false);
     }
     return QObject::eventFilter(obj, event);
 }
 
-ReptiloidsPeerDetails::~ReptiloidsPeerDetails() {
+ReptiloidsCoinPeerDetails::~ReptiloidsCoinPeerDetails() {
     displayWidget->removeEventFilter(this);
 }

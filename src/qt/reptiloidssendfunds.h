@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDS_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDS_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS_H
 
-#include <qt/reptiloidsbreadcrumb.h>
-#include <qt/reptiloidssendfunds1.h>
-#include <qt/reptiloidssendfunds2.h>
-#include <qt/reptiloidssendfunds3.h>
-#include <qt/reptiloidssendfunds4.h>
-#include <qt/reptiloidssendfundsdone.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoinbreadcrumb.h>
+#include <qt/reptiloidscoinsendfunds1.h>
+#include <qt/reptiloidscoinsendfunds2.h>
+#include <qt/reptiloidscoinsendfunds3.h>
+#include <qt/reptiloidscoinsendfunds4.h>
+#include <qt/reptiloidscoinsendfundsdone.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -21,10 +21,10 @@
 #include <QSet>
 #include <QVBoxLayout>
 
-class ReptiloidsSendFunds : public QFrame {
+class ReptiloidsCoinSendFunds : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsSendFunds(WalletModel *w, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinSendFunds(WalletModel *w, QFrame *parent = nullptr);
     void setWalletModel(WalletModel *w) {
         walletModel = w;
         page1->setWalletModel(walletModel);
@@ -65,20 +65,20 @@ private Q_SLOTS:
 
 private:
     WalletModel *walletModel;
-    ReptiloidsSendFundsModel *model;
-    QVector<ReptiloidsSendFundsPage*> pages;
+    ReptiloidsCoinSendFundsModel *model;
+    QVector<ReptiloidsCoinSendFundsPage*> pages;
 
     QVBoxLayout *layout;
-    ReptiloidsSendFunds1 *page1;
-    ReptiloidsSendFunds2 *page2;
-    ReptiloidsSendFunds3 *page3;
-    ReptiloidsSendFunds4 *page4;
-    ReptiloidsSendFundsDone *done;
-    ReptiloidsBreadCrumb *breadCrumb;
-    ReptiloidsSendFundsPage *screen = nullptr;
+    ReptiloidsCoinSendFunds1 *page1;
+    ReptiloidsCoinSendFunds2 *page2;
+    ReptiloidsCoinSendFunds3 *page3;
+    ReptiloidsCoinSendFunds4 *page4;
+    ReptiloidsCoinSendFundsDone *done;
+    ReptiloidsCoinBreadCrumb *breadCrumb;
+    ReptiloidsCoinSendFundsPage *screen = nullptr;
 
     void positionCrumb(QPoint pt = QPoint());
     void goToDone();
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDS_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS_H

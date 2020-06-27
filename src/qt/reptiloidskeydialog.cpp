@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidskeydialog.h>
+#include <qt/reptiloidscoinkeydialog.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QEvent>
 
-ReptiloidsKeyDialog::ReptiloidsKeyDialog(QString highlight, QString note, QString action, QString title, QWidget *parent, Qt::WindowFlags flags) : 
+ReptiloidsCoinKeyDialog::ReptiloidsCoinKeyDialog(QString highlight, QString note, QString action, QString title, QWidget *parent, Qt::WindowFlags flags) : 
                                         QDialog(parent, flags), layout(new QVBoxLayout) {
     this->setFixedSize(BGU::spi(500), BGU::spi(250));
     this->setLayout(layout);
@@ -18,7 +18,7 @@ ReptiloidsKeyDialog::ReptiloidsKeyDialog(QString highlight, QString note, QStrin
     layout->setContentsMargins(BGU::spi(50), BGU::spi(30), BGU::spi(50), BGU::spi(30));
     layout->setSpacing(BGU::spi(10));
     
-    cancelBtn = new ReptiloidsCloseBtn;
+    cancelBtn = new ReptiloidsCoinCloseBtn;
 
     auto *cancelFrame = new QFrame;
     auto *cancelLayout = new QHBoxLayout;
@@ -40,7 +40,7 @@ ReptiloidsKeyDialog::ReptiloidsKeyDialog(QString highlight, QString note, QStrin
     noteLbl->setObjectName("note");
     noteLbl->setAlignment(Qt::AlignCenter);
 
-    okBtn = new ReptiloidsFormBtn;
+    okBtn = new ReptiloidsCoinFormBtn;
     okBtn->setText(action);
     
     auto *okFrame = new QFrame;

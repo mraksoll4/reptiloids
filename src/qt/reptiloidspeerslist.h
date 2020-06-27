@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSPEERSLIST_H
-#define REPTILOIDS_QT_REPTILOIDSPEERSLIST_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINPEERSLIST_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINPEERSLIST_H
 
-#include <qt/reptiloidspeerdetails.h>
-#include <qt/reptiloidstoolspage.h>
+#include <qt/reptiloidscoinpeerdetails.h>
+#include <qt/reptiloidscointoolspage.h>
 
 #include <qt/clientmodel.h>
 
@@ -18,12 +18,12 @@
 #include <QTableWidgetItem>
 #include <QVBoxLayout>
 
-class ReptiloidsPeersList : public ReptiloidsToolsPage {
+class ReptiloidsCoinPeersList : public ReptiloidsCoinToolsPage {
     Q_OBJECT
 protected:
 
 public:
-    explicit ReptiloidsPeersList(QWidget *, int id, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinPeersList(QWidget *, int id, QFrame *parent = nullptr);
     void setClientModel(ClientModel *c);
 
 protected:
@@ -38,7 +38,7 @@ private:
     QLabel *titleLbl;
     QTableView *table;
     ClientModel *clientModel = nullptr;
-    ReptiloidsPeerDetails *peerDetails = nullptr;
+    ReptiloidsCoinPeerDetails *peerDetails = nullptr;
 
     enum {
         COLUMN_ADDRESS,
@@ -49,4 +49,4 @@ private:
     };
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSPEERSLIST_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINPEERSLIST_H

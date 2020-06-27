@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidstabbar.h>
+#include <qt/reptiloidscointabbar.h>
 
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidstabbtn.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscointabbtn.h>
 
 #include <QPainter>
 #include <QPushButton>
 
-ReptiloidsTabBar::ReptiloidsTabBar(QFrame *parent) : QFrame(parent), mainLayout(new QVBoxLayout), layout(new QHBoxLayout) {
+ReptiloidsCoinTabBar::ReptiloidsCoinTabBar(QFrame *parent) : QFrame(parent), mainLayout(new QVBoxLayout), layout(new QHBoxLayout) {
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
     this->setFixedHeight(BGU::spi(60));
     mainLayout->setContentsMargins(QMargins());
@@ -27,12 +27,12 @@ ReptiloidsTabBar::ReptiloidsTabBar(QFrame *parent) : QFrame(parent), mainLayout(
     group = new QButtonGroup;
     group->setExclusive(true);
 
-    auto *hdiv = new ReptiloidsHDiv;
+    auto *hdiv = new ReptiloidsCoinHDiv;
 
     mainLayout->addWidget(tabFrame);
     mainLayout->addWidget(hdiv, 0, Qt::AlignTop);
 
-    connect(group, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this, &ReptiloidsTabBar::goToTab);
+    connect(group, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this, &ReptiloidsCoinTabBar::goToTab);
 }
 
 /**
@@ -40,7 +40,7 @@ ReptiloidsTabBar::ReptiloidsTabBar(QFrame *parent) : QFrame(parent), mainLayout(
  * @param title
  * @param tab
  */
-void ReptiloidsTabBar::addTab(QString title, int tab) {
+void ReptiloidsCoinTabBar::addTab(QString title, int tab) {
     tabs.append({ tab, std::move(title)});
 
     // Remove buttons from group first
@@ -53,19 +53,19 @@ void ReptiloidsTabBar::addTab(QString title, int tab) {
         item->widget()->deleteLater();
 
     for (int i = 0; i < tabs.size(); ++i) {
-        ReptiloidsTab &c = tabs[i];
-        auto *tabBtn = new ReptiloidsTabBtn;
+        ReptiloidsCoinTab &c = tabs[i];
+        auto *tabBtn = new ReptiloidsCoinTabBtn;
         tabBtn->setText(c.title);
         layout->addWidget(tabBtn);
         group->addButton(tabBtn, c.tab);
     }
 }
 
-void ReptiloidsTabBar::goToTab(int tab){
+void ReptiloidsCoinTabBar::goToTab(int tab){
     Q_EMIT tabChanged(tab);
 }
 
-bool ReptiloidsTabBar::showTab(int tab) {
+bool ReptiloidsCoinTabBar::showTab(int tab) {
     currentTab = tab;
     QAbstractButton *btn = group->button(tab);
     if (btn)
@@ -73,4 +73,4 @@ bool ReptiloidsTabBar::showTab(int tab) {
     return true;
 }
 
-ReptiloidsTabBar::~ReptiloidsTabBar() = default;
+ReptiloidsCoinTabBar::~ReptiloidsCoinTabBar() = default;

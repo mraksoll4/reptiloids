@@ -1807,7 +1807,7 @@ UniValue gettradingdata(const JSONRPCRequest& request)
                 RPCResult{
                 "{\n"
                 "  \"timestamp\":  \"1559970139\",                          (uint64) Unix epoch timestamp in seconds of when the trade took place.\n"
-                "  \"txid\":       \"4b409r5c5fb1986p30cf7c19afec2c8\",     (string) The Reptiloids trade fee transaction ID.\n"
+                "  \"txid\":       \"4b409r5c5fb1986p30cf7c19afec2c8\",     (string) The ReptiloidsCoin trade fee transaction ID.\n"
                 "  \"to\":         \"Bqtes8j14rE65kcpsEors5JDzDaHiaMtLG\",  (string) The address of the Service Node that received the trade fee.\n"
                 "  \"xid\":        \"9eb57bas331eab3zf3daefd8364cdbL\",     (string) The XBridge transaction ID.\n"
                 "  \"from\":       \"BLOCK\",                               (string) The symbol of the token bought by the maker.\n"
@@ -1942,7 +1942,7 @@ UniValue dxGetTradingData(const JSONRPCRequest& request)
     Key          | Type | Description
     -------------|------|----------------------------------------------------------------
     timestamp    | int  | Unix epoch timestamp of when the trade took place.
-    fee_txid     | str  | The Reptiloids trade fee transaction ID.
+    fee_txid     | str  | The ReptiloidsCoin trade fee transaction ID.
     nodepubkey   | str  | The pubkey of the service node that received the trade fee.
     id           | str  | The order ID.
     taker        | str  | Taker trading asset; the ticker of the asset being sold by the taker.

@@ -1499,8 +1499,8 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Importo</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>Inserisci un indirizzo Reptiloids (ad es. %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>Inserisci un indirizzo ReptiloidsCoin (ad es. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

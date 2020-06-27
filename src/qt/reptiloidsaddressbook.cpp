@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsaddressbook.h>
+#include <qt/reptiloidscoinaddressbook.h>
 
-#include <qt/reptiloidsaddressedit.h>
-#include <qt/reptiloidsavatar.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidsiconbtn.h>
-#include <qt/reptiloidslabelbtn.h>
+#include <qt/reptiloidscoinaddressedit.h>
+#include <qt/reptiloidscoinavatar.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoiniconbtn.h>
+#include <qt/reptiloidscoinlabelbtn.h>
 
 #include <qt/addresstablemodel.h>
 #include <qt/guiutil.h>
@@ -17,9 +17,9 @@
 #include <QSettings>
 #include <QTimer>
 
-ReptiloidsAddressBookDialog::ReptiloidsAddressBookDialog(WalletModel *model, Qt::WindowFlags f, int filter, QWidget *parent) : QDialog(parent, f) {
+ReptiloidsCoinAddressBookDialog::ReptiloidsCoinAddressBookDialog(WalletModel *model, Qt::WindowFlags f, int filter, QWidget *parent) : QDialog(parent, f) {
     this->setModal(true);
-    if (filter == ReptiloidsAddressBook::FILTER_DEFAULT)
+    if (filter == ReptiloidsCoinAddressBook::FILTER_DEFAULT)
         this->setMinimumSize(BGU::spi(520), BGU::spi(650));
     else this->setMinimumSize(BGU::spi(700), BGU::spi(650));
     this->setStyleSheet(GUIUtil::loadStyleSheet());
@@ -31,32 +31,32 @@ ReptiloidsAddressBookDialog::ReptiloidsAddressBookDialog(WalletModel *model, Qt:
     dialogLayout->setContentsMargins(QMargins());
     this->setLayout(dialogLayout);
 
-    auto *doneBtn = new ReptiloidsFormBtn;
+    auto *doneBtn = new ReptiloidsCoinFormBtn;
     doneBtn->setText(tr("Done"));
 
-    bool slimMode = filter == ReptiloidsAddressBook::FILTER_DEFAULT; // only slim if default filter
-    form = new ReptiloidsAddressBook(slimMode, filter, this);
+    bool slimMode = filter == ReptiloidsCoinAddressBook::FILTER_DEFAULT; // only slim if default filter
+    form = new ReptiloidsCoinAddressBook(slimMode, filter, this);
     form->setWalletModel(model);
 
     dialogLayout->addWidget(form, 1);
     dialogLayout->addWidget(doneBtn, 0, Qt::AlignCenter);
     dialogLayout->addSpacing(BGU::spi(20));
 
-    connect(form, &ReptiloidsAddressBook::send, this, [this](const QString &address) {
+    connect(form, &ReptiloidsCoinAddressBook::send, this, [this](const QString &address) {
         Q_EMIT send(address);
         if (ssMode)
             accept();
     });
-    connect(doneBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(doneBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         accept();
     });
 }
 
-void ReptiloidsAddressBookDialog::resizeEvent(QResizeEvent *evt) {
+void ReptiloidsCoinAddressBookDialog::resizeEvent(QResizeEvent *evt) {
     QDialog::resizeEvent(evt);
 }
 
-ReptiloidsAddressBook::ReptiloidsAddressBook(bool slimMode, int filter, QWidget *parent) : QFrame(parent),
+ReptiloidsCoinAddressBook::ReptiloidsCoinAddressBook(bool slimMode, int filter, QWidget *parent) : QFrame(parent),
                                                                                        slimMode(slimMode),
                                                                                        layout(new QVBoxLayout) {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -78,7 +78,7 @@ ReptiloidsAddressBook::ReptiloidsAddressBook(bool slimMode, int filter, QWidget 
     topBoxLayout->setSizeConstraint(QLayout::SetMaximumSize);
     topBox->setLayout(topBoxLayout);
 
-    auto *addAddressBtn = new ReptiloidsIconBtn(":/redesign/QuickActions/AddressButtonIcon.png");
+    auto *addAddressBtn = new ReptiloidsCoinIconBtn(":/redesign/QuickActions/AddressButtonIcon.png");
 
     addButtonLbl = new QLabel(tr("New Address"));
     addButtonLbl->setObjectName("h4");
@@ -86,7 +86,7 @@ ReptiloidsAddressBook::ReptiloidsAddressBook(bool slimMode, int filter, QWidget 
     filterLbl = new QLabel(tr("Filter by:"));
     filterLbl->setObjectName("title");
 
-    addressDropdown = new ReptiloidsDropdown;
+    addressDropdown = new ReptiloidsCoinDropdown;
     addressDropdown->addItem(tr("All Addresses"), FILTER_ALL);
     addressDropdown->addItem(tr("Contacts"),      FILTER_SENDING);
     addressDropdown->addItem(tr("My Addresses"),  FILTER_RECEIVING);
@@ -158,8 +158,8 @@ ReptiloidsAddressBook::ReptiloidsAddressBook(bool slimMode, int filter, QWidget 
         int ddIndex = 0;
         QSettings settings;
         if (!slimMode)
-            ddIndex = settings.value("reptiloidsAddressBookFilter").toInt();
-        else ddIndex = settings.value("reptiloidsAddressBookFilterSlim").toInt();
+            ddIndex = settings.value("reptiloidscoinAddressBookFilter").toInt();
+        else ddIndex = settings.value("reptiloidscoinAddressBookFilterSlim").toInt();
         addressDropdown->setCurrentIndex(ddIndex);
     }
     else {
@@ -167,12 +167,12 @@ ReptiloidsAddressBook::ReptiloidsAddressBook(bool slimMode, int filter, QWidget 
     }
     filteredOption = addressDropdown->currentData().toInt();
 
-    connect(addAddressBtn, &ReptiloidsIconBtn::clicked, this, &ReptiloidsAddressBook::onAddAddress);
-    connect(addressDropdown, &ReptiloidsDropdown::valueChanged, this, &ReptiloidsAddressBook::onFilter);
-    connect(table, &QTableWidget::cellDoubleClicked, this, &ReptiloidsAddressBook::onDoubleClick);
+    connect(addAddressBtn, &ReptiloidsCoinIconBtn::clicked, this, &ReptiloidsCoinAddressBook::onAddAddress);
+    connect(addressDropdown, &ReptiloidsCoinDropdown::valueChanged, this, &ReptiloidsCoinAddressBook::onFilter);
+    connect(table, &QTableWidget::cellDoubleClicked, this, &ReptiloidsCoinAddressBook::onDoubleClick);
 }
 
-void ReptiloidsAddressBook::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinAddressBook::setWalletModel(WalletModel *w) {
     if (walletModel == w)
         return;
 
@@ -196,7 +196,7 @@ void ReptiloidsAddressBook::setWalletModel(WalletModel *w) {
         });
 }
 
-void ReptiloidsAddressBook::initialize() {
+void ReptiloidsCoinAddressBook::initialize() {
     if (!walletModel)
         return;
 
@@ -229,15 +229,15 @@ void ReptiloidsAddressBook::initialize() {
     this->setData(filtered(dataModel, filteredOption));
 }
 
-void ReptiloidsAddressBook::unwatch() {
+void ReptiloidsCoinAddressBook::unwatch() {
     table->setEnabled(false);
 }
 
-void ReptiloidsAddressBook::watch() {
+void ReptiloidsCoinAddressBook::watch() {
     table->setEnabled(true);
 }
 
-QVector<ReptiloidsAddressBook::Address> ReptiloidsAddressBook::filtered(const QVector<Address> &data, int filter) {
+QVector<ReptiloidsCoinAddressBook::Address> ReptiloidsCoinAddressBook::filtered(const QVector<Address> &data, int filter) {
     QVector<Address> r;
     for (auto &d : data) {
         switch (filter) {
@@ -258,7 +258,7 @@ QVector<ReptiloidsAddressBook::Address> ReptiloidsAddressBook::filtered(const QV
     return r;
 }
 
-void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
+void ReptiloidsCoinAddressBook::setData(const QVector<Address> &data) {
     this->filteredData = data;
 
     unwatch();
@@ -279,10 +279,10 @@ void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
         boxLayout->setSpacing(0);
         widget->setLayout(boxLayout);
 
-        auto *button = new ReptiloidsActionBtn;
+        auto *button = new ReptiloidsCoinActionBtn;
         button->setID(d.address);
         boxLayout->addWidget(button, 0, Qt::AlignCenter);
-        connect(button, &ReptiloidsActionBtn::clicked, this, &ReptiloidsAddressBook::onAddressAction);
+        connect(button, &ReptiloidsCoinActionBtn::clicked, this, &ReptiloidsCoinAddressBook::onAddressAction);
 
         table->setCellWidget(i, COLUMN_ACTION, widget);
         table->setItem(i, COLUMN_ACTION, actionItem);
@@ -296,8 +296,8 @@ void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
         avatarLayout->setSpacing(0);
         avatarWidget->setLayout(avatarLayout);
 
-        auto *avatar = d.type == AddressTableEntry::Sending ? new ReptiloidsAvatar(d.address)
-                                                            : new ReptiloidsAvatarBlue(d.address);
+        auto *avatar = d.type == AddressTableEntry::Sending ? new ReptiloidsCoinAvatar(d.address)
+                                                            : new ReptiloidsCoinAvatarBlue(d.address);
         avatarLayout->addWidget(avatar, 0, Qt::AlignCenter);
         table->setCellWidget(i, COLUMN_AVATAR, avatarWidget);
         table->setItem(i, COLUMN_AVATAR, avatarItem);
@@ -322,12 +322,12 @@ void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
         copyLayout->setSpacing(0);
         copyWidget->setLayout(copyLayout);
 
-        auto *copyButton = new ReptiloidsLabelBtn;
+        auto *copyButton = new ReptiloidsCoinLabelBtn;
         copyButton->setText(tr("Copy"));
         copyButton->setID(d.address);
         copyLayout->addWidget(copyButton, 0, Qt::AlignLeft);
         copyLayout->addSpacing(BGU::spi(6));
-        connect(copyButton, &ReptiloidsLabelBtn::clicked, this, &ReptiloidsAddressBook::onCopyAddress);
+        connect(copyButton, &ReptiloidsCoinLabelBtn::clicked, this, &ReptiloidsCoinAddressBook::onCopyAddress);
 
         table->setCellWidget(i, COLUMN_COPY, copyWidget);
         table->setItem(i, COLUMN_COPY, copyItem);
@@ -342,12 +342,12 @@ void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
         editLayout->setSpacing(0);
         editWidget->setLayout(editLayout);
 
-        auto *editButton = new ReptiloidsLabelBtn;
+        auto *editButton = new ReptiloidsCoinLabelBtn;
         editButton->setText(tr("Edit"));
         editButton->setID(d.address);
         editLayout->addWidget(editButton, 0, Qt::AlignLeft);
         editLayout->addSpacing(BGU::spi(6));
-        connect(editButton, &ReptiloidsLabelBtn::clicked, this, &ReptiloidsAddressBook::onEditAddress);
+        connect(editButton, &ReptiloidsCoinLabelBtn::clicked, this, &ReptiloidsCoinAddressBook::onEditAddress);
 
         table->setCellWidget(i, COLUMN_EDIT, editWidget);
         table->setItem(i, COLUMN_EDIT, editItem);
@@ -364,12 +364,12 @@ void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
 
         // Can only delete sending addresses
         if (d.type == AddressTableEntry::Sending) {
-            auto *deleteButton = new ReptiloidsLabelBtn;
+            auto *deleteButton = new ReptiloidsCoinLabelBtn;
             deleteButton->setText(tr("Delete"));
             deleteButton->setID(d.address);
             deleteLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
             deleteLayout->addSpacing(BGU::spi(6));
-            connect(deleteButton, &ReptiloidsLabelBtn::clicked, this, &ReptiloidsAddressBook::onDeleteAddress);
+            connect(deleteButton, &ReptiloidsCoinLabelBtn::clicked, this, &ReptiloidsCoinAddressBook::onDeleteAddress);
         }
 
         table->setCellWidget(i, COLUMN_DELETE, deleteWidget);
@@ -383,23 +383,23 @@ void ReptiloidsAddressBook::setData(const QVector<Address> &data) {
 /**
  * @brief Filters the data model based on the current filter dropdown filter flag.
  */
-void ReptiloidsAddressBook::onFilter() {
+void ReptiloidsCoinAddressBook::onFilter() {
     filteredOption = addressDropdown->currentData().toInt();
     setData(filtered(dataModel, filteredOption));
     QSettings settings;
     if (!slimMode)
-        settings.setValue("reptiloidsAddressBookFilter", addressDropdown->currentIndex());
-    else settings.setValue("reptiloidsAddressBookFilterSlim", addressDropdown->currentIndex());
+        settings.setValue("reptiloidscoinAddressBookFilter", addressDropdown->currentIndex());
+    else settings.setValue("reptiloidscoinAddressBookFilterSlim", addressDropdown->currentIndex());
 }
 
-void ReptiloidsAddressBook::onCopyAddress() {
-    auto *btn = qobject_cast<ReptiloidsLabelBtn*>(sender());
+void ReptiloidsCoinAddressBook::onCopyAddress() {
+    auto *btn = qobject_cast<ReptiloidsCoinLabelBtn*>(sender());
     auto address = btn->getID();
     GUIUtil::setClipboard(address);
 }
 
-void ReptiloidsAddressBook::onAddAddress() {
-    ReptiloidsAddressAddDialog dlg(walletModel->getAddressTableModel(), walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+void ReptiloidsCoinAddressBook::onAddAddress() {
+    ReptiloidsCoinAddressAddDialog dlg(walletModel->getAddressTableModel(), walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
     dlg.setStyleSheet(GUIUtil::loadStyleSheet());
     connect(&dlg, &QDialog::accepted, this, [this, &dlg]() {
         // If the user added a new private key, ask them if they want to perform a wallet rescan
@@ -413,7 +413,7 @@ void ReptiloidsAddressBook::onAddAddress() {
                 return;
 
             walletModel->showProgress(tr("Rescanning..."), 0);
-            // TODO Reptiloids Qt wallet rescan after add private key
+            // TODO ReptiloidsCoin Qt wallet rescan after add private key
 //            QTimer::singleShot(1000, [this]() {
 //                walletModel->RescanFromTime();
 //            });
@@ -423,8 +423,8 @@ void ReptiloidsAddressBook::onAddAddress() {
     dlg.exec();
 }
 
-void ReptiloidsAddressBook::onEditAddress() {
-    auto *btn = qobject_cast<ReptiloidsLabelBtn*>(sender());
+void ReptiloidsCoinAddressBook::onEditAddress() {
+    auto *btn = qobject_cast<ReptiloidsCoinLabelBtn*>(sender());
     Address data;
     data.address = btn->getID();
     // Remove address from data model
@@ -438,17 +438,17 @@ void ReptiloidsAddressBook::onEditAddress() {
             break;
         }
     }
-    ReptiloidsAddressEditDialog dlg(walletModel->getAddressTableModel(), walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+    ReptiloidsCoinAddressEditDialog dlg(walletModel->getAddressTableModel(), walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
     dlg.setData(data.address, data.alias, data.type, QString());
     dlg.exec();
 }
 
-void ReptiloidsAddressBook::onDoubleClick(int row, int col) {
+void ReptiloidsCoinAddressBook::onDoubleClick(int row, int col) {
     if (row >= filteredData.size()) // check index
         return;
     auto data = filteredData[row];
     if (!slimMode) {
-        ReptiloidsAddressEditDialog dlg(walletModel->getAddressTableModel(), walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+        ReptiloidsCoinAddressEditDialog dlg(walletModel->getAddressTableModel(), walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
         dlg.setData(data.address, data.alias, data.type, QString());
         dlg.exec();
     } else {
@@ -456,8 +456,8 @@ void ReptiloidsAddressBook::onDoubleClick(int row, int col) {
     }
 }
 
-void ReptiloidsAddressBook::onDeleteAddress() {
-    auto *btn = qobject_cast<ReptiloidsLabelBtn*>(sender());
+void ReptiloidsCoinAddressBook::onDeleteAddress() {
+    auto *btn = qobject_cast<ReptiloidsCoinLabelBtn*>(sender());
     auto address = btn->getID();
     QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Delete Address"),
                                                                QString("%1\n\n%2").arg(tr("Are you sure you want to delete this address?"), address),
@@ -478,13 +478,13 @@ void ReptiloidsAddressBook::onDeleteAddress() {
     }
 }
 
-void ReptiloidsAddressBook::onAddressAction() {
-    auto *btn = qobject_cast<ReptiloidsActionBtn*>(sender());
+void ReptiloidsCoinAddressBook::onAddressAction() {
+    auto *btn = qobject_cast<ReptiloidsCoinActionBtn*>(sender());
     auto address = btn->getID();
     Q_EMIT send(address);
 }
 
-int ReptiloidsAddressBook::ddIndexForType(int type) {
+int ReptiloidsCoinAddressBook::ddIndexForType(int type) {
     switch (type) {
         case FILTER_SENDING:
             return 1;

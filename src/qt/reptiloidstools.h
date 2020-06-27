@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSTOOLS_H
-#define REPTILOIDS_QT_REPTILOIDSTOOLS_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLS_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLS_H
 
-#include <qt/reptiloidstabbar.h>
-#include <qt/reptiloidstoolspage.h>
+#include <qt/reptiloidscointabbar.h>
+#include <qt/reptiloidscointoolspage.h>
 
 #include <qt/clientmodel.h>
 #include <qt/walletmodel.h>
@@ -16,15 +16,15 @@
 #include <QSet>
 #include <QVBoxLayout>
 
-class ReptiloidsDebugConsole;
-class ReptiloidsPeersList;
-class ReptiloidsBIP38Tool;
-class ReptiloidsWalletRepair;
+class ReptiloidsCoinDebugConsole;
+class ReptiloidsCoinPeersList;
+class ReptiloidsCoinBIP38Tool;
+class ReptiloidsCoinWalletRepair;
 
-class ReptiloidsTools : public QFrame {
+class ReptiloidsCoinTools : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsTools(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinTools(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent = nullptr);
     void setModels(ClientModel *c, WalletModel *w);
 
 Q_SIGNALS:
@@ -40,18 +40,18 @@ private Q_SLOTS:
 private:
     WalletModel *walletModel;
     ClientModel *clientModel;
-    QVector<ReptiloidsToolsPage*> pages;
+    QVector<ReptiloidsCoinToolsPage*> pages;
 
     QVBoxLayout *layout;
     QLabel *titleLbl;
-    ReptiloidsDebugConsole *debugConsole;
-    ReptiloidsPeersList *networkMonitor;
-    ReptiloidsPeersList *peersList;
-    ReptiloidsBIP38Tool *bip38Tool;
-    ReptiloidsWalletRepair *walletRepair;
-    ReptiloidsPeersList *multisend;
-    ReptiloidsTabBar *tabBar;
-    ReptiloidsToolsPage *screen = nullptr;
+    ReptiloidsCoinDebugConsole *debugConsole;
+    ReptiloidsCoinPeersList *networkMonitor;
+    ReptiloidsCoinPeersList *peersList;
+    ReptiloidsCoinBIP38Tool *bip38Tool;
+    ReptiloidsCoinWalletRepair *walletRepair;
+    ReptiloidsCoinPeersList *multisend;
+    ReptiloidsCoinTabBar *tabBar;
+    ReptiloidsCoinToolsPage *screen = nullptr;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSTOOLS_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINTOOLS_H

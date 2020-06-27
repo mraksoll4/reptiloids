@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssettings.h>
+#include <qt/reptiloidscoinsettings.h>
 
-#include <qt/reptiloidscheckbox.h>
-#include <qt/reptiloidsdialog.h>
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoincheckbox.h>
+#include <qt/reptiloidscoindialog.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
@@ -21,7 +21,7 @@
 #include <QDir>
 #include <QMessageBox>
 
-ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent) : QFrame(parent),
+ReptiloidsCoinSettings::ReptiloidsCoinSettings(interfaces::Node & node, QWidget *parent) : QFrame(parent),
                                                                                node(node),
                                                                                layout(new QVBoxLayout)
 {
@@ -51,9 +51,9 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     aboutLayout->setContentsMargins(QMargins());
     aboutBox->setLayout(aboutLayout);
 
-    aboutCoreLblBtn = new ReptiloidsLabelBtn;
-    aboutCoreLblBtn->setText(tr("About Reptiloids"));
-    aboutQtLblBtn = new ReptiloidsLabelBtn;
+    aboutCoreLblBtn = new ReptiloidsCoinLabelBtn;
+    aboutCoreLblBtn->setText(tr("About ReptiloidsCoin"));
+    aboutQtLblBtn = new ReptiloidsCoinLabelBtn;
     aboutQtLblBtn->setText(tr("About Qt"));
 
     aboutLayout->addWidget(aboutCoreLblBtn);
@@ -72,7 +72,7 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     generalLbl = new QLabel(tr("General"));
     generalLbl->setObjectName("h2");
 
-    startWalletOnLoginCb = new ReptiloidsCheckBox(tr("Start Reptiloids on system login"));
+    startWalletOnLoginCb = new ReptiloidsCoinCheckBox(tr("Start ReptiloidsCoin on system login"));
     startWalletOnLoginCb->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
     auto *generalGrid = new QFrame;
@@ -124,7 +124,7 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     walletLayout->setColumnMinimumWidth(0, BGU::spi(200));
     walletGrid->setLayout(walletLayout);
 
-    spendChangeCb = new ReptiloidsCheckBox(tr("Spend unconfirmed change"));
+    spendChangeCb = new ReptiloidsCoinCheckBox(tr("Spend unconfirmed change"));
     walletLayout->addWidget(spendChangeCb, 0, 0, Qt::AlignLeft);
 
     auto *buttonGrid = new QFrame;
@@ -136,7 +136,7 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     buttonLayout->setColumnStretch(1, 2);
     buttonGrid->setLayout(buttonLayout);
 
-    backupBtn = new ReptiloidsFormBtn;
+    backupBtn = new ReptiloidsCoinFormBtn;
     backupBtn->setText(tr("Backup Wallet"));
     buttonLayout->addWidget(backupBtn, 0, 0, Qt::AlignLeft);
 
@@ -160,19 +160,19 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
 //    networkLayout->setRowMinimumHeight(2, BGU::spi(50));
     networkGrid->setLayout(networkLayout);
 
-    upnpCb = new ReptiloidsCheckBox(tr("Map port using UPnP"));
-    allowIncomingCb = new ReptiloidsCheckBox(tr("Allow incoming connections"));
-    connectSocks5Cb = new ReptiloidsCheckBox(tr("Connect through SOCKS5 proxy (default proxy)"));
+    upnpCb = new ReptiloidsCoinCheckBox(tr("Map port using UPnP"));
+    allowIncomingCb = new ReptiloidsCoinCheckBox(tr("Allow incoming connections"));
+    connectSocks5Cb = new ReptiloidsCoinCheckBox(tr("Connect through SOCKS5 proxy (default proxy)"));
 //    upnpCb->setMinimumWidth(colWidth);
 //    allowIncomingCb->setMinimumWidth(colWidth);
 //    connectSocks5Cb->setMinimumWidth(colWidth*2); // spans 2 columns
 
-    proxyTi = new ReptiloidsLineEditWithTitle(tr("Proxy IP"), tr("Enter proxy ip address..."), BGU::spi(100));
+    proxyTi = new ReptiloidsCoinLineEditWithTitle(tr("Proxy IP"), tr("Enter proxy ip address..."), BGU::spi(100));
     proxyTi->setObjectName("address");
     proxyTi->lineEdit->setMaxLength(50);
     proxyTi->setEnabled(false); // default to disabled
 
-    portTi = new ReptiloidsLineEditWithTitle(tr("Port"), tr("Enter port number..."), BGU::spi(100));
+    portTi = new ReptiloidsCoinLineEditWithTitle(tr("Port"), tr("Enter port number..."), BGU::spi(100));
     portTi->lineEdit->setValidator(new QIntValidator(1, 65535, this));
     portTi->setObjectName("address");
     portTi->setEnabled(false); // default to disabled
@@ -201,7 +201,7 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     languageLbl = new QLabel(tr("User interface language:"));
     languageLbl->setObjectName("title");
 
-    languageDropdown = new ReptiloidsDropdown;
+    languageDropdown = new ReptiloidsCoinDropdown;
 
     languageLayout->addWidget(languageLbl, 0, 0, Qt::AlignLeft);
     languageLayout->addWidget(languageDropdown, 0, 1, Qt::AlignLeft);
@@ -217,7 +217,7 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     contributeLbl = new QLabel(tr("Language missing or translation incomplete? Help contributing translations"));
     contributeLbl->setObjectName("description");
 
-    contributeLblBtn = new ReptiloidsLabelBtn;
+    contributeLblBtn = new ReptiloidsCoinLabelBtn;
     contributeLblBtn->setText(tr("here."));
     contributeLblBtn->setFixedWidth(48);
 
@@ -233,31 +233,31 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     unitsLbl = new QLabel(tr("Units to show amounts in:"));
     unitsLbl->setObjectName("title");
 
-    unitsDropdown = new ReptiloidsDropdown;
+    unitsDropdown = new ReptiloidsCoinDropdown;
     unitsDropdown->setMaximumWidth(BGU::spi(100));
     unitsDropdown->setModel(new BitcoinUnits(this));
 
     decimalLbl = new QLabel(tr("Decimal digits:"));
     decimalLbl->setObjectName("title");
 
-    decimalDropdown = new ReptiloidsDropdown;
+    decimalDropdown = new ReptiloidsCoinDropdown;
 
     unitsLayout->addWidget(unitsLbl, 0, Qt::AlignLeft);
     unitsLayout->addWidget(unitsDropdown, 0, Qt::AlignLeft);
     unitsLayout->addStretch();
 //    unitsLayout->addWidget(decimalLbl);
-//    unitsLayout->addWidget(decimalDropdown); // TODO Reptiloids Qt decimal dropdown
+//    unitsLayout->addWidget(decimalDropdown); // TODO ReptiloidsCoin Qt decimal dropdown
 
-    thirdPartyUrlTi = new ReptiloidsLineEditWithTitle(tr("Third party transaction URLs"), tr("https://"));
+    thirdPartyUrlTi = new ReptiloidsCoinLineEditWithTitle(tr("Third party transaction URLs"), tr("https://"));
     thirdPartyUrlTi->setObjectName("address");
 
     auto *displayDiv = new QLabel;
     displayDiv->setFixedHeight(1);
     displayDiv->setObjectName("hdiv");
 
-    saveBtn = new ReptiloidsFormBtn;
+    saveBtn = new ReptiloidsCoinFormBtn;
     saveBtn->setText(tr("Save Settings"));
-    resetBtn = new ReptiloidsFormBtn;
+    resetBtn = new ReptiloidsCoinFormBtn;
     resetBtn->setObjectName("delete");
     resetBtn->setText(tr("Reset to Default"));
 
@@ -336,16 +336,16 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
     upnpCb->setEnabled(false);
 #endif
 
-    connect(backupBtn, &ReptiloidsFormBtn::clicked, this, [this]() { backupWallet(); });
-    connect(aboutCoreLblBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(backupBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() { backupWallet(); });
+    connect(aboutCoreLblBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         HelpMessageDialog dlg(this->node, this, true);
         dlg.exec();
     });
-    connect(aboutQtLblBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(aboutQtLblBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         qApp->aboutQt();
     });
-    connect(resetBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSettings::onResetSettingsToDefault);
-    connect(saveBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(resetBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSettings::onResetSettingsToDefault);
+    connect(saveBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         if (connectSocks5Cb->isChecked()) {
             const std::string strAddrProxy = proxyTi->lineEdit->text().toStdString();
             CService addrProxy;
@@ -364,11 +364,11 @@ ReptiloidsSettings::ReptiloidsSettings(interfaces::Node & node, QWidget *parent)
         QMessageBox::information(this, tr("Restart Required"),
                 tr("Please restart the wallet for changes to take effect."));
     });
-    connect(connectSocks5Cb, &QCheckBox::toggled, proxyTi, &ReptiloidsLineEditWithTitle::setEnabled);
-    connect(connectSocks5Cb, &QCheckBox::toggled, portTi, &ReptiloidsLineEditWithTitle::setEnabled);
+    connect(connectSocks5Cb, &QCheckBox::toggled, proxyTi, &ReptiloidsCoinLineEditWithTitle::setEnabled);
+    connect(connectSocks5Cb, &QCheckBox::toggled, portTi, &ReptiloidsCoinLineEditWithTitle::setEnabled);
 }
 
-void ReptiloidsSettings::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinSettings::setWalletModel(WalletModel *w) {
     if (walletModel == w)
         return;
 
@@ -400,8 +400,8 @@ void ReptiloidsSettings::setWalletModel(WalletModel *w) {
     mapper->toFirst();
 }
 
-void ReptiloidsSettings::onResetSettingsToDefault() {
-    ReptiloidsDialog dlg(tr("Are you sure you want to reset all your settings to default?\nThis will close the wallet."), tr("Reset to Default"), tr(""), this);
+void ReptiloidsCoinSettings::onResetSettingsToDefault() {
+    ReptiloidsCoinDialog dlg(tr("Are you sure you want to reset all your settings to default?\nThis will close the wallet."), tr("Reset to Default"), tr(""), this);
     connect(&dlg, &QDialog::accepted, this, [this]() {
         walletModel->getOptionsModel()->Reset();
         QApplication::quit();
@@ -409,7 +409,7 @@ void ReptiloidsSettings::onResetSettingsToDefault() {
     dlg.exec();
 }
 
-void ReptiloidsSettings::backupWallet() {
+void ReptiloidsCoinSettings::backupWallet() {
     QString filename = GUIUtil::getSaveFileName(this, tr("Backup Wallet"), QString(),
                                                 tr("Wallet Data (*.dat)"), nullptr);
 

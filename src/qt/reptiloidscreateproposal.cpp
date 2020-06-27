@@ -2,66 +2,66 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidscreateproposal.h>
+#include <qt/reptiloidscoincreateproposal.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QEvent>
 #include <QLineEdit>
 
-enum ReptiloidsCreateProposalCrumbs {
+enum ReptiloidsCoinCreateProposalCrumbs {
     CREATE = 1,
     REVIEW,
     SUBMIT,
 };
 
-ReptiloidsCreateProposal::ReptiloidsCreateProposal(QWidget *parent) : QFrame(parent), layout(new QVBoxLayout) {
+ReptiloidsCoinCreateProposal::ReptiloidsCoinCreateProposal(QWidget *parent) : QFrame(parent), layout(new QVBoxLayout) {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->setContentsMargins(QMargins());
     this->setLayout(layout);
 
-    page1 = new ReptiloidsCreateProposal1(CREATE);
-    page2 = new ReptiloidsCreateProposal2(REVIEW);
-    page3 = new ReptiloidsCreateProposal3(SUBMIT);
+    page1 = new ReptiloidsCoinCreateProposal1(CREATE);
+    page2 = new ReptiloidsCoinCreateProposal2(REVIEW);
+    page3 = new ReptiloidsCoinCreateProposal3(SUBMIT);
     pages = { page1, page2, page3 };
 
-    breadCrumb = new ReptiloidsBreadCrumb;
+    breadCrumb = new ReptiloidsCoinBreadCrumb;
     breadCrumb->setParent(this);
     breadCrumb->addCrumb(tr("Create Proposal"), CREATE);
     breadCrumb->addCrumb(tr("Pay Submission Fee"), REVIEW);
     breadCrumb->addCrumb(tr("Submit Proposal"), SUBMIT);
     breadCrumb->show();
 
-    connect(breadCrumb, &ReptiloidsBreadCrumb::crumbChanged, this, &ReptiloidsCreateProposal::crumbChanged);
-    connect(page1, &ReptiloidsCreateProposalPage::next, this, &ReptiloidsCreateProposal::nextCrumb);
-    connect(page2, &ReptiloidsCreateProposalPage::next, this, &ReptiloidsCreateProposal::nextCrumb);
-    connect(page3, &ReptiloidsCreateProposalPage::next, this, &ReptiloidsCreateProposal::nextCrumb);
-    connect(page2, &ReptiloidsCreateProposalPage::back, this, &ReptiloidsCreateProposal::prevCrumb);
-    connect(page1, &ReptiloidsCreateProposalPage::cancel, this, &ReptiloidsCreateProposal::onCancel);
-    connect(page2, &ReptiloidsCreateProposalPage::cancel, this, &ReptiloidsCreateProposal::onCancel);
-    connect(page3, &ReptiloidsCreateProposalPage::cancel, this, &ReptiloidsCreateProposal::onCancel);
-    connect(page3, &ReptiloidsCreateProposal3::done, this, &ReptiloidsCreateProposal::onDone);
+    connect(breadCrumb, &ReptiloidsCoinBreadCrumb::crumbChanged, this, &ReptiloidsCoinCreateProposal::crumbChanged);
+    connect(page1, &ReptiloidsCoinCreateProposalPage::next, this, &ReptiloidsCoinCreateProposal::nextCrumb);
+    connect(page2, &ReptiloidsCoinCreateProposalPage::next, this, &ReptiloidsCoinCreateProposal::nextCrumb);
+    connect(page3, &ReptiloidsCoinCreateProposalPage::next, this, &ReptiloidsCoinCreateProposal::nextCrumb);
+    connect(page2, &ReptiloidsCoinCreateProposalPage::back, this, &ReptiloidsCoinCreateProposal::prevCrumb);
+    connect(page1, &ReptiloidsCoinCreateProposalPage::cancel, this, &ReptiloidsCoinCreateProposal::onCancel);
+    connect(page2, &ReptiloidsCoinCreateProposalPage::cancel, this, &ReptiloidsCoinCreateProposal::onCancel);
+    connect(page3, &ReptiloidsCoinCreateProposalPage::cancel, this, &ReptiloidsCoinCreateProposal::onCancel);
+    connect(page3, &ReptiloidsCoinCreateProposal3::done, this, &ReptiloidsCoinCreateProposal::onDone);
 
     // Estimated position
     positionCrumb(QPoint(BGU::spi(175), BGU::spi(-4)));
     breadCrumb->goToCrumb(CREATE);
 }
 
-void ReptiloidsCreateProposal::focusInEvent(QFocusEvent *event) {
+void ReptiloidsCoinCreateProposal::focusInEvent(QFocusEvent *event) {
     QWidget::focusInEvent(event);
     if (screen)
         screen->setFocus();
 }
 
-void ReptiloidsCreateProposal::showEvent(QShowEvent *event) {
+void ReptiloidsCoinCreateProposal::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
     if (screen)
         screen->setFocus();
 }
 
-void ReptiloidsCreateProposal::crumbChanged(int crumb) {
+void ReptiloidsCoinCreateProposal::crumbChanged(int crumb) {
     // Prevent users from jumping around the crumb widget without validating previous pages
-    auto validatePages = [](const int toPage, const QVector<ReptiloidsCreateProposalPage*> &pages) -> bool {
+    auto validatePages = [](const int toPage, const QVector<ReptiloidsCoinCreateProposalPage*> &pages) -> bool {
         if (toPage - 1 > pages.count())
             return false;
         for (int i = 0; i < toPage - 1; ++i) {
@@ -108,7 +108,7 @@ void ReptiloidsCreateProposal::crumbChanged(int crumb) {
     screen->setFocus();
 }
 
-void ReptiloidsCreateProposal::nextCrumb(int crumb) {
+void ReptiloidsCoinCreateProposal::nextCrumb(int crumb) {
     if (screen && crumb > breadCrumb->getCrumb() && breadCrumb->showCrumb(breadCrumb->getCrumb()) && !screen->validated())
         return;
     if (crumb >= SUBMIT) // do nothing if at the end
@@ -116,7 +116,7 @@ void ReptiloidsCreateProposal::nextCrumb(int crumb) {
     breadCrumb->goToCrumb(++crumb);
 }
 
-void ReptiloidsCreateProposal::prevCrumb(int crumb) {
+void ReptiloidsCoinCreateProposal::prevCrumb(int crumb) {
     if (!screen)
         return;
     if (crumb <= CREATE) // do nothing if at the beginning
@@ -124,17 +124,17 @@ void ReptiloidsCreateProposal::prevCrumb(int crumb) {
     breadCrumb->goToCrumb(--crumb);
 }
 
-void ReptiloidsCreateProposal::onCancel(int crumb) {
+void ReptiloidsCoinCreateProposal::onCancel(int crumb) {
     reset();
     Q_EMIT done();
 }
 
-void ReptiloidsCreateProposal::onDone() {
+void ReptiloidsCoinCreateProposal::onDone() {
     reset();
     Q_EMIT done();
 }
 
-bool ReptiloidsCreateProposal::event(QEvent *event) {
+bool ReptiloidsCoinCreateProposal::event(QEvent *event) {
     if (screen && event->type() == QEvent::LayoutRequest) {
         positionCrumb();
     } else if (event->type() == QEvent::Type::MouseButtonPress) {
@@ -145,13 +145,13 @@ bool ReptiloidsCreateProposal::event(QEvent *event) {
     return QFrame::event(event);
 }
 
-void ReptiloidsCreateProposal::reset() {
-    for (ReptiloidsCreateProposalPage *page : pages)
+void ReptiloidsCoinCreateProposal::reset() {
+    for (ReptiloidsCoinCreateProposalPage *page : pages)
         page->clear();
     breadCrumb->goToCrumb(CREATE);
 }
 
-void ReptiloidsCreateProposal::positionCrumb(QPoint pt) {
+void ReptiloidsCoinCreateProposal::positionCrumb(QPoint pt) {
     if (pt != QPoint() || pt.x() > BGU::spi(250) || pt.y() > 0) {
         breadCrumb->move(pt);
         breadCrumb->raise();
@@ -164,7 +164,7 @@ void ReptiloidsCreateProposal::positionCrumb(QPoint pt) {
     breadCrumb->raise();
 }
 
-void ReptiloidsCreateProposal::goToDone() {
+void ReptiloidsCoinCreateProposal::goToDone() {
     layout->removeWidget(screen);
     screen->hide();
 }

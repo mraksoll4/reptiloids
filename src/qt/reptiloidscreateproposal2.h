@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL2_H
-#define REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL2_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL2_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL2_H
 
-#include <qt/reptiloidscreateproposalutil.h>
-#include <qt/reptiloidsformbtn.h>
+#include <qt/reptiloidscoincreateproposalutil.h>
+#include <qt/reptiloidscoinformbtn.h>
 
 #include <qt/walletmodel.h>
 
@@ -14,14 +14,14 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-class ReptiloidsCreateProposal2 : public ReptiloidsCreateProposalPage {
+class ReptiloidsCoinCreateProposal2 : public ReptiloidsCoinCreateProposalPage {
     Q_OBJECT
 public:
-    explicit ReptiloidsCreateProposal2(int id, QFrame *parent = nullptr);
-    void setModel(const ReptiloidsCreateProposalPageModel &model);
+    explicit ReptiloidsCoinCreateProposal2(int id, QFrame *parent = nullptr);
+    void setModel(const ReptiloidsCoinCreateProposalPageModel &model);
     void clear() override;
     bool validated() override;
-    ReptiloidsCreateProposalPageModel getModel() {
+    ReptiloidsCoinCreateProposalPageModel getModel() {
         return model;
     }
 
@@ -47,12 +47,12 @@ private:
     QLabel *feeLbl;
     QLabel *descLbl;
     QLabel *descValLbl;
-    ReptiloidsFormBtn *backBtn;
-    ReptiloidsFormBtn *submitBtn;
-    ReptiloidsFormBtn *cancelBtn;
-    ReptiloidsCreateProposalPageModel model;
+    ReptiloidsCoinFormBtn *backBtn;
+    ReptiloidsCoinFormBtn *submitBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
+    ReptiloidsCoinCreateProposalPageModel model;
 
     void disableButtons(const bool &disable);
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL2_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSAL2_H

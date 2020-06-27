@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSPEERDETAILS_H
-#define REPTILOIDS_QT_REPTILOIDSPEERDETAILS_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINPEERDETAILS_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINPEERDETAILS_H
 
 #include <QEvent>
 #include <QFrame>
@@ -13,11 +13,11 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-class ReptiloidsPeerDetails : public QFrame {
+class ReptiloidsCoinPeerDetails : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsPeerDetails(QFrame *parent = nullptr);
-    ~ReptiloidsPeerDetails() override;
+    explicit ReptiloidsCoinPeerDetails(QFrame *parent = nullptr);
+    ~ReptiloidsCoinPeerDetails() override;
 
     struct PeerDetails {
         QString direction;
@@ -62,4 +62,4 @@ private:
     bool eventFilter(QObject *obj, QEvent *event) override;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSPEERDETAILS_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINPEERDETAILS_H

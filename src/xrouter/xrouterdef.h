@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_XROUTERDEF_H
-#define REPTILOIDS_XROUTER_XROUTERDEF_H
+#ifndef REPTILOIDSCOIN_XROUTER_XROUTERDEF_H
+#define REPTILOIDSCOIN_XROUTER_XROUTERDEF_H
 
 #include <map>
 #include <memory>
@@ -16,4 +16,4 @@
 #define XROUTER_DEFAULT_CONFIRMATIONS 1
 #define XROUTER_TIMER_SECONDS 15
 
-#endif // REPTILOIDS_XROUTER_XROUTERDEF_H
+#endif // REPTILOIDSCOIN_XROUTER_XROUTERDEF_H

@@ -1101,7 +1101,7 @@ bool eth_gasPrice(const std::string & rpcip,
         }
 
         std::string value = result.get_str();
-//        gasPrice = strtoll(value.substr(2).c_str(), nullptr, 16); // TODO Reptiloids use non locale func strtoll
+//        gasPrice = strtoll(value.substr(2).c_str(), nullptr, 16); // TODO ReptiloidsCoin use non locale func strtoll
     }
     catch (std::exception & e)
     {
@@ -1213,7 +1213,7 @@ bool eth_getBalance(const std::string & rpcip,
             }
 
             std::string value = result.get_str();
-//            amount = strtoll(value.substr(2).c_str(), nullptr, 16); // TODO Reptiloids use non locale func strtoll
+//            amount = strtoll(value.substr(2).c_str(), nullptr, 16); // TODO ReptiloidsCoin use non locale func strtoll
         }
     }
     catch (std::exception & e)
@@ -1249,7 +1249,7 @@ bool eth_sendTransaction(const std::string & rpcip,
         // o.push_back(Pair("value",      "0x9184e72a"));
 
         char buf[64];
-//        sprintf(buf, "%lullx", amount); // TODO Reptiloids use non-locale based func
+//        sprintf(buf, "%lullx", amount); // TODO ReptiloidsCoin use non-locale based func
         o.push_back(Pair("value", buf));
 
         // o.push_back(Pair("data",       "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"));

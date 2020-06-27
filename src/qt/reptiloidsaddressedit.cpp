@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsaddressedit.h>
+#include <qt/reptiloidscoinaddressedit.h>
 
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
 
 #include <qt/guiutil.h>
 
@@ -18,7 +18,7 @@
 #include <QMessageBox>
 #include <QtWidgets>
 
-ReptiloidsAddressEditDialog::ReptiloidsAddressEditDialog(AddressTableModel *model, WalletModel *walletModel,
+ReptiloidsCoinAddressEditDialog::ReptiloidsCoinAddressEditDialog(AddressTableModel *model, WalletModel *walletModel,
         Qt::WindowFlags f, QWidget *parent) : QDialog(parent, f), model(model), walletModel(walletModel)
 {
     this->setModal(true);
@@ -27,13 +27,13 @@ ReptiloidsAddressEditDialog::ReptiloidsAddressEditDialog(AddressTableModel *mode
     this->setContentsMargins(QMargins());
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     this->setWindowTitle(tr("Address Book"));
-    form = new ReptiloidsAddressEdit(true, tr("Edit Address"), tr("Save"), this);
+    form = new ReptiloidsCoinAddressEdit(true, tr("Edit Address"), tr("Save"), this);
     form->show();
-    connect(form, &ReptiloidsAddressEdit::accept, this, &QDialog::accept);
-    connect(form, &ReptiloidsAddressEdit::cancel, this, &QDialog::reject);
+    connect(form, &ReptiloidsCoinAddressEdit::accept, this, &QDialog::accept);
+    connect(form, &ReptiloidsCoinAddressEdit::cancel, this, &QDialog::reject);
 }
 
-void ReptiloidsAddressEditDialog::accept() {
+void ReptiloidsCoinAddressEditDialog::accept() {
     // Edit address
     const auto dest = DecodeDestination(form->getAddress().toStdString());
     if (walletModel->wallet().getAddress(dest, nullptr, nullptr, nullptr))
@@ -41,16 +41,16 @@ void ReptiloidsAddressEditDialog::accept() {
     QDialog::accept();
 }
 
-void ReptiloidsAddressEditDialog::resizeEvent(QResizeEvent *evt) {
+void ReptiloidsCoinAddressEditDialog::resizeEvent(QResizeEvent *evt) {
     QDialog::resizeEvent(evt);
     form->resize(evt->size().width(), evt->size().height());
 }
 
-void ReptiloidsAddressEditDialog::setData(const QString &address, const QString &alias, const int &type, const QString &key) {
+void ReptiloidsCoinAddressEditDialog::setData(const QString &address, const QString &alias, const int &type, const QString &key) {
     form->setData(address, alias, type, key);
 }
 
-ReptiloidsAddressAddDialog::ReptiloidsAddressAddDialog(AddressTableModel *model, WalletModel *walletModel,
+ReptiloidsCoinAddressAddDialog::ReptiloidsCoinAddressAddDialog(AddressTableModel *model, WalletModel *walletModel,
         Qt::WindowFlags f, QWidget *parent) : QDialog(parent, f), model(model), walletModel(walletModel) {
     this->setModal(true);
     this->setMinimumSize(BGU::spi(460), BGU::spi(470));
@@ -58,16 +58,16 @@ ReptiloidsAddressAddDialog::ReptiloidsAddressAddDialog(AddressTableModel *model,
     this->setContentsMargins(QMargins());
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     this->setWindowTitle(tr("Address Book"));
-    form = new ReptiloidsAddressEdit(false, tr("New Address"), tr("Add Address"), this);
+    form = new ReptiloidsCoinAddressEdit(false, tr("New Address"), tr("Add Address"), this);
     CPubKey pubkey;
     if (walletModel->wallet().getKeyFromPool(false, pubkey))
         form->setNewAddress(CTxDestination(pubkey.GetID()));
     form->show();
-    connect(form, &ReptiloidsAddressEdit::accept, this, &QDialog::accept);
-    connect(form, &ReptiloidsAddressEdit::cancel, this, &QDialog::reject);
+    connect(form, &ReptiloidsCoinAddressEdit::accept, this, &QDialog::accept);
+    connect(form, &ReptiloidsCoinAddressEdit::cancel, this, &QDialog::reject);
 }
 
-void ReptiloidsAddressAddDialog::accept() {
+void ReptiloidsCoinAddressAddDialog::accept() {
     if (!form->getKey().isEmpty()) { // if private key field is not empty, we are "adding new address"
         auto import = [&]() -> bool {
             CKey secret = DecodeSecret(form->getKey().toStdString());
@@ -108,7 +108,7 @@ void ReptiloidsAddressAddDialog::accept() {
     QDialog::accept();
 }
 
-bool ReptiloidsAddressAddDialog::importPrivateKey(CKey & key, const QString & alias) {
+bool ReptiloidsCoinAddressAddDialog::importPrivateKey(CKey & key, const QString & alias) {
     bool fRescan = true;
 
     auto wallets = GetWallets();
@@ -200,12 +200,12 @@ bool ReptiloidsAddressAddDialog::importPrivateKey(CKey & key, const QString & al
     return true;
 }
 
-void ReptiloidsAddressAddDialog::resizeEvent(QResizeEvent *evt) {
+void ReptiloidsCoinAddressAddDialog::resizeEvent(QResizeEvent *evt) {
     QDialog::resizeEvent(evt);
     form->resize(evt->size().width(), evt->size().height());
 }
 
-ReptiloidsAddressEdit::ReptiloidsAddressEdit(bool editMode, const QString &t, const QString &b, QWidget *parent) : QFrame(parent),
+ReptiloidsCoinAddressEdit::ReptiloidsCoinAddressEdit(bool editMode, const QString &t, const QString &b, QWidget *parent) : QFrame(parent),
                                                                                                                layout(new QVBoxLayout),
                                                                                                                title(t),
                                                                                                                buttonString(b),
@@ -219,12 +219,12 @@ ReptiloidsAddressEdit::ReptiloidsAddressEdit(bool editMode, const QString &t, co
     titleLbl->setObjectName("h2");
 
     auto addrTitle = editMode ? tr("Address") : tr("Address (auto-generated from your keystore)");
-    addressTi = new ReptiloidsLineEditWithTitle(addrTitle, tr("Enter Address..."));
+    addressTi = new ReptiloidsCoinLineEditWithTitle(addrTitle, tr("Enter Address..."));
     addressTi->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
-    aliasTi = new ReptiloidsLineEditWithTitle(tr("Alias (optional)"), tr("Enter alias..."));
+    aliasTi = new ReptiloidsCoinLineEditWithTitle(tr("Alias (optional)"), tr("Enter alias..."));
     aliasTi->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
     if (!editMode) {
-        createAddressTi = new ReptiloidsLineEditWithTitle(tr("Import Address from Private Key (debug console command: dumpprivkey)"), tr("Enter private key..."));
+        createAddressTi = new ReptiloidsCoinLineEditWithTitle(tr("Import Address from Private Key (debug console command: dumpprivkey)"), tr("Enter private key..."));
         createAddressTi->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
         createAddressTi->lineEdit->setEchoMode(QLineEdit::Password);
     }
@@ -244,15 +244,15 @@ ReptiloidsAddressEdit::ReptiloidsAddressEdit(bool editMode, const QString &t, co
     radioLayout->addWidget(myAddressBtn);
     radioLayout->addWidget(otherUserBtn);
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
     auto *buttonGrid = new QFrame;
     auto *buttonLayout = new QHBoxLayout;
     buttonLayout->setContentsMargins(QMargins());
     buttonGrid->setLayout(buttonLayout);
-    confirmBtn = new ReptiloidsFormBtn;
+    confirmBtn = new ReptiloidsCoinFormBtn;
     confirmBtn->setText(buttonString);
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     buttonLayout->addWidget(cancelBtn);
@@ -277,19 +277,19 @@ ReptiloidsAddressEdit::ReptiloidsAddressEdit(bool editMode, const QString &t, co
     layout->addStretch(1);
     layout->addWidget(buttonGrid, 0, Qt::AlignCenter);
 
-    connect(addressTi->lineEdit, &ReptiloidsLineEdit::textEdited, this, &ReptiloidsAddressEdit::onAddressChanged);
-    connect(confirmBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsAddressEdit::onApply);
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsAddressEdit::onCancel);
-    connect(otherUserBtn, &QRadioButton::toggled, this, &ReptiloidsAddressEdit::onOtherUser);
+    connect(addressTi->lineEdit, &ReptiloidsCoinLineEdit::textEdited, this, &ReptiloidsCoinAddressEdit::onAddressChanged);
+    connect(confirmBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinAddressEdit::onApply);
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinAddressEdit::onCancel);
+    connect(otherUserBtn, &QRadioButton::toggled, this, &ReptiloidsCoinAddressEdit::onOtherUser);
     if (!editMode)
-        connect(createAddressTi->lineEdit, &ReptiloidsLineEdit::textEdited, this, &ReptiloidsAddressEdit::onPrivateKey);
+        connect(createAddressTi->lineEdit, &ReptiloidsCoinLineEdit::textEdited, this, &ReptiloidsCoinAddressEdit::onPrivateKey);
 }
 
-QSize ReptiloidsAddressEdit::sizeHint() const {
+QSize ReptiloidsCoinAddressEdit::sizeHint() const {
     return { addressTi->width() + BGU::spi(60), 7 * BGU::spi(50) };
 }
 
-void ReptiloidsAddressEdit::setData(const QString &address, const QString &alias, const int &type, const QString &key) {
+void ReptiloidsCoinAddressEdit::setData(const QString &address, const QString &alias, const int &type, const QString &key) {
     addressTi->lineEdit->setText(address);
     aliasTi->lineEdit->setText(alias);
     myAddressBtn->setChecked(type == AddressTableEntry::Receiving);
@@ -300,39 +300,39 @@ void ReptiloidsAddressEdit::setData(const QString &address, const QString &alias
     }
 }
 
-QString ReptiloidsAddressEdit::getAddress() {
+QString ReptiloidsCoinAddressEdit::getAddress() {
     return addressTi->lineEdit->text().trimmed();
 }
 
-QString ReptiloidsAddressEdit::getAlias() {
+QString ReptiloidsCoinAddressEdit::getAlias() {
     return aliasTi->lineEdit->text().trimmed();
 }
 
-QString ReptiloidsAddressEdit::getKey() {
+QString ReptiloidsCoinAddressEdit::getKey() {
     if (!editMode)
         return createAddressTi->lineEdit->text().trimmed();
     return QString();
 }
 
-QString ReptiloidsAddressEdit::getType() {
+QString ReptiloidsCoinAddressEdit::getType() {
     if (myAddressBtn->isChecked())
         return AddressTableModel::Receive;
     return AddressTableModel::Send;
 }
 
-void ReptiloidsAddressEdit::clear() {
+void ReptiloidsCoinAddressEdit::clear() {
     addressTi->lineEdit->clear();
     aliasTi->lineEdit->clear();
     if (!editMode)
         createAddressTi->lineEdit->clear();
 }
 
-void ReptiloidsAddressEdit::focusInEvent(QFocusEvent *event) {
+void ReptiloidsCoinAddressEdit::focusInEvent(QFocusEvent *event) {
     QWidget::focusInEvent(event);
     addressTi->setFocus();
 }
 
-void ReptiloidsAddressEdit::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinAddressEdit::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -340,7 +340,7 @@ void ReptiloidsAddressEdit::keyPressEvent(QKeyEvent *event) {
         onApply();
 }
 
-void ReptiloidsAddressEdit::onPrivateKey(const QString &) {
+void ReptiloidsCoinAddressEdit::onPrivateKey(const QString &) {
     if (createAddressTi->isEmpty()) {
         createAddressTi->setError(false);
         otherUserBtn->setEnabled(true);
@@ -360,7 +360,7 @@ void ReptiloidsAddressEdit::onPrivateKey(const QString &) {
     }
 }
 
-void ReptiloidsAddressEdit::onAddressChanged(const QString &) {
+void ReptiloidsCoinAddressEdit::onAddressChanged(const QString &) {
     // The first time the screen is opened a new address is displayed (pulled from keystore)
     // As a result, if this value is mutated, we need to update the address description
     // so the user isn't confused about when the address is a auto-generated one.
@@ -368,7 +368,7 @@ void ReptiloidsAddressEdit::onAddressChanged(const QString &) {
     addressTi->setTitle(addrTitle);
 }
 
-bool ReptiloidsAddressEdit::validated() {
+bool ReptiloidsCoinAddressEdit::validated() {
     if (addressTi->isEmpty()) {
         QMessageBox::warning(this->parentWidget(), tr("Issue"), tr("Please specify an address"));
         return false;
@@ -385,13 +385,13 @@ bool ReptiloidsAddressEdit::validated() {
     return true;
 }
 
-void ReptiloidsAddressEdit::onApply() {
+void ReptiloidsCoinAddressEdit::onApply() {
     if (!validated())
         return;
     Q_EMIT accept();
 }
 
-void ReptiloidsAddressEdit::onOtherUser(bool checked) {
+void ReptiloidsCoinAddressEdit::onOtherUser(bool checked) {
     if (editMode)
         return;
     if (otherUserBtn->isChecked())
@@ -399,7 +399,7 @@ void ReptiloidsAddressEdit::onOtherUser(bool checked) {
     createAddressTi->setEnabled(!otherUserBtn->isChecked());
 }
 
-bool ReptiloidsAddressEdit::setNewAddress(const CTxDestination & dest) {
+bool ReptiloidsCoinAddressEdit::setNewAddress(const CTxDestination & dest) {
     if (!IsValidDestination(dest))
         return false;
     myAddressBtn->setChecked(true);

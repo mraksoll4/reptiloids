@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSCOINCONTROL_H
-#define REPTILOIDS_QT_REPTILOIDSCOINCONTROL_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINCOINCONTROL_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINCOINCONTROL_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -24,10 +24,10 @@
 #include <QVector>
 #include <QWidget>
 
-class ReptiloidsCoinControl : public QFrame {
+class ReptiloidsCoinCoinControl : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsCoinControl(QWidget *parent = nullptr);
+    explicit ReptiloidsCoinCoinControl(QWidget *parent = nullptr);
 
     struct UTXO {
         bool checked;
@@ -138,22 +138,22 @@ private:
     };
 };
 
-class ReptiloidsCoinControlDialog : public QDialog {
+class ReptiloidsCoinCoinControlDialog : public QDialog {
     Q_OBJECT
 public:
-    explicit ReptiloidsCoinControlDialog(WalletModel *w, QWidget *parent = nullptr, Qt::WindowFlags f = 0, bool standaloneMode = false);
+    explicit ReptiloidsCoinCoinControlDialog(WalletModel *w, QWidget *parent = nullptr, Qt::WindowFlags f = 0, bool standaloneMode = false);
     void resizeEvent(QResizeEvent *evt) override;
     void clear() {
         payAmount = 0;
         cc->clear();
         updateLabels();
     }
-    ReptiloidsCoinControl* getCC() { return cc; }
+    ReptiloidsCoinCoinControl* getCC() { return cc; }
     void setPayAmount(CAmount payAmount) {
         this->payAmount = payAmount;
     }
 
-    void populateUnspentTransactions(const QVector<ReptiloidsSimpleUTXO> & txSelectedUtxos);
+    void populateUnspentTransactions(const QVector<ReptiloidsCoinSimpleUTXO> & txSelectedUtxos);
     
 public Q_SLOTS:
     void updateUTXOState();
@@ -164,9 +164,9 @@ protected:
 private:
     WalletModel *walletModel;
     QFrame *content;
-    ReptiloidsFormBtn *confirmBtn;
-    ReptiloidsFormBtn *cancelBtn;
-    ReptiloidsCoinControl *cc;
+    ReptiloidsCoinFormBtn *confirmBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
+    ReptiloidsCoinCoinControl *cc;
     QFrame *feePanel;
     QGridLayout *feePanelLayout;
     QLabel *quantityLbl;
@@ -190,4 +190,4 @@ private:
     void updateLabels();
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSCOINCONTROL_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINCOINCONTROL_H

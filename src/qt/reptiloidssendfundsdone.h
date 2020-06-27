@@ -2,20 +2,20 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDSDONE_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDSDONE_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDSDONE_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDSDONE_H
 
-#include <qt/reptiloidsformbtn.h>
+#include <qt/reptiloidscoinformbtn.h>
 
 #include <QFrame>
 #include <QLabel>
 #include <QVBoxLayout>
 
-class ReptiloidsSendFundsDone : public QFrame
+class ReptiloidsCoinSendFundsDone : public QFrame
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsSendFundsDone(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinSendFundsDone(QFrame *parent = nullptr);
 
 Q_SIGNALS:
     void dashboard();
@@ -32,8 +32,8 @@ public Q_SLOTS:
 private:
     QVBoxLayout *layout;
     QLabel *titleLbl;
-    ReptiloidsFormBtn *returnBtn;
-    ReptiloidsFormBtn *sendBtn;
+    ReptiloidsCoinFormBtn *returnBtn;
+    ReptiloidsCoinFormBtn *sendBtn;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDSDONE_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDSDONE_H

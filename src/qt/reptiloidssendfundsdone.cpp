@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssendfundsdone.h>
+#include <qt/reptiloidscoinsendfundsdone.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
-ReptiloidsSendFundsDone::ReptiloidsSendFundsDone(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout) {
+ReptiloidsCoinSendFundsDone::ReptiloidsCoinSendFundsDone(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout) {
 //    this->setStyleSheet("border: 1px solid red");
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setLayout(layout);
@@ -25,10 +25,10 @@ ReptiloidsSendFundsDone::ReptiloidsSendFundsDone(QFrame *parent) : QFrame(parent
     hdiv->setFixedHeight(1);
     hdiv->setObjectName("hdiv");
 
-    returnBtn = new ReptiloidsFormBtn;
+    returnBtn = new ReptiloidsCoinFormBtn;
     returnBtn->setText(tr("Return to Dashboard"));
 
-    sendBtn = new ReptiloidsFormBtn;
+    sendBtn = new ReptiloidsCoinFormBtn;
     sendBtn->setText(tr("Send Another Payment"));
 
     auto *btnBox = new QFrame;
@@ -51,6 +51,6 @@ ReptiloidsSendFundsDone::ReptiloidsSendFundsDone(QFrame *parent) : QFrame(parent
     layout->addWidget(btnBox);
     layout->addStretch(1);
 
-    connect(returnBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFundsDone::onReturnToDashboard);
-    connect(sendBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFundsDone::onSendAnotherPayment);
+    connect(returnBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFundsDone::onReturnToDashboard);
+    connect(sendBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFundsDone::onSendAnotherPayment);
 }

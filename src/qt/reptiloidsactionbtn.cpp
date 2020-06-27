@@ -2,21 +2,21 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsactionbtn.h>
+#include <qt/reptiloidscoinactionbtn.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QPainter>
 #include <QStyle>
 #include <QStyleOption>
 
-ReptiloidsActionBtn::ReptiloidsActionBtn(QPushButton *parent) : QPushButton(parent), id(QString()), s(BGU::spi(30)) {
+ReptiloidsCoinActionBtn::ReptiloidsCoinActionBtn(QPushButton *parent) : QPushButton(parent), id(QString()), s(BGU::spi(30)) {
     this->setFlat(true);
     this->setCursor(Qt::PointingHandCursor);
     this->setFixedSize(s, s);
 }
 
-void ReptiloidsActionBtn::paintEvent(QPaintEvent *) {
+void ReptiloidsCoinActionBtn::paintEvent(QPaintEvent *) {
     QPainter p(this);
     p.setPen(Qt::NoPen);
     QStyleOptionButton option;

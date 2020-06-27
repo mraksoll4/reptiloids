@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_XROUTERCLIENT_H
-#define REPTILOIDS_XROUTER_XROUTERCLIENT_H
+#ifndef REPTILOIDSCOIN_XROUTER_XROUTERCLIENT_H
+#define REPTILOIDSCOIN_XROUTER_XROUTERCLIENT_H
 
 #if defined(HAVE_CONFIG_H)
 #include <config/bitcoin-config.h>
@@ -117,4 +117,4 @@ protected:
 
 }
 
-#endif // REPTILOIDS_XROUTER_XROUTERCLIENT_H
+#endif // REPTILOIDSCOIN_XROUTER_XROUTERCLIENT_H

@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_REPTILOIDSGUIUTIL_H
-#define BITCOIN_QT_REPTILOIDSGUIUTIL_H
+#ifndef BITCOIN_QT_REPTILOIDSCOINGUIUTIL_H
+#define BITCOIN_QT_REPTILOIDSCOINGUIUTIL_H
 
 #include <QApplication>
 #include <QCoreApplication>
@@ -38,4 +38,4 @@ public:
     }
 };
 
-#endif // BITCOIN_QT_REPTILOIDSGUIUTIL_H
+#endif // BITCOIN_QT_REPTILOIDSCOINGUIUTIL_H

@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDSUTIL_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDSUTIL_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDSUTIL_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDSUTIL_H
 
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
@@ -28,41 +28,41 @@
 #include <QString>
 
 /**
- * @brief Simple UTXO object used by the Reptiloids data model. Compatible with Qt containers.
+ * @brief Simple UTXO object used by the ReptiloidsCoin data model. Compatible with Qt containers.
  */
-struct ReptiloidsSimpleUTXO {
+struct ReptiloidsCoinSimpleUTXO {
     uint256 hash;
     uint vout{0};
     QString address;
     CAmount amount{0};
-    explicit ReptiloidsSimpleUTXO(const uint256 hash = uint256(), const uint vout = 0, const QString address = QString(), const CAmount amount = 0)
+    explicit ReptiloidsCoinSimpleUTXO(const uint256 hash = uint256(), const uint vout = 0, const QString address = QString(), const CAmount amount = 0)
         : hash(hash), vout(vout), address(address), amount(amount) {}
-    bool operator==(const ReptiloidsSimpleUTXO &other) const {
+    bool operator==(const ReptiloidsCoinSimpleUTXO &other) const {
         return hash.GetHex() == other.hash.GetHex();
     }
     COutPoint outpoint() {
         COutPoint o(hash, static_cast<const uint32_t>(vout));
         return o;
     }
-}; Q_DECLARE_METATYPE(ReptiloidsSimpleUTXO)
+}; Q_DECLARE_METATYPE(ReptiloidsCoinSimpleUTXO)
 
-inline uint qHash(const ReptiloidsSimpleUTXO & t) {
+inline uint qHash(const ReptiloidsCoinSimpleUTXO & t) {
     return qHash(QString::fromStdString(t.hash.GetHex()));
 }
 
 /**
- * @brief Manages the state through the Reptiloids payment screens. This model is also responsible for creating any
+ * @brief Manages the state through the ReptiloidsCoin payment screens. This model is also responsible for creating any
  *        required wallet specific data for use with internal wallet functions.
  */
-class ReptiloidsSendFundsModel {
+class ReptiloidsCoinSendFundsModel {
 public:
-    explicit ReptiloidsSendFundsModel() : changeAddress_(QString()), customFee_(false), userFee_(0),
+    explicit ReptiloidsCoinSendFundsModel() : changeAddress_(QString()), customFee_(false), userFee_(0),
                                         split_(false), splitCount_(0), subtractFee_(false), txFees_(0),
                                         txRecipients_(QList<SendCoinsRecipient>()),
-                                        txSelectedUtxos_(QVector<ReptiloidsSimpleUTXO>()),
+                                        txSelectedUtxos_(QVector<ReptiloidsCoinSimpleUTXO>()),
                                         txStatus_(WalletModel::SendCoinsReturn()),
                                         walletTx_(nullptr) {};
-    ~ReptiloidsSendFundsModel() {
+    ~ReptiloidsCoinSendFundsModel() {
         delete walletTx_;
         walletTx_ = nullptr;
     }
@@ -171,10 +171,10 @@ public:
         return changeAddress_;
     }
 
-    void setTxSelectedUtxos(const QVector<ReptiloidsSimpleUTXO> & utxos) {
+    void setTxSelectedUtxos(const QVector<ReptiloidsCoinSimpleUTXO> & utxos) {
         txSelectedUtxos_ = utxos;
     }
-    const QVector<ReptiloidsSimpleUTXO> & txSelectedUtxos() const {
+    const QVector<ReptiloidsCoinSimpleUTXO> & txSelectedUtxos() const {
         return txSelectedUtxos_;
     }
     void clearTxSelectedUtxos() {
@@ -229,7 +229,7 @@ public:
         for (auto &o : txSelectedUtxos_)
             coinControl.Select(o.outpoint());
         coinControl.fAllowOtherInputs = !coinControl.HasSelected();
-        // TODO Reptiloids Qt coin splitting
+        // TODO ReptiloidsCoin Qt coin splitting
 //        coinControl.fSplitBlock = split;
 //        coinControl.nSplitBlock = split ? splitCount : 0;
 
@@ -338,20 +338,20 @@ private:
     CAmount txFees_;
     CAmount estimatedFees_;
     QList<SendCoinsRecipient> txRecipients_;
-    QVector<ReptiloidsSimpleUTXO> txSelectedUtxos_;
+    QVector<ReptiloidsCoinSimpleUTXO> txSelectedUtxos_;
     WalletModel::SendCoinsReturn txStatus_;
     WalletModelTransaction *walletTx_;
-}; Q_DECLARE_METATYPE(ReptiloidsSendFundsModel)
+}; Q_DECLARE_METATYPE(ReptiloidsCoinSendFundsModel)
 
 /**
  * @brief Parent class responsible for the Send Funds screen flow.
  */
-class ReptiloidsSendFundsPage : public QFrame {
+class ReptiloidsCoinSendFundsPage : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsSendFundsPage(WalletModel *w, int id, QFrame *parent = nullptr) : QFrame(parent), walletModel(w), pageID(id) { }
+    explicit ReptiloidsCoinSendFundsPage(WalletModel *w, int id, QFrame *parent = nullptr) : QFrame(parent), walletModel(w), pageID(id) { }
     void setWalletModel(WalletModel *w) { walletModel = w; }
-    virtual void setData(ReptiloidsSendFundsModel *model) { clear(); this->model = model; }
+    virtual void setData(ReptiloidsCoinSendFundsModel *model) { clear(); this->model = model; }
     virtual void clear() {};
     virtual bool validated() = 0;
 
@@ -368,7 +368,7 @@ public Q_SLOTS:
 protected:
     WalletModel *walletModel;
     int pageID{0};
-    ReptiloidsSendFundsModel *model = nullptr;
+    ReptiloidsCoinSendFundsModel *model = nullptr;
 
 public:
     static QPair<QString, bool> processSendCoinsReturn(WalletModel *walletModel, const WalletModel::SendCoinsReturn & sendCoinsReturn, const QString & msgArg = QString()) {
@@ -425,10 +425,10 @@ public:
 /**
  * @brief Double validator, rejects separators.
  */
-class ReptiloidsNumberValidator : public QDoubleValidator {
+class ReptiloidsCoinNumberValidator : public QDoubleValidator {
     Q_OBJECT
 public:
-    explicit ReptiloidsNumberValidator(double bottom, double top, int decimals, QObject *parent = nullptr)
+    explicit ReptiloidsCoinNumberValidator(double bottom, double top, int decimals, QObject *parent = nullptr)
                                     : QDoubleValidator(bottom, top, decimals, parent)
     {
         this->setLocale(QLocale::C);
@@ -445,7 +445,7 @@ public:
 };
 
 // tuple<fee, after_fee_amount, change>
-static std::tuple<CAmount, CAmount, CAmount> ReptiloidsEstimateFee(WalletModel *walletModel, CCoinControl coinControl,
+static std::tuple<CAmount, CAmount, CAmount> ReptiloidsCoinEstimateFee(WalletModel *walletModel, CCoinControl coinControl,
         const bool subtractFee, const QList<SendCoinsRecipient> & recipients)
 {
     // Ignore the total fee designation
@@ -569,4 +569,4 @@ static std::tuple<CAmount, CAmount, CAmount> ReptiloidsEstimateFee(WalletModel *
     return std::make_tuple(nPayFee, nAfterFee, nChange);
 }
 
-#endif //REPTILOIDS_QT_REPTILOIDSSENDFUNDSUTIL_H
+#endif //REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDSUTIL_H

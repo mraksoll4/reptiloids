@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidswalletrepair.h>
+#include <qt/reptiloidscoinwalletrepair.h>
 
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
 
 #include <QApplication>
 #include <QMessageBox>
@@ -18,7 +18,7 @@ const QString ZAPTXES2("-zapwallettxes=2");
 const QString UPGRADEWALLET("-upgradewallet");
 const QString REINDEX("-reindex");
 
-ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *parent) : ReptiloidsToolsPage(id, parent),
+ReptiloidsCoinWalletRepair::ReptiloidsCoinWalletRepair(QWidget *popup, int id, QFrame *parent) : ReptiloidsCoinToolsPage(id, parent),
                                                                                      popupWidget(popup),
                                                                                      layout(new QVBoxLayout)
 {
@@ -52,7 +52,7 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     descriptionTxt->setObjectName("notes");
     descriptionTxt->setWordWrap(true);
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
     walletFrame = new QFrame;
     walletFrame->setContentsMargins(QMargins());
@@ -78,13 +78,13 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     salvageLayout->addWidget(salvageTitleLbl, 0, Qt::AlignTop);
     salvageLayout->addWidget(salvageDescLbl, 0, Qt::AlignTop);
 
-    salvageWalletBtn = new ReptiloidsFormBtn;
+    salvageWalletBtn = new ReptiloidsCoinFormBtn;
     salvageWalletBtn->setText(tr("Salvage Wallet"));
 
     walletLayout->addWidget(salvageFrame);
     walletLayout->addWidget(salvageWalletBtn);
 
-    auto *salvageDiv = new ReptiloidsHDiv;
+    auto *salvageDiv = new ReptiloidsCoinHDiv;
 
     rescanFrame = new QFrame;
     rescanFrame->setContentsMargins(QMargins());
@@ -110,13 +110,13 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     blockchainLayout->addWidget(rescanTitleLbl, 0, Qt::AlignTop);
     blockchainLayout->addWidget(rescanDescLbl, 0, Qt::AlignTop);
 
-    rescanBlockchainBtn = new ReptiloidsFormBtn;
+    rescanBlockchainBtn = new ReptiloidsCoinFormBtn;
     rescanBlockchainBtn->setText(tr("Rescan"));
 
     rescanLayout->addWidget(blockchainFrame);
     rescanLayout->addWidget(rescanBlockchainBtn);
 
-    auto *rescanDiv = new ReptiloidsHDiv;
+    auto *rescanDiv = new ReptiloidsCoinHDiv;
 
     transaction1Frame = new QFrame;
     transaction1Frame->setContentsMargins(QMargins());
@@ -142,13 +142,13 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     recoverLayout->addWidget(transaction1TitleLbl, 0, Qt::AlignTop);
     recoverLayout->addWidget(transaction1DescLbl, 0, Qt::AlignTop);
 
-    transaction1Btn = new ReptiloidsFormBtn;
+    transaction1Btn = new ReptiloidsCoinFormBtn;
     transaction1Btn->setText(tr("Recover"));
 
     transaction1Layout->addWidget(recoverFrame);
     transaction1Layout->addWidget(transaction1Btn);
 
-    auto *transaction1Div = new ReptiloidsHDiv;
+    auto *transaction1Div = new ReptiloidsCoinHDiv;
 
     transaction2Frame = new QFrame;
     transaction2Frame->setContentsMargins(QMargins());
@@ -174,13 +174,13 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     recover2Layout->addWidget(transaction2TitleLbl, 0, Qt::AlignTop);
     recover2Layout->addWidget(transaction2DescLbl, 0, Qt::AlignTop);
 
-    transaction2Btn = new ReptiloidsFormBtn;
+    transaction2Btn = new ReptiloidsCoinFormBtn;
     transaction2Btn->setText(tr("Recover"));
 
     transaction2Layout->addWidget(recover2Frame);
     transaction2Layout->addWidget(transaction2Btn);
 
-    auto *transaction2Div = new ReptiloidsHDiv;
+    auto *transaction2Div = new ReptiloidsCoinHDiv;
 
     upgradeFrame = new QFrame;
     upgradeFrame->setContentsMargins(QMargins());
@@ -206,13 +206,13 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     formatLayout->addWidget(formatTitleLbl, 0, Qt::AlignTop);
     formatLayout->addWidget(formatDescLbl, 0, Qt::AlignTop);
 
-    upgradeBtn = new ReptiloidsFormBtn;
+    upgradeBtn = new ReptiloidsCoinFormBtn;
     upgradeBtn->setText(tr("Upgrade Format"));
 
     upgradeLayout->addWidget(formatFrame);
     upgradeLayout->addWidget(upgradeBtn);
 
-    auto *upgradeDiv = new ReptiloidsHDiv;
+    auto *upgradeDiv = new ReptiloidsCoinHDiv;
 
     rebuildFrame = new QFrame;
     rebuildFrame->setContentsMargins(QMargins());
@@ -238,13 +238,13 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
     indexLayout->addWidget(indexTitleLbl, 0, Qt::AlignTop);
     indexLayout->addWidget(indexDescLbl, 0, Qt::AlignTop);
 
-    rebuildBtn = new ReptiloidsFormBtn;
+    rebuildBtn = new ReptiloidsCoinFormBtn;
     rebuildBtn->setText(tr("Rebuild Index"));
 
     rebuildLayout->addWidget(indexFrame);
     rebuildLayout->addWidget(rebuildBtn);
 
-    auto *rebuildDiv = new ReptiloidsHDiv;
+    auto *rebuildDiv = new ReptiloidsCoinHDiv;
 
     contentLayout->addWidget(titleLbl, 0, Qt::AlignTop);
     contentLayout->addSpacing(BGU::spi(5));
@@ -280,64 +280,64 @@ ReptiloidsWalletRepair::ReptiloidsWalletRepair(QWidget *popup, int id, QFrame *p
 
     layout->addWidget(scrollArea, 1);
 
-    connect(salvageWalletBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsWalletRepair::walletSalvage);
-    connect(rescanBlockchainBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsWalletRepair::walletRescan);
-    connect(transaction1Btn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsWalletRepair::walletZaptxes1);
-    connect(transaction2Btn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsWalletRepair::walletZaptxes2);
-    connect(upgradeBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsWalletRepair::walletUpgrade);
-    connect(rebuildBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsWalletRepair::walletReindex);
+    connect(salvageWalletBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinWalletRepair::walletSalvage);
+    connect(rescanBlockchainBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinWalletRepair::walletRescan);
+    connect(transaction1Btn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinWalletRepair::walletZaptxes1);
+    connect(transaction2Btn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinWalletRepair::walletZaptxes2);
+    connect(upgradeBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinWalletRepair::walletUpgrade);
+    connect(rebuildBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinWalletRepair::walletReindex);
 }
 
-void ReptiloidsWalletRepair::setWalletModel(WalletModel *w) {
+void ReptiloidsCoinWalletRepair::setWalletModel(WalletModel *w) {
     if (!walletModel)
         return;
     walletModel = w;
 }
 
 /** Restart wallet with "-salvagewallet" */
-void ReptiloidsWalletRepair::walletSalvage()
+void ReptiloidsCoinWalletRepair::walletSalvage()
 {
     if (displayConfirmationBox(tr("Restart Required"), tr("Are you sure you want to restart and salvage the wallet?\n\nThis can take several minutes.")))
         buildParameterlist(SALVAGEWALLET);
 }
 
 /** Restart wallet with "-rescan" */
-void ReptiloidsWalletRepair::walletRescan()
+void ReptiloidsCoinWalletRepair::walletRescan()
 {
     if (displayConfirmationBox(tr("Restart Required"), tr("Are you sure you want to rescan the blockchain for missing transactions?\n\nThis can take several minutes.")))
         buildParameterlist(RESCAN);
 }
 
 /** Restart wallet with "-zapwallettxes=1" */
-void ReptiloidsWalletRepair::walletZaptxes1()
+void ReptiloidsCoinWalletRepair::walletZaptxes1()
 {
     if (displayConfirmationBox(tr("Restart Required"), tr("Are you sure you want to recover wallet transactions?\n\nThis can take several minutes.")))
         buildParameterlist(ZAPTXES1);
 }
 
 /** Restart wallet with "-zapwallettxes=2" */
-void ReptiloidsWalletRepair::walletZaptxes2()
+void ReptiloidsCoinWalletRepair::walletZaptxes2()
 {
     if (displayConfirmationBox(tr("Restart Required"), tr("Are you sure you want to recover wallet transactions and discard metadata?\n\nThis can take several minutes.")))
         buildParameterlist(ZAPTXES2);
 }
 
 /** Restart wallet with "-upgradewallet" */
-void ReptiloidsWalletRepair::walletUpgrade()
+void ReptiloidsCoinWalletRepair::walletUpgrade()
 {
     if (displayConfirmationBox(tr("Restart Required"), tr("Are you sure you want to upgrade the wallet to HD?\n\nThis can take several minutes.")))
         buildParameterlist(UPGRADEWALLET);
 }
 
 /** Restart wallet with "-reindex" */
-void ReptiloidsWalletRepair::walletReindex()
+void ReptiloidsCoinWalletRepair::walletReindex()
 {
     if (displayConfirmationBox(tr("Restart Required"), tr("Are you sure you want to reindex the blockchain?\n\nThis can take several minutes.")))
         buildParameterlist(REINDEX);
 }
 
 /** Build command-line parameter list for restart */
-void ReptiloidsWalletRepair::buildParameterlist(QString arg)
+void ReptiloidsCoinWalletRepair::buildParameterlist(QString arg)
 {
     // Get command-line arguments and remove the application name
     QStringList args = QApplication::arguments();
@@ -363,7 +363,7 @@ void ReptiloidsWalletRepair::buildParameterlist(QString arg)
  * @param title
  * @param msg
  */
-bool ReptiloidsWalletRepair::displayConfirmationBox(const QString & title, const QString & msg) {
+bool ReptiloidsCoinWalletRepair::displayConfirmationBox(const QString & title, const QString & msg) {
     auto retval = static_cast<QMessageBox::StandardButton>(QMessageBox::question(this, title, msg,
             QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel));
     return retval == QMessageBox::Yes;

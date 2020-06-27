@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSLEFTMENU_H
-#define REPTILOIDS_QT_REPTILOIDSLEFTMENU_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINLEFTMENU_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINLEFTMENU_H
 
-#include <qt/reptiloidsiconlabel.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoiniconlabel.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <amount.h>
 
@@ -15,17 +15,17 @@
 #include <QLabel>
 #include <QWidget>
 
-class ReptiloidsLeftMenu : public QFrame
+class ReptiloidsCoinLeftMenu : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsLeftMenu(QFrame *parent = nullptr);
+    explicit ReptiloidsCoinLeftMenu(QFrame *parent = nullptr);
     void setBalance(CAmount balance, int unit);
-    void selectMenu(ReptiloidsPage menuType);
+    void selectMenu(ReptiloidsCoinPage menuType);
 
 Q_SIGNALS:
-    void menuChanged(ReptiloidsPage menuType);
+    void menuChanged(ReptiloidsCoinPage menuType);
 
 public Q_SLOTS:
 
@@ -39,20 +39,20 @@ private:
     QLabel *balanceAmountLbl;
 
     QButtonGroup *group;
-    ReptiloidsIconLabel *dashboard;
-    ReptiloidsIconLabel *addressBook;
-    ReptiloidsIconLabel *sendFunds;
-    ReptiloidsIconLabel *requestFunds;
-    ReptiloidsIconLabel *transactionHistory;
-    ReptiloidsIconLabel *snodes;
-    ReptiloidsIconLabel *proposals;
-    ReptiloidsIconLabel *announcements;
-    ReptiloidsIconLabel *settings;
-    ReptiloidsIconLabel *tools;
+    ReptiloidsCoinIconLabel *dashboard;
+    ReptiloidsCoinIconLabel *addressBook;
+    ReptiloidsCoinIconLabel *sendFunds;
+    ReptiloidsCoinIconLabel *requestFunds;
+    ReptiloidsCoinIconLabel *transactionHistory;
+    ReptiloidsCoinIconLabel *snodes;
+    ReptiloidsCoinIconLabel *proposals;
+    ReptiloidsCoinIconLabel *announcements;
+    ReptiloidsCoinIconLabel *settings;
+    ReptiloidsCoinIconLabel *tools;
     QList<QAbstractButton*> btns;
 
     QLabel *versionLbl;
     int selected;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSLEFTMENU_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINLEFTMENU_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_XROUTERAPP_H
-#define REPTILOIDS_XROUTER_XROUTERAPP_H
+#ifndef REPTILOIDSCOIN_XROUTER_XROUTERAPP_H
+#define REPTILOIDSCOIN_XROUTER_XROUTERAPP_H
 
 #include <xrouter/xrouterdef.h>
 #include <xrouter/xrouterpacket.h>
@@ -139,7 +139,7 @@ public:
      * @param count Number of nodes to open connections to
      * @param parameterCount Number of parameters used in the call
      * @param skipNodes avoids connecting to these nodes
-     * @param exrSnodes are selected nodes that do not accept requests on the default reptiloids wallet port
+     * @param exrSnodes are selected nodes that do not accept requests on the default reptiloidscoin wallet port
      * @param foundCount number of nodes found
      */
     bool openConnections(enum XRouterCommand command, const std::string & service, const uint32_t & count,
@@ -767,4 +767,4 @@ private:
 
 } // namespace xrouter
 
-#endif // REPTILOIDS_XROUTER_XROUTERAPP_H
+#endif // REPTILOIDSCOIN_XROUTER_XROUTERAPP_H

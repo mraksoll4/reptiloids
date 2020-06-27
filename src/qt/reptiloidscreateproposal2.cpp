@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidscreateproposal2.h>
+#include <qt/reptiloidscoincreateproposal2.h>
 
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
 
 #include <qt/bitcoinunits.h>
 
@@ -17,7 +17,7 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : ReptiloidsCreateProposalPage(id, parent),
+ReptiloidsCoinCreateProposal2::ReptiloidsCoinCreateProposal2(int id, QFrame *parent) : ReptiloidsCoinCreateProposalPage(id, parent),
                                                                            layout(new QVBoxLayout) {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setLayout(layout);
@@ -29,7 +29,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     subtitleLbl = new QLabel;
     subtitleLbl->setObjectName("h2");
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
     auto *titleGrid = new QFrame;
     auto *titleLayout = new QGridLayout;
@@ -46,7 +46,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     titleLayout->addWidget(proposalTitleLbl, 0, 0);
     titleLayout->addWidget(proposalLbl, 0, 1, Qt::AlignRight);
 
-    auto *div2 = new ReptiloidsHDiv;
+    auto *div2 = new ReptiloidsCoinHDiv;
 
     auto *proposalGrid = new QFrame;
     auto *proposalLayout = new QGridLayout;
@@ -63,7 +63,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     proposalLayout->addWidget(proposalDetailTitleLbl, 0, 0);
     proposalLayout->addWidget(proposalDetailLbl, 0, 1, Qt::AlignRight);
 
-    auto *div3 = new ReptiloidsHDiv;
+    auto *div3 = new ReptiloidsCoinHDiv;
 
     auto *addrGrid = new QFrame;
     auto *addrGridLayout = new QGridLayout;
@@ -77,7 +77,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     addrGridLayout->addWidget(proposalAddrLbl, 0, 0);
     addrGridLayout->addWidget(proposalAddrValLbl, 0, 1, Qt::AlignRight);
 
-    auto *div4 = new ReptiloidsHDiv;
+    auto *div4 = new ReptiloidsCoinHDiv;
 
     auto *urlGrid = new QFrame;
     auto *urlGridLayout = new QGridLayout;
@@ -91,7 +91,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     urlGridLayout->addWidget(urlLbl, 0, 0);
     urlGridLayout->addWidget(urlValLbl, 0, 1, Qt::AlignRight);
 
-    auto *div5 = new ReptiloidsHDiv;
+    auto *div5 = new ReptiloidsCoinHDiv;
 
     auto *feeGrid = new QFrame;
     auto *feeLayout = new QGridLayout;
@@ -108,7 +108,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     feeLayout->addWidget(feeTitleLbl, 0, 0);
     feeLayout->addWidget(feeLbl, 0, 1, Qt::AlignRight);
 
-    auto *div6 = new ReptiloidsHDiv;
+    auto *div6 = new ReptiloidsCoinHDiv;
 
     auto *descGrid = new QFrame;
     auto *descLayout = new QVBoxLayout;
@@ -126,7 +126,7 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     descLayout->addWidget(descLbl);
     descLayout->addWidget(descValLbl);
 
-    auto *div7 = new ReptiloidsHDiv;
+    auto *div7 = new ReptiloidsCoinHDiv;
 
     // Cancel/continue buttons
     auto *btnBox = new QFrame;
@@ -135,11 +135,11 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    backBtn = new ReptiloidsFormBtn;
+    backBtn = new ReptiloidsCoinFormBtn;
     backBtn->setText(tr("Back"));
-    submitBtn = new ReptiloidsFormBtn;
+    submitBtn = new ReptiloidsCoinFormBtn;
     submitBtn->setText(tr("Pay Fee"));
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     btnBoxLayout->addWidget(backBtn, 0, Qt::AlignLeft | Qt::AlignBottom);
@@ -182,12 +182,12 @@ ReptiloidsCreateProposal2::ReptiloidsCreateProposal2(int id, QFrame *parent) : R
     layout->addWidget(btnBox);
     layout->addSpacing(BGU::spi(20));
 
-    connect(submitBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsCreateProposal2::onSubmit);
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsCreateProposal2::onCancel);
-    connect(backBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsCreateProposal2::onBack);
+    connect(submitBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinCreateProposal2::onSubmit);
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinCreateProposal2::onCancel);
+    connect(backBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinCreateProposal2::onBack);
 }
 
-void ReptiloidsCreateProposal2::setModel(const ReptiloidsCreateProposalPageModel & m) {
+void ReptiloidsCoinCreateProposal2::setModel(const ReptiloidsCoinCreateProposalPageModel & m) {
     this->model = m;
     subtitleLbl->setText(tr("Review Proposal (Superblock %1)").arg(model.superblock));
     proposalLbl->setText(QString::fromStdString(model.name));
@@ -198,7 +198,7 @@ void ReptiloidsCreateProposal2::setModel(const ReptiloidsCreateProposalPageModel
     descValLbl->setText(QString::fromStdString(model.description));
 }
 
-void ReptiloidsCreateProposal2::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinCreateProposal2::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -206,7 +206,7 @@ void ReptiloidsCreateProposal2::keyPressEvent(QKeyEvent *event) {
         onSubmit();
 }
 
-bool ReptiloidsCreateProposal2::validated() {
+bool ReptiloidsCoinCreateProposal2::validated() {
     gov::Proposal proposal(model.name, model.superblock, model.amount*COIN, EncodeDestination(model.address),
                            model.url, model.description);
     std::string failureReason;
@@ -217,7 +217,7 @@ bool ReptiloidsCreateProposal2::validated() {
     return true;
 }
 
-void ReptiloidsCreateProposal2::onSubmit() {
+void ReptiloidsCoinCreateProposal2::onSubmit() {
     disableButtons(true);
     if (!validated())
         disableButtons(false);
@@ -260,10 +260,10 @@ void ReptiloidsCreateProposal2::onSubmit() {
     disableButtons(false);
 }
 
-void ReptiloidsCreateProposal2::clear() {
+void ReptiloidsCoinCreateProposal2::clear() {
 }
 
-void ReptiloidsCreateProposal2::disableButtons(const bool &disable) {
+void ReptiloidsCoinCreateProposal2::disableButtons(const bool &disable) {
     backBtn->setEnabled(!disable);
     submitBtn->setEnabled(!disable);
     cancelBtn->setEnabled(!disable);

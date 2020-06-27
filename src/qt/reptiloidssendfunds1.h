@@ -2,12 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDS1_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDS1_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS1_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS1_H
 
-#include <qt/reptiloidsaddresseditor.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoinaddresseditor.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -15,15 +15,15 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-class ReptiloidsSendFunds1 : public ReptiloidsSendFundsPage {
+class ReptiloidsCoinSendFunds1 : public ReptiloidsCoinSendFundsPage {
     Q_OBJECT
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void focusInEvent(QFocusEvent *event) override;
 
 public:
-    explicit ReptiloidsSendFunds1(WalletModel *w, int id, QFrame *parent = nullptr);
-    void setData(ReptiloidsSendFundsModel *model) override;
+    explicit ReptiloidsCoinSendFunds1(WalletModel *w, int id, QFrame *parent = nullptr);
+    void setData(ReptiloidsCoinSendFundsModel *model) override;
     bool validated() override;
     void addAddress(const QString &address);
 
@@ -36,8 +36,8 @@ public Q_SLOTS:
 private:
     QVBoxLayout *layout;
     QLabel *titleLbl;
-    ReptiloidsAddressEditor *addressTi;
-    ReptiloidsFormBtn *continueBtn;
+    ReptiloidsCoinAddressEditor *addressTi;
+    ReptiloidsCoinFormBtn *continueBtn;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDS1_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS1_H

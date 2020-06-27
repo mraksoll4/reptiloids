@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSBREADCRUMB_H
-#define REPTILOIDS_QT_REPTILOIDSBREADCRUMB_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINBREADCRUMB_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINBREADCRUMB_H
 
 #include <QButtonGroup>
 #include <QFrame>
@@ -11,20 +11,20 @@
 #include <QLabel>
 #include <QWidget>
 
-class ReptiloidsArrow : public QWidget {
+class ReptiloidsCoinArrow : public QWidget {
     Q_OBJECT
 public:
-    explicit ReptiloidsArrow(QWidget *parent = nullptr);
+    explicit ReptiloidsCoinArrow(QWidget *parent = nullptr);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 };
 
-class ReptiloidsBreadCrumb : public QFrame {
+class ReptiloidsCoinBreadCrumb : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsBreadCrumb(QFrame *parent = nullptr);
-    ~ReptiloidsBreadCrumb() override;
+    explicit ReptiloidsCoinBreadCrumb(QFrame *parent = nullptr);
+    ~ReptiloidsCoinBreadCrumb() override;
     QSize sizeHint() const override;
     void addCrumb(QString title, int crumb);
     int getCrumb() {
@@ -32,7 +32,7 @@ public:
     }
     bool showCrumb(int crumb);
 
-    struct ReptiloidsCrumb {
+    struct ReptiloidsCoinCrumb {
         int crumb;
         QString title;
     };
@@ -45,9 +45,9 @@ public Q_SLOTS:
 
 private:
     QHBoxLayout *layout;
-    QVector<ReptiloidsCrumb> crumbs;
+    QVector<ReptiloidsCoinCrumb> crumbs;
     QButtonGroup *group;
     int currentCrumb;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSBREADCRUMB_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINBREADCRUMB_H

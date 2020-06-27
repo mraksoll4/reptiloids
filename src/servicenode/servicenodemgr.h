@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_SERVICENODE_SERVICENODEMGR_H
-#define REPTILOIDS_SERVICENODE_SERVICENODEMGR_H
+#ifndef REPTILOIDSCOIN_SERVICENODE_SERVICENODEMGR_H
+#define REPTILOIDSCOIN_SERVICENODE_SERVICENODEMGR_H
 
 #include <amount.h>
 #include <key_io.h>
@@ -1255,4 +1255,4 @@ protected:
 
 }
 
-#endif //REPTILOIDS_SERVICENODE_SERVICENODEMGR_H
+#endif //REPTILOIDSCOIN_SERVICENODE_SERVICENODEMGR_H

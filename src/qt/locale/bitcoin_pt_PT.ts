@@ -1495,8 +1495,8 @@
         <translation>Quantia</translation>
     </message>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>Introduza um endereço Reptiloids (ex. %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>Introduza um endereço ReptiloidsCoin (ex. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

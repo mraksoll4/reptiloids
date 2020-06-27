@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssendfunds2.h>
+#include <qt/reptiloidscoinsendfunds2.h>
 
-#include <qt/reptiloidsavatar.h>
-#include <qt/reptiloidscheckbox.h>
-#include <qt/reptiloidsclosebtn.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidshdiv.h>
+#include <qt/reptiloidscoinavatar.h>
+#include <qt/reptiloidscoincheckbox.h>
+#include <qt/reptiloidscoinclosebtn.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
 
 #include <qt/addresstablemodel.h>
 #include <qt/guiutil.h>
@@ -22,7 +22,7 @@
 #include <QScrollBar>
 #include <QSettings>
 
-ReptiloidsSendFunds2List::ReptiloidsSendFunds2List(int displayUnit, QFrame *parent) : QFrame(parent),
+ReptiloidsCoinSendFunds2List::ReptiloidsCoinSendFunds2List(int displayUnit, QFrame *parent) : QFrame(parent),
                                                                                   displayUnit(displayUnit),
                                                                                   gridLayout(new QGridLayout) {
 //    this->setStyleSheet("border: 1px solid red");
@@ -33,7 +33,7 @@ ReptiloidsSendFunds2List::ReptiloidsSendFunds2List(int displayUnit, QFrame *pare
     this->setLayout(gridLayout);
 }
 
-QSize ReptiloidsSendFunds2List::sizeHint() const {
+QSize ReptiloidsCoinSendFunds2List::sizeHint() const {
     QSize r;
     r.setWidth(this->width() + (gridLayout->contentsMargins().left() + gridLayout->contentsMargins().right()) * 4);
     int totalH = (widgets.count() / columns) * (rowHeight + gridLayout->verticalSpacing()) +
@@ -42,21 +42,21 @@ QSize ReptiloidsSendFunds2List::sizeHint() const {
     return r;
 }
 
-void ReptiloidsSendFunds2List::addRow(int row, const QString addr, const QString amount) {
+void ReptiloidsCoinSendFunds2List::addRow(int row, const QString addr, const QString amount) {
     // col 1: Circle
-    auto *circle = new ReptiloidsAvatar(addr, BGU::spi(35), BGU::spi(35));
+    auto *circle = new ReptiloidsCoinAvatar(addr, BGU::spi(35), BGU::spi(35));
 
     // col 2: address
     auto *addressLbl = new QLabel(addr);
     addressLbl->setObjectName("address");
 
     // col 3: amount
-    auto *amountTi = new ReptiloidsLineEdit(BGU::spi(100));
+    auto *amountTi = new ReptiloidsCoinLineEdit(BGU::spi(100));
     amountTi->setObjectName("amount");
     amountTi->setID(addr);
     amountTi->setPlaceholderText(tr("Enter Amount..."));
-    amountTi->setValidator(new ReptiloidsNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
-    amountTi->setMaxLength(REPTILOIDSGUI_MAXCHARS);
+    amountTi->setValidator(new ReptiloidsCoinNumberValidator(0, REPTILOIDSCOINGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setMaxLength(REPTILOIDSCOINGUI_MAXCHARS);
     amountTi->setText(amount);
 
     // col 4: coin
@@ -65,7 +65,7 @@ void ReptiloidsSendFunds2List::addRow(int row, const QString addr, const QString
     coinLbl->setFixedHeight(amountTi->minimumHeight());
 
     // col 5: close btn
-    auto *closeBtn = new ReptiloidsCloseBtn;
+    auto *closeBtn = new ReptiloidsCoinCloseBtn;
     closeBtn->setID(addr);
 
     gridLayout->addWidget(circle, row, 0, Qt::AlignCenter | Qt::AlignVCenter);    gridLayout->setColumnStretch(0, 0);
@@ -74,21 +74,21 @@ void ReptiloidsSendFunds2List::addRow(int row, const QString addr, const QString
     gridLayout->addWidget(coinLbl, row, 3, Qt::AlignLeft | Qt::AlignVCenter);     gridLayout->setColumnStretch(3, 0);
     gridLayout->addWidget(closeBtn, row, 4, Qt::AlignCenter | Qt::AlignVCenter);  gridLayout->setColumnStretch(4, 0);
     gridLayout->addWidget(new QFrame, row, 5);                                    gridLayout->setColumnStretch(5, 2);
-    gridLayout->setRowMinimumHeight(row, ReptiloidsSendFunds2List::rowHeight);      gridLayout->setRowStretch(row, 1);
+    gridLayout->setRowMinimumHeight(row, ReptiloidsCoinSendFunds2List::rowHeight);      gridLayout->setRowStretch(row, 1);
     gridLayout->setColumnMinimumWidth(4, closeBtn->width() + BGU::spi(10));
 
     widgets << circle; widgets << addressLbl; widgets << amountTi; widgets << coinLbl; widgets << closeBtn;
     tis << amountTi;
 
-    connect(amountTi, &ReptiloidsLineEdit::textEdited, this, [this](const QString & text) {
-        auto *amountTi = qobject_cast<ReptiloidsLineEdit *>(sender());
+    connect(amountTi, &ReptiloidsCoinLineEdit::textEdited, this, [this](const QString & text) {
+        auto *amountTi = qobject_cast<ReptiloidsCoinLineEdit *>(sender());
         if (amountTi)
             Q_EMIT this->amount(amountTi->getID(), amountTi->text());
     });
-    connect(closeBtn, &ReptiloidsCloseBtn::clicked, this, &ReptiloidsSendFunds2List::onRemove);
+    connect(closeBtn, &ReptiloidsCoinCloseBtn::clicked, this, &ReptiloidsCoinSendFunds2List::onRemove);
 }
 
-void ReptiloidsSendFunds2List::clear() {
+void ReptiloidsCoinSendFunds2List::clear() {
     QLayoutItem *child;
     while ((child = gridLayout->takeAt(0)) != nullptr) {
         delete child;
@@ -102,25 +102,25 @@ void ReptiloidsSendFunds2List::clear() {
     tis.clear();
 }
 
-void ReptiloidsSendFunds2List::requestFocus() {
+void ReptiloidsCoinSendFunds2List::requestFocus() {
     if (!tis.empty())
         tis.first()->setFocus();
 }
 
-void ReptiloidsSendFunds2List::setAmount(const CAmount &amt) {
+void ReptiloidsCoinSendFunds2List::setAmount(const CAmount &amt) {
     if (tis.count() == 1) {
         tis[0]->setText(BitcoinUnits::format(displayUnit, amt));
         Q_EMIT amount(tis[0]->getID(), tis[0]->text());
     }
 }
 
-void ReptiloidsSendFunds2List::onRemove() {
-    auto *closeBtn = qobject_cast<ReptiloidsCloseBtn *>(sender());
+void ReptiloidsCoinSendFunds2List::onRemove() {
+    auto *closeBtn = qobject_cast<ReptiloidsCoinCloseBtn *>(sender());
     if (closeBtn != nullptr)
         Q_EMIT remove(closeBtn->getID());
 }
 
-ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *parent) : ReptiloidsSendFundsPage(w, id, parent),
+ReptiloidsCoinSendFunds2::ReptiloidsCoinSendFunds2(WalletModel *w, int id, QFrame *parent) : ReptiloidsCoinSendFundsPage(w, id, parent),
                                                                                  layout(new QVBoxLayout),
                                                                                  bFundList(nullptr) {
 //    this->setStyleSheet("border: 1px solid red");
@@ -170,7 +170,7 @@ ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *paren
     changeAddrSubtitleLbl->setObjectName("sectionSubtitle");
     changeAddrSubtitleLbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     changeAddrSubtitleLbl->setWordWrap(true);
-    changeAddrTi = new ReptiloidsLineEdit;
+    changeAddrTi = new ReptiloidsCoinLineEdit;
     changeAddrTi->setObjectName("changeAddress");
     changeAddrTi->setFixedWidth(BGU::spi(350));
     changeAddrTi->setPlaceholderText(tr("Enter change address..."));
@@ -242,7 +242,7 @@ ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *paren
     auto *ccInputsBoxLayout = new QHBoxLayout;
     ccInputsBoxLayout->setContentsMargins(QMargins());
     ccInputsBox->setLayout(ccInputsBoxLayout);
-    auto *ccInputsBtn = new ReptiloidsFormBtn;
+    auto *ccInputsBtn = new ReptiloidsCoinFormBtn;
     ccInputsBtn->setText(tr("Select coin inputs"));
     ccInputsBoxLayout->addWidget(ccInputsBtn);
 
@@ -253,9 +253,9 @@ ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *paren
     changeSplitBoxLayout->setContentsMargins(QMargins());
     changeSplitBoxLayout->setSpacing(BGU::spi(20));
     changeSplitBox->setLayout(changeSplitBoxLayout);
-    ccSplitOutputCb = new ReptiloidsCheckBox(tr("Split Output"));
+    ccSplitOutputCb = new ReptiloidsCoinCheckBox(tr("Split Output"));
     ccSplitOutputCb->setMinimumWidth(BGU::spi(100));
-    ccSplitOutputTi = new ReptiloidsLineEdit(BGU::spi(100));
+    ccSplitOutputTi = new ReptiloidsCoinLineEdit(BGU::spi(100));
     ccSplitOutputTi->setPlaceholderText(tr("# of outputs"));
     ccSplitOutputTi->setValidator(new QIntValidator(2, maxSplitOutputs));
     ccSplitOutputTi->setMaxLength(4);
@@ -305,11 +305,11 @@ ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *paren
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    auto *backBtn = new ReptiloidsFormBtn;
+    auto *backBtn = new ReptiloidsCoinFormBtn;
     backBtn->setText(tr("Back"));
-    continueBtn = new ReptiloidsFormBtn;
+    continueBtn = new ReptiloidsCoinFormBtn;
     continueBtn->setText(tr("Continue"));
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     btnBoxLayout->addWidget(backBtn, 0, Qt::AlignLeft | Qt::AlignBottom);
@@ -317,9 +317,9 @@ ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *paren
     btnBoxLayout->addStretch(1);
     btnBoxLayout->addWidget(cancelBtn, 0, Qt::AlignRight | Qt::AlignBottom);
 
-    auto *hdiv1 = new ReptiloidsHDiv;
-    auto *hdiv2 = new ReptiloidsHDiv;
-    auto *hdiv3 = new ReptiloidsHDiv;
+    auto *hdiv1 = new ReptiloidsCoinHDiv;
+    auto *hdiv2 = new ReptiloidsCoinHDiv;
+    auto *hdiv3 = new ReptiloidsCoinHDiv;
 
     contentLayout->addWidget(fundList, 0);
     contentLayout->addSpacing(BGU::spi(30));
@@ -339,23 +339,23 @@ ReptiloidsSendFunds2::ReptiloidsSendFunds2(WalletModel *w, int id, QFrame *paren
     layout->addWidget(btnBox);
 
     // Coin control
-    ccDialog = new ReptiloidsCoinControlDialog(w, nullptr, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+    ccDialog = new ReptiloidsCoinCoinControlDialog(w, nullptr, Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
     ccDialog->setStyleSheet(GUIUtil::loadStyleSheet());
 
-    connect(ccDefaultRb, &QRadioButton::toggled, this, &ReptiloidsSendFunds2::onCoinControl);
-    connect(continueBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds2::onNext);
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds2::onCancel);
-    connect(backBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds2::onBack);
-    connect(changeAddrTi, &ReptiloidsLineEdit::editingFinished, this, &ReptiloidsSendFunds2::onChangeAddress);
-//    connect(ccSplitOutputCb, &QCheckBox::toggled, this, &ReptiloidsSendFunds2::onSplitChanged);
-//    connect(ccSplitOutputTi, &ReptiloidsLineEdit::editingFinished, this, &ReptiloidsSendFunds2::onSplitChanged);
+    connect(ccDefaultRb, &QRadioButton::toggled, this, &ReptiloidsCoinSendFunds2::onCoinControl);
+    connect(continueBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds2::onNext);
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds2::onCancel);
+    connect(backBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds2::onBack);
+    connect(changeAddrTi, &ReptiloidsCoinLineEdit::editingFinished, this, &ReptiloidsCoinSendFunds2::onChangeAddress);
+//    connect(ccSplitOutputCb, &QCheckBox::toggled, this, &ReptiloidsCoinSendFunds2::onSplitChanged);
+//    connect(ccSplitOutputTi, &ReptiloidsCoinLineEdit::editingFinished, this, &ReptiloidsCoinSendFunds2::onSplitChanged);
     connect(ccInputsBtn, &QPushButton::clicked, this, [this]() {
         updateCoinControl(); ccDialog->setPayAmount(model->totalRecipientsAmount()); ccDialog->show();
     });
 }
 
-void ReptiloidsSendFunds2::setData(ReptiloidsSendFundsModel *model) {
-    ReptiloidsSendFundsPage::setData(model);
+void ReptiloidsCoinSendFunds2::setData(ReptiloidsCoinSendFundsModel *model) {
+    ReptiloidsCoinSendFundsPage::setData(model);
     displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
 
     clear();
@@ -384,7 +384,7 @@ void ReptiloidsSendFunds2::setData(ReptiloidsSendFundsModel *model) {
     // summary label
     updateCoinControlSummary();
 
-    bFundList = new ReptiloidsSendFunds2List(displayUnit);
+    bFundList = new ReptiloidsCoinSendFunds2List(displayUnit);
     uint i = 0;
     for (const auto & r : model->txRecipients()) {
         bFundList->addRow(i, r.address, r.amount > 0 ? BitcoinUnits::format(displayUnit, r.amount) : QString());
@@ -393,23 +393,23 @@ void ReptiloidsSendFunds2::setData(ReptiloidsSendFundsModel *model) {
     fundList->layout()->addWidget(bFundList);
     fundList->adjustSize();
 
-    connect(bFundList, &ReptiloidsSendFunds2List::amount, this, &ReptiloidsSendFunds2::onAmount);
-    connect(bFundList, &ReptiloidsSendFunds2List::remove, this, &ReptiloidsSendFunds2::onRemove);
-    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsSendFunds2::updateDisplayUnit);
-    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsSendFunds2::updateDisplayUnit);
+    connect(bFundList, &ReptiloidsCoinSendFunds2List::amount, this, &ReptiloidsCoinSendFunds2::onAmount);
+    connect(bFundList, &ReptiloidsCoinSendFunds2List::remove, this, &ReptiloidsCoinSendFunds2::onRemove);
+    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinSendFunds2::updateDisplayUnit);
+    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinSendFunds2::updateDisplayUnit);
 }
 
 /**
  * Update the display unit.
  */
-void ReptiloidsSendFunds2::updateDisplayUnit() {
+void ReptiloidsCoinSendFunds2::updateDisplayUnit() {
     setData(model);
 }
 
 /**
  * @brief Clears the existing visual elements from the display.
  */
-void ReptiloidsSendFunds2::clear() {
+void ReptiloidsCoinSendFunds2::clear() {
     // clear send funds list
     if (bFundList != nullptr) {
         bFundList->clear();
@@ -418,8 +418,8 @@ void ReptiloidsSendFunds2::clear() {
     bFundList = nullptr;
     for (int i = fundList->layout()->count() - 1; i >= 0; --i) {
         auto *item = fundList->layout()->itemAt(i);
-        if (item->widget()->objectName() == ReptiloidsSendFunds2List::getName()) {
-            auto *w = (ReptiloidsSendFunds2List*)item->widget();
+        if (item->widget()->objectName() == ReptiloidsCoinSendFunds2List::getName()) {
+            auto *w = (ReptiloidsCoinSendFunds2List*)item->widget();
             w->clear();
         }
         fundList->layout()->removeItem(item);
@@ -463,7 +463,7 @@ void ReptiloidsSendFunds2::clear() {
  * @brief  Validation check returns true if the minimum required data has been properly entered on the screen.
  * @return
  */
-bool ReptiloidsSendFunds2::validated() {
+bool ReptiloidsCoinSendFunds2::validated() {
     // Check recipients
     if (model->txRecipients().isEmpty()) {
         auto msg = tr("Please add recipients.");
@@ -526,13 +526,13 @@ bool ReptiloidsSendFunds2::validated() {
     return true;
 }
 
-void ReptiloidsSendFunds2::focusInEvent(QFocusEvent *event) {
+void ReptiloidsCoinSendFunds2::focusInEvent(QFocusEvent *event) {
     QWidget::focusInEvent(event);
     if (bFundList != nullptr)
         bFundList->requestFocus();
 }
 
-void ReptiloidsSendFunds2::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinSendFunds2::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -542,7 +542,7 @@ void ReptiloidsSendFunds2::keyPressEvent(QKeyEvent *event) {
         onBack();
 }
 
-void ReptiloidsSendFunds2::hideEvent(QHideEvent *qHideEvent) {
+void ReptiloidsCoinSendFunds2::hideEvent(QHideEvent *qHideEvent) {
     if (ccDialog->isVisible())
         ccDialog->reject();
     QWidget::hideEvent(qHideEvent);
@@ -551,7 +551,7 @@ void ReptiloidsSendFunds2::hideEvent(QHideEvent *qHideEvent) {
 /**
  * @brief Sets the visible state of the manual coin control options. Refresh coin control utxos.
  */
-void ReptiloidsSendFunds2::onCoinControl() {
+void ReptiloidsCoinSendFunds2::onCoinControl() {
     ccManualBox->setHidden(ccDefaultRb->isChecked());
 
     if (model) {
@@ -570,7 +570,7 @@ void ReptiloidsSendFunds2::onCoinControl() {
 /**
  * @brief Assigns the change address to the fund model if it's valid.
  */
-void ReptiloidsSendFunds2::onChangeAddress() {
+void ReptiloidsCoinSendFunds2::onChangeAddress() {
     if (!walletModel || !model)
         return;
 
@@ -581,7 +581,7 @@ void ReptiloidsSendFunds2::onChangeAddress() {
 /**
  * @brief Called when the split count changes.
  */
-void ReptiloidsSendFunds2::onSplitChanged() {
+void ReptiloidsCoinSendFunds2::onSplitChanged() {
     this->model->setSplit(ccSplitOutputCb->isChecked());
     bool ok = false; uint count = splitCount(&ok);
     this->model->setSplitCount(this->model->split() && ok ? count : 0);
@@ -603,16 +603,16 @@ void ReptiloidsSendFunds2::onSplitChanged() {
 
 /**
  * @brief Handles the amount signal from the send funds list. This method will convert the user specified amount
- *        into a double with a precision of 8. The max supported precision for Reptiloids is 1/100000000. This
+ *        into a double with a precision of 8. The max supported precision for ReptiloidsCoin is 1/100000000. This
  *        method will mutate the transaction list with the new amount.
  * @param addr Address of the transaction
  * @param amount Amount of the transaction
  */
-void ReptiloidsSendFunds2::onAmount(QString addr, QString amount) {
+void ReptiloidsCoinSendFunds2::onAmount(QString addr, QString amount) {
     if (model->txRecipients().empty()) // should not be empty here
         return;
 
-    CAmount newAmount = ReptiloidsSendFundsModel::stringToInt(amount, displayUnit);
+    CAmount newAmount = ReptiloidsCoinSendFundsModel::stringToInt(amount, displayUnit);
 
     // remove existing recipient
     if (model->hasRecipient(addr))
@@ -628,7 +628,7 @@ void ReptiloidsSendFunds2::onAmount(QString addr, QString amount) {
  * @brief Handles the remove signal from the address list.
  * @param addr Address of the sender to remove
  */
-void ReptiloidsSendFunds2::onRemove(const QString addr) {
+void ReptiloidsCoinSendFunds2::onRemove(const QString addr) {
     model->removeRecipient(addr);
     if (model->txRecipients().empty()) // go back to address screen if no more recipients
         Q_EMIT back(this->pageID);
@@ -639,18 +639,18 @@ void ReptiloidsSendFunds2::onRemove(const QString addr) {
  * @brief Responsible for building the coin control data provider. This method will query the unspent transactions
  *        (UTXOs) in the wallet and store in a data model for use with the coin control dialog.
  */
-void ReptiloidsSendFunds2::updateCoinControl() {
-    disconnect(ccDialog, &ReptiloidsCoinControlDialog::accepted, this, &ReptiloidsSendFunds2::ccAccepted);
+void ReptiloidsCoinSendFunds2::updateCoinControl() {
+    disconnect(ccDialog, &ReptiloidsCoinCoinControlDialog::accepted, this, &ReptiloidsCoinSendFunds2::ccAccepted);
     ccDialog->populateUnspentTransactions(model->txSelectedUtxos());
-    connect(ccDialog, &ReptiloidsCoinControlDialog::accepted, this, &ReptiloidsSendFunds2::ccAccepted);
+    connect(ccDialog, &ReptiloidsCoinCoinControlDialog::accepted, this, &ReptiloidsCoinSendFunds2::ccAccepted);
 }
 
-void ReptiloidsSendFunds2::ccAccepted() {
+void ReptiloidsCoinSendFunds2::ccAccepted() {
     // Get selected utxos
-    QVector<ReptiloidsSimpleUTXO> selectedUtxos;
+    QVector<ReptiloidsCoinSimpleUTXO> selectedUtxos;
     for (auto *data : ccDialog->getCC()->getData()->data) {
         if (data->checked) {
-            ReptiloidsSimpleUTXO utxo(uint256S(data->transaction.toStdString()), data->vout, data->address, data->camount);
+            ReptiloidsCoinSimpleUTXO utxo(uint256S(data->transaction.toStdString()), data->vout, data->address, data->camount);
             selectedUtxos.push_back(utxo);
         }
         if (data->locked) {
@@ -666,13 +666,13 @@ void ReptiloidsSendFunds2::ccAccepted() {
     updateCoinControlSummary();
 }
 
-uint ReptiloidsSendFunds2::splitCount(bool *ok) {
+uint ReptiloidsCoinSendFunds2::splitCount(bool *ok) {
     uint count = ccSplitOutputTi->text().toUInt(ok);
     count = (ok ? count : 0);
     return count;
 }
 
-void ReptiloidsSendFunds2::updateCoinControlSummary() {
+void ReptiloidsCoinSendFunds2::updateCoinControlSummary() {
     int unit = walletModel->getOptionsModel()->getDisplayUnit();
     int utxoCount = this->model->txSelectedUtxos().count();
     CAmount totalN = 0;

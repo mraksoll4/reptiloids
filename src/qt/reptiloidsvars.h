@@ -2,19 +2,19 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSVARS_H
-#define REPTILOIDS_QT_REPTILOIDSVARS_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINVARS_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINVARS_H
 
 #include <amount.h>
 
 #include <QDateTime>
 #include <QString>
 
-#define REPTILOIDSGUI_FUNDS_PRECISION 8
-#define REPTILOIDSGUI_FUNDS_MAX 100000000
-#define REPTILOIDSGUI_MAXCHARS 17 // string len(REPTILOIDSGUI_FUNDS_MAX-1)*2+1, i.e. length of "99999999.99999999"
+#define REPTILOIDSCOINGUI_FUNDS_PRECISION 8
+#define REPTILOIDSCOINGUI_FUNDS_MAX 100000000
+#define REPTILOIDSCOINGUI_MAXCHARS 17 // string len(REPTILOIDSCOINGUI_FUNDS_MAX-1)*2+1, i.e. length of "99999999.99999999"
 
-enum ReptiloidsPage {
+enum ReptiloidsCoinPage {
     DASHBOARD = 1,
     ADDRESSBOOK,
     SEND,
@@ -29,4 +29,4 @@ enum ReptiloidsPage {
     TOOLS,
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSVARS_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINVARS_H

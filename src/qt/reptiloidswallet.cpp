@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidswallet.h>
+#include <qt/reptiloidscoinwallet.h>
 
-#include <qt/reptiloidsaddressbook.h>
-#include <qt/reptiloidsfontmgr.h>
-#include <qt/reptiloidsquicksend.h>
-#include <qt/reptiloidsservicenodes.h>
-#include <qt/reptiloidssettings.h>
+#include <qt/reptiloidscoinaddressbook.h>
+#include <qt/reptiloidscoinfontmgr.h>
+#include <qt/reptiloidscoinquicksend.h>
+#include <qt/reptiloidscoinservicenodes.h>
+#include <qt/reptiloidscoinsettings.h>
 
 #include <qt/askpassphrasedialog.h>
 #include <qt/optionsmodel.h>
@@ -23,10 +23,10 @@
 
 #include <QSettings>
 
-ReptiloidsWallet::ReptiloidsWallet(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent)
+ReptiloidsCoinWallet::ReptiloidsCoinWallet(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent)
                               : QFrame(parent), node(node), platformStyle(platformStyle)
 {
-    ReptiloidsFontMgr::setup();
+    ReptiloidsCoinFontMgr::setup();
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     auto *layout = new QHBoxLayout;
@@ -41,56 +41,56 @@ ReptiloidsWallet::ReptiloidsWallet(interfaces::Node & node, const PlatformStyle 
     contentBoxLayout->setSpacing(0);
     contentBox->setLayout(contentBoxLayout);
 
-    leftMenu = new ReptiloidsLeftMenu;
+    leftMenu = new ReptiloidsCoinLeftMenu;
 
-    toolbar = new ReptiloidsToolBar(this);
+    toolbar = new ReptiloidsCoinToolBar(this);
     contentBoxLayout->addWidget(toolbar, 0, Qt::AlignTop);
 
     layout->addWidget(leftMenu, 0);
     layout->addWidget(contentBox, 1);
 
-    connect(leftMenu, &ReptiloidsLeftMenu::menuChanged, this, &ReptiloidsWallet::setPage);
-    connect(toolbar, &ReptiloidsToolBar::passphrase, this, &ReptiloidsWallet::changePassphrase);
-    connect(toolbar, &ReptiloidsToolBar::lock, this, &ReptiloidsWallet::onLockRequest);
-    connect(toolbar, &ReptiloidsToolBar::progressClicked, this, [this]{
+    connect(leftMenu, &ReptiloidsCoinLeftMenu::menuChanged, this, &ReptiloidsCoinWallet::setPage);
+    connect(toolbar, &ReptiloidsCoinToolBar::passphrase, this, &ReptiloidsCoinWallet::changePassphrase);
+    connect(toolbar, &ReptiloidsCoinToolBar::lock, this, &ReptiloidsCoinWallet::onLockRequest);
+    connect(toolbar, &ReptiloidsCoinToolBar::progressClicked, this, [this]{
         Q_EMIT progressClicked();
     });
 }
 
-bool ReptiloidsWallet::setCurrentWallet(const QString & name) {
+bool ReptiloidsCoinWallet::setCurrentWallet(const QString & name) {
     for (WalletModel *w : wallets.values()) {
-        disconnect(w, &WalletModel::balanceChanged, this, &ReptiloidsWallet::balanceChanged);
-        disconnect(w->getTransactionTableModel(), &TransactionTableModel::rowsInserted, this, &ReptiloidsWallet::processNewTransaction);
-        disconnect(w->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsWallet::displayUnitChanged);
-        disconnect(w, &WalletModel::requireUnlock, this, &ReptiloidsWallet::unlockWallet);
-        disconnect(w, &WalletModel::showProgress, this, &ReptiloidsWallet::showProgress);
-        disconnect(w, &WalletModel::encryptionStatusChanged, this, &ReptiloidsWallet::onEncryptionStatus);
+        disconnect(w, &WalletModel::balanceChanged, this, &ReptiloidsCoinWallet::balanceChanged);
+        disconnect(w->getTransactionTableModel(), &TransactionTableModel::rowsInserted, this, &ReptiloidsCoinWallet::processNewTransaction);
+        disconnect(w->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinWallet::displayUnitChanged);
+        disconnect(w, &WalletModel::requireUnlock, this, &ReptiloidsCoinWallet::unlockWallet);
+        disconnect(w, &WalletModel::showProgress, this, &ReptiloidsCoinWallet::showProgress);
+        disconnect(w, &WalletModel::encryptionStatusChanged, this, &ReptiloidsCoinWallet::onEncryptionStatus);
     }
 
     walletModel = wallets[name];
     if (!walletModel)
         return false;
 
-    connect(walletModel, &WalletModel::balanceChanged, this, &ReptiloidsWallet::balanceChanged);
-    connect(walletModel->getTransactionTableModel(), &TransactionTableModel::rowsInserted, this, &ReptiloidsWallet::processNewTransaction);
-    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsWallet::displayUnitChanged);
-    connect(walletModel, &WalletModel::requireUnlock, this, &ReptiloidsWallet::unlockWallet);
-    connect(walletModel, &WalletModel::showProgress, this, &ReptiloidsWallet::showProgress);
-    connect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsWallet::onEncryptionStatus);
+    connect(walletModel, &WalletModel::balanceChanged, this, &ReptiloidsCoinWallet::balanceChanged);
+    connect(walletModel->getTransactionTableModel(), &TransactionTableModel::rowsInserted, this, &ReptiloidsCoinWallet::processNewTransaction);
+    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinWallet::displayUnitChanged);
+    connect(walletModel, &WalletModel::requireUnlock, this, &ReptiloidsCoinWallet::unlockWallet);
+    connect(walletModel, &WalletModel::showProgress, this, &ReptiloidsCoinWallet::showProgress);
+    connect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsCoinWallet::onEncryptionStatus);
 
     // Send funds screen
     if (sendFunds == nullptr) {
-        sendFunds = new ReptiloidsSendFunds(walletModel);
-        connect(sendFunds, &ReptiloidsSendFunds::dashboard, this, &ReptiloidsWallet::goToDashboard);
+        sendFunds = new ReptiloidsCoinSendFunds(walletModel);
+        connect(sendFunds, &ReptiloidsCoinSendFunds::dashboard, this, &ReptiloidsCoinWallet::goToDashboard);
     } else
         sendFunds->setWalletModel(walletModel);
 
     // Dashboard screen
     if (dashboard == nullptr) {
-        dashboard = new ReptiloidsDashboard;
+        dashboard = new ReptiloidsCoinDashboard;
         dashboard->setWalletModel(walletModel);
-        connect(dashboard, &ReptiloidsDashboard::quicksend, this, &ReptiloidsWallet::goToQuickSend);
-        connect(dashboard, &ReptiloidsDashboard::history, this, &ReptiloidsWallet::goToHistory);
+        connect(dashboard, &ReptiloidsCoinDashboard::quicksend, this, &ReptiloidsCoinWallet::goToQuickSend);
+        connect(dashboard, &ReptiloidsCoinDashboard::history, this, &ReptiloidsCoinWallet::goToHistory);
     } else
         dashboard->setWalletModel(walletModel);
 
@@ -106,11 +106,11 @@ bool ReptiloidsWallet::setCurrentWallet(const QString & name) {
     return true;
 }
 
-void ReptiloidsWallet::setProgress(int progress, const QString &msg, int maximum) {
+void ReptiloidsCoinWallet::setProgress(int progress, const QString &msg, int maximum) {
     toolbar->setProgress(progress, msg, maximum);
 }
 
-void ReptiloidsWallet::updateStakingStatus(WalletModel *w) {
+void ReptiloidsCoinWallet::updateStakingStatus(WalletModel *w) {
     const auto staking = gArgs.GetBoolArg("-staking", true);
     auto msg = tr("Staking is off");
     const auto canStake = staking && w->wallet().getBalance() > 0
@@ -125,15 +125,15 @@ void ReptiloidsWallet::updateStakingStatus(WalletModel *w) {
     toolbar->setStaking(canStake , msg);
 }
 
-void ReptiloidsWallet::setPeers(const int peers) {
+void ReptiloidsCoinWallet::setPeers(const int peers) {
     toolbar->setPeers(peers);
 }
 
-void ReptiloidsWallet::setLock(const bool lock, const bool stakingOnly) {
+void ReptiloidsCoinWallet::setLock(const bool lock, const bool stakingOnly) {
     toolbar->setLock(lock, stakingOnly);
 }
 
-void ReptiloidsWallet::setPage(ReptiloidsPage page) {
+void ReptiloidsCoinWallet::setPage(ReptiloidsCoinPage page) {
     bool same = this->page == page;
     leftMenu->selectMenu(page);
 
@@ -149,31 +149,31 @@ void ReptiloidsWallet::setPage(ReptiloidsPage page) {
     }
 
     switch (page) {
-        case ReptiloidsPage::DASHBOARD: {
+        case ReptiloidsCoinPage::DASHBOARD: {
             dashboard->show();
             screen = dashboard;
             break;
         }
-        case ReptiloidsPage::ADDRESSBOOK: {
-            auto *addressBook = new ReptiloidsAddressBook;
+        case ReptiloidsCoinPage::ADDRESSBOOK: {
+            auto *addressBook = new ReptiloidsCoinAddressBook;
             addressBook->setWalletModel(walletModel);
-            connect(addressBook, &ReptiloidsAddressBook::send, this, &ReptiloidsWallet::onSendToAddress);
+            connect(addressBook, &ReptiloidsCoinAddressBook::send, this, &ReptiloidsCoinWallet::onSendToAddress);
             screen = addressBook;
             break;
         }
-        case ReptiloidsPage::SEND: {
+        case ReptiloidsCoinPage::SEND: {
             sendFunds->show();
             screen = sendFunds;
             break;
         }
-        case ReptiloidsPage::QUICKSEND: {
-            auto *quickSend = new ReptiloidsQuickSend(walletModel);
-            connect(quickSend, &ReptiloidsQuickSend::submit, this, &ReptiloidsWallet::onSendFunds);
-            connect(quickSend, &ReptiloidsQuickSend::dashboard, this, &ReptiloidsWallet::goToDashboard);
+        case ReptiloidsCoinPage::QUICKSEND: {
+            auto *quickSend = new ReptiloidsCoinQuickSend(walletModel);
+            connect(quickSend, &ReptiloidsCoinQuickSend::submit, this, &ReptiloidsCoinWallet::onSendFunds);
+            connect(quickSend, &ReptiloidsCoinQuickSend::dashboard, this, &ReptiloidsCoinWallet::goToDashboard);
             screen = quickSend;
             break;
         }
-        case ReptiloidsPage::REQUEST: {
+        case ReptiloidsCoinPage::REQUEST: {
             std::string platformName = gArgs.GetArg("-uiplatform", "other");
             auto platformStyle = PlatformStyle::instantiate(QString::fromStdString(platformName));
             if (!platformStyle) // Fall back to "other" if specified name not found
@@ -183,45 +183,45 @@ void ReptiloidsWallet::setPage(ReptiloidsPage page) {
             screen = recieve;
             break;
         }
-        case ReptiloidsPage::HISTORY: {
-            auto *transactionView = new ReptiloidsTransactionHistory(walletModel);
+        case ReptiloidsCoinPage::HISTORY: {
+            auto *transactionView = new ReptiloidsCoinTransactionHistory(walletModel);
             screen = transactionView;
             break;
         }
-        case ReptiloidsPage::SNODES: {
-            auto *snode = new ReptiloidsServiceNodes;
+        case ReptiloidsCoinPage::SNODES: {
+            auto *snode = new ReptiloidsCoinServiceNodes;
             snode->setClientModel(clientModel);
             screen = snode;
             break;
         }
-        case ReptiloidsPage::PROPOSALS: {
-            auto *proposals = new ReptiloidsProposals;
-            connect(proposals, &ReptiloidsProposals::createProposal, this, &ReptiloidsWallet::goToCreateProposal);
+        case ReptiloidsCoinPage::PROPOSALS: {
+            auto *proposals = new ReptiloidsCoinProposals;
+            connect(proposals, &ReptiloidsCoinProposals::createProposal, this, &ReptiloidsCoinWallet::goToCreateProposal);
             proposals->setModels(clientModel, walletModel);
             screen = proposals;
             break;
         }
-        case ReptiloidsPage::CREATEPROPOSAL: {
+        case ReptiloidsCoinPage::CREATEPROPOSAL: {
             if (createProposal == nullptr) {
-                createProposal = new ReptiloidsCreateProposal;
-                connect(createProposal, &ReptiloidsCreateProposal::done, this, &ReptiloidsWallet::goToProposals);
+                createProposal = new ReptiloidsCoinCreateProposal;
+                connect(createProposal, &ReptiloidsCoinCreateProposal::done, this, &ReptiloidsCoinWallet::goToProposals);
             }
             createProposal->setWalletModel(walletModel);
             createProposal->show();
             screen = createProposal;
             break;
         }
-        case ReptiloidsPage::SETTINGS: {
-            auto *settings = new ReptiloidsSettings(node);
+        case ReptiloidsCoinPage::SETTINGS: {
+            auto *settings = new ReptiloidsCoinSettings(node);
             settings->setWalletModel(walletModel);
             screen = settings;
             break;
         }
-//        case ReptiloidsPage::ANNOUNCEMENTS:
-        case ReptiloidsPage::TOOLS: {
+//        case ReptiloidsCoinPage::ANNOUNCEMENTS:
+        case ReptiloidsCoinPage::TOOLS: {
             if (btools == nullptr) {
-                btools = new ReptiloidsTools(node, platformStyle);
-                connect(btools, &ReptiloidsTools::handleRestart, this, [this](QStringList args) { Q_EMIT handleRestart(args); });
+                btools = new ReptiloidsCoinTools(node, platformStyle);
+                connect(btools, &ReptiloidsCoinTools::handleRestart, this, [this](QStringList args) { Q_EMIT handleRestart(args); });
             }
             btools->setModels(clientModel, walletModel);
             btools->show();
@@ -237,47 +237,47 @@ void ReptiloidsWallet::setPage(ReptiloidsPage page) {
     screen->setFocus();
 }
 
-void ReptiloidsWallet::onSendFunds() {
+void ReptiloidsCoinWallet::onSendFunds() {
     goToDashboard();
 }
 
-void ReptiloidsWallet::onSendToAddress(const QString &address) {
-    setPage(ReptiloidsPage::SEND);
+void ReptiloidsCoinWallet::onSendToAddress(const QString &address) {
+    setPage(ReptiloidsCoinPage::SEND);
     if (sendFunds != nullptr)
         sendFunds->addAddress(address);
 }
 
-void ReptiloidsWallet::goToDashboard() {
-    setPage(ReptiloidsPage::DASHBOARD);
+void ReptiloidsCoinWallet::goToDashboard() {
+    setPage(ReptiloidsCoinPage::DASHBOARD);
 }
 
-void ReptiloidsWallet::goToQuickSend() {
-    setPage(ReptiloidsPage::QUICKSEND);
+void ReptiloidsCoinWallet::goToQuickSend() {
+    setPage(ReptiloidsCoinPage::QUICKSEND);
 }
 
-void ReptiloidsWallet::goToHistory() {
-    setPage(ReptiloidsPage::HISTORY);
+void ReptiloidsCoinWallet::goToHistory() {
+    setPage(ReptiloidsCoinPage::HISTORY);
 }
 
-void ReptiloidsWallet::goToProposals() {
-    setPage(ReptiloidsPage::PROPOSALS);
+void ReptiloidsCoinWallet::goToProposals() {
+    setPage(ReptiloidsCoinPage::PROPOSALS);
 }
 
-void ReptiloidsWallet::goToCreateProposal() {
-    setPage(ReptiloidsPage::CREATEPROPOSAL);
+void ReptiloidsCoinWallet::goToCreateProposal() {
+    setPage(ReptiloidsCoinPage::CREATEPROPOSAL);
 }
 
-void ReptiloidsWallet::balanceChanged(const interfaces::WalletBalances & balances) {
+void ReptiloidsCoinWallet::balanceChanged(const interfaces::WalletBalances & balances) {
     leftMenu->setBalance(balances.balance, walletModel->getOptionsModel() ? walletModel->getOptionsModel()->getDisplayUnit() : 0);
     if (dashboard)
         dashboard->balanceChanged(balances);
 }
 
-void ReptiloidsWallet::displayUnitChanged(const int unit) {
+void ReptiloidsCoinWallet::displayUnitChanged(const int unit) {
     balanceChanged(walletModel->wallet().getBalances());
 }
 
-void ReptiloidsWallet::changePassphrase() {
+void ReptiloidsCoinWallet::changePassphrase() {
     if (!walletModel)
         return;
     AskPassphraseDialog dlg(AskPassphraseDialog::ChangePass, this);
@@ -286,7 +286,7 @@ void ReptiloidsWallet::changePassphrase() {
     dlg.exec();
 }
 
-void ReptiloidsWallet::encryptWallet(bool status) {
+void ReptiloidsCoinWallet::encryptWallet(bool status) {
     if (!walletModel)
         return;
     AskPassphraseDialog dlg(status ? AskPassphraseDialog::Encrypt : AskPassphraseDialog::Decrypt, this);
@@ -297,7 +297,7 @@ void ReptiloidsWallet::encryptWallet(bool status) {
     Q_EMIT encryptionStatusChanged(walletModel->getEncryptionStatus());
 }
 
-void ReptiloidsWallet::backupWallet() {
+void ReptiloidsCoinWallet::backupWallet() {
     QString filename = GUIUtil::getSaveFileName(this, tr("Backup Wallet"), QString(),
             tr("Wallet Data (*.dat)"), nullptr);
 
@@ -310,7 +310,7 @@ void ReptiloidsWallet::backupWallet() {
         QMessageBox::information(this, tr("Backup Successful"), tr("The wallet data was successfully saved to %1.").arg(filename));
 }
 
-void ReptiloidsWallet::onLockRequest(bool locked, bool stakingOnly) {
+void ReptiloidsCoinWallet::onLockRequest(bool locked, bool stakingOnly) {
     if (locked) {
         util::unlockedForStakingOnly = false;
         walletModel->setWalletLocked(locked);
@@ -326,26 +326,26 @@ void ReptiloidsWallet::onLockRequest(bool locked, bool stakingOnly) {
     Q_EMIT encryptionStatusChanged(walletModel->getEncryptionStatus());
 }
 
-void ReptiloidsWallet::onEncryptionStatus() {
+void ReptiloidsCoinWallet::onEncryptionStatus() {
     setLock(walletModel->getEncryptionStatus() == WalletModel::EncryptionStatus::Locked, util::unlockedForStakingOnly);
     updateStakingStatus(walletModel);
 }
 
-void ReptiloidsWallet::usedSendingAddresses() {
+void ReptiloidsCoinWallet::usedSendingAddresses() {
     if (!walletModel)
         return;
-    ReptiloidsAddressBookDialog dlg(walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint, ReptiloidsAddressBook::FILTER_SENDING);
+    ReptiloidsCoinAddressBookDialog dlg(walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint, ReptiloidsCoinAddressBook::FILTER_SENDING);
     dlg.exec();
 }
 
-void ReptiloidsWallet::usedReceivingAddresses() {
+void ReptiloidsCoinWallet::usedReceivingAddresses() {
     if (!walletModel)
         return;
-    ReptiloidsAddressBookDialog dlg(walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint, ReptiloidsAddressBook::FILTER_RECEIVING);
+    ReptiloidsCoinAddressBookDialog dlg(walletModel, Qt::WindowSystemMenuHint | Qt::WindowTitleHint, ReptiloidsCoinAddressBook::FILTER_RECEIVING);
     dlg.exec();
 }
 
-void ReptiloidsWallet::unlockWallet() {
+void ReptiloidsCoinWallet::unlockWallet() {
     if (!walletModel)
         return;
     // Unlock wallet when requested by wallet model
@@ -357,7 +357,7 @@ void ReptiloidsWallet::unlockWallet() {
     }
 }
 
-void ReptiloidsWallet::showProgress(const QString &title, int nProgress) {
+void ReptiloidsCoinWallet::showProgress(const QString &title, int nProgress) {
     if (nProgress == 0) {
         progressDialog = new QProgressDialog(title, tr("Cancel"), 0, 100);
         GUIUtil::PolishProgressDialog(progressDialog);
@@ -379,7 +379,7 @@ void ReptiloidsWallet::showProgress(const QString &title, int nProgress) {
     }
 }
 
-void ReptiloidsWallet::gotoSignMessageTab(QString addr) {
+void ReptiloidsCoinWallet::gotoSignMessageTab(QString addr) {
     // calls show() in showTab_VM()
     auto *signVerifyMessageDialog = new SignVerifyMessageDialog(platformStyle, this);
     signVerifyMessageDialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -390,7 +390,7 @@ void ReptiloidsWallet::gotoSignMessageTab(QString addr) {
         signVerifyMessageDialog->setAddress_SM(addr);
 }
 
-void ReptiloidsWallet::gotoVerifyMessageTab(QString addr) {
+void ReptiloidsCoinWallet::gotoVerifyMessageTab(QString addr) {
     // calls show() in showTab_VM()
     auto *signVerifyMessageDialog = new SignVerifyMessageDialog(platformStyle, this);
     signVerifyMessageDialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -401,7 +401,7 @@ void ReptiloidsWallet::gotoVerifyMessageTab(QString addr) {
         signVerifyMessageDialog->setAddress_VM(addr);
 }
 
-void ReptiloidsWallet::processNewTransaction(const QModelIndex& parent, int start, int /*end*/) {
+void ReptiloidsCoinWallet::processNewTransaction(const QModelIndex& parent, int start, int /*end*/) {
     // Prevent balloon-spam when initial block download is in progress
     if (!walletModel || !clientModel || clientModel->node().isInitialBlockDownload())
         return;

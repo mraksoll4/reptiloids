@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGERPC_H
-#define REPTILOIDS_XBRIDGE_XBRIDGERPC_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGERPC_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGERPC_H
 
 #include <vector>
 #include <string>

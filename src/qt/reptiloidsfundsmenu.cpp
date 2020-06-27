@@ -2,14 +2,14 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsfundsmenu.h>
+#include <qt/reptiloidscoinfundsmenu.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QEvent>
 #include <QLabel>
 
-ReptiloidsFundsMenu::ReptiloidsFundsMenu(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout) {
+ReptiloidsCoinFundsMenu::ReptiloidsCoinFundsMenu(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout) {
     layout->setContentsMargins(QMargins());
     layout->setSpacing(0);
     this->setMaximumSize(BGU::spi(160), BGU::spi(100));
@@ -24,16 +24,16 @@ ReptiloidsFundsMenu::ReptiloidsFundsMenu(QFrame *parent) : QFrame(parent), layou
     setupBtn(sendFundsBtn);
     setupBtn(requestFundsBtn);
 
-//    connect(sendFundsBtn, &QPushButton::clicked, this, &ReptiloidsFundsMenu::onLockWallet);
-//    connect(requestFundsBtn, &QPushButton::clicked, this, &ReptiloidsFundsMenu::onChangePw);
+//    connect(sendFundsBtn, &QPushButton::clicked, this, &ReptiloidsCoinFundsMenu::onLockWallet);
+//    connect(requestFundsBtn, &QPushButton::clicked, this, &ReptiloidsCoinFundsMenu::onChangePw);
 }
 
-void ReptiloidsFundsMenu::show() {
+void ReptiloidsCoinFundsMenu::show() {
     this->raise();
     QWidget::show();
 }
 
-void ReptiloidsFundsMenu::setDisplayWidget(QWidget *widget) {
+void ReptiloidsCoinFundsMenu::setDisplayWidget(QWidget *widget) {
     if (!widget)
         return;
     this->setParent(widget);
@@ -41,37 +41,37 @@ void ReptiloidsFundsMenu::setDisplayWidget(QWidget *widget) {
     displayWidget->installEventFilter(this);
 }
 
-void ReptiloidsFundsMenu::onSendFunds() {
+void ReptiloidsCoinFundsMenu::onSendFunds() {
     if (hOnSendFunds)
         hOnSendFunds();
     removeSelf();
 }
 
-void ReptiloidsFundsMenu::onRequestFunds() {
+void ReptiloidsCoinFundsMenu::onRequestFunds() {
     if (hOnRequestFunds)
         hOnRequestFunds();
     removeSelf();
 }
 
-void ReptiloidsFundsMenu::removeSelf(bool kill) {
+void ReptiloidsCoinFundsMenu::removeSelf(bool kill) {
     if ((!this->underMouse() || kill))
         this->hide();
 }
 
-void ReptiloidsFundsMenu::setupBtn(QPushButton *btn) {
+void ReptiloidsCoinFundsMenu::setupBtn(QPushButton *btn) {
     btn->setFixedHeight(BGU::spi(40));
     btn->setFlat(true);
     btn->setCursor(Qt::PointingHandCursor);
 }
 
-bool ReptiloidsFundsMenu::eventFilter(QObject *obj, QEvent *event) {
+bool ReptiloidsCoinFundsMenu::eventFilter(QObject *obj, QEvent *event) {
     if (event->type() == QEvent::MouseButtonPress && !this->isHidden() && !this->underMouse()) {
         removeSelf(false);
     }
     return QObject::eventFilter(obj, event);
 }
 
-ReptiloidsFundsMenu::~ReptiloidsFundsMenu() {
+ReptiloidsCoinFundsMenu::~ReptiloidsCoinFundsMenu() {
     hOnSendFunds = nullptr;
     hOnRequestFunds = nullptr;
     displayWidget->removeEventFilter(this);

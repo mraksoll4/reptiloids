@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGETRANSACTIONDESCR_H
-#define REPTILOIDS_XBRIDGE_XBRIDGETRANSACTIONDESCR_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGETRANSACTIONDESCR_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGETRANSACTIONDESCR_H
 
 #include <xbridge/xbridgedef.h>
 #include <xbridge/xbridgepacket.h>
@@ -442,5 +442,5 @@ private:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGETRANSACTIONDESCR_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGETRANSACTIONDESCR_H
 

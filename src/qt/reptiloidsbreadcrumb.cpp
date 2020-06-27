@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsbreadcrumb.h>
+#include <qt/reptiloidscoinbreadcrumb.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QPainter>
 #include <QPushButton>
 #include <QtGlobal>
 
-ReptiloidsBreadCrumb::ReptiloidsBreadCrumb(QFrame *parent) : QFrame(parent), layout(new QHBoxLayout) {
+ReptiloidsCoinBreadCrumb::ReptiloidsCoinBreadCrumb(QFrame *parent) : QFrame(parent), layout(new QHBoxLayout) {
 //    this->setStyleSheet("border: 1px solid red");
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     layout->setContentsMargins(QMargins());
@@ -22,7 +22,7 @@ ReptiloidsBreadCrumb::ReptiloidsBreadCrumb(QFrame *parent) : QFrame(parent), lay
     group = new QButtonGroup;
     group->setExclusive(true);
 
-    connect(group, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this, &ReptiloidsBreadCrumb::goToCrumb);
+    connect(group, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this, &ReptiloidsCoinBreadCrumb::goToCrumb);
 }
 
 /**
@@ -30,7 +30,7 @@ ReptiloidsBreadCrumb::ReptiloidsBreadCrumb(QFrame *parent) : QFrame(parent), lay
  * @param title
  * @param crumb
  */
-void ReptiloidsBreadCrumb::addCrumb(QString title, int crumb) {
+void ReptiloidsCoinBreadCrumb::addCrumb(QString title, int crumb) {
     crumbs.append({ crumb, std::move(title)});
 
     // Remove buttons from group first
@@ -43,9 +43,9 @@ void ReptiloidsBreadCrumb::addCrumb(QString title, int crumb) {
         item->widget()->deleteLater();
 
     for (int i = 0; i < crumbs.size(); ++i) {
-        ReptiloidsCrumb &c = crumbs[i];
+        ReptiloidsCoinCrumb &c = crumbs[i];
         if (i > 0) {
-            auto *arrow = new ReptiloidsArrow;
+            auto *arrow = new ReptiloidsCoinArrow;
             layout->addWidget(arrow);
         }
 
@@ -60,11 +60,11 @@ void ReptiloidsBreadCrumb::addCrumb(QString title, int crumb) {
     }
 }
 
-void ReptiloidsBreadCrumb::goToCrumb(int crumb) {
+void ReptiloidsCoinBreadCrumb::goToCrumb(int crumb) {
     Q_EMIT crumbChanged(crumb);
 }
 
-bool ReptiloidsBreadCrumb::showCrumb(int crumb) {
+bool ReptiloidsCoinBreadCrumb::showCrumb(int crumb) {
     currentCrumb = crumb;
     QAbstractButton *btn = group->button(crumb);
     if (btn)
@@ -72,7 +72,7 @@ bool ReptiloidsBreadCrumb::showCrumb(int crumb) {
     return true;
 }
 
-QSize ReptiloidsBreadCrumb::sizeHint() const {
+QSize ReptiloidsCoinBreadCrumb::sizeHint() const {
     QSize r;
     for (int i = 0; i < layout->count(); ++i) {
         QWidget *w = layout->itemAt(i)->widget();
@@ -86,11 +86,11 @@ QSize ReptiloidsBreadCrumb::sizeHint() const {
     return r;
 }
 
-ReptiloidsArrow::ReptiloidsArrow(QWidget*) {
+ReptiloidsCoinArrow::ReptiloidsCoinArrow(QWidget*) {
     this->setFixedSize(BGU::spi(6), BGU::spi(6));
 }
 
-void ReptiloidsArrow::paintEvent(QPaintEvent*) {
+void ReptiloidsCoinArrow::paintEvent(QPaintEvent*) {
     QPainterPath p;
     p.lineTo(BGU::spi(6), BGU::spi(3));
     p.lineTo(0, BGU::spi(6));
@@ -100,4 +100,4 @@ void ReptiloidsArrow::paintEvent(QPaintEvent*) {
     painter.fillPath(p, color);
 }
 
-ReptiloidsBreadCrumb::~ReptiloidsBreadCrumb() = default;
+ReptiloidsCoinBreadCrumb::~ReptiloidsCoinBreadCrumb() = default;

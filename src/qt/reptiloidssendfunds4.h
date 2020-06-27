@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDS4_H
-#define REPTILOIDS_QT_REPTILOIDSSENDFUNDS4_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS4_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS4_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidssendfundsutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinsendfundsutil.h>
 
 #include <qt/walletmodel.h>
 
@@ -19,12 +19,12 @@
 #include <QShowEvent>
 #include <QVBoxLayout>
 
-class ReptiloidsSendFunds4 : public ReptiloidsSendFundsPage {
+class ReptiloidsCoinSendFunds4 : public ReptiloidsCoinSendFundsPage {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsSendFunds4(WalletModel *w, int id, QFrame *parent = nullptr);
-    void setData(ReptiloidsSendFundsModel *model) override;
+    explicit ReptiloidsCoinSendFunds4(WalletModel *w, int id, QFrame *parent = nullptr);
+    void setData(ReptiloidsCoinSendFundsModel *model) override;
     bool validated() override;
     void clear() override;
 
@@ -48,8 +48,8 @@ private:
 
     QVBoxLayout *layout;
     QLabel *titleLbl;
-    ReptiloidsFormBtn *continueBtn;
-    ReptiloidsFormBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *continueBtn;
+    ReptiloidsCoinFormBtn *cancelBtn;
     QFrame *content;
     QVBoxLayout *contentLayout;
     QFrame *recipients = nullptr;
@@ -65,4 +65,4 @@ private:
     QString totalText(QString total);
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDS4_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSENDFUNDS4_H

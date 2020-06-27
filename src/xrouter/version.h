@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_VERSION_H
-#define REPTILOIDS_XROUTER_VERSION_H
+#ifndef REPTILOIDSCOIN_XROUTER_VERSION_H
+#define REPTILOIDSCOIN_XROUTER_VERSION_H
 
 #define XROUTER_PROTOCOL_VERSION 50
 
-#endif // REPTILOIDS_XROUTER_VERSION_H
+#endif // REPTILOIDSCOIN_XROUTER_VERSION_H

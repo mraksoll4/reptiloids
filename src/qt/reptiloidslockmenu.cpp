@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidslockmenu.h>
+#include <qt/reptiloidscoinlockmenu.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QLabel>
 #include <QEvent>
 #include <QDebug>
 
-ReptiloidsLockMenu::ReptiloidsLockMenu(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout) {
+ReptiloidsCoinLockMenu::ReptiloidsCoinLockMenu(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout) {
     layout->setContentsMargins(QMargins());
     layout->setSpacing(0);
     this->setMaximumSize(BGU::spi(285), BGU::spi(290));
@@ -44,19 +44,19 @@ ReptiloidsLockMenu::ReptiloidsLockMenu(QFrame *parent) : QFrame(parent), layout(
     setupBtn(unlockForStakingBtn);
     setupBtn(timedUnlockBtn);
 
-    connect(lockWalletBtn, &QPushButton::clicked, this, &ReptiloidsLockMenu::onLockWallet);
-    connect(changePwBtn, &QPushButton::clicked, this, &ReptiloidsLockMenu::onChangePw);
-    connect(unlockWalletBtn, &QPushButton::clicked, this, &ReptiloidsLockMenu::onUnlockWallet);
-    connect(unlockForStakingBtn, &QPushButton::clicked, this, &ReptiloidsLockMenu::onUnlockForStaking);
-    connect(timedUnlockBtn, &QPushButton::clicked, this, &ReptiloidsLockMenu::onTimedUnlock);
+    connect(lockWalletBtn, &QPushButton::clicked, this, &ReptiloidsCoinLockMenu::onLockWallet);
+    connect(changePwBtn, &QPushButton::clicked, this, &ReptiloidsCoinLockMenu::onChangePw);
+    connect(unlockWalletBtn, &QPushButton::clicked, this, &ReptiloidsCoinLockMenu::onUnlockWallet);
+    connect(unlockForStakingBtn, &QPushButton::clicked, this, &ReptiloidsCoinLockMenu::onUnlockForStaking);
+    connect(timedUnlockBtn, &QPushButton::clicked, this, &ReptiloidsCoinLockMenu::onTimedUnlock);
 }
 
-void ReptiloidsLockMenu::show() {
+void ReptiloidsCoinLockMenu::show() {
     this->raise();
     QWidget::show();
 }
 
-void ReptiloidsLockMenu::setDisplayWidget(QWidget *widget) {
+void ReptiloidsCoinLockMenu::setDisplayWidget(QWidget *widget) {
     if (!widget)
         return;
     this->setParent(widget);
@@ -64,55 +64,55 @@ void ReptiloidsLockMenu::setDisplayWidget(QWidget *widget) {
     displayWidget->installEventFilter(this);
 }
 
-void ReptiloidsLockMenu::onLockWallet() {
+void ReptiloidsCoinLockMenu::onLockWallet() {
     if (hOnLockWallet)
         hOnLockWallet();
     removeSelf();
 }
 
-void ReptiloidsLockMenu::onChangePw() {
+void ReptiloidsCoinLockMenu::onChangePw() {
     if (hOnChangePw)
         hOnChangePw();
     removeSelf();
 }
 
-void ReptiloidsLockMenu::onUnlockWallet() {
+void ReptiloidsCoinLockMenu::onUnlockWallet() {
     if (hOnUnlockWallet)
         hOnUnlockWallet();
     removeSelf();
 }
 
-void ReptiloidsLockMenu::onUnlockForStaking() {
+void ReptiloidsCoinLockMenu::onUnlockForStaking() {
     if (hOnUnlockForStaking)
         hOnUnlockForStaking();
     removeSelf();
 }
 
-void ReptiloidsLockMenu::onTimedUnlock() {
+void ReptiloidsCoinLockMenu::onTimedUnlock() {
     if (hOnTimedUnlock)
         hOnTimedUnlock();
     removeSelf();
 }
 
-void ReptiloidsLockMenu::removeSelf(bool kill) {
+void ReptiloidsCoinLockMenu::removeSelf(bool kill) {
     if ((!this->underMouse() || kill))
         this->hide();
 }
 
-void ReptiloidsLockMenu::setupBtn(QPushButton *btn) {
+void ReptiloidsCoinLockMenu::setupBtn(QPushButton *btn) {
     btn->setFixedHeight(BGU::spi(40));
     btn->setFlat(true);
     btn->setCursor(Qt::PointingHandCursor);
 }
 
-bool ReptiloidsLockMenu::eventFilter(QObject *obj, QEvent *event) {
+bool ReptiloidsCoinLockMenu::eventFilter(QObject *obj, QEvent *event) {
     if (event->type() == QEvent::MouseButtonPress && !this->isHidden() && !this->underMouse()) {
         removeSelf(false);
     }
     return QObject::eventFilter(obj, event);
 }
 
-ReptiloidsLockMenu::~ReptiloidsLockMenu() {
+ReptiloidsCoinLockMenu::~ReptiloidsCoinLockMenu() {
     hOnLockWallet = nullptr;
     hOnChangePw = nullptr;
     hOnUnlockWallet = nullptr;

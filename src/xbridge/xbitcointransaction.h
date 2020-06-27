@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBITCOINTRANSACTION_H
-#define REPTILOIDS_XBRIDGE_XBITCOINTRANSACTION_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBITCOINTRANSACTION_H
+#define REPTILOIDSCOIN_XBRIDGE_XBITCOINTRANSACTION_H
 
 #include <hash.h>
 #include <primitives/transaction.h>
@@ -284,4 +284,4 @@ public:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBITCOINTRANSACTION_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBITCOINTRANSACTION_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSCREATEPROPOSALUTIL_H
-#define REPTILOIDS_QT_REPTILOIDSCREATEPROPOSALUTIL_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSALUTIL_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSALUTIL_H
 
 #include <qt/walletmodel.h>
 
@@ -16,7 +16,7 @@
 #include <QMessageBox>
 #include <QWidget>
 
-struct ReptiloidsCreateProposalPageModel {
+struct ReptiloidsCoinCreateProposalPageModel {
     std::string name;
     std::string url;
     std::string description;
@@ -26,10 +26,10 @@ struct ReptiloidsCreateProposalPageModel {
     uint256 feehash;
 };
 
-class ReptiloidsCreateProposalPage : public QFrame {
+class ReptiloidsCoinCreateProposalPage : public QFrame {
     Q_OBJECT
 public:
-    explicit ReptiloidsCreateProposalPage(int id, QWidget *parent = nullptr) : QFrame(parent), pageID(id) { }
+    explicit ReptiloidsCoinCreateProposalPage(int id, QWidget *parent = nullptr) : QFrame(parent), pageID(id) { }
     virtual void setWalletModel(WalletModel *w) { walletModel = w; };
     virtual void clear() {};
     virtual bool validated() { return true; };
@@ -59,4 +59,4 @@ protected:
     WalletModel *walletModel = nullptr;
 };
 
-#endif //REPTILOIDS_QT_REPTILOIDSCREATEPROPOSALUTIL_H
+#endif //REPTILOIDSCOIN_QT_REPTILOIDSCOINCREATEPROPOSALUTIL_H

@@ -2,29 +2,29 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSKEYDIALOG_H
-#define REPTILOIDS_QT_REPTILOIDSKEYDIALOG_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINKEYDIALOG_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINKEYDIALOG_H
 
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidsclosebtn.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinclosebtn.h>
 
 #include <QBoxLayout>
 #include <QDialog>
 #include <QLabel>
 
-class ReptiloidsKeyDialog : public QDialog
+class ReptiloidsCoinKeyDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsKeyDialog(QString highlight = "", QString note = "", QString action = "Add to Address Book", QString title = "Your Decrypted Key", QWidget *parent = nullptr, Qt::WindowFlags f = Qt::CustomizeWindowHint);
+    explicit ReptiloidsCoinKeyDialog(QString highlight = "", QString note = "", QString action = "Add to Address Book", QString title = "Your Decrypted Key", QWidget *parent = nullptr, Qt::WindowFlags f = Qt::CustomizeWindowHint);
 
 private:
     QLabel *titleLbl;
     QLabel *highlightLbl;
     QLabel *noteLbl;
-    ReptiloidsCloseBtn *cancelBtn;
-    ReptiloidsFormBtn *okBtn;
+    ReptiloidsCoinCloseBtn *cancelBtn;
+    ReptiloidsCoinFormBtn *okBtn;
     QVBoxLayout *layout;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSKEYDIALOG_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINKEYDIALOG_H

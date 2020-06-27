@@ -262,7 +262,7 @@ static bool ProcessMessage(XRouterPeerMgr & peerMgr, CNode* pfrom, const std::st
                 addr.nTime = nNow - 5 * 24 * 60 * 60;
             pfrom->AddAddressKnown(addr);
 
-            // TODO Reptiloids libxrouter banned addrs?
+            // TODO ReptiloidsCoin libxrouter banned addrs?
 
             bool fReachable = IsReachable(addr);
             // Do not store addresses outside our network

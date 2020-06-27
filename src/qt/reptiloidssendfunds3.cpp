@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidssendfunds3.h>
+#include <qt/reptiloidscoinsendfunds3.h>
 
-#include <qt/reptiloidscheckbox.h>
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoincheckbox.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/optionsmodel.h>
@@ -17,7 +17,7 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-ReptiloidsSendFunds3::ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *parent) : ReptiloidsSendFundsPage(w, id, parent),
+ReptiloidsCoinSendFunds3::ReptiloidsCoinSendFunds3(WalletModel *w, int id, QFrame *parent) : ReptiloidsCoinSendFundsPage(w, id, parent),
                                                                                  layout(new QVBoxLayout)
 {
 //    this->setStyleSheet("border: 1px solid red");
@@ -51,7 +51,7 @@ ReptiloidsSendFunds3::ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *paren
     specificBoxLayout->setContentsMargins(QMargins());
     specificBoxLayout->setSpacing(BGU::spi(10));
     specificBox->setLayout(specificBoxLayout);
-    specificFeeTi = new ReptiloidsLineEdit;
+    specificFeeTi = new ReptiloidsCoinLineEdit;
     specificFeeTi->setPlaceholderText(tr("Enter Amount..."));
     specificFeeTi->setMaxLength(18);
     specificFeeTi->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
@@ -68,9 +68,9 @@ ReptiloidsSendFunds3::ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *paren
     rbBoxLayout->addWidget(specificRb);
     rbBoxLayout->addWidget(specificBox);
 
-    auto *hdiv1 = new ReptiloidsHDiv;
-    auto *hdiv2 = new ReptiloidsHDiv;
-    auto *hdiv3 = new ReptiloidsHDiv;
+    auto *hdiv1 = new ReptiloidsCoinHDiv;
+    auto *hdiv2 = new ReptiloidsCoinHDiv;
+    auto *hdiv3 = new ReptiloidsCoinHDiv;
 
     auto *totalBox = new QFrame;
     totalBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -86,7 +86,7 @@ ReptiloidsSendFunds3::ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *paren
     totalBoxLayout->addWidget(totalFeeLbl, 0, Qt::AlignLeft);
     totalBoxLayout->addStretch(1);
 
-    subtractFeeCb = new ReptiloidsCheckBox(tr("Subtract fee from total"));
+    subtractFeeCb = new ReptiloidsCoinCheckBox(tr("Subtract fee from total"));
     subtractFeeCb->setObjectName("subtractFeeCb");
     subtractFeeCb->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
@@ -103,11 +103,11 @@ ReptiloidsSendFunds3::ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *paren
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    auto *backBtn = new ReptiloidsFormBtn;
+    auto *backBtn = new ReptiloidsCoinFormBtn;
     backBtn->setText(tr("Back"));
-    continueBtn = new ReptiloidsFormBtn;
+    continueBtn = new ReptiloidsCoinFormBtn;
     continueBtn->setText(tr("Continue"));
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
     btnBoxLayout->addWidget(backBtn, 0, Qt::AlignLeft | Qt::AlignBottom);
@@ -139,24 +139,24 @@ ReptiloidsSendFunds3::ReptiloidsSendFunds3(WalletModel *w, int id, QFrame *paren
 
     recommendedRb->setChecked(true);
 
-    connect(recommendedRb, &QRadioButton::toggled, this, &ReptiloidsSendFunds3::onFeeDesignation);
-    connect(subtractFeeCb, &QCheckBox::toggled, this, &ReptiloidsSendFunds3::onSubtractFee);
-    connect(specificFeeTi, &ReptiloidsLineEdit::editingFinished, this, &ReptiloidsSendFunds3::onSpecificFee);
+    connect(recommendedRb, &QRadioButton::toggled, this, &ReptiloidsCoinSendFunds3::onFeeDesignation);
+    connect(subtractFeeCb, &QCheckBox::toggled, this, &ReptiloidsCoinSendFunds3::onSubtractFee);
+    connect(specificFeeTi, &ReptiloidsCoinLineEdit::editingFinished, this, &ReptiloidsCoinSendFunds3::onSpecificFee);
     connect(specificFeeTi, &QLineEdit::textEdited, [this](const QString &text) {
         if (text.isEmpty() && model->userFee() != 0)
             updateFee();
     });
-    connect(continueBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds3::onNext);
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds3::onCancel);
-    connect(backBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsSendFunds3::onBack);
+    connect(continueBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds3::onNext);
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds3::onCancel);
+    connect(backBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinSendFunds3::onBack);
 }
 
 /**
  * @brief Set the display unit and validator on the specific fee input. Updates the fee information.
  * @param data
  */
-void ReptiloidsSendFunds3::setData(ReptiloidsSendFundsModel *model) {
-    ReptiloidsSendFundsPage::setData(model);
+void ReptiloidsCoinSendFunds3::setData(ReptiloidsCoinSendFundsModel *model) {
+    ReptiloidsCoinSendFundsPage::setData(model);
     displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
 
     recommendedRb->blockSignals(true);
@@ -166,7 +166,7 @@ void ReptiloidsSendFunds3::setData(ReptiloidsSendFundsModel *model) {
     recommendedRb->setChecked(!model->customFee());
     specificRb->setChecked(model->customFee());
     subtractFeeCb->setChecked(model->subtractFee());
-    specificFeeTi->setValidator(new ReptiloidsNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    specificFeeTi->setValidator(new ReptiloidsCoinNumberValidator(0, REPTILOIDSCOINGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
     if (model->customFee())
         specificFeeTi->setText(BitcoinUnits::format(displayUnit, model->userFee()));
     recommendedRb->blockSignals(false);
@@ -180,7 +180,7 @@ void ReptiloidsSendFunds3::setData(ReptiloidsSendFundsModel *model) {
 /**
  * @brief Clear fee information from labels.
  */
-void ReptiloidsSendFunds3::clear() {
+void ReptiloidsCoinSendFunds3::clear() {
     recommendedRb->blockSignals(true);
     specificFeeTi->blockSignals(true);
     specificRb->blockSignals(true);
@@ -202,10 +202,10 @@ void ReptiloidsSendFunds3::clear() {
  * @brief No validation required for this screen, since the fee defaults to 0 if no information is provided
  *        in the specific fee designation.
  */
-bool ReptiloidsSendFunds3::validated() {
+bool ReptiloidsCoinSendFunds3::validated() {
     if (specificRb->isChecked()) {
-        auto fee = ReptiloidsSendFundsModel::stringToDouble(specificFeeTi->text().isEmpty() ? "0" : specificFeeTi->text(), displayUnit);
-        if (ReptiloidsSendFundsModel::doubleToInt(fee, displayUnit) > ::maxTxFee) {
+        auto fee = ReptiloidsCoinSendFundsModel::stringToDouble(specificFeeTi->text().isEmpty() ? "0" : specificFeeTi->text(), displayUnit);
+        if (ReptiloidsCoinSendFundsModel::doubleToInt(fee, displayUnit) > ::maxTxFee) {
             QMessageBox::warning(this->parentWidget(), tr("Issue"), tr("You specified a very large fee."));
             return false;
         }
@@ -213,7 +213,7 @@ bool ReptiloidsSendFunds3::validated() {
     return true;
 }
 
-void ReptiloidsSendFunds3::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinSendFunds3::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -223,19 +223,19 @@ void ReptiloidsSendFunds3::keyPressEvent(QKeyEvent *event) {
         onBack();
 }
 
-void ReptiloidsSendFunds3::showEvent(QShowEvent *event) {
+void ReptiloidsCoinSendFunds3::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
-    connect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsSendFunds3::onEncryptionStatus);
-    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsSendFunds3::onDisplayUnit);
+    connect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsCoinSendFunds3::onEncryptionStatus);
+    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinSendFunds3::onDisplayUnit);
 }
 
-void ReptiloidsSendFunds3::hideEvent(QHideEvent *event) {
+void ReptiloidsCoinSendFunds3::hideEvent(QHideEvent *event) {
     QWidget::hideEvent(event);
-    disconnect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsSendFunds3::onEncryptionStatus);
-    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsSendFunds3::onDisplayUnit);
+    disconnect(walletModel, &WalletModel::encryptionStatusChanged, this, &ReptiloidsCoinSendFunds3::onEncryptionStatus);
+    disconnect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &ReptiloidsCoinSendFunds3::onDisplayUnit);
 }
 
-void ReptiloidsSendFunds3::onFeeDesignation() {
+void ReptiloidsCoinSendFunds3::onFeeDesignation() {
     specificFeeTi->setEnabled(specificRb->isChecked());
     if (specificRb->isChecked()) {
         if (!specificFeeTi->hasFocus())
@@ -250,25 +250,25 @@ void ReptiloidsSendFunds3::onFeeDesignation() {
         updateFee();
 }
 
-void ReptiloidsSendFunds3::onSpecificFee() {
+void ReptiloidsCoinSendFunds3::onSpecificFee() {
     // Only update if the custom fee flag is dirty and the user fee is different
     // than what's currently specified
     if (specificRb->isChecked() != model->customFee()
-        || ReptiloidsSendFundsModel::stringToInt(specificFeeTi->text(), displayUnit) != model->userFee())
+        || ReptiloidsCoinSendFundsModel::stringToInt(specificFeeTi->text(), displayUnit) != model->userFee())
         updateFee();
 }
 
-void ReptiloidsSendFunds3::onEncryptionStatus() {
+void ReptiloidsCoinSendFunds3::onEncryptionStatus() {
     if (!this->isHidden() && walletModel->getEncryptionStatus() == WalletModel::Unlocked)
         updateFee();
 }
 
-void ReptiloidsSendFunds3::onSubtractFee() {
+void ReptiloidsCoinSendFunds3::onSubtractFee() {
     model->setSubtractFee(subtractFeeCb->isChecked());
     updateFee();
 }
 
-void ReptiloidsSendFunds3::updateFee() {
+void ReptiloidsCoinSendFunds3::updateFee() {
     specificFeeLbl->setText(BitcoinUnits::longName(displayUnit));
 
     // If specific fee option is selected, do not display per kB
@@ -276,8 +276,8 @@ void ReptiloidsSendFunds3::updateFee() {
     if (specificRb->isChecked()) {
         double sfee = 0;
         if (!specificFeeTi->text().isEmpty())
-            sfee = ReptiloidsSendFundsModel::stringToDouble(specificFeeTi->text(), displayUnit);
-        CAmount cfee = ReptiloidsSendFundsModel::doubleToInt(sfee, displayUnit);
+            sfee = ReptiloidsCoinSendFundsModel::stringToDouble(specificFeeTi->text(), displayUnit);
+        CAmount cfee = ReptiloidsCoinSendFundsModel::doubleToInt(sfee, displayUnit);
         updateModelTxFees(cfee);
         totalFeeLbl->setText(BitcoinUnits::formatWithUnit(displayUnit, cfee));
         model->setEstimatedFees(cfee);
@@ -295,7 +295,7 @@ void ReptiloidsSendFunds3::updateFee() {
                 warningLbl->setText(processSendCoinsReturn(walletModel, status).first);
             else warningLbl->clear();
         } else if (cc.HasSelected()) { // estimate b/c wallet is locked here
-            const auto feeInfo = ReptiloidsEstimateFee(walletModel, cc, model->subtractFee(), model->txRecipients());
+            const auto feeInfo = ReptiloidsCoinEstimateFee(walletModel, cc, model->subtractFee(), model->txRecipients());
             QString feeAmount = BitcoinUnits::formatWithUnit(displayUnit, std::get<0>(feeInfo));
             QString feeMsg =  tr("Estimated to begin confirmation within 1 block. Unlock the wallet for more accurate fees");
             recommendedDescLbl->setText(QString("%1\n%2").arg(feeAmount, feeMsg));
@@ -323,11 +323,11 @@ void ReptiloidsSendFunds3::updateFee() {
     }
 }
 
-void ReptiloidsSendFunds3::updateModelTxFees(CAmount fee) {
+void ReptiloidsCoinSendFunds3::updateModelTxFees(CAmount fee) {
     model->setUserFee(fee);
     model->setCustomFee(specificRb->isChecked());
 }
 
-void ReptiloidsSendFunds3::onDisplayUnit(int unit) {
+void ReptiloidsCoinSendFunds3::onDisplayUnit(int unit) {
     setData(model);
 }

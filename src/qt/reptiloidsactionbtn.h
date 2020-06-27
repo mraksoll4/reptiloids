@@ -2,17 +2,17 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSACTIONBTN_H
-#define REPTILOIDS_QT_REPTILOIDSACTIONBTN_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINACTIONBTN_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINACTIONBTN_H
 
 #include <QPushButton>
 #include <QStyle>
 
-class ReptiloidsActionBtn : public QPushButton
+class ReptiloidsCoinActionBtn : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsActionBtn(QPushButton *parent = nullptr);
+    explicit ReptiloidsCoinActionBtn(QPushButton *parent = nullptr);
     void setID(QString id) { this->id = id; }
     QString getID() { return this->id; }
 
@@ -28,4 +28,4 @@ private:
     qreal s;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSACTIONBTN_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINACTIONBTN_H

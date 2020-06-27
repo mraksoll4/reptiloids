@@ -131,7 +131,7 @@ BOOST_FIXTURE_TEST_CASE(servicenode_tests_opentier, TestChainPoS)
         // Deserialize servicenode obj from network stream
         sn::ServiceNode snode;
         BOOST_CHECK_NO_THROW(snode = snodeNetwork(snodePubKey, tier, snodePubKey.GetID(), collateral, chainActive.Height(), chainActive.Tip()->GetBlockHash(), sig));
-        // TODO Reptiloids OPEN tier snodes, support non-SPV snode tiers (invert the isValid check below)
+        // TODO ReptiloidsCoin OPEN tier snodes, support non-SPV snode tiers (invert the isValid check below)
         BOOST_CHECK_MESSAGE(!snode.isValid(GetTxFunc, IsServiceNodeBlockValidFunc), "OPEN tier should not be supported at this time");
     }
 
@@ -970,7 +970,7 @@ BOOST_AUTO_TEST_CASE(servicenode_tests_registration_pings)
         smgr.reset();
     }
 
-    // TODO Reptiloids OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
+    // TODO ReptiloidsCoin OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
 //    // Snode ping should fail on open tier with xr:: namespace
 //    {
 //        CKey key; key.MakeNewKey(true);

@@ -2,18 +2,18 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSWALLET_H
-#define REPTILOIDS_QT_REPTILOIDSWALLET_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINWALLET_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINWALLET_H
 
-#include <qt/reptiloidscreateproposal.h>
-#include <qt/reptiloidsdashboard.h>
-#include <qt/reptiloidsleftmenu.h>
-#include <qt/reptiloidsproposals.h>
-#include <qt/reptiloidssendfunds.h>
-#include <qt/reptiloidstoolbar.h>
-#include <qt/reptiloidstools.h>
-#include <qt/reptiloidstransactionhistory.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoincreateproposal.h>
+#include <qt/reptiloidscoindashboard.h>
+#include <qt/reptiloidscoinleftmenu.h>
+#include <qt/reptiloidscoinproposals.h>
+#include <qt/reptiloidscoinsendfunds.h>
+#include <qt/reptiloidscointoolbar.h>
+#include <qt/reptiloidscointools.h>
+#include <qt/reptiloidscointransactionhistory.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/clientmodel.h>
 #include <qt/platformstyle.h>
@@ -23,11 +23,11 @@
 #include <QList>
 #include <QProgressDialog>
 
-class ReptiloidsWallet : public QFrame {
+class ReptiloidsCoinWallet : public QFrame {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsWallet(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinWallet(interfaces::Node & node, const PlatformStyle *platformStyle, QFrame *parent = nullptr);
 
     void setClientModel(ClientModel *c) { this->clientModel = c; }
 
@@ -41,7 +41,7 @@ public:
     bool removeWallet(const QString &name) { this->wallets.remove(name); return true; };
     bool removeWallet(WalletModel *w) { return removeWallet(w->getWalletName()); };
     void removeAllWallets() { this->wallets.clear(); };
-    bool handlePaymentRequest(const SendCoinsRecipient & recipient) { return false; }; // TODO Reptiloids Qt payment requests
+    bool handlePaymentRequest(const SendCoinsRecipient & recipient) { return false; }; // TODO ReptiloidsCoin Qt payment requests
     void showOutOfSyncWarning(bool fShow) { Q_EMIT requestedSyncWarningInfo(); };
 
     WalletModel* currentWalletModel() const { return walletModel; };
@@ -65,12 +65,12 @@ Q_SIGNALS:
 
 
 public Q_SLOTS:
-    void setPage(ReptiloidsPage page);
+    void setPage(ReptiloidsCoinPage page);
     void gotoOverviewPage() { goToDashboard(); };
     void gotoHistoryPage() { goToHistory(); };
-    void gotoReceiveCoinsPage() { }; // TODO Reptiloids Qt wire up receive coins page
+    void gotoReceiveCoinsPage() { }; // TODO ReptiloidsCoin Qt wire up receive coins page
     void gotoSendCoinsPage(QString addr = "") { onSendToAddress(addr); };
-    void gotoSettingsPage() { setPage(ReptiloidsPage::SETTINGS); };
+    void gotoSettingsPage() { setPage(ReptiloidsCoinPage::SETTINGS); };
     void gotoSignMessageTab(QString addr);
     void gotoVerifyMessageTab(QString addr);
     void encryptWallet(bool status);
@@ -101,17 +101,17 @@ private:
     QHash<QString, WalletModel*> wallets;
     ClientModel *clientModel;
     WalletModel *walletModel;
-    ReptiloidsPage page;
+    ReptiloidsCoinPage page;
 
-    ReptiloidsLeftMenu *leftMenu;
+    ReptiloidsCoinLeftMenu *leftMenu;
     QFrame *contentBox;
-    ReptiloidsToolBar *toolbar;
-    ReptiloidsSendFunds *sendFunds = nullptr;
-    ReptiloidsDashboard *dashboard = nullptr;
-    ReptiloidsCreateProposal *createProposal = nullptr;
-    ReptiloidsTools *btools = nullptr;
+    ReptiloidsCoinToolBar *toolbar;
+    ReptiloidsCoinSendFunds *sendFunds = nullptr;
+    ReptiloidsCoinDashboard *dashboard = nullptr;
+    ReptiloidsCoinCreateProposal *createProposal = nullptr;
+    ReptiloidsCoinTools *btools = nullptr;
     QWidget *screen = nullptr;
     QProgressDialog *progressDialog = nullptr;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSWALLET_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINWALLET_H

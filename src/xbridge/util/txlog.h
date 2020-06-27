@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_TXLOG_H
-#define REPTILOIDS_XBRIDGE_UTIL_TXLOG_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_TXLOG_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_TXLOG_H
 
 #include <sstream>
 
@@ -34,4 +34,4 @@ private:
     static std::string m_logFileName;
 };
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_TXLOG_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_TXLOG_H

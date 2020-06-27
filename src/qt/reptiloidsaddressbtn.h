@@ -2,16 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSADDRESSBTN_H
-#define REPTILOIDS_QT_REPTILOIDSADDRESSBTN_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSBTN_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSBTN_H
 
 #include <QPushButton>
 
-class ReptiloidsAddressBtn : public QPushButton
+class ReptiloidsCoinAddressBtn : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit ReptiloidsAddressBtn(QPushButton *parent = nullptr);
+    explicit ReptiloidsCoinAddressBtn(QPushButton *parent = nullptr);
     void setID(QString id) { this->id = id; }
     QString getID() { return this->id; }
 
@@ -22,4 +22,4 @@ private:
     QString id;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSADDRESSBTN_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINADDRESSBTN_H

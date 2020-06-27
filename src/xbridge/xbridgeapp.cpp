@@ -308,19 +308,19 @@ bool App::createConf()
         if (!boost::filesystem::exists(p)) {
             saveConf(p,
                 "# For a complete list of configuration files for each supported token"        + eol +
-                "# please visit: https://github.com/reptiloidsdx/blockchain-configuration-files" + eol +
+                "# please visit: https://github.com/reptiloidscoindx/blockchain-configuration-files" + eol +
                 ""                                                                             + eol +
                 "[Main]"                                                                       + eol +
                 "ExchangeWallets="                                                             + eol +
                 "FullLog=true"                                                                 + eol +
                 "# Show all orders across the network regardless of whether wallets are "      + eol +
-                "# installed locally, set to \"true\". -dxnowallets in reptiloids.conf "         + eol +
+                "# installed locally, set to \"true\". -dxnowallets in reptiloidscoin.conf "         + eol +
                 "# overrides this setting"                                                     + eol +
                 "ShowAllOrders=false"                                                          + eol +
                 ""                                                                             + eol +
                 "# Sample configuration:"                                                      + eol +
                 "# [BLOCK]"                                                                    + eol +
-                "# Title=Reptiloids"                                                             + eol +
+                "# Title=ReptiloidsCoin"                                                             + eol +
                 "# Address="                                                                   + eol +
                 "# Ip=127.0.0.1"                                                               + eol +
                 "# Port=41421"                                                                 + eol +
@@ -470,7 +470,7 @@ bool App::disconnectWallets()
 
     std::set<std::string> noWallets;
     xbridge::Exchange::instance().loadWallets(noWallets);
-    // TODO Reptiloids XRouter notify network wallets are going offline
+    // TODO ReptiloidsCoin XRouter notify network wallets are going offline
 //    std::vector<std::string> nonWalletServices = xrouter::App::instance().getServicesList();
 //    sendServicePing(nonWalletServices);
 
@@ -1096,7 +1096,7 @@ void App::updateActiveWallets()
                     conns.pop_back();
                     // Asynchronously check connection
                     tg.create_thread([conn, &muJobs, &allJobs, &pendingJobs, &validConnections, &badConnections]() {
-                        RenameThread("reptiloids-xbridgewalletcheck");
+                        RenameThread("reptiloidscoin-xbridgewalletcheck");
                         if (ShutdownRequested())
                             return;
                         // Check that wallet is reachable
@@ -3177,8 +3177,8 @@ std::string TxCancelReasonText(uint32_t reason) {
             return "crXbridgeRejected";
         case TxCancelReason::crInvalidAddress:
             return "crInvalidAddress";
-        case TxCancelReason::crReptiloidsError:
-            return "crReptiloidsError";
+        case TxCancelReason::crReptiloidsCoinError:
+            return "crReptiloidsCoinError";
         case TxCancelReason::crBadADepositTx:
             return "crBadADepositTx";
         case TxCancelReason::crBadBDepositTx:

@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGECRYPTOPROVIDERBTC_H
-#define REPTILOIDS_XBRIDGE_XBRIDGECRYPTOPROVIDERBTC_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGECRYPTOPROVIDERBTC_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGECRYPTOPROVIDERBTC_H
 
 #include <secp256k1.h>
 #include <uint256.h>
@@ -44,4 +44,4 @@ private:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGECRYPTOPROVIDERBTC_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGECRYPTOPROVIDERBTC_H

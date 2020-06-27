@@ -73,7 +73,7 @@ EXPECTED_BOOST_INCLUDES=(
     boost/variant.hpp
     boost/variant/apply_visitor.hpp
     boost/variant/static_visitor.hpp
-    # Reptiloids boost libs
+    # ReptiloidsCoin boost libs
     boost/algorithm/string/join.hpp
     boost/algorithm/string/predicate.hpp
     boost/archive/iterators/base64_from_binary.hpp

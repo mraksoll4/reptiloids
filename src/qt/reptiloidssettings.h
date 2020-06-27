@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSSETTINGS_H
-#define REPTILOIDS_QT_REPTILOIDSSETTINGS_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINSETTINGS_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINSETTINGS_H
 
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslabelbtn.h>
-#include <qt/reptiloidslineeditwithtitle.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlabelbtn.h>
+#include <qt/reptiloidscoinlineeditwithtitle.h>
 
 #include <qt/walletmodel.h>
 
@@ -21,12 +21,12 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-class ReptiloidsSettings : public QFrame 
+class ReptiloidsCoinSettings : public QFrame 
 {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsSettings(interfaces::Node & node, QWidget *parent = nullptr);
+    explicit ReptiloidsCoinSettings(interfaces::Node & node, QWidget *parent = nullptr);
     void setWalletModel(WalletModel *w);
     void backupWallet();
 
@@ -42,8 +42,8 @@ private:
     WalletModel *walletModel;
     QVBoxLayout *contentLayout;
     QLabel *titleLbl;
-    ReptiloidsLabelBtn *aboutCoreLblBtn;
-    ReptiloidsLabelBtn *aboutQtLblBtn;
+    ReptiloidsCoinLabelBtn *aboutCoreLblBtn;
+    ReptiloidsCoinLabelBtn *aboutQtLblBtn;
     QLabel *generalLbl;
     QCheckBox *startWalletOnLoginCb;
     QLabel *sizeDbCacheLbl;
@@ -52,25 +52,25 @@ private:
     QSpinBox *threadsSb;
     QLabel *walletLbl;
     QCheckBox *spendChangeCb;
-    ReptiloidsFormBtn *backupBtn;
+    ReptiloidsCoinFormBtn *backupBtn;
     QLabel *networkLbl;
     QCheckBox *upnpCb;
     QCheckBox *allowIncomingCb;
     QCheckBox *connectSocks5Cb;
-    ReptiloidsLineEditWithTitle *proxyTi;
-    ReptiloidsLineEditWithTitle *portTi;
+    ReptiloidsCoinLineEditWithTitle *proxyTi;
+    ReptiloidsCoinLineEditWithTitle *portTi;
     QLabel *displayLbl;
     QLabel *languageLbl;
-    ReptiloidsDropdown *languageDropdown;
+    ReptiloidsCoinDropdown *languageDropdown;
     QLabel *contributeLbl;
-    ReptiloidsLabelBtn *contributeLblBtn;
+    ReptiloidsCoinLabelBtn *contributeLblBtn;
     QLabel *unitsLbl;
-    ReptiloidsDropdown *unitsDropdown;
+    ReptiloidsCoinDropdown *unitsDropdown;
     QLabel *decimalLbl;
-    ReptiloidsDropdown *decimalDropdown;
-    ReptiloidsLineEditWithTitle *thirdPartyUrlTi;
-    ReptiloidsFormBtn *saveBtn;
-    ReptiloidsFormBtn *resetBtn;
+    ReptiloidsCoinDropdown *decimalDropdown;
+    ReptiloidsCoinLineEditWithTitle *thirdPartyUrlTi;
+    ReptiloidsCoinFormBtn *saveBtn;
+    ReptiloidsCoinFormBtn *resetBtn;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSSETTINGS_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINSETTINGS_H

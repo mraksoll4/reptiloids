@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsservicenodes.h>
+#include <qt/reptiloidscoinservicenodes.h>
 
-#include <qt/reptiloidscheckbox.h>
-#include <qt/reptiloidscreateproposal.h>
-#include <qt/reptiloidsdropdown.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoincheckbox.h>
+#include <qt/reptiloidscoincreateproposal.h>
+#include <qt/reptiloidscoindropdown.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
@@ -31,7 +31,7 @@
 #include <QSettings>
 #include <QVariant>
 
-ReptiloidsServiceNodes::ReptiloidsServiceNodes(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
+ReptiloidsCoinServiceNodes::ReptiloidsCoinServiceNodes(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout),
                                                              clientModel(nullptr), contextMenu(new QMenu)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -50,7 +50,7 @@ ReptiloidsServiceNodes::ReptiloidsServiceNodes(QFrame *parent) : QFrame(parent),
     filterLbl = new QLabel(tr("Filter by:"));
     filterLbl->setObjectName("title");
     QStringList list{tr("All Service Nodes"), tr("Mine"), tr("Public")};
-    filterDd = new ReptiloidsDropdown(list);
+    filterDd = new ReptiloidsCoinDropdown(list);
 
     topBoxLayout->addStretch(1);
     topBoxLayout->addWidget(filterLbl);
@@ -127,8 +127,8 @@ ReptiloidsServiceNodes::ReptiloidsServiceNodes(QFrame *parent) : QFrame(parent),
         if (pubkeyItem)
             showServiceNodeDetails(serviceNodeForPubkey(pubkeyItem->data(Qt::DisplayRole).toString().toStdString()));
     });
-    connect(table, &QTableWidget::customContextMenuRequested, this, &ReptiloidsServiceNodes::showContextMenu);
-    connect(filterDd, &ReptiloidsDropdown::valueChanged, this, &ReptiloidsServiceNodes::onFilter);
+    connect(table, &QTableWidget::customContextMenuRequested, this, &ReptiloidsCoinServiceNodes::showContextMenu);
+    connect(filterDd, &ReptiloidsCoinDropdown::valueChanged, this, &ReptiloidsCoinServiceNodes::onFilter);
 
     connect(viewDetails, &QAction::triggered, this, [this]() {
         if (contextItem == nullptr || contextItem->row() >= filteredData.size())
@@ -223,7 +223,7 @@ ReptiloidsServiceNodes::ReptiloidsServiceNodes(QFrame *parent) : QFrame(parent),
     filterDd->setCurrentIndex(filterIdx.toInt());
 }
 
-void ReptiloidsServiceNodes::initialize() {
+void ReptiloidsCoinServiceNodes::initialize() {
     dataModel.clear();
 
     const auto & snodes = sn::ServiceNodeMgr::instance().list();
@@ -243,23 +243,23 @@ void ReptiloidsServiceNodes::initialize() {
     this->setData(dataModel);
 }
 
-void ReptiloidsServiceNodes::setClientModel(ClientModel *c) {
+void ReptiloidsCoinServiceNodes::setClientModel(ClientModel *c) {
     if (clientModel == c)
         return;
 
     if (clientModel)
-        disconnect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsServiceNodes::setNumBlocks);
+        disconnect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsCoinServiceNodes::setNumBlocks);
 
     clientModel = c;
     if (!clientModel)
         return;
-    connect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsServiceNodes::setNumBlocks);
+    connect(clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsCoinServiceNodes::setNumBlocks);
 
     initialize();
     onFilter();
 }
 
-void ReptiloidsServiceNodes::setData(const QVector<sn::ServiceNode> & data) {
+void ReptiloidsCoinServiceNodes::setData(const QVector<sn::ServiceNode> & data) {
     this->filteredData = data;
 
     unwatch();
@@ -322,7 +322,7 @@ void ReptiloidsServiceNodes::setData(const QVector<sn::ServiceNode> & data) {
     watch();
 }
 
-QVector<sn::ServiceNode> ReptiloidsServiceNodes::filtered(const int & filter) {
+QVector<sn::ServiceNode> ReptiloidsCoinServiceNodes::filtered(const int & filter) {
     QVector<sn::ServiceNode> r;
     for (const auto & snode : dataModel) {
         switch (filter) {
@@ -361,7 +361,7 @@ QVector<sn::ServiceNode> ReptiloidsServiceNodes::filtered(const int & filter) {
  * @brief Refreshes the display if necessary.
  * @param force Set true to force a refresh (bypass all checks).
  */
-void ReptiloidsServiceNodes::refresh(bool force) {
+void ReptiloidsCoinServiceNodes::refresh(bool force) {
     if (!force && dataModel.size() == static_cast<int>(sn::ServiceNodeMgr::instance().list().size())) // ignore if the list hasn't changed
         return;
     initialize();
@@ -371,28 +371,28 @@ void ReptiloidsServiceNodes::refresh(bool force) {
 /**
  * @brief Filters the data model based on the current filter dropdown filter flag.
  */
-void ReptiloidsServiceNodes::onFilter() {
+void ReptiloidsCoinServiceNodes::onFilter() {
     setData(filtered(filterDd->currentIndex()));
     QSettings settings;
     settings.setValue("serviceNodeFilter", filterDd->currentIndex());
 }
 
-void ReptiloidsServiceNodes::onItemChanged(QTableWidgetItem *item) {
+void ReptiloidsCoinServiceNodes::onItemChanged(QTableWidgetItem *item) {
     if (dataModel.count() > item->row())
         Q_EMIT tableUpdated();
 }
 
-void ReptiloidsServiceNodes::unwatch() {
+void ReptiloidsCoinServiceNodes::unwatch() {
     table->setEnabled(false);
-    disconnect(table, &QTableWidget::itemChanged, this, &ReptiloidsServiceNodes::onItemChanged);
+    disconnect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinServiceNodes::onItemChanged);
 }
 
-void ReptiloidsServiceNodes::watch() {
+void ReptiloidsCoinServiceNodes::watch() {
     table->setEnabled(true);
-    connect(table, &QTableWidget::itemChanged, this, &ReptiloidsServiceNodes::onItemChanged);
+    connect(table, &QTableWidget::itemChanged, this, &ReptiloidsCoinServiceNodes::onItemChanged);
 }
 
-void ReptiloidsServiceNodes::showContextMenu(QPoint pt) {
+void ReptiloidsCoinServiceNodes::showContextMenu(QPoint pt) {
     auto *item = table->itemAt(pt);
     if (!item) {
         contextItem = nullptr;
@@ -402,13 +402,13 @@ void ReptiloidsServiceNodes::showContextMenu(QPoint pt) {
     contextMenu->exec(QCursor::pos());
 }
 
-void ReptiloidsServiceNodes::showServiceNodeDetails(const sn::ServiceNode & snode) {
-    auto *dialog = new ReptiloidsServiceNodeDetailsDialog(snode);
+void ReptiloidsCoinServiceNodes::showServiceNodeDetails(const sn::ServiceNode & snode) {
+    auto *dialog = new ReptiloidsCoinServiceNodeDetailsDialog(snode);
     dialog->setStyleSheet(GUIUtil::loadStyleSheet());
     dialog->exec();
 }
 
-void ReptiloidsServiceNodes::setNumBlocks(int count, const QDateTime & blockDate, double nVerificationProgress, bool header) {
+void ReptiloidsCoinServiceNodes::setNumBlocks(int count, const QDateTime & blockDate, double nVerificationProgress, bool header) {
     // Only refresh data if the cache changes
     const auto newSnodeCount = static_cast<int>(sn::ServiceNodeMgr::instance().list().size());
     // refresh data if necessary
@@ -419,7 +419,7 @@ void ReptiloidsServiceNodes::setNumBlocks(int count, const QDateTime & blockDate
     }
 }
 
-sn::ServiceNode ReptiloidsServiceNodes::serviceNodeForPubkey(const std::string & hex) {
+sn::ServiceNode ReptiloidsCoinServiceNodes::serviceNodeForPubkey(const std::string & hex) {
     for (const auto & snode : filteredData) {
         if (HexStr(snode.getSnodePubKey()) == hex)
             return snode;
@@ -432,7 +432,7 @@ sn::ServiceNode ReptiloidsServiceNodes::serviceNodeForPubkey(const std::string &
  * @param snode
  * @param parent Optional parent widget to attach to
  */
-ReptiloidsServiceNodeDetailsDialog::ReptiloidsServiceNodeDetailsDialog(const sn::ServiceNode & snode, QWidget *parent) : QDialog(parent) {
+ReptiloidsCoinServiceNodeDetailsDialog::ReptiloidsCoinServiceNodeDetailsDialog(const sn::ServiceNode & snode, QWidget *parent) : QDialog(parent) {
     auto *layout = new QVBoxLayout;
     layout->setContentsMargins(BGU::spi(30), BGU::spi(10), BGU::spi(30), BGU::spi(10));
     this->setLayout(layout);
@@ -497,7 +497,7 @@ ReptiloidsServiceNodeDetailsDialog::ReptiloidsServiceNodeDetailsDialog(const sn:
     btnBoxLayout->setContentsMargins(QMargins());
     btnBoxLayout->setSpacing(BGU::spi(15));
     btnBox->setLayout(btnBoxLayout);
-    auto *closeBtn = new ReptiloidsFormBtn;
+    auto *closeBtn = new ReptiloidsCoinFormBtn;
     closeBtn->setText(tr("Close"));
     btnBoxLayout->addWidget(closeBtn, 0, Qt::AlignCenter);
 
@@ -506,13 +506,13 @@ ReptiloidsServiceNodeDetailsDialog::ReptiloidsServiceNodeDetailsDialog(const sn:
     layout->addSpacing(BGU::spi(10));
     layout->addWidget(descBox);
     layout->addSpacing(BGU::spi(10));
-    layout->addWidget(new ReptiloidsHDiv);
+    layout->addWidget(new ReptiloidsCoinHDiv);
     layout->addSpacing(BGU::spi(10));
     layout->addStretch(1);
     layout->addWidget(btnBox);
     layout->addSpacing(BGU::spi(10));
 
-    connect(closeBtn, &ReptiloidsFormBtn::clicked, this, [this]() {
+    connect(closeBtn, &ReptiloidsCoinFormBtn::clicked, this, [this]() {
         close();
     });
 }

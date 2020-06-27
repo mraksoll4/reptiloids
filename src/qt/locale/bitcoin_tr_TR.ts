@@ -709,8 +709,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <source>Enter a Reptiloids address (e.g. %1)</source>
-        <translation>Reptiloids adresinizi girin (örneğin %1)</translation>
+        <source>Enter a ReptiloidsCoin address (e.g. %1)</source>
+        <translation>ReptiloidsCoin adresinizi girin (örneğin %1)</translation>
     </message>
     <message>
         <source>N/A</source>

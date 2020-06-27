@@ -3,7 +3,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsgui.h>
+#include <qt/reptiloidscoingui.h>
 
 #include <qt/bitcoinunits.h>
 #include <qt/clientmodel.h>
@@ -65,7 +65,7 @@
 #include <QWindow>
 
 
-ReptiloidsGUI::ReptiloidsGUI(interfaces::Node& node, const PlatformStyle *_platformStyle, const NetworkStyle *networkStyle, QWidget *parent)
+ReptiloidsCoinGUI::ReptiloidsCoinGUI(interfaces::Node& node, const PlatformStyle *_platformStyle, const NetworkStyle *networkStyle, QWidget *parent)
     : BitcoinGUIObj(parent),
       m_node(node),
       trayIconMenu{new QMenu()},
@@ -91,7 +91,7 @@ ReptiloidsGUI::ReptiloidsGUI(interfaces::Node& node, const PlatformStyle *_platf
     if(enableWallet)
     {
         /** Create wallet frame and make it the central widget */
-        walletFrame = new ReptiloidsWallet(node, _platformStyle);
+        walletFrame = new ReptiloidsCoinWallet(node, _platformStyle);
         walletFrame->setStyleSheet(GUIUtil::loadStyleSheet());
         setCentralWidget(walletFrame);
     } else
@@ -197,9 +197,9 @@ ReptiloidsGUI::ReptiloidsGUI(interfaces::Node& node, const PlatformStyle *_platf
     modalOverlay->showHide(true, false);
 #ifdef ENABLE_WALLET
     if(enableWallet) {
-        connect(labelBlocksIcon, &GUIUtil::ClickableLabel::clicked, this, &ReptiloidsGUI::showModalOverlay);
-        connect(walletFrame, &ReptiloidsWallet::progressClicked, this, &ReptiloidsGUI::showModalOverlay);
-        connect(walletFrame, &ReptiloidsWallet::incomingTransaction, this, &ReptiloidsGUI::incomingTransaction);
+        connect(labelBlocksIcon, &GUIUtil::ClickableLabel::clicked, this, &ReptiloidsCoinGUI::showModalOverlay);
+        connect(walletFrame, &ReptiloidsCoinWallet::progressClicked, this, &ReptiloidsCoinGUI::showModalOverlay);
+        connect(walletFrame, &ReptiloidsCoinWallet::incomingTransaction, this, &ReptiloidsCoinGUI::incomingTransaction);
     }
 #endif
 
@@ -208,7 +208,7 @@ ReptiloidsGUI::ReptiloidsGUI(interfaces::Node& node, const PlatformStyle *_platf
 #endif
 }
 
-ReptiloidsGUI::~ReptiloidsGUI()
+ReptiloidsCoinGUI::~ReptiloidsCoinGUI()
 {
     // Unsubscribe from notifications from core
     unsubscribeFromCoreSignals();
@@ -226,7 +226,7 @@ ReptiloidsGUI::~ReptiloidsGUI()
     delete rpcConsole;
 }
 
-void ReptiloidsGUI::createActions()
+void ReptiloidsCoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
@@ -238,7 +238,7 @@ void ReptiloidsGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a Reptiloids address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a ReptiloidsCoin address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
@@ -249,7 +249,7 @@ void ReptiloidsGUI::createActions()
     sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
 
     receiveCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and reptiloids: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and reptiloidscoin: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
@@ -270,17 +270,17 @@ void ReptiloidsGUI::createActions()
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
     // can be triggered from the tray menu, and need to show the GUI to be useful.
     connect(overviewAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(overviewAction, &QAction::triggered, this, &ReptiloidsGUI::gotoOverviewPage);
+    connect(overviewAction, &QAction::triggered, this, &ReptiloidsCoinGUI::gotoOverviewPage);
     connect(sendCoinsAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
     connect(sendCoinsAction, &QAction::triggered, [this]{ gotoSendCoinsPage(); });
     connect(sendCoinsMenuAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
     connect(sendCoinsMenuAction, &QAction::triggered, [this]{ gotoSendCoinsPage(); });
     connect(receiveCoinsAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(receiveCoinsAction, &QAction::triggered, this, &ReptiloidsGUI::gotoReceiveCoinsPage);
+    connect(receiveCoinsAction, &QAction::triggered, this, &ReptiloidsCoinGUI::gotoReceiveCoinsPage);
     connect(receiveCoinsMenuAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(receiveCoinsMenuAction, &QAction::triggered, this, &ReptiloidsGUI::gotoReceiveCoinsPage);
+    connect(receiveCoinsMenuAction, &QAction::triggered, this, &ReptiloidsCoinGUI::gotoReceiveCoinsPage);
     connect(historyAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(historyAction, &QAction::triggered, this, &ReptiloidsGUI::gotoHistoryPage);
+    connect(historyAction, &QAction::triggered, this, &ReptiloidsCoinGUI::gotoHistoryPage);
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(platformStyle->TextColorIcon(":/icons/quit"), tr("E&xit"), this);
@@ -311,9 +311,9 @@ void ReptiloidsGUI::createActions()
     changePassphraseAction = new QAction(platformStyle->TextColorIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setStatusTip(tr("Change the passphrase used for wallet encryption"));
     signMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your Reptiloids addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your ReptiloidsCoin addresses to prove you own them"));
     verifyMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/verify"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Reptiloids addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified ReptiloidsCoin addresses"));
     lockWalletAction = new QAction(platformStyle->TextColorIcon(":/icons/lock_closed"), tr("&Lock Wallet..."), this);
     lockWalletAction->setStatusTip(tr("Lock the wallet. Requires encryption to be enabled."));
     unlockWalletAction = new QAction(platformStyle->TextColorIcon(":/icons/lock_open"), tr("&Unlock Wallet..."), this);
@@ -331,7 +331,7 @@ void ReptiloidsGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(platformStyle->TextColorIcon(":/icons/open"), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a reptiloids: URI or payment request"));
+    openAction->setStatusTip(tr("Open a reptiloidscoin: URI or payment request"));
 
     m_open_wallet_action = new QAction(tr("Open Wallet"), this);
     m_open_wallet_action->setMenu(new QMenu(this));
@@ -342,15 +342,15 @@ void ReptiloidsGUI::createActions()
 
     showHelpMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/info"), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible Reptiloids command-line options").arg(tr(PACKAGE_NAME)));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible ReptiloidsCoin command-line options").arg(tr(PACKAGE_NAME)));
 
     connect(quitAction, &QAction::triggered, qApp, QApplication::quit);
-    connect(aboutAction, &QAction::triggered, this, &ReptiloidsGUI::aboutClicked);
+    connect(aboutAction, &QAction::triggered, this, &ReptiloidsCoinGUI::aboutClicked);
     connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
-    connect(optionsAction, &QAction::triggered, this, &ReptiloidsGUI::optionsClicked);
-    connect(toggleHideAction, &QAction::triggered, this, &ReptiloidsGUI::toggleHidden);
-    connect(showHelpMessageAction, &QAction::triggered, this, &ReptiloidsGUI::showHelpMessageClicked);
-    connect(openRPCConsoleAction, &QAction::triggered, this, &ReptiloidsGUI::showDebugWindow);
+    connect(optionsAction, &QAction::triggered, this, &ReptiloidsCoinGUI::optionsClicked);
+    connect(toggleHideAction, &QAction::triggered, this, &ReptiloidsCoinGUI::toggleHidden);
+    connect(showHelpMessageAction, &QAction::triggered, this, &ReptiloidsCoinGUI::showHelpMessageClicked);
+    connect(openRPCConsoleAction, &QAction::triggered, this, &ReptiloidsCoinGUI::showDebugWindow);
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, &QAction::triggered, rpcConsole, &QWidget::hide);
 
@@ -358,33 +358,33 @@ void ReptiloidsGUI::createActions()
     if(walletFrame)
     {
         auto *wf = walletFrame;
-        connect(wf, &ReptiloidsWallet::encryptionStatusChanged, [this](WalletModel::EncryptionStatus encryptStatus) {
+        connect(wf, &ReptiloidsCoinWallet::encryptionStatusChanged, [this](WalletModel::EncryptionStatus encryptStatus) {
             setEncryptionStatus(encryptStatus);
             updateWalletStatus();
         });
-        connect(wf, &ReptiloidsWallet::addressbook, &ReptiloidsWallet::usedSendingAddresses);
-        connect(wf, &ReptiloidsWallet::tools, [this]() { rpcConsole->setTabFocus(RPCConsole::TAB_INFO); showDebugWindow(); });
-        connect(wf, &ReptiloidsWallet::handleRestart, this, &ReptiloidsGUI::handleRestart);
+        connect(wf, &ReptiloidsCoinWallet::addressbook, &ReptiloidsCoinWallet::usedSendingAddresses);
+        connect(wf, &ReptiloidsCoinWallet::tools, [this]() { rpcConsole->setTabFocus(RPCConsole::TAB_INFO); showDebugWindow(); });
+        connect(wf, &ReptiloidsCoinWallet::handleRestart, this, &ReptiloidsCoinGUI::handleRestart);
 
         connect(openCoinControlAction, &QAction::triggered, [this]{
-            auto ccDialog = new ReptiloidsCoinControlDialog(walletFrame->currentWalletModel(), nullptr, Qt::WindowSystemMenuHint | Qt::WindowTitleHint, true);
+            auto ccDialog = new ReptiloidsCoinCoinControlDialog(walletFrame->currentWalletModel(), nullptr, Qt::WindowSystemMenuHint | Qt::WindowTitleHint, true);
             ccDialog->setStyleSheet(GUIUtil::loadStyleSheet());
-            QVector<ReptiloidsSimpleUTXO> txSelectedUtxos;
+            QVector<ReptiloidsCoinSimpleUTXO> txSelectedUtxos;
             ccDialog->populateUnspentTransactions(txSelectedUtxos);
             ccDialog->show();
         });
-        connect(encryptWalletAction, &QAction::triggered, wf, &ReptiloidsWallet::encryptWallet);
+        connect(encryptWalletAction, &QAction::triggered, wf, &ReptiloidsCoinWallet::encryptWallet);
         connect(lockWalletAction, &QAction::triggered, wf, [this]{ walletFrame->onLockRequest(true, false); });
         connect(unlockWalletAction, &QAction::triggered, wf, [this]{ walletFrame->onLockRequest(false, false); });
-        connect(backupWalletAction, &QAction::triggered, wf, &ReptiloidsWallet::backupWallet);
-        connect(changePassphraseAction, &QAction::triggered, wf, &ReptiloidsWallet::changePassphrase);
+        connect(backupWalletAction, &QAction::triggered, wf, &ReptiloidsCoinWallet::backupWallet);
+        connect(changePassphraseAction, &QAction::triggered, wf, &ReptiloidsCoinWallet::changePassphrase);
         connect(signMessageAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
         connect(signMessageAction, &QAction::triggered, [this]{ gotoSignMessageTab(); });
         connect(verifyMessageAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
         connect(verifyMessageAction, &QAction::triggered, [this]{ gotoVerifyMessageTab(); });
-        connect(usedSendingAddressesAction, &QAction::triggered, wf, &ReptiloidsWallet::usedSendingAddresses);
-        connect(usedReceivingAddressesAction, &QAction::triggered, wf, &ReptiloidsWallet::usedReceivingAddresses);
-        connect(openAction, &QAction::triggered, this, &ReptiloidsGUI::openClicked);
+        connect(usedSendingAddressesAction, &QAction::triggered, wf, &ReptiloidsCoinWallet::usedSendingAddresses);
+        connect(usedReceivingAddressesAction, &QAction::triggered, wf, &ReptiloidsCoinWallet::usedReceivingAddresses);
+        connect(openAction, &QAction::triggered, this, &ReptiloidsCoinGUI::openClicked);
         connect(m_open_wallet_action->menu(), &QMenu::aboutToShow, [this] {
             m_open_wallet_action->menu()->clear();
             for (std::string path : m_wallet_controller->getWalletsAvailableToOpen()) {
@@ -410,7 +410,7 @@ void ReptiloidsGUI::createActions()
                         connect(this, &QObject::destroyed, &box, &QDialog::accept);
                         box.exec();
                     });
-                    connect(activity, &OpenWalletActivity::opened, this, &ReptiloidsGUI::setCurrentWallet);
+                    connect(activity, &OpenWalletActivity::opened, this, &ReptiloidsCoinGUI::setCurrentWallet);
                     connect(activity, &OpenWalletActivity::finished, activity, &QObject::deleteLater);
                     connect(activity, &OpenWalletActivity::finished, dialog, &QObject::deleteLater);
                     bool invoked = QMetaObject::invokeMethod(activity, "open");
@@ -428,11 +428,11 @@ void ReptiloidsGUI::createActions()
     }
 #endif // ENABLE_WALLET
 
-    connect(new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C), this), &QShortcut::activated, this, &ReptiloidsGUI::showDebugWindowActivateConsole);
-    connect(new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_D), this), &QShortcut::activated, this, &ReptiloidsGUI::showDebugWindow);
+    connect(new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C), this), &QShortcut::activated, this, &ReptiloidsCoinGUI::showDebugWindowActivateConsole);
+    connect(new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_D), this), &QShortcut::activated, this, &ReptiloidsCoinGUI::showDebugWindow);
 }
 
-void ReptiloidsGUI::createMenuBar()
+void ReptiloidsCoinGUI::createMenuBar()
 {
 #ifdef Q_OS_MAC
     // Create a decoupled menu bar on Mac which stays even if the window is closed
@@ -535,7 +535,7 @@ void ReptiloidsGUI::createMenuBar()
     help->addAction(aboutQtAction);
 }
 
-void ReptiloidsGUI::createToolBars()
+void ReptiloidsCoinGUI::createToolBars()
 {
     if(walletFrame)
     {
@@ -558,7 +558,7 @@ void ReptiloidsGUI::createToolBars()
 
         m_wallet_selector = new QComboBox();
         m_wallet_selector->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-        connect(m_wallet_selector, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ReptiloidsGUI::setCurrentWalletBySelectorIndex);
+        connect(m_wallet_selector, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ReptiloidsCoinGUI::setCurrentWalletBySelectorIndex);
 
         m_wallet_selector_label = new QLabel();
         m_wallet_selector_label->setText(tr("Wallet:") + " ");
@@ -573,7 +573,7 @@ void ReptiloidsGUI::createToolBars()
     }
 }
 
-void ReptiloidsGUI::setClientModel(ClientModel *_clientModel)
+void ReptiloidsCoinGUI::setClientModel(ClientModel *_clientModel)
 {
     this->clientModel = _clientModel;
     if(_clientModel)
@@ -584,12 +584,12 @@ void ReptiloidsGUI::setClientModel(ClientModel *_clientModel)
 
         // Keep up to date with client
         updateNetworkState();
-        connect(_clientModel, &ClientModel::numConnectionsChanged, this, &ReptiloidsGUI::setNumConnections);
-        connect(_clientModel, &ClientModel::networkActiveChanged, this, &ReptiloidsGUI::setNetworkActive);
+        connect(_clientModel, &ClientModel::numConnectionsChanged, this, &ReptiloidsCoinGUI::setNumConnections);
+        connect(_clientModel, &ClientModel::networkActiveChanged, this, &ReptiloidsCoinGUI::setNetworkActive);
 
         modalOverlay->setKnownBestHeight(_clientModel->getHeaderTipHeight(), QDateTime::fromTime_t(_clientModel->getHeaderTipTime()));
         setNumBlocks(m_node.getNumBlocks(), QDateTime::fromTime_t(m_node.getLastBlockTime()), m_node.getVerificationProgress(), false);
-        connect(_clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsGUI::setNumBlocks);
+        connect(_clientModel, &ClientModel::numBlocksChanged, this, &ReptiloidsCoinGUI::setNumBlocks);
 
         // Receive and report messages from client model
         connect(_clientModel, &ClientModel::message, [this](const QString &title, const QString &message, unsigned int style){
@@ -597,7 +597,7 @@ void ReptiloidsGUI::setClientModel(ClientModel *_clientModel)
         });
 
         // Show progress dialog
-        connect(_clientModel, &ClientModel::showProgress, this, &ReptiloidsGUI::showProgress);
+        connect(_clientModel, &ClientModel::showProgress, this, &ReptiloidsCoinGUI::showProgress);
 
         rpcConsole->setClientModel(_clientModel);
 
@@ -614,7 +614,7 @@ void ReptiloidsGUI::setClientModel(ClientModel *_clientModel)
         OptionsModel* optionsModel = _clientModel->getOptionsModel();
         if (optionsModel && trayIcon) {
             // be aware of the tray icon disable state change reported by the OptionsModel object.
-            connect(optionsModel, &OptionsModel::hideTrayIconChanged, this, &ReptiloidsGUI::setTrayIconVisible);
+            connect(optionsModel, &OptionsModel::hideTrayIconChanged, this, &ReptiloidsCoinGUI::setTrayIconVisible);
 
             // initialize the disable state of the tray icon with the current value in the model.
             setTrayIconVisible(optionsModel->getHideTrayIcon());
@@ -640,22 +640,22 @@ void ReptiloidsGUI::setClientModel(ClientModel *_clientModel)
 }
 
 #ifdef ENABLE_WALLET
-void ReptiloidsGUI::setWalletController(WalletController* wallet_controller)
+void ReptiloidsCoinGUI::setWalletController(WalletController* wallet_controller)
 {
     assert(!m_wallet_controller);
     assert(wallet_controller);
 
     m_wallet_controller = wallet_controller;
 
-    connect(wallet_controller, &WalletController::walletAdded, this, &ReptiloidsGUI::addWallet);
-    connect(wallet_controller, &WalletController::walletRemoved, this, &ReptiloidsGUI::removeWallet);
+    connect(wallet_controller, &WalletController::walletAdded, this, &ReptiloidsCoinGUI::addWallet);
+    connect(wallet_controller, &WalletController::walletRemoved, this, &ReptiloidsCoinGUI::removeWallet);
 
     for (WalletModel* wallet_model : m_wallet_controller->getWallets()) {
         addWallet(wallet_model);
     }
 }
 
-void ReptiloidsGUI::addWallet(WalletModel* walletModel)
+void ReptiloidsCoinGUI::addWallet(WalletModel* walletModel)
 {
     if (!walletFrame) return;
     const QString display_name = walletModel->getDisplayName();
@@ -669,7 +669,7 @@ void ReptiloidsGUI::addWallet(WalletModel* walletModel)
     }
 }
 
-void ReptiloidsGUI::removeWallet(WalletModel* walletModel)
+void ReptiloidsCoinGUI::removeWallet(WalletModel* walletModel)
 {
     if (!walletFrame) return;
     int index = m_wallet_selector->findData(QVariant::fromValue(walletModel));
@@ -685,7 +685,7 @@ void ReptiloidsGUI::removeWallet(WalletModel* walletModel)
     updateWindowTitle();
 }
 
-void ReptiloidsGUI::setCurrentWallet(WalletModel* wallet_model)
+void ReptiloidsCoinGUI::setCurrentWallet(WalletModel* wallet_model)
 {
     if (!walletFrame) return;
     walletFrame->setCurrentWallet(wallet_model);
@@ -701,13 +701,13 @@ void ReptiloidsGUI::setCurrentWallet(WalletModel* wallet_model)
     setEncryptionStatus(wallet_model->getEncryptionStatus());
 }
 
-void ReptiloidsGUI::setCurrentWalletBySelectorIndex(int index)
+void ReptiloidsCoinGUI::setCurrentWalletBySelectorIndex(int index)
 {
     WalletModel* wallet_model = m_wallet_selector->itemData(index).value<WalletModel*>();
     if (wallet_model) setCurrentWallet(wallet_model);
 }
 
-void ReptiloidsGUI::removeAllWallets()
+void ReptiloidsCoinGUI::removeAllWallets()
 {
     if(!walletFrame)
         return;
@@ -716,7 +716,7 @@ void ReptiloidsGUI::removeAllWallets()
 }
 #endif // ENABLE_WALLET
 
-void ReptiloidsGUI::setWalletActionsEnabled(bool enabled)
+void ReptiloidsCoinGUI::setWalletActionsEnabled(bool enabled)
 {
     overviewAction->setEnabled(enabled);
     sendCoinsAction->setEnabled(enabled);
@@ -735,7 +735,7 @@ void ReptiloidsGUI::setWalletActionsEnabled(bool enabled)
     m_close_wallet_action->setEnabled(enabled);
 }
 
-void ReptiloidsGUI::createTrayIcon()
+void ReptiloidsCoinGUI::createTrayIcon()
 {
     assert(QSystemTrayIcon::isSystemTrayAvailable());
 
@@ -748,7 +748,7 @@ void ReptiloidsGUI::createTrayIcon()
 #endif
 }
 
-void ReptiloidsGUI::createTrayIconMenu()
+void ReptiloidsCoinGUI::createTrayIconMenu()
 {
 #ifndef Q_OS_MAC
     // return if trayIcon is unset (only on non-macOSes)
@@ -756,11 +756,11 @@ void ReptiloidsGUI::createTrayIconMenu()
         return;
 
     trayIcon->setContextMenu(trayIconMenu.get());
-    connect(trayIcon, &QSystemTrayIcon::activated, this, &ReptiloidsGUI::trayIconActivated);
+    connect(trayIcon, &QSystemTrayIcon::activated, this, &ReptiloidsCoinGUI::trayIconActivated);
 #else
     // Note: On macOS, the Dock icon is used to provide the tray's functionality.
     MacDockIconHandler *dockIconHandler = MacDockIconHandler::instance();
-    connect(dockIconHandler, &MacDockIconHandler::dockIconClicked, this, &ReptiloidsGUI::macosDockIconActivated);
+    connect(dockIconHandler, &MacDockIconHandler::dockIconClicked, this, &ReptiloidsCoinGUI::macosDockIconActivated);
     trayIconMenu->setAsDockMenu();
 #endif
 
@@ -787,7 +787,7 @@ void ReptiloidsGUI::createTrayIconMenu()
 }
 
 #ifndef Q_OS_MAC
-void ReptiloidsGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
+void ReptiloidsCoinGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::Trigger)
     {
@@ -796,19 +796,19 @@ void ReptiloidsGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
     }
 }
 #else
-void ReptiloidsGUI::macosDockIconActivated()
+void ReptiloidsCoinGUI::macosDockIconActivated()
 {
     show();
     activateWindow();
 }
 #endif
 
-void ReptiloidsGUI::optionsClicked()
+void ReptiloidsCoinGUI::optionsClicked()
 {
     openOptionsDialogWithTab(OptionsDialog::TAB_MAIN);
 }
 
-void ReptiloidsGUI::aboutClicked()
+void ReptiloidsCoinGUI::aboutClicked()
 {
     if(!clientModel)
         return;
@@ -817,25 +817,25 @@ void ReptiloidsGUI::aboutClicked()
     dlg.exec();
 }
 
-void ReptiloidsGUI::showDebugWindow()
+void ReptiloidsCoinGUI::showDebugWindow()
 {
     GUIUtil::bringToFront(rpcConsole);
     Q_EMIT consoleShown(rpcConsole);
 }
 
-void ReptiloidsGUI::showDebugWindowActivateConsole()
+void ReptiloidsCoinGUI::showDebugWindowActivateConsole()
 {
     rpcConsole->setTabFocus(RPCConsole::TAB_CONSOLE);
     showDebugWindow();
 }
 
-void ReptiloidsGUI::showHelpMessageClicked()
+void ReptiloidsCoinGUI::showHelpMessageClicked()
 {
     helpMessageDialog->show();
 }
 
 #ifdef ENABLE_WALLET
-void ReptiloidsGUI::openClicked()
+void ReptiloidsCoinGUI::openClicked()
 {
     OpenURIDialog dlg(this);
     if(dlg.exec())
@@ -844,42 +844,42 @@ void ReptiloidsGUI::openClicked()
     }
 }
 
-void ReptiloidsGUI::gotoOverviewPage()
+void ReptiloidsCoinGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
 
-void ReptiloidsGUI::gotoHistoryPage()
+void ReptiloidsCoinGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
-void ReptiloidsGUI::gotoReceiveCoinsPage()
+void ReptiloidsCoinGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
 }
 
-void ReptiloidsGUI::gotoSendCoinsPage(QString addr)
+void ReptiloidsCoinGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
 }
 
-void ReptiloidsGUI::gotoSignMessageTab(QString addr)
+void ReptiloidsCoinGUI::gotoSignMessageTab(QString addr)
 {
     if (walletFrame) walletFrame->gotoSignMessageTab(addr);
 }
 
-void ReptiloidsGUI::gotoVerifyMessageTab(QString addr)
+void ReptiloidsCoinGUI::gotoVerifyMessageTab(QString addr)
 {
     if (walletFrame) walletFrame->gotoVerifyMessageTab(addr);
 }
 #endif // ENABLE_WALLET
 
-void ReptiloidsGUI::updateNetworkState()
+void ReptiloidsCoinGUI::updateNetworkState()
 {
     int count = clientModel->getNumConnections();
     if (walletFrame)
@@ -898,7 +898,7 @@ void ReptiloidsGUI::updateNetworkState()
     QString tooltip;
 
     if (m_node.getNetworkActive()) {
-        tooltip = tr("%n active connection(s) to Reptiloids network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
+        tooltip = tr("%n active connection(s) to ReptiloidsCoin network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
     } else {
         tooltip = tr("Network activity disabled.") + QString("<br>") + tr("Click to enable network activity again.");
         icon = ":/icons/network_disabled";
@@ -911,17 +911,17 @@ void ReptiloidsGUI::updateNetworkState()
     connectionsControl->setPixmap(platformStyle->SingleColorIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
 }
 
-void ReptiloidsGUI::setNumConnections(int count)
+void ReptiloidsCoinGUI::setNumConnections(int count)
 {
     updateNetworkState();
 }
 
-void ReptiloidsGUI::setNetworkActive(bool networkActive)
+void ReptiloidsCoinGUI::setNetworkActive(bool networkActive)
 {
     updateNetworkState();
 }
 
-void ReptiloidsGUI::updateHeadersSyncProgressLabel()
+void ReptiloidsCoinGUI::updateHeadersSyncProgressLabel()
 {
     int64_t headersTipTime = clientModel->getHeaderTipTime();
     int headersTipHeight = clientModel->getHeaderTipHeight();
@@ -930,7 +930,7 @@ void ReptiloidsGUI::updateHeadersSyncProgressLabel()
         progressBarLabel->setText(tr("Syncing Headers (%1%)...").arg(QString::number(100.0 / (headersTipHeight+estHeadersLeft)*headersTipHeight, 'f', 1)));
 }
 
-void ReptiloidsGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
+void ReptiloidsCoinGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
 {
     if (!clientModel || !clientModel->getOptionsModel())
         return;
@@ -941,7 +941,7 @@ void ReptiloidsGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
     dlg.exec();
 }
 
-void ReptiloidsGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool header)
+void ReptiloidsCoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool header)
 {
 // Disabling macOS App Nap on initial sync, disk and reindex operations.
 #ifdef Q_OS_MAC
@@ -1079,9 +1079,9 @@ void ReptiloidsGUI::setNumBlocks(int count, const QDateTime& blockDate, double n
     progressBar->setToolTip(tooltip);
 }
 
-void ReptiloidsGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
+void ReptiloidsCoinGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("Reptiloids"); // default title
+    QString strTitle = tr("ReptiloidsCoin"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1139,7 +1139,7 @@ void ReptiloidsGUI::message(const QString &title, const QString &message, unsign
         notificator->notify(static_cast<Notificator::Class>(nNotifyIcon), strTitle, message);
 }
 
-void ReptiloidsGUI::changeEvent(QEvent *e)
+void ReptiloidsCoinGUI::changeEvent(QEvent *e)
 {
     QMainWindow::changeEvent(e);
 #ifndef Q_OS_MAC // Ignored on Mac
@@ -1150,12 +1150,12 @@ void ReptiloidsGUI::changeEvent(QEvent *e)
             QWindowStateChangeEvent *wsevt = static_cast<QWindowStateChangeEvent*>(e);
             if(!(wsevt->oldState() & Qt::WindowMinimized) && isMinimized())
             {
-                QTimer::singleShot(0, this, &ReptiloidsGUI::hide);
+                QTimer::singleShot(0, this, &ReptiloidsCoinGUI::hide);
                 e->ignore();
             }
             else if((wsevt->oldState() & Qt::WindowMinimized) && !isMinimized())
             {
-                QTimer::singleShot(0, this, &ReptiloidsGUI::show);
+                QTimer::singleShot(0, this, &ReptiloidsCoinGUI::show);
                 e->ignore();
             }
         }
@@ -1163,7 +1163,7 @@ void ReptiloidsGUI::changeEvent(QEvent *e)
 #endif
 }
 
-void ReptiloidsGUI::closeEvent(QCloseEvent *event)
+void ReptiloidsCoinGUI::closeEvent(QCloseEvent *event)
 {
 #ifndef Q_OS_MAC // Ignored on Mac
     if(clientModel && clientModel->getOptionsModel())
@@ -1186,7 +1186,7 @@ void ReptiloidsGUI::closeEvent(QCloseEvent *event)
 #endif
 }
 
-void ReptiloidsGUI::showEvent(QShowEvent *event)
+void ReptiloidsCoinGUI::showEvent(QShowEvent *event)
 {
     // enable the debug window when the main window shows up
     openRPCConsoleAction->setEnabled(true);
@@ -1195,7 +1195,7 @@ void ReptiloidsGUI::showEvent(QShowEvent *event)
 }
 
 #ifdef ENABLE_WALLET
-void ReptiloidsGUI::incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address, const QString& label, const QString& walletName)
+void ReptiloidsCoinGUI::incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address, const QString& label, const QString& walletName)
 {
     // On new transaction, make an info balloon
     QString msg = tr("Date: %1\n").arg(date) +
@@ -1213,14 +1213,14 @@ void ReptiloidsGUI::incomingTransaction(const QString& date, int unit, const CAm
 }
 #endif // ENABLE_WALLET
 
-void ReptiloidsGUI::dragEnterEvent(QDragEnterEvent *event)
+void ReptiloidsCoinGUI::dragEnterEvent(QDragEnterEvent *event)
 {
     // Accept only URIs
     if(event->mimeData()->hasUrls())
         event->acceptProposedAction();
 }
 
-void ReptiloidsGUI::dropEvent(QDropEvent *event)
+void ReptiloidsCoinGUI::dropEvent(QDropEvent *event)
 {
     if(event->mimeData()->hasUrls())
     {
@@ -1232,7 +1232,7 @@ void ReptiloidsGUI::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 }
 
-bool ReptiloidsGUI::eventFilter(QObject *object, QEvent *event)
+bool ReptiloidsCoinGUI::eventFilter(QObject *object, QEvent *event)
 {
     // Catch status tip events
     if (event->type() == QEvent::StatusTip)
@@ -1245,7 +1245,7 @@ bool ReptiloidsGUI::eventFilter(QObject *object, QEvent *event)
 }
 
 #ifdef ENABLE_WALLET
-bool ReptiloidsGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
+bool ReptiloidsCoinGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 {
     // URI has to be valid
     if (walletFrame && walletFrame->handlePaymentRequest(recipient))
@@ -1257,7 +1257,7 @@ bool ReptiloidsGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
     return false;
 }
 
-void ReptiloidsGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
+void ReptiloidsCoinGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
 {
     labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(privkeyDisabled ? ":/icons/eye" : hdEnabled ? ":/icons/hd_enabled" : ":/icons/hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
     labelWalletHDStatusIcon->setToolTip(privkeyDisabled ? tr("Private key <b>disabled</b>") : hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
@@ -1266,7 +1266,7 @@ void ReptiloidsGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
     labelWalletHDStatusIcon->setEnabled(hdEnabled);
 }
 
-void ReptiloidsGUI::setEncryptionStatus(int status)
+void ReptiloidsCoinGUI::setEncryptionStatus(int status)
 {
     const auto encrypted = status != WalletModel::Unencrypted;
     unlockWalletAction->setVisible(encrypted);
@@ -1313,7 +1313,7 @@ void ReptiloidsGUI::setEncryptionStatus(int status)
     }
 }
 
-void ReptiloidsGUI::updateWalletStatus()
+void ReptiloidsCoinGUI::updateWalletStatus()
 {
     if (!walletFrame) {
         return;
@@ -1326,7 +1326,7 @@ void ReptiloidsGUI::updateWalletStatus()
 }
 #endif // ENABLE_WALLET
 
-void ReptiloidsGUI::updateProxyIcon()
+void ReptiloidsCoinGUI::updateProxyIcon()
 {
     std::string ip_port;
     bool proxy_enabled = clientModel->getProxyInfo(ip_port);
@@ -1344,7 +1344,7 @@ void ReptiloidsGUI::updateProxyIcon()
     }
 }
 
-void ReptiloidsGUI::updateWindowTitle()
+void ReptiloidsCoinGUI::updateWindowTitle()
 {
     QString window_title = tr(PACKAGE_NAME);
 #ifdef ENABLE_WALLET
@@ -1361,7 +1361,7 @@ void ReptiloidsGUI::updateWindowTitle()
     setWindowTitle(window_title);
 }
 
-void ReptiloidsGUI::showNormalIfMinimized(bool fToggleHidden)
+void ReptiloidsCoinGUI::showNormalIfMinimized(bool fToggleHidden)
 {
     if(!clientModel)
         return;
@@ -1373,12 +1373,12 @@ void ReptiloidsGUI::showNormalIfMinimized(bool fToggleHidden)
     }
 }
 
-void ReptiloidsGUI::toggleHidden()
+void ReptiloidsCoinGUI::toggleHidden()
 {
     showNormalIfMinimized(true);
 }
 
-void ReptiloidsGUI::detectShutdown()
+void ReptiloidsCoinGUI::detectShutdown()
 {
     if (m_node.shutdownRequested())
     {
@@ -1388,7 +1388,7 @@ void ReptiloidsGUI::detectShutdown()
     }
 }
 
-void ReptiloidsGUI::showProgress(const QString &title, int nProgress)
+void ReptiloidsCoinGUI::showProgress(const QString &title, int nProgress)
 {
     if (nProgress == 0) {
         progressDialog = new QProgressDialog(title, QString(), 0, 100);
@@ -1407,7 +1407,7 @@ void ReptiloidsGUI::showProgress(const QString &title, int nProgress)
     }
 }
 
-void ReptiloidsGUI::setTrayIconVisible(bool fHideTrayIcon)
+void ReptiloidsCoinGUI::setTrayIconVisible(bool fHideTrayIcon)
 {
     if (trayIcon)
     {
@@ -1415,18 +1415,18 @@ void ReptiloidsGUI::setTrayIconVisible(bool fHideTrayIcon)
     }
 }
 
-void ReptiloidsGUI::showModalOverlay()
+void ReptiloidsCoinGUI::showModalOverlay()
 {
     if (modalOverlay)
         modalOverlay->toggleVisibility();
 }
 
-void ReptiloidsGUI::handleRestart(QStringList args) {
+void ReptiloidsCoinGUI::handleRestart(QStringList args) {
     if (!ShutdownRequested())
         Q_EMIT requestedRestart(args);
 }
 
-static bool ThreadSafeMessageBox(ReptiloidsGUI* gui, const std::string& message, const std::string& caption, unsigned int style)
+static bool ThreadSafeMessageBox(ReptiloidsCoinGUI* gui, const std::string& message, const std::string& caption, unsigned int style)
 {
     bool modal = (style & CClientUIInterface::MODAL);
     // The SECURE flag has no effect in the Qt GUI.
@@ -1443,14 +1443,14 @@ static bool ThreadSafeMessageBox(ReptiloidsGUI* gui, const std::string& message,
     return ret;
 }
 
-void ReptiloidsGUI::subscribeToCoreSignals()
+void ReptiloidsCoinGUI::subscribeToCoreSignals()
 {
     // Connect signals to client
     m_handler_message_box = m_node.handleMessageBox(std::bind(ThreadSafeMessageBox, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     m_handler_question = m_node.handleQuestion(std::bind(ThreadSafeMessageBox, this, std::placeholders::_1, std::placeholders::_3, std::placeholders::_4));
 }
 
-void ReptiloidsGUI::unsubscribeFromCoreSignals()
+void ReptiloidsCoinGUI::unsubscribeFromCoreSignals()
 {
     // Disconnect signals from client
     m_handler_message_box->disconnect();

@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEWALLET_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEWALLET_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLET_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLET_H
 
 #include <sync.h>
 
@@ -176,4 +176,4 @@ public:
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEWALLET_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEWALLET_H

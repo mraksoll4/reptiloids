@@ -2,17 +2,17 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidslineedit.h>
+#include <qt/reptiloidscoinlineedit.h>
 
-ReptiloidsLineEdit::ReptiloidsLineEdit(int w, int h, QLineEdit *parent) : QLineEdit(parent) {
+ReptiloidsCoinLineEdit::ReptiloidsCoinLineEdit(int w, int h, QLineEdit *parent) : QLineEdit(parent) {
     this->setMinimumSize(w, h);
 }
 
-void ReptiloidsLineEdit::setID(const QString id) {
+void ReptiloidsCoinLineEdit::setID(const QString id) {
     this->id = id;
 }
 
-QString ReptiloidsLineEdit::getID() {
+QString ReptiloidsCoinLineEdit::getID() {
     return this->id;
 }
 

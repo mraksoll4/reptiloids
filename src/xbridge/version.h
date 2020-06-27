@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XBRIDGE_VERSION_H
-#define REPTILOIDS_XBRIDGE_VERSION_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_VERSION_H
+#define REPTILOIDSCOIN_XBRIDGE_VERSION_H
 
 #define XBRIDGE_PROTOCOL_VERSION 53
 
-#endif // REPTILOIDS_XBRIDGE_VERSION_H
+#endif // REPTILOIDSCOIN_XBRIDGE_VERSION_H
 

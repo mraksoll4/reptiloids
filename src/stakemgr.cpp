@@ -15,7 +15,7 @@
 std::unique_ptr<StakeMgr> g_staker;
 
 void ThreadStakeMinter() {
-    RenameThread("reptiloids-staker");
+    RenameThread("reptiloidscoin-staker");
     LogPrintf("Staker has started\n");
     g_staker = MakeUnique<StakeMgr>();
     const auto stakingSkipPeers = gArgs.GetBoolArg("-stakingwithoutpeers", false);
@@ -62,7 +62,7 @@ bool StakeMgr::Update(std::vector<std::shared_ptr<CWallet>> & wallets, const CBl
     // A closed staking window means we've exhausted the search for a new stake
     const bool stakingWindowClosed = endTime <= lastUpdateTime + stakingInterval;
     const bool tipChanged = tip->nHeight != lastBlockHeight;
-    const bool staleTip = tip->nTime <= lastUpdateTime || tip->nTime < adjustedTime - params.stakeMinAge*2; // TODO Reptiloids testnet could stall chain?
+    const bool staleTip = tip->nTime <= lastUpdateTime || tip->nTime < adjustedTime - params.stakeMinAge*2; // TODO ReptiloidsCoin testnet could stall chain?
     if (stakingWindowClosed && !tipChanged && staleTip)
         return false; // do not process if staking window closed, tip hasn't changed, and tip time is stale
 

@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsdropdown.h>
+#include <qt/reptiloidscoindropdown.h>
 
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <QAbstractItemView>
 #include <QGridLayout>
@@ -13,12 +13,12 @@
 #include <QPoint>
 #include <QStyleFactory>
 
-ReptiloidsDropdown::ReptiloidsDropdown(const QStringList &list, QWidget* parent) : ReptiloidsDropdown(parent) {
+ReptiloidsCoinDropdown::ReptiloidsCoinDropdown(const QStringList &list, QWidget* parent) : ReptiloidsCoinDropdown(parent) {
     for (int i = 0; i < list.size(); i++)
         this->addItem(list[i]);
 }
 
-ReptiloidsDropdown::ReptiloidsDropdown(QWidget* parent) : QComboBox(parent), ddW(BGU::spi(180)), ddH(BGU::spi(40)) {
+ReptiloidsCoinDropdown::ReptiloidsCoinDropdown(QWidget* parent) : QComboBox(parent), ddW(BGU::spi(180)), ddH(BGU::spi(40)) {
 #if defined(Q_OS_MAC)
     this->setStyle(QStyleFactory::create("Windows"));
 #endif
@@ -31,29 +31,29 @@ ReptiloidsDropdown::ReptiloidsDropdown(QWidget* parent) : QComboBox(parent), ddW
     label->adjustSize();
     layout->addWidget(label, 0, 0, Qt::AlignRight);
     this->setLayout(layout);
-    connect(this, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ReptiloidsDropdown::handleSelectionChanged);
+    connect(this, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ReptiloidsCoinDropdown::handleSelectionChanged);
 }
 
-QVariant ReptiloidsDropdown::value() const {
+QVariant ReptiloidsCoinDropdown::value() const {
     return itemData(currentIndex());
 }
 
-void ReptiloidsDropdown::setValue(const QVariant& value) {
+void ReptiloidsCoinDropdown::setValue(const QVariant& value) {
     setCurrentIndex(findData(value));
 }
 
-void ReptiloidsDropdown::handleSelectionChanged(int idx) {
+void ReptiloidsCoinDropdown::handleSelectionChanged(int idx) {
     setCurrentIndex(idx);
     Q_EMIT valueChanged();
 }
 
-void ReptiloidsDropdown::showPopup() {
+void ReptiloidsCoinDropdown::showPopup() {
     QComboBox::showPopup();
     QList<QFrame *> widgets = this->findChildren<QFrame*>();
     QWidget *popup = widgets[1];
     popup->setMinimumWidth(ddW);
 }
 
-void ReptiloidsDropdown::wheelEvent(QWheelEvent *e) {
+void ReptiloidsCoinDropdown::wheelEvent(QWheelEvent *e) {
     e->ignore();
 }

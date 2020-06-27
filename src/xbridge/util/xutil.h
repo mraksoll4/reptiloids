@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_UTIL_XUTIL_H
-#define REPTILOIDS_XBRIDGE_UTIL_XUTIL_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_UTIL_XUTIL_H
+#define REPTILOIDSCOIN_XBRIDGE_UTIL_XUTIL_H
 
 #include <xbridge/util/logger.h>
 #include <xbridge/util/xbridgeerror.h>
@@ -121,4 +121,4 @@ namespace xbridge
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_UTIL_XUTIL_H
+#endif // REPTILOIDSCOIN_XBRIDGE_UTIL_XUTIL_H

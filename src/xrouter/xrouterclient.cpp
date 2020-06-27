@@ -325,7 +325,7 @@ CConnman::Options XRouterClient::defaultOptions() {
     CConnman::Options connOptions;
     connOptions.nLocalServices = NODE_NONE;
     connOptions.nMaxConnections = DEFAULT_MAX_PEER_CONNECTIONS;
-    connOptions.nMaxOutbound = 1; // TODO Reptiloids XRouter max outbound too low?
+    connOptions.nMaxOutbound = 1; // TODO ReptiloidsCoin XRouter max outbound too low?
     connOptions.nMaxAddnode = 1;
     connOptions.nMaxFeeler = 0;
     connOptions.nBestHeight = 0;
@@ -672,7 +672,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
             if (!settings.count(addr) || !settings[addr]->isValid())
                 continue; // skip invalid snodes and ones that do not have configs
 
-            // TODO Reptiloids Create the fee payment
+            // TODO ReptiloidsCoin Create the fee payment
             const auto & config = settings[addr]->settings();
             CAmount fee = to_amount(config->commandFee(command, service));
             if (fee > 0) {
@@ -687,7 +687,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
 //                    nodeErrors.emplace_back(strprintf("Failed to create payment to service node %s , %s", addr, e.msg), e.code);
 //                    continue;
 //                }
-                continue; // TODO Reptiloids xrclient support paid calls
+                continue; // TODO ReptiloidsCoin xrclient support paid calls
             }
 
             queryNodes.push_back(snode);
@@ -723,7 +723,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
                                                                        : walletCommandKey(service, commandStr, true)); // spv wallet
             try {
                 tg.create_thread([uuid,addr,snode,tls,fqUrl,params,feetx,timeout,this]() {
-                    RenameThread("reptiloids-xrclientrequest");
+                    RenameThread("reptiloidscoin-xrclientrequest");
                     if (ShutdownRequested())
                         return;
 
@@ -828,7 +828,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
                 snodeAddresses.insert(EncodeDestination(CTxDestination(s->getPaymentAddress())));
             }
 
-            // TODO Reptiloids xrclient unlock failed txs
+            // TODO ReptiloidsCoin xrclient unlock failed txs
 //            for (const auto & addr : failed) { // unlock any fee txs
 //                const auto & tx = feePaymentTxs[addr];
 //                unlockOutputs(tx);
@@ -868,7 +868,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
             } catch (...) { } // do not report on non-error objs
         }
 
-        // TODO Reptiloids xrclient unlock any utxos associated with replies that returned an error
+        // TODO ReptiloidsCoin xrclient unlock any utxos associated with replies that returned an error
 //        if (!feePaymentTxs.empty()) {
 //            for (const auto & item : replies) {
 //                const auto & nodeAddr = item.first;
@@ -887,7 +887,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
         return rawResult;
 
     } catch (XRouterError & e) {
-        // TODO Reptiloids xrclient unlock any fee txs
+        // TODO ReptiloidsCoin xrclient unlock any fee txs
 //        for (const auto & item : feePaymentTxs) {
 //            const std::string & tx = item.second;
 //            unlockOutputs(tx);
@@ -906,7 +906,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
         return error.write();
 
     } catch (std::exception & e) {
-        // TODO Reptiloids xrclient unlock any fee txs
+        // TODO ReptiloidsCoin xrclient unlock any fee txs
 //        for (const auto & item : feePaymentTxs) {
 //            const std::string & tx = item.second;
 //            unlockOutputs(tx);

@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidsleftmenu.h>
+#include <qt/reptiloidscoinleftmenu.h>
 
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsguiutil.h>
-#include <qt/reptiloidsvars.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
+#include <qt/reptiloidscoinvars.h>
 
 #include <qt/bitcoinunits.h>
 
@@ -16,15 +16,15 @@
 #include <QSettings>
 #include <QSizePolicy>
 
-ReptiloidsLeftMenu::ReptiloidsLeftMenu(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout), selected(DASHBOARD) {
+ReptiloidsCoinLeftMenu::ReptiloidsCoinLeftMenu(QFrame *parent) : QFrame(parent), layout(new QVBoxLayout), selected(DASHBOARD) {
     this->setLayout(layout);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     layout->setContentsMargins(0, BGU::spi(20), 0, 0);
     layout->setSpacing(BGU::spi(10));
 
-    QPixmap pm(":/redesign/white_reptiloids_logo.png");
+    QPixmap pm(":/redesign/white_reptiloidscoin_logo.png");
     pm.setDevicePixelRatio(BGU::dpr());
-    logo = new QLabel(tr("Reptiloids Logo"));
+    logo = new QLabel(tr("ReptiloidsCoin Logo"));
     const auto lw = static_cast<qreal>(BGU::spi(150));
     const auto pw = static_cast<qreal>(pm.width());
     const auto ph = static_cast<qreal>(pm.height());
@@ -37,44 +37,44 @@ ReptiloidsLeftMenu::ReptiloidsLeftMenu(QFrame *parent) : QFrame(parent), layout(
     balanceAmountLbl = new QLabel;
     balanceAmountLbl->setObjectName("balanceAmountLbl");
 
-    dashboard = new ReptiloidsIconLabel;
+    dashboard = new ReptiloidsCoinIconLabel;
     dashboard->setDefault(true);
     dashboard->setIcon(":/redesign/Active/DashboardIcon.png", ":/redesign/Inactive/DashboardIcon.png");
     dashboard->setLabel(tr("Dashboard"));
 
-    addressBook = new ReptiloidsIconLabel;
+    addressBook = new ReptiloidsCoinIconLabel;
     addressBook->setIcon(":/redesign/Active/AddressBookIcon.png", ":/redesign/Inactive/AddressBookIcon.png");
     addressBook->setLabel(tr("Address Book"));
 
-    sendFunds = new ReptiloidsIconLabel;
+    sendFunds = new ReptiloidsCoinIconLabel;
     sendFunds->setIcon(":/redesign/Active/SendFundsIcon.png", ":/redesign/Inactive/SendFundsIcon.png");
     sendFunds->setLabel(tr("Send Funds"));
 
-    requestFunds = new ReptiloidsIconLabel;
+    requestFunds = new ReptiloidsCoinIconLabel;
     requestFunds->setIcon(":/redesign/Active/RequestFundsIcon.png", ":/redesign/Inactive/RequestFundsIcon.png");
     requestFunds->setLabel(tr("Request Funds"));
 
-    transactionHistory = new ReptiloidsIconLabel;
+    transactionHistory = new ReptiloidsCoinIconLabel;
     transactionHistory->setIcon(":/redesign/Active/TransactionHistoryIcon.png", ":/redesign/Inactive/TransactionHistoryIcon.png");
     transactionHistory->setLabel(tr("Transaction History"));
 
-    snodes = new ReptiloidsIconLabel;
+    snodes = new ReptiloidsCoinIconLabel;
     snodes->setIcon(":/redesign/Active/ServiceNodesIcon.png", ":/redesign/Inactive/ServiceNodesIcon.png");
     snodes->setLabel(tr("Service Nodes"));
 
-    proposals = new ReptiloidsIconLabel;
+    proposals = new ReptiloidsCoinIconLabel;
     proposals->setIcon(":/redesign/Active/ProposalIcon.png", ":/redesign/Inactive/ProposalIcon.png");
     proposals->setLabel(tr("Proposals"));
 
-    announcements = new ReptiloidsIconLabel;
+    announcements = new ReptiloidsCoinIconLabel;
     announcements->setIcon(":/redesign/Active/AnnouncementsIcon.png", ":/redesign/Inactive/AnnouncementsIcon.png");
     announcements->setLabel(tr("Announcements"));
 
-    settings = new ReptiloidsIconLabel;
+    settings = new ReptiloidsCoinIconLabel;
     settings->setIcon(":/redesign/Active/SettingsIcon.png", ":/redesign/Inactive/SettingsIcon.png");
     settings->setLabel(tr("Settings"));
 
-    tools = new ReptiloidsIconLabel;
+    tools = new ReptiloidsCoinIconLabel;
     tools->setIcon(":/redesign/Active/ToolsIcon.png", ":/redesign/Inactive/ToolsIcon.png");
     tools->setLabel(tr("Tools"));
 
@@ -94,7 +94,7 @@ ReptiloidsLeftMenu::ReptiloidsLeftMenu(QFrame *parent) : QFrame(parent), layout(
     // Manually handle the button events
     btns = group->buttons();
     for (auto *btn : btns)
-        connect((ReptiloidsIconLabel*)btn, &ReptiloidsIconLabel::clicked, this, &ReptiloidsLeftMenu::onMenuClicked);
+        connect((ReptiloidsCoinIconLabel*)btn, &ReptiloidsCoinIconLabel::clicked, this, &ReptiloidsCoinLeftMenu::onMenuClicked);
 
     versionLbl = new QLabel(QString::fromStdString(FormatFullVersion()));
     versionLbl->setObjectName("versionLbl");
@@ -144,9 +144,9 @@ ReptiloidsLeftMenu::ReptiloidsLeftMenu(QFrame *parent) : QFrame(parent), layout(
     boxVersion->setLayout(new QVBoxLayout);
     boxVersion->layout()->addWidget(versionLbl);
 
-    auto *div2 = new ReptiloidsHDiv;
-    auto *div3 = new ReptiloidsHDiv;
-    auto *div4 = new ReptiloidsHDiv;
+    auto *div2 = new ReptiloidsCoinHDiv;
+    auto *div3 = new ReptiloidsCoinHDiv;
+    auto *div4 = new ReptiloidsCoinHDiv;
 
     layout->addWidget(box1, 0, Qt::AlignCenter);
     layout->addWidget(div2);
@@ -161,11 +161,11 @@ ReptiloidsLeftMenu::ReptiloidsLeftMenu(QFrame *parent) : QFrame(parent), layout(
     announcements->setObjectName("disabled"); announcements->setEnabled(false); announcements->setToolTip(tr("Coming soon"));
 }
 
-void ReptiloidsLeftMenu::setBalance(CAmount balance, int unit) {
+void ReptiloidsCoinLeftMenu::setBalance(CAmount balance, int unit) {
     balanceAmountLbl->setText(BitcoinUnits::floorWithUnit(unit, balance, 2, false, BitcoinUnits::separatorAlways));
 }
 
-void ReptiloidsLeftMenu::selectMenu(const ReptiloidsPage menuType) {
+void ReptiloidsCoinLeftMenu::selectMenu(const ReptiloidsCoinPage menuType) {
     selected = menuType;
     for (auto *btn : btns) {
         auto btnID = group->id(btn);
@@ -175,10 +175,10 @@ void ReptiloidsLeftMenu::selectMenu(const ReptiloidsPage menuType) {
     }
 }
 
-void ReptiloidsLeftMenu::onMenuClicked(bool) {
+void ReptiloidsCoinLeftMenu::onMenuClicked(bool) {
     auto *btn = qobject_cast<QAbstractButton*>(sender());
     // Always allow going to the dashboard
-    auto page = static_cast<ReptiloidsPage>(group->id(btn));
+    auto page = static_cast<ReptiloidsCoinPage>(group->id(btn));
     if (selected != page || page == DASHBOARD) {
         Q_EMIT menuChanged(page);
     }

@@ -27,7 +27,7 @@ static UniValue createproposal(const JSONRPCRequest& request)
                     {"name", RPCArg::Type::STR, RPCArg::Optional::NO, R"(Proposal name, only alpha number characters are accepted (example: "My Proposal 1" or "My_Proposal-1"))"},
                     {"superblock", RPCArg::Type::NUM, RPCArg::Optional::NO, strprintf("Block number of Superblock. Specify 0 to automatically submit for the next Superblock %d", gov::NextSuperblock(Params().GetConsensus()))},
                     {"amount", RPCArg::Type::NUM, RPCArg::Optional::NO, "Amount of BLOCK being requested in the proposal"},
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "Reptiloids payment address"},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "ReptiloidsCoin payment address"},
                     {"url", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "Url where voters can read more details"},
                     {"description", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "Brief description. Note, if description is too long the proposal submission will fail"},
                 },
@@ -38,14 +38,14 @@ static UniValue createproposal(const JSONRPCRequest& request)
                 "  \"name\": \"proposal name\",            (string) Service node name\n"
                 "  \"superblock\": n,                      (numeric) Upcoming Superblock to receive payment. Obtain the next Superblock with \"nextsuperblock\" rpc call.\n"
                 "  \"amount\": n,                          (numeric) Amount of BLOCK being requested in the proposal\n"
-                "  \"address\":\"reptiloids address\",       (string) Reptiloids payment address\n"
-                "  \"url\":\"https://forum.reptiloids.co\",  (string) Url where voters can read more details\n"
+                "  \"address\":\"reptiloidscoin address\",       (string) ReptiloidsCoin payment address\n"
+                "  \"url\":\"https://forum.reptiloidscoin.co\",  (string) Url where voters can read more details\n"
                 "  \"description\":\"xxxx\"                (string) Brief description. Note, if description is too long the proposal submission will fail\n"
                 "}\n"
                 },
                 RPCExamples{
-                    HelpExampleCli("createproposal", R"("Dev Proposal" 43200 750 "Bdu16u6WPBkDh5f23Zhqo5k8Dp6DS4ffJa" "https://forum.reptiloids.co" "Dev proposal for building xyz")")
-                  + HelpExampleRpc("createproposal", R"("Dev Proposal", 43200, 750, "Bdu16u6WPBkDh5f23Zhqo5k8Dp6DS4ffJa", "https://forum.reptiloids.co", "Dev proposal for building xyz")")
+                    HelpExampleCli("createproposal", R"("Dev Proposal" 43200 750 "Bdu16u6WPBkDh5f23Zhqo5k8Dp6DS4ffJa" "https://forum.reptiloidscoin.co" "Dev proposal for building xyz")")
+                  + HelpExampleRpc("createproposal", R"("Dev Proposal", 43200, 750, "Bdu16u6WPBkDh5f23Zhqo5k8Dp6DS4ffJa", "https://forum.reptiloidscoin.co", "Dev proposal for building xyz")")
                 },
             }.ToString());
 
@@ -113,7 +113,7 @@ static UniValue listproposals(const JSONRPCRequest& request)
                 "  \"name\": \"proposal name\",      (string) Service node name\n"
                 "  \"superblock\": n,                (numeric) Upcoming Superblock to receive payment. Obtain the next Superblock with \"nextsuperblock\" rpc call.\n"
                 "  \"amount\": n,                    (numeric) Amount of BLOCK being requested in the proposal\n"
-                "  \"address\":\"reptiloids address\", (string) Reptiloids payment address\n"
+                "  \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin payment address\n"
                 "  \"url\":\"xxxx\",                 (string) Url where voters can read more details\n"
                 "  \"description\":\"xxxx\",         (string) Brief description. Note, if description is too long the proposal submission will fail\n"
                 "  \"votes_yes\": n,                 (numeric) All yes votes\n"
@@ -209,8 +209,8 @@ static UniValue vote(const JSONRPCRequest& request)
                 "  \"name\": \"proposal name\",            (string) Service node name\n"
                 "  \"superblock\": n,                      (numeric) Upcoming Superblock to receive payment. Obtain the next Superblock with \"nextsuperblock\" rpc call.\n"
                 "  \"amount\": n,                          (numeric) Amount of BLOCK being requested in the proposal\n"
-                "  \"address\":\"reptiloids address\",       (string) Reptiloids payment address\n"
-                "  \"url\":\"https://forum.reptiloids.co\",  (string) Url where voters can read more details\n"
+                "  \"address\":\"reptiloidscoin address\",       (string) ReptiloidsCoin payment address\n"
+                "  \"url\":\"https://forum.reptiloidscoin.co\",  (string) Url where voters can read more details\n"
                 "  \"description\":\"xxxx\"                (string) Brief description. Note, if description is too long the proposal submission will fail\n"
                 "  \"vote\": \"vote cast\",                (string) Vote that was cast\n"
                 "  \"txids\":[\"...\"],                    (array<txid>) Array of hex strings (tx hashes submitting the votes to the network)\n"

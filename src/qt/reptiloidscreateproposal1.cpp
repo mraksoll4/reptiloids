@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/reptiloidscreateproposal1.h>
+#include <qt/reptiloidscoincreateproposal1.h>
 
-#include <qt/reptiloidshdiv.h>
-#include <qt/reptiloidsguiutil.h>
+#include <qt/reptiloidscoinhdiv.h>
+#include <qt/reptiloidscoinguiutil.h>
 
 #include <qt/bitcoinunits.h>
 
@@ -18,7 +18,7 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : ReptiloidsCreateProposalPage(id, parent),
+ReptiloidsCoinCreateProposal1::ReptiloidsCoinCreateProposal1(int id, QFrame *parent) : ReptiloidsCoinCreateProposalPage(id, parent),
                                                                            layout(new QVBoxLayout) {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setLayout(layout);
@@ -31,20 +31,20 @@ ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : R
     auto *subtitleLbl = new QLabel(tr("Create Proposal"));
     subtitleLbl->setObjectName("h2");
 
-    proposalTi = new ReptiloidsLineEditWithTitle(tr("Proposal name"), tr("Enter proposal name..."));
+    proposalTi = new ReptiloidsCoinLineEditWithTitle(tr("Proposal name"), tr("Enter proposal name..."));
     proposalTi->setObjectName("proposal");
     proposalTi->setExpanding();
     proposalTi->lineEdit->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     proposalTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9-_]+"), this));
     proposalTi->lineEdit->setMaxLength(100);
 
-    urlTi = new ReptiloidsLineEditWithTitle(tr("URL must start with http:// or https://"), tr("Enter URL..."));
+    urlTi = new ReptiloidsCoinLineEditWithTitle(tr("URL must start with http:// or https://"), tr("Enter URL..."));
     urlTi->setObjectName("url");
     urlTi->setExpanding();
     urlTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"), this));
     urlTi->lineEdit->setMaxLength(120);
 
-    descriptionTi = new ReptiloidsLineEditWithTitle(tr("Description"), tr("Brief proposal description..."));
+    descriptionTi = new ReptiloidsCoinLineEditWithTitle(tr("Description"), tr("Brief proposal description..."));
     descriptionTi->setObjectName("description");
     descriptionTi->setExpanding();
     descriptionTi->lineEdit->setMaxLength(120);
@@ -57,19 +57,19 @@ ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : R
 
     auto superblock = nextSuperblock();
     auto superblockStr = superblock == -1 ? QString() : QString::number(superblock);
-    superBlockTi = new ReptiloidsLineEditWithTitle(tr("Superblock #: Next is %1").arg(superblockStr), tr("Enter Superblock #..."), BGU::spi(50));
+    superBlockTi = new ReptiloidsCoinLineEditWithTitle(tr("Superblock #: Next is %1").arg(superblockStr), tr("Enter Superblock #..."), BGU::spi(50));
     superBlockTi->setObjectName("block");
     superBlockTi->setExpanding();
     superBlockTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]+"), this));
     superBlockTi->lineEdit->setText(superblockStr);
 
-    amountTi = new ReptiloidsLineEditWithTitle(tr("Amount (%1 minimum)").arg(Params().GetConsensus().proposalMinAmount/COIN), tr("Enter amount..."), BGU::spi(50));
+    amountTi = new ReptiloidsCoinLineEditWithTitle(tr("Amount (%1 minimum)").arg(Params().GetConsensus().proposalMinAmount/COIN), tr("Enter amount..."), BGU::spi(50));
     amountTi->setObjectName("amount");
     amountTi->setExpanding();
     amountTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]+"), this));
     amountTi->lineEdit->setMaxLength(std::to_string(Params().GetConsensus().proposalMaxAmount / COIN).length());
 
-    paymentAddrTi = new ReptiloidsLineEditWithTitle(tr("Payment address"), tr("Enter payment address..."));
+    paymentAddrTi = new ReptiloidsCoinLineEditWithTitle(tr("Payment address"), tr("Enter payment address..."));
     paymentAddrTi->setObjectName("address");
     paymentAddrTi->setExpanding();
     paymentAddrTi->lineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]+"), this));
@@ -79,7 +79,7 @@ ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : R
     gridLayout->addWidget(amountTi, 0, 1);
     gridLayout->addWidget(paymentAddrTi, 1, 0, 1, 2);
 
-    auto *div1 = new ReptiloidsHDiv;
+    auto *div1 = new ReptiloidsCoinHDiv;
 
     auto *feeGrid = new QFrame;
     auto *feeLayout = new QGridLayout;
@@ -95,7 +95,7 @@ ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : R
     feeLayout->addWidget(feeTitleLbl, 0, 0);
     feeLayout->addWidget(feeLbl, 0, 1, Qt::AlignRight);
 
-    auto *div2 = new ReptiloidsHDiv;
+    auto *div2 = new ReptiloidsCoinHDiv;
 
     charCountLbl = new QLabel;
     charCountLbl->setObjectName("charcount");
@@ -108,9 +108,9 @@ ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : R
     buttonLayout->setColumnStretch(1, 2);
     buttonGrid->setLayout(buttonLayout);
 
-    continueBtn = new ReptiloidsFormBtn;
+    continueBtn = new ReptiloidsCoinFormBtn;
     continueBtn->setText(tr("Continue"));
-    cancelBtn = new ReptiloidsFormBtn;
+    cancelBtn = new ReptiloidsCoinFormBtn;
     cancelBtn->setObjectName("cancel");
     cancelBtn->setText(tr("Cancel"));
 
@@ -141,15 +141,15 @@ ReptiloidsCreateProposal1::ReptiloidsCreateProposal1(int id, QFrame *parent) : R
     layout->addWidget(buttonGrid);
     layout->addSpacing(BGU::spi(20));
 
-    connect(continueBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsCreateProposal1::onNext);
-    connect(cancelBtn, &ReptiloidsFormBtn::clicked, this, &ReptiloidsCreateProposal1::onCancel);
-    connect(proposalTi->lineEdit, &ReptiloidsLineEdit::textEdited, this, &ReptiloidsCreateProposal1::inputChanged);
-    connect(urlTi->lineEdit, &ReptiloidsLineEdit::textEdited, this, &ReptiloidsCreateProposal1::inputChanged);
-    connect(descriptionTi->lineEdit, &ReptiloidsLineEdit::textEdited, this, &ReptiloidsCreateProposal1::inputChanged);
-    connect(paymentAddrTi->lineEdit, &ReptiloidsLineEdit::textEdited, this, &ReptiloidsCreateProposal1::inputChanged);
+    connect(continueBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinCreateProposal1::onNext);
+    connect(cancelBtn, &ReptiloidsCoinFormBtn::clicked, this, &ReptiloidsCoinCreateProposal1::onCancel);
+    connect(proposalTi->lineEdit, &ReptiloidsCoinLineEdit::textEdited, this, &ReptiloidsCoinCreateProposal1::inputChanged);
+    connect(urlTi->lineEdit, &ReptiloidsCoinLineEdit::textEdited, this, &ReptiloidsCoinCreateProposal1::inputChanged);
+    connect(descriptionTi->lineEdit, &ReptiloidsCoinLineEdit::textEdited, this, &ReptiloidsCoinCreateProposal1::inputChanged);
+    connect(paymentAddrTi->lineEdit, &ReptiloidsCoinLineEdit::textEdited, this, &ReptiloidsCoinCreateProposal1::inputChanged);
 }
 
-bool ReptiloidsCreateProposal1::validated() {
+bool ReptiloidsCoinCreateProposal1::validated() {
     bool empty = proposalTi->isEmpty()
         || urlTi->isEmpty()
         || descriptionTi->isEmpty()
@@ -229,12 +229,12 @@ bool ReptiloidsCreateProposal1::validated() {
     return true;
 }
 
-void ReptiloidsCreateProposal1::focusInEvent(QFocusEvent *event) {
+void ReptiloidsCoinCreateProposal1::focusInEvent(QFocusEvent *event) {
     QWidget::focusInEvent(event);
     proposalTi->setFocus();
 }
 
-void ReptiloidsCreateProposal1::showEvent(QShowEvent *event) {
+void ReptiloidsCoinCreateProposal1::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
     if (superBlockTi->isEmpty()) {
         auto superblock = nextSuperblock();
@@ -244,7 +244,7 @@ void ReptiloidsCreateProposal1::showEvent(QShowEvent *event) {
     }
 }
 
-void ReptiloidsCreateProposal1::keyPressEvent(QKeyEvent *event) {
+void ReptiloidsCoinCreateProposal1::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
     if (this->isHidden())
         return;
@@ -252,7 +252,7 @@ void ReptiloidsCreateProposal1::keyPressEvent(QKeyEvent *event) {
         onNext();
 }
 
-void ReptiloidsCreateProposal1::inputChanged(const QString &) {
+void ReptiloidsCoinCreateProposal1::inputChanged(const QString &) {
     static int maxCharsForEntryFields = gov::PROPOSAL_USERDEFINED_LIMIT;
     const int totalChars = proposalTi->lineEdit->text().size() + urlTi->lineEdit->text().size() +
                            descriptionTi->lineEdit->text().size() + paymentAddrTi->lineEdit->text().size();
@@ -262,7 +262,7 @@ void ReptiloidsCreateProposal1::inputChanged(const QString &) {
         charCountLbl->setText(tr("Characters remaining on this proposal: %1").arg(maxCharsForEntryFields - totalChars));
 }
 
-void ReptiloidsCreateProposal1::clear() {
+void ReptiloidsCoinCreateProposal1::clear() {
     proposalTi->lineEdit->clear();
     urlTi->lineEdit->clear();
     descriptionTi->lineEdit->clear();
@@ -272,7 +272,7 @@ void ReptiloidsCreateProposal1::clear() {
     inputChanged(QString()); // reset remaining proposal char count
 }
 
-int ReptiloidsCreateProposal1::nextSuperblock() {
+int ReptiloidsCoinCreateProposal1::nextSuperblock() {
     int currentHeight{0};
     {
         LOCK(cs_main);

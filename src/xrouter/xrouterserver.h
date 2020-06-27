@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_XROUTER_XROUTERSERVER_H
-#define REPTILOIDS_XROUTER_XROUTERSERVER_H
+#ifndef REPTILOIDSCOIN_XROUTER_XROUTERSERVER_H
+#define REPTILOIDSCOIN_XROUTER_XROUTERSERVER_H
 
 #include <xrouter/xrouterdef.h>
 #include <xrouter/xrouterutils.h>
@@ -190,7 +190,7 @@ public:
 
     /**
      * @brief returns own snode pubkey hash
-     * @return reptiloids address
+     * @return reptiloidscoin address
      */
     std::string getMyPaymentAddress();
     

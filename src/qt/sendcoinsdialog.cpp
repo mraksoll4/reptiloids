@@ -802,7 +802,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!IsValidDestination(dest)) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Reptiloids address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid ReptiloidsCoin address"));
         }
         else // Valid address
         {

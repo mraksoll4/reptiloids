@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef REPTILOIDS_XBRIDGE_XBRIDGEDEF_H
-#define REPTILOIDS_XBRIDGE_XBRIDGEDEF_H
+#ifndef REPTILOIDSCOIN_XBRIDGE_XBRIDGEDEF_H
+#define REPTILOIDSCOIN_XBRIDGE_XBRIDGEDEF_H
 
 #include <vector>
 #include <map>
@@ -48,4 +48,4 @@ typedef std::shared_ptr<Transaction> TransactionPtr;
 
 } // namespace xbridge
 
-#endif // REPTILOIDS_XBRIDGE_XBRIDGEDEF_H
+#endif // REPTILOIDSCOIN_XBRIDGE_XBRIDGEDEF_H

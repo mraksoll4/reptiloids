@@ -2,13 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef REPTILOIDS_QT_REPTILOIDSBIP38TOOL_H
-#define REPTILOIDS_QT_REPTILOIDSBIP38TOOL_H
+#ifndef REPTILOIDSCOIN_QT_REPTILOIDSCOINBIP38TOOL_H
+#define REPTILOIDSCOIN_QT_REPTILOIDSCOINBIP38TOOL_H
 
-#include <qt/reptiloidsaddressbtn.h>
-#include <qt/reptiloidsformbtn.h>
-#include <qt/reptiloidslineeditwithtitle.h>
-#include <qt/reptiloidstoolspage.h>
+#include <qt/reptiloidscoinaddressbtn.h>
+#include <qt/reptiloidscoinformbtn.h>
+#include <qt/reptiloidscoinlineeditwithtitle.h>
+#include <qt/reptiloidscointoolspage.h>
 
 #include <qt/walletmodel.h>
 
@@ -17,11 +17,11 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 
-class ReptiloidsBIP38Tool : public ReptiloidsToolsPage {
+class ReptiloidsCoinBIP38Tool : public ReptiloidsCoinToolsPage {
     Q_OBJECT
 
 public:
-    explicit ReptiloidsBIP38Tool(QWidget *popup, int id, QFrame *parent = nullptr);
+    explicit ReptiloidsCoinBIP38Tool(QWidget *popup, int id, QFrame *parent = nullptr);
     void setWalletModel(WalletModel *w);
 
 private Q_SLOTS:
@@ -35,13 +35,13 @@ private:
     QVBoxLayout *layout;
     QLabel *titleLbl;
     QWidget *popupWidget;
-    ReptiloidsLineEditWithTitle *addressTi;
-    ReptiloidsAddressBtn *addressBtn;
-    ReptiloidsLineEditWithTitle *addressPasswordTi;
-    ReptiloidsFormBtn *generateBtn;
-    ReptiloidsLineEditWithTitle *keyTi;
-    ReptiloidsLineEditWithTitle *keyPasswordTi;
-    ReptiloidsFormBtn *decryptBtn;
+    ReptiloidsCoinLineEditWithTitle *addressTi;
+    ReptiloidsCoinAddressBtn *addressBtn;
+    ReptiloidsCoinLineEditWithTitle *addressPasswordTi;
+    ReptiloidsCoinFormBtn *generateBtn;
+    ReptiloidsCoinLineEditWithTitle *keyTi;
+    ReptiloidsCoinLineEditWithTitle *keyPasswordTi;
+    ReptiloidsCoinFormBtn *decryptBtn;
 };
 
-#endif // REPTILOIDS_QT_REPTILOIDSBIP38TOOL_H
+#endif // REPTILOIDSCOIN_QT_REPTILOIDSCOINBIP38TOOL_H

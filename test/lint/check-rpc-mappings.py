@@ -120,7 +120,7 @@ def main():
     errors = 0
     for (cmdname, argidx, argname) in mapping:
         if cmdname.startswith('xr') or cmdname.startswith('dx') or cmdname == 'gettradingdata':
-            continue # Reptiloids skip legacy dx & xr cmds
+            continue # ReptiloidsCoin skip legacy dx & xr cmds
         try:
             rargnames = cmds_by_name[cmdname].args[argidx].names
         except IndexError:

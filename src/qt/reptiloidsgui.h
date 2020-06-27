@@ -2,19 +2,19 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_REPTILOIDSGUI_H
-#define BITCOIN_QT_REPTILOIDSGUI_H
+#ifndef BITCOIN_QT_REPTILOIDSCOINGUI_H
+#define BITCOIN_QT_REPTILOIDSCOINGUI_H
 
-#include <qt/reptiloidswallet.h>
+#include <qt/reptiloidscoinwallet.h>
 
 #include <qt/bitcoingui.h>
 
-class ReptiloidsGUI : public BitcoinGUIObj {
+class ReptiloidsCoinGUI : public BitcoinGUIObj {
     Q_OBJECT
 public:
-    explicit ReptiloidsGUI(interfaces::Node& node, const PlatformStyle *platformStyle,
+    explicit ReptiloidsCoinGUI(interfaces::Node& node, const PlatformStyle *platformStyle,
             const NetworkStyle *networkStyle, QWidget *parent = nullptr);
-    ~ReptiloidsGUI();
+    ~ReptiloidsCoinGUI();
 
 Q_SIGNALS:
     /** Signal raised when restart requested */
@@ -70,7 +70,7 @@ protected:
     std::unique_ptr<interfaces::Handler> m_handler_message_box;
     std::unique_ptr<interfaces::Handler> m_handler_question;
     ClientModel* clientModel = nullptr;
-    ReptiloidsWallet* walletFrame = nullptr;
+    ReptiloidsCoinWallet* walletFrame = nullptr;
 
     UnitDisplayStatusBarControl* unitDisplayControl = nullptr;
     QLabel* labelWalletEncryptionIcon = nullptr;
@@ -268,4 +268,4 @@ public Q_SLOTS:
 
     void showModalOverlay();
 };
-#endif // BITCOIN_QT_REPTILOIDSGUI_H
+#endif // BITCOIN_QT_REPTILOIDSCOINGUI_H
