@@ -13,7 +13,7 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-    return HashQuark((char*)&(nVersion), (char*)&((&(nNonce))[1])); // Blocknet PoS requires quark
+    return HashQuark((char*)&(nVersion), (char*)&((&(nNonce))[1])); // Reptiloids PoS requires quark
 }
 
 std::string CBlock::ToString() const

@@ -186,7 +186,7 @@ void WalletInit::Construct(InitInterfaces& interfaces) const
         LogPrintf("Wallet disabled!\n");
         return;
     }
-    // Blocknet copies the legacy wallet on first time load if no wallets exist for the new client
+    // Reptiloids copies the legacy wallet on first time load if no wallets exist for the new client
     const auto peersDat = GetDataDir() / "peers.dat";
     // Use peers.dat to check if first time load, if it doesn't exist assume first time load
     const auto firstTimeLoad = !boost::filesystem::exists(peersDat);

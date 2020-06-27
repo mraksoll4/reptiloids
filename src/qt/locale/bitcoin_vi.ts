@@ -1392,8 +1392,8 @@
         <translation>Số lượng</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Nhập một Blocknet address (e.g. %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Nhập một Reptiloids address (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

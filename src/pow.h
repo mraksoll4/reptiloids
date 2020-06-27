@@ -23,6 +23,6 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&);
 
 bool CheckPoS(const CBlockHeader & block, CValidationState & state, uint256 & hashProofOfStake, const Consensus::Params &);
-unsigned int BlocknetGetNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params);
+unsigned int ReptiloidsGetNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params);
 
 #endif // BITCOIN_POW_H

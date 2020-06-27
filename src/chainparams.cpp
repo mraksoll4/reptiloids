@@ -278,7 +278,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("127.0.0.1"); // Blocknet update services or use dns
+        vSeeds.emplace_back("127.0.0.1"); // Reptiloids update services or use dns
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,139);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);

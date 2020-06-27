@@ -214,7 +214,7 @@ private:
 void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
 int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev);
 
-/** Blocknet PoS */
+/** Reptiloids PoS */
 extern bool SignBlock(CBlock & block, const CScript & stakeScript, const CKeyStore & keystore);
 
 #endif // BITCOIN_MINER_H

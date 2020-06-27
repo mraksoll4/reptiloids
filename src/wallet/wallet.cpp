@@ -94,7 +94,7 @@ static void ReleaseWallet(CWallet* wallet)
     // Unregister and delete the wallet right after BlockUntilSyncedToCurrentChain
     // so that it's in sync with the current chainstate.
     wallet->WalletLogPrintf("Releasing wallet\n");
-    if (!ShutdownRequested()) // TODO Blocknet needs review (this can hang when syncing many headers prior to block download)
+    if (!ShutdownRequested()) // TODO Reptiloids needs review (this can hang when syncing many headers prior to block download)
         wallet->BlockUntilSyncedToCurrentChain();
     wallet->Flush();
     UnregisterValidationInterface(wallet);
@@ -1277,7 +1277,7 @@ void CWallet::BlockDisconnected(const std::shared_ptr<const CBlock>& pblock) {
     }
     }
 
-    // Blocknet abandon orphaned coinstake
+    // Reptiloids abandon orphaned coinstake
     abandonOrphanedCoinstake(pblock, *locked_chain);
 }
 
@@ -1329,7 +1329,7 @@ void CWallet::UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *p
 }
 
 void CWallet::abandonOrphanedCoinstake(const std::shared_ptr<const CBlock> & pblock, interfaces::Chain::Lock & locked_chain) {
-    // Blocknet abandon orphaned coinstake
+    // Reptiloids abandon orphaned coinstake
     if (pblock->vtx.size() < 2)
         return;
     const auto & ptx = pblock->vtx[1];

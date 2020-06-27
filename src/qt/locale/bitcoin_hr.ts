@@ -1417,8 +1417,8 @@
         <translation>Iznos</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Unesite Blocknet adresu (npr. %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Unesite Reptiloids adresu (npr. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

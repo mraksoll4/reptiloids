@@ -1498,8 +1498,8 @@
         <translation>Montant</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Saisir une adresse Blocknet (p. ex. %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Saisir une adresse Reptiloids (p. ex. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

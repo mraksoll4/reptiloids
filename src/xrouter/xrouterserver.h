@@ -190,7 +190,7 @@ public:
 
     /**
      * @brief returns own snode pubkey hash
-     * @return blocknet address
+     * @return reptiloids address
      */
     std::string getMyPaymentAddress();
     

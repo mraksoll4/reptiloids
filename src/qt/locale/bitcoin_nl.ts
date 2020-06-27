@@ -1498,8 +1498,8 @@
         <translation>Bedrag</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Voer een Blocknetadres in (bijv. %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Voer een Reptiloidsadres in (bijv. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

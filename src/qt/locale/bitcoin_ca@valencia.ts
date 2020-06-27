@@ -1128,8 +1128,8 @@
         <translation>Import</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Introduïu una adreça de Blocknet (p. ex. %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Introduïu una adreça de Reptiloids (p. ex. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

@@ -74,7 +74,7 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "blocknet.conf";
+const char * const BITCOIN_CONF_FILENAME = "reptiloids.conf";
 
 ArgsManager gArgs;
 
@@ -671,7 +671,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "blocknet";
+    const char* pszModule = "reptiloids";
 #endif
     if (pex)
         return strprintf(
@@ -690,13 +690,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 
 fs::path GetDefaultDataDir()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Blocknet
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Blocknet
-    // Mac: ~/Library/Application Support/Blocknet
-    // Unix: ~/.blocknet
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Reptiloids
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Reptiloids
+    // Mac: ~/Library/Application Support/Reptiloids
+    // Unix: ~/.reptiloids
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Blocknet";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Reptiloids";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -706,23 +706,23 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Blocknet";
+    return pathRet / "Library/Application Support/Reptiloids";
 #else
     // Unix
-    return pathRet / ".blocknet";
+    return pathRet / ".reptiloids";
 #endif
 #endif
 }
 
 fs::path GetDefaultDataDirLegacy()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\BlocknetDX
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\BlocknetDX
-    // Mac: ~/Library/Application Support/BlocknetDX
-    // Unix: ~/.blocknetdx
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\ReptiloidsDX
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\ReptiloidsDX
+    // Mac: ~/Library/Application Support/ReptiloidsDX
+    // Unix: ~/.reptiloidsdx
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "BlocknetDX";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "ReptiloidsDX";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -732,10 +732,10 @@ fs::path GetDefaultDataDirLegacy()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/BlocknetDX";
+    return pathRet / "Library/Application Support/ReptiloidsDX";
 #else
     // Unix
-    return pathRet / ".blocknetdx";
+    return pathRet / ".reptiloidsdx";
 #endif
 #endif
 }

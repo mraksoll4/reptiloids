@@ -80,7 +80,7 @@ BOOST_FIXTURE_TEST_CASE(xrouter_tests_testnet_xrcalls, XRouterTestClientTestnet)
         }
         BOOST_CHECK_MESSAGE(!find_value(res, "uuid").isNull(), "getBlockHash uuid is invalid");
         BOOST_CHECK_MESSAGE(find_value(res, "error").isNull(), "getBlockHash has error");
-        // TODO Blocknet libxrouter hex number
+        // TODO Reptiloids libxrouter hex number
 //        res = client->getBlockHash("BLOCK", "0x1");
 //        replynull = find_value(res, "reply").isNull();
 //        BOOST_CHECK_MESSAGE(!replynull, "getBlockHash reply is invalid");
@@ -93,7 +93,7 @@ BOOST_FIXTURE_TEST_CASE(xrouter_tests_testnet_xrcalls, XRouterTestClientTestnet)
     }
 
     { // getBlock
-        // TODO Blocknet XRouter int block
+        // TODO Reptiloids XRouter int block
 //        UniValue res = client->getBlock("BLOCK", 1);
 //        auto replynull = find_value(res, "reply").isNull();
 //        BOOST_CHECK_MESSAGE(!replynull, "getBlock reply is invalid");
@@ -117,7 +117,7 @@ BOOST_FIXTURE_TEST_CASE(xrouter_tests_testnet_xrcalls, XRouterTestClientTestnet)
     }
 
     { // getBlocks
-        // TODO Blocknet XRouter int block numbers
+        // TODO Reptiloids XRouter int block numbers
 //        UniValue res = client->getBlocks("BLOCK", {1, 2});
 //        auto replynull = find_value(res, "reply").isNull();
 //        BOOST_CHECK_MESSAGE(!replynull, "getBlocks reply is invalid");

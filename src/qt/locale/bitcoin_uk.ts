@@ -1456,8 +1456,8 @@
         <translation>Кількість</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Введіть адресу Blocknet (наприклад %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Введіть адресу Reptiloids (наприклад %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

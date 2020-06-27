@@ -263,7 +263,7 @@ UniValue stop(const JSONRPCRequest& jsonRequest)
     if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
         throw std::runtime_error(
             RPCHelpMan{"stop",
-                "\nStop Blocknet server.",
+                "\nStop Reptiloids server.",
                 {},
                 RPCResults{},
                 RPCExamples{""},
@@ -274,7 +274,7 @@ UniValue stop(const JSONRPCRequest& jsonRequest)
     if (jsonRequest.params[0].isNum()) {
         MilliSleep(jsonRequest.params[0].get_int());
     }
-    return "Blocknet server stopping";
+    return "Reptiloids server stopping";
 }
 
 static UniValue uptime(const JSONRPCRequest& jsonRequest)
@@ -595,7 +595,7 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(const std::string& methodname, const std::string& args)
 {
-    return "> blocknet-cli " + methodname + " " + args + "\n";
+    return "> reptiloids-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(const std::string& methodname, const std::string& args)

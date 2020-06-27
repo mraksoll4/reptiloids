@@ -176,7 +176,7 @@ public:
      * @return
      */
     CKeyID getPaymentAddress() const {
-        // TODO Blocknet Servicenode allow overriding default payment address in config
+        // TODO Reptiloids Servicenode allow overriding default payment address in config
         return paymentAddress;
     }
 
@@ -405,7 +405,7 @@ public:
         if (!snodePubKey.IsFullyValid())
             return false;
 
-        // TODO Blocknet OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
+        // TODO Reptiloids OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
         if (tier != ServiceNode::Tier::SPV)
             return false;
 
@@ -783,7 +783,7 @@ public:
         if (!skipBlockchainValidation && !isBlockValid(bestBlock, bestBlockHash, true))
             return false; // fail if ping is stale
 
-        // TODO Blocknet OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
+        // TODO Reptiloids OPEN tier snodes, support non-SPV snode tiers (enable unit tests)
         if (snode.getTier() != ServiceNode::Tier::SPV)
             return false;
 

@@ -254,7 +254,7 @@ bool GetKernelStakeModifier(const CBlockIndex* pindexPrev, const CBlockIndex *pi
         uint64_t & nStakeModifier, int & nStakeModifierHeight, int64_t & nStakeModifierTime)
 {
     if (IsProtocolV05(nBlockTime))
-        return GetKernelStakeModifierBlocknet(pindexPrev, pindexStake, nBlockTime, nStakeModifier, nStakeModifierHeight, nStakeModifierTime);
+        return GetKernelStakeModifierReptiloids(pindexPrev, pindexStake, nBlockTime, nStakeModifier, nStakeModifierHeight, nStakeModifierTime);
     else
         return GetKernelStakeModifierV03(pindexStake, nStakeModifier, nStakeModifierHeight, nStakeModifierTime);
 }
@@ -266,7 +266,7 @@ bool GetKernelStakeModifier(const CBlockIndex* pindexPrev, const CBlockIndex *pi
 // 3) stake modifier doesn't exist on the specified index
 //
 // Implementation modified from peercoin (https://github.com/peercoin/peercoin/blob/70e86347e126a3dbd00a5e65b23305b2a768cb56/src/kernel.cpp#L336)
-bool GetKernelStakeModifierBlocknet(const CBlockIndex *pindexPrev, const CBlockIndex *pindexStake, const int64_t & blockStakeTime,
+bool GetKernelStakeModifierReptiloids(const CBlockIndex *pindexPrev, const CBlockIndex *pindexStake, const int64_t & blockStakeTime,
         uint64_t & nStakeModifier, int & nStakeModifierHeight, int64_t & nStakeModifierTime)
 {
     if (!pindexStake)
@@ -278,7 +278,7 @@ bool GetKernelStakeModifierBlocknet(const CBlockIndex *pindexPrev, const CBlockI
     // Do not allow picking a modifier that is generated before or at the time the utxo is confirmed in a block
     const auto useInterval = static_cast<int64_t>(Params().GetConsensus().stakeMinAge);
     if (blockStakeTime - useInterval <= pindexStake->GetBlockTime())
-        return error("GetKernelStakeModifierBlocknet stake min age check failed for staking block %s", pindexStake->GetBlockHash().ToString());
+        return error("GetKernelStakeModifierReptiloids stake min age check failed for staking block %s", pindexStake->GetBlockHash().ToString());
 
     nStakeModifier = pindexPrev->nStakeModifier;
     return true;
@@ -343,13 +343,13 @@ uint256 stakeHash(unsigned int nTimeTx, CDataStream ss, unsigned int prevoutInde
     return Hash(ss.begin(), ss.end());
 }
 
-// Blocknet staking protocol (based on ppcoin V05 stake protocol)
+// Reptiloids staking protocol (based on ppcoin V05 stake protocol)
 uint256 stakeHashV05(CDataStream ss, const unsigned int & nTimeBlockFrom, const int & blockHeight, const unsigned int & prevoutIndex, const unsigned int & nTimeTx) {
     ss << nTimeBlockFrom << blockHeight << prevoutIndex << nTimeTx;
     return Hash(ss.begin(), ss.end());
 }
 
-// Blocknet staking protocol (custom)
+// Reptiloids staking protocol (custom)
 uint256 stakeHashV06(CDataStream ss, const uint256 & hashBlockFrom, const unsigned int & nTimeBlockFrom, const int & blockHeight, const unsigned int & prevoutIndex, const unsigned int & nTimeTx) {
     ss << hashBlockFrom << nTimeBlockFrom << blockHeight << prevoutIndex << nTimeTx;
     return Hash(ss.begin(), ss.end());

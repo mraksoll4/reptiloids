@@ -169,7 +169,7 @@ static UniValue generatetoaddress(const JSONRPCRequest& request)
                 RPCExamples{
             "\nGenerate 11 blocks to myaddress\n"
             + HelpExampleCli("generatetoaddress", "11 \"myaddress\"")
-            + "If you are running the Blocknet wallet, you can get a new address to send the newly generated BLOCK to with:\n"
+            + "If you are running the Reptiloids wallet, you can get a new address to send the newly generated BLOCK to with:\n"
             + HelpExampleCli("getnewaddress", "")
                 },
             }.ToString());
@@ -450,10 +450,10 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, "Error: Peer-to-peer functionality missing or disabled");
 
     if (g_connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0)
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Blocknet is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Reptiloids is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Blocknet is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Reptiloids is downloading blocks...");
 
     static unsigned int nTransactionsUpdatedLast;
 

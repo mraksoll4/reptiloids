@@ -108,7 +108,7 @@ static const char* FEE_ESTIMATES_FILENAME="fee_estimates.dat";
 /**
  * The PID file facilities.
  */
-static const char* BITCOIN_PID_FILENAME = "blocknetd.pid";
+static const char* BITCOIN_PID_FILENAME = "reptiloidsd.pid";
 
 static fs::path GetPidFile()
 {
@@ -214,7 +214,7 @@ void Shutdown(InitInterfaces& interfaces)
     /// for example if the data directory was found to be locked.
     /// Be sure that anything that writes files or flushes caches only does this if the respective
     /// module was initialized.
-    RenameThread("blocknet-shutoff");
+    RenameThread("reptiloids-shutoff");
     mempool.AddTransactionsUpdated(1);
 
     // Shutdown xbridge
@@ -423,7 +423,7 @@ void SetupServerArgs()
 #else
     hidden_args.emplace_back("-sysperms");
 #endif
-    gArgs.AddArg("-txindex", "Blocknet requires txindex to support the Proof of Stake protocol.", false, OptionsCategory::OPTIONS);
+    gArgs.AddArg("-txindex", "Reptiloids requires txindex to support the Proof of Stake protocol.", false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-lowmemoryload", "Use less memory during initial load. This may result in longer load times, however, may improve loading on memory constrained devices if out of memory errors persist (e.g. Rasp Pi)", false, OptionsCategory::OPTIONS);
 
     gArgs.AddArg("-addnode=<ip>", "Add a node to connect to and attempt to keep the connection open (see the `addnode` RPC command help for more info). This option can be specified multiple times to add multiple nodes.", false, OptionsCategory::CONNECTION);
@@ -593,8 +593,8 @@ void SetupServerArgs()
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/mraksoll4/blocknet>";
-    const std::string URL_WEBSITE = "<https://blocknet.co>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/mraksoll4/reptiloids>";
+    const std::string URL_WEBSITE = "<https://reptiloids.co>";
     const std::string copyrightText = "Copyright (c) 2009-2019 The Bitcoin Core developers\n"
                                       "Copyright (c) 2014-2020 The Blocknet developers";
 
@@ -704,7 +704,7 @@ static void CleanupBlockRevFiles()
 static void ThreadImport(std::vector<fs::path> vImportFiles)
 {
     const CChainParams& chainparams = Params();
-    RenameThread("blocknet-loadblk");
+    RenameThread("reptiloids-loadblk");
     ScheduleBatchPriority();
 
     {
@@ -756,7 +756,7 @@ static void ThreadImport(std::vector<fs::path> vImportFiles)
         }
     }
 
-    // Blocknet PoS sync txindex
+    // Reptiloids PoS sync txindex
     g_txindex->Sync();
 
     // scan for better chains in the block chain database, that are not yet connected in the active best chain
@@ -1015,7 +1015,7 @@ bool AppInitParameterInteraction()
     if (gArgs.GetArg("-prune", 0)) {
 //        if (gArgs.GetBoolArg("-txindex", DEFAULT_TXINDEX))
 //            return InitError(_("Prune mode is incompatible with -txindex."));
-        return InitError(_("Pruning is not supported at this time")); // Blocknet doesn't support pruning at this time
+        return InitError(_("Pruning is not supported at this time")); // Reptiloids doesn't support pruning at this time
     }
 
     // -bind and -whitebind can't be set when not listening
@@ -1120,7 +1120,7 @@ bool AppInitParameterInteraction()
         nScriptCheckThreads = MAX_SCRIPTCHECK_THREADS;
 
     // block pruning; get the amount of disk space (in MiB) to allot for block & undo files
-    int64_t nPruneArg = 0; // Blocknet does not support pruning at this time
+    int64_t nPruneArg = 0; // Reptiloids does not support pruning at this time
     if (nPruneArg < 0) {
         return InitError(_("Prune cannot be configured with a negative value."));
     }
@@ -1303,7 +1303,7 @@ bool AppInitMain(InitInterfaces& interfaces)
     LogPrintf("Default data directory %s\n", GetDefaultDataDir().string());
     LogPrintf("Using data directory %s\n", GetDataDir().string());
 
-    // Blocknet create default conf
+    // Reptiloids create default conf
     auto p = GetConfigFile(BITCOIN_CONF_FILENAME);
     if (!fs::exists(p)) {
         fsbridge::ofstream configFile(p, std::ios_base::app);
@@ -1330,9 +1330,9 @@ bool AppInitMain(InitInterfaces& interfaces)
     // Warn about relative -datadir path.
     if (gArgs.IsArgSet("-datadir") && !fs::path(gArgs.GetArg("-datadir", "")).is_absolute()) {
         LogPrintf("Warning: relative datadir option '%s' specified, which will be interpreted relative to the " /* Continued */
-                  "current working directory '%s'. This is fragile, because if Blocknet is started in the future "
+                  "current working directory '%s'. This is fragile, because if Reptiloids is started in the future "
                   "from a different location, it will be unable to locate the current data files. There could "
-                  "also be data loss if Blocknet is started while in a temporary directory.\n",
+                  "also be data loss if Reptiloids is started while in a temporary directory.\n",
             gArgs.GetArg("-datadir", ""), fs::current_path().string());
     }
 
@@ -1520,7 +1520,7 @@ bool AppInitMain(InitInterfaces& interfaces)
     nTotalCache = std::min(nTotalCache, nMaxDbCache << 20); // total cache cannot be greater than nMaxDbcache
     int64_t nBlockTreeDBCache = std::min(nTotalCache / 6, nMaxBlockDBCache << 20);
     nTotalCache -= nBlockTreeDBCache;
-    int64_t nTxIndexCache = std::min(nTotalCache / 2, nMaxTxIndexCache << 20); // Blocknet PoS requires txindex
+    int64_t nTxIndexCache = std::min(nTotalCache / 2, nMaxTxIndexCache << 20); // Reptiloids PoS requires txindex
     nTotalCache -= nTxIndexCache;
     int64_t nCoinDBCache = std::min(nTotalCache / 2, (nTotalCache / 4) + (1 << 23)); // use 25%-50% of the remainder for disk cache
     nCoinDBCache = std::min(nCoinDBCache, nMaxCoinsDBCache << 20); // cap total coins db cache
@@ -1529,12 +1529,12 @@ bool AppInitMain(InitInterfaces& interfaces)
     int64_t nMempoolSizeMax = gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000;
     LogPrintf("Cache configuration:\n");
     LogPrintf("* Using %.1f MiB for block index database\n", nBlockTreeDBCache * (1.0 / 1024 / 1024));
-    // Blocknet PoS requires txindex
+    // Reptiloids PoS requires txindex
         LogPrintf("* Using %.1f MiB for transaction index database\n", nTxIndexCache * (1.0 / 1024 / 1024));
     LogPrintf("* Using %.1f MiB for chain state database\n", nCoinDBCache * (1.0 / 1024 / 1024));
     LogPrintf("* Using %.1f MiB for in-memory UTXO set (plus up to %.1f MiB of unused mempool space)\n", nCoinCacheUsage * (1.0 / 1024 / 1024), nMempoolSizeMax * (1.0 / 1024 / 1024));
 
-    // Blocknet PoS requires txindex
+    // Reptiloids PoS requires txindex
     g_txindex = MakeUnique<TxIndex>(nTxIndexCache, false, fReindex);
 
     bool fLoaded = false;
@@ -1635,7 +1635,7 @@ bool AppInitMain(InitInterfaces& interfaces)
                 break;
             }
 
-            // Blocknet PoS load indexer
+            // Reptiloids PoS load indexer
             g_txindex->Start();
 
             if (!fReset) {
@@ -1719,7 +1719,7 @@ bool AppInitMain(InitInterfaces& interfaces)
     fFeeEstimatesInitialized = true;
 
     // ********************************************************* Step 8: start indexers
-    // Blocknet PoS requires indexer to be started before chain load
+    // Reptiloids PoS requires indexer to be started before chain load
 
     // ********************************************************* Step 9: load wallet
     for (const auto& client : interfaces.chain_clients) {

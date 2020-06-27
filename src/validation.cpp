@@ -54,7 +54,7 @@
 #include <boost/thread.hpp>
 
 #if defined(NDEBUG)
-# error "Blocknet cannot be compiled without assertions."
+# error "Reptiloids cannot be compiled without assertions."
 #endif
 
 #define MICRO 0.000001
@@ -263,7 +263,7 @@ std::atomic_bool g_is_mempool_loaded{false};
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const std::string strMessageMagic = "Blocknet Signed Message:\n";
+const std::string strMessageMagic = "Reptiloids Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -588,7 +588,7 @@ static bool AcceptToMemoryPoolWorker(const CChainParams& chainparams, CTxMemPool
     if (!CheckTransaction(tx, state))
         return false; // state filled in by CheckTransaction
 
-    // Blocknet validator doesn't allow bad inputs in the mempool
+    // Reptiloids validator doesn't allow bad inputs in the mempool
     for (const auto & txin : tx.vin) {
         if (!CoinValidator::instance().IsCoinValid(txin.prevout.hash))
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-stake");
@@ -1700,7 +1700,7 @@ static bool WriteUndoDataForBlock(const CBlockUndo& blockundo, CValidationState&
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("blocknet-scriptch");
+    RenameThread("reptiloids-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -1857,7 +1857,7 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
             return state.DoS(100, false, REJECT_INVALID, "bad-stake-pos", false, "out-of-bounds coinstake");
         if (txStake->vout[txin.prevout.n].nValue != block.nStakeAmount || txStake->vout[txin.prevout.n].nValue <= 0) // check stake amount
             return state.DoS(100, false, REJECT_INVALID, "bad-stake-amount", false, "bad stake amount");
-        // TODO Blocknet PoS verify that the stake input sig matches the signer of the block, i.e. staker must be the block signer
+        // TODO Reptiloids PoS verify that the stake input sig matches the signer of the block, i.e. staker must be the block signer
         if (!VerifySig(block, txStake->vout[txin.prevout.n].scriptPubKey) && !VerifySig(block, block.vtx[1]->vout[1].scriptPubKey))
             return state.DoS(100, false, REJECT_INVALID, "bad-stake-signer", false, "bad block sig staker must be signer");
         if (IsProtocolV06(block.GetBlockTime(), chainparams.GetConsensus())) {
@@ -2009,7 +2009,7 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
             if (!CheckInputs(tx, state, view, fScriptChecks, flags, fCacheResults, fCacheResults, txdata[i], nScriptCheckThreads ? &vChecks : nullptr))
                 return error("ConnectBlock(): CheckInputs on %s failed with %s",
                     tx.GetHash().ToString(), FormatStateMessage(state));
-            // Blocknet indicate that witness is enabled on the chain
+            // Reptiloids indicate that witness is enabled on the chain
             if (!witnessEnabled) {
                 for (auto & check : vChecks)
                     check.DisableWitnessCheck();
@@ -3323,7 +3323,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
             return state.DoS(100, error("%s: forked chain older than last checkpoint (height %d)", __func__, nHeight), REJECT_CHECKPOINT, "bad-fork-prior-to-checkpoint");
     }
 
-    // Blocknet staking protocol doesn't allow blocks prior to the previous
+    // Reptiloids staking protocol doesn't allow blocks prior to the previous
     // stake's block time.
     if (IsProofOfStake(nHeight, consensusParams) && IsProtocolV06(block.GetBlockTime(), params.GetConsensus())) {
         // Check timestamp against prev (not less than half target spacing)
@@ -3382,7 +3382,7 @@ static bool ContextualCheckBlock(const CBlock& block, CValidationState& state, c
         if (!IsFinalTx(*tx, nHeight, nLockTimeCutoff)) {
             return state.DoS(10, false, REJECT_INVALID, "bad-txns-nonfinal", false, "non-final transaction");
         }
-        // Blocknet validator doesn't allow spending bad inputs
+        // Reptiloids validator doesn't allow spending bad inputs
         if (nHeight >= CoinValidator::CHAIN_HEIGHT) {
             std::vector<RedeemData> expl; // Bad stake inputs
             for (const CTxIn & txin : tx->vin) {

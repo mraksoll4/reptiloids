@@ -705,7 +705,7 @@ BOOST_FIXTURE_TEST_CASE(staking_tests_stakes, TestChainPoS)
         StakeBlocks(1), SyncWithValidationInterfaceQueue();
     }
 
-    // TODO Blocknet PoS unit test for p2pkh stakes
+    // TODO Reptiloids PoS unit test for p2pkh stakes
 }
 
 /// Check CLTV

@@ -9,16 +9,16 @@ src/bitcoin-wallet
 src/test/test_bitcoin
 src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt
-src/blocknet
-src/blocknetd
-src/blocknet-cli
-src/blocknet-tx
-src/blocknet-wallet
-src/test/test_blocknet
-src/test/test_blocknet_fuzzy
-src/qt/test/test_blocknet-qt
-blocknet-qt
-Blocknet.app
+src/reptiloids
+src/reptiloidsd
+src/reptiloids-cli
+src/reptiloids-tx
+src/reptiloids-wallet
+src/test/test_reptiloids
+src/test/test_reptiloids_fuzzy
+src/qt/test/test_reptiloids-qt
+reptiloids-qt
+Reptiloids.app
 
 # autoreconf
 Makefile.in

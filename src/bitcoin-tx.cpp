@@ -97,9 +97,9 @@ static int AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || HelpRequested(gArgs)) {
         // First part of help message is specific to this utility
-        std::string strUsage = PACKAGE_NAME " blocknet-tx utility version " + FormatFullVersion() + "\n\n" +
-            "Usage:  blocknet-tx [options] <hex-tx> [commands]  Update hex-encoded blocknet transaction\n" +
-            "or:     blocknet-tx [options] -create [commands]   Create hex-encoded blocknet transaction\n" +
+        std::string strUsage = PACKAGE_NAME " reptiloids-tx utility version " + FormatFullVersion() + "\n\n" +
+            "Usage:  reptiloids-tx [options] <hex-tx> [commands]  Update hex-encoded reptiloids transaction\n" +
+            "or:     reptiloids-tx [options] -create [commands]   Create hex-encoded reptiloids transaction\n" +
             "\n";
         strUsage += gArgs.GetHelpMessage();
 

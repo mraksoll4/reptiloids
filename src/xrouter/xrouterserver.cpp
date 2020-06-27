@@ -559,7 +559,7 @@ std::vector<std::string> XRouterServer::processGetTxBloomFilter(const std::strin
         throw XRouterError("Incorrect bloom filter: " + filter, xrouter::INVALID_PARAMETERS);
     
     CBloomFilter f(filter.size(), 0.1, 5, 0);
-//    f.from_hex(filter); // TODO Blocknet XRouter fixme
+//    f.from_hex(filter); // TODO Reptiloids XRouter fixme
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
     stream << f;
 
@@ -584,7 +584,7 @@ std::string XRouterServer::processGenerateBloomFilter(const std::string & curren
     CBloomFilter f(10 * static_cast<unsigned int>(params.size()), 0.1, 5, 0);
 
     Object result;
-    // TODO Blocknet XRouter fixme
+    // TODO Reptiloids XRouter fixme
 //    Array invalid;
 //
 //    std::vector<unsigned char> data;

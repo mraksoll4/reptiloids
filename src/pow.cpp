@@ -20,8 +20,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 {
     assert(pindexLast != nullptr);
 
-    // Use blocknet work
-    return BlocknetGetNextWorkRequired(pindexLast, params);
+    // Use reptiloids work
+    return ReptiloidsGetNextWorkRequired(pindexLast, params);
 
 //    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 //
@@ -140,7 +140,7 @@ bool CheckPoS(const CBlockHeader & block, CValidationState & state, uint256 & ha
     return true;
 }
 
-unsigned int BlocknetGetNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params)
+unsigned int ReptiloidsGetNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params)
 {
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 

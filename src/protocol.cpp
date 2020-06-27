@@ -147,7 +147,7 @@ ServiceFlags GetDesirableServiceFlags(ServiceFlags services) {
         return ServiceFlags(NODE_NETWORK_LIMITED | NODE_WITNESS);
     }
 
-    // Blocknet update seed nodes to support witness service flag
+    // Reptiloids update seed nodes to support witness service flag
     return ServiceFlags(NODE_NETWORK | NODE_WITNESS);
 }
 

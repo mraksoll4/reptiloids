@@ -1,0 +1,27 @@
+// Copyright (c) 2018-2019 The Blocknet developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+#ifndef REPTILOIDS_QT_REPTILOIDSDIALOG_H
+#define REPTILOIDS_QT_REPTILOIDSDIALOG_H
+
+#include <qt/reptiloidsformbtn.h>
+
+#include <QBoxLayout>
+#include <QDialog>
+#include <QTextEdit>
+
+class ReptiloidsDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit ReptiloidsDialog(QString message = "", QString actionMsg = "Delete", QString actionStyle = "delete", QWidget *parent = nullptr, Qt::WindowFlags f = Qt::CustomizeWindowHint);
+
+private:
+    QTextEdit *messageLbl;
+    ReptiloidsFormBtn *cancelBtn;
+    ReptiloidsFormBtn *deleteBtn;
+    QVBoxLayout *layout;
+};
+
+#endif // REPTILOIDS_QT_REPTILOIDSDIALOG_H

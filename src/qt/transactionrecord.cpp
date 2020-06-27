@@ -78,7 +78,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const interface
                     } else if (i == 1) {
                         // Generated
                         sub.type = TransactionRecord::Generated;
-                        sub.debit = -wtx.debit; // Blocknet track debit amount for coinstakes
+                        sub.debit = -wtx.debit; // Reptiloids track debit amount for coinstakes
                     }
                 }
 

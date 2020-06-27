@@ -10,7 +10,7 @@
 #include <qt/bitcoin.h>
 #include <qt/bitcoingui.h>
 #ifdef ENABLE_WALLET
-#include <qt/blocknetgui.h>
+#include <qt/reptiloidsgui.h>
 #endif // ENABLE_WALLET
 
 #include <chainparams.h>
@@ -26,7 +26,7 @@
 #include <qt/utilitydialog.h>
 #include <qt/winshutdownmonitor.h>
 
-#include <qt/blocknetsplashscreen.h>
+#include <qt/reptiloidssplashscreen.h>
 
 #ifdef ENABLE_WALLET
 #include <qt/paymentserver.h>
@@ -272,7 +272,7 @@ void BitcoinApplication::createWindow(const NetworkStyle *networkStyle)
     window = new BitcoinGUI(m_node, platformStyle, networkStyle, nullptr);
 #ifdef ENABLE_WALLET
     else
-        window = new BlocknetGUI(m_node, platformStyle, networkStyle, nullptr);
+        window = new ReptiloidsGUI(m_node, platformStyle, networkStyle, nullptr);
 #endif // ENABLE_WALLET
 
     pollShutdownTimer = new QTimer(window);
@@ -289,11 +289,11 @@ void BitcoinApplication::createSplashScreen(const NetworkStyle *networkStyle)
     connect(this, &BitcoinApplication::splashFinished, splash, &SplashScreen::finish);
     connect(this, &BitcoinApplication::requestedShutdown, splash, &QWidget::close);
     } else {
-        auto *splash = new BlocknetSplashScreen(m_node, nullptr, networkStyle);
+        auto *splash = new ReptiloidsSplashScreen(m_node, nullptr, networkStyle);
         // We don't hold a direct pointer to the splash screen after creation, but the splash
         // screen will take care of deleting itself when finish() happens.
         splash->show();
-        connect(this, &BitcoinApplication::splashFinished, splash, &BlocknetSplashScreen::finish);
+        connect(this, &BitcoinApplication::splashFinished, splash, &ReptiloidsSplashScreen::finish);
         connect(this, &BitcoinApplication::requestedShutdown, splash, &QWidget::close);
     }
 }
@@ -319,7 +319,7 @@ void BitcoinApplication::startThread()
     connect(this, &BitcoinApplication::requestedShutdown, executor, &BitcoinCore::shutdown);
 #ifdef ENABLE_WALLET
     if (!isClassic())
-        connect(dynamic_cast<BlocknetGUI*>(window), &BlocknetGUI::requestedRestart, executor, &BitcoinCore::restart);
+        connect(dynamic_cast<ReptiloidsGUI*>(window), &ReptiloidsGUI::requestedRestart, executor, &BitcoinCore::restart);
 #endif // ENABLE_WALLET
     /*  make sure executor object is deleted in its own thread */
     connect(coreThread, &QThread::finished, executor, &QObject::deleteLater);
@@ -437,7 +437,7 @@ void BitcoinApplication::shutdownResult()
 
 void BitcoinApplication::handleRunawayException(const QString &message)
 {
-    QMessageBox::critical(nullptr, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. Blocknet can no longer continue safely and will quit.") + QString("\n\n") + message);
+    QMessageBox::critical(nullptr, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. Reptiloids can no longer continue safely and will quit.") + QString("\n\n") + message);
     ::exit(EXIT_FAILURE);
 }
 

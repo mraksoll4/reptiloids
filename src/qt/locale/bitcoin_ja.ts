@@ -1494,8 +1494,8 @@
         <translation>金額</translation>
     </message>
     <message>
-        <source>Enter a Blocknet address (e.g. %1)</source>
-        <translation>Blocknet アドレスを入力してください (例: %1)</translation>
+        <source>Enter a Reptiloids address (e.g. %1)</source>
+        <translation>Reptiloids アドレスを入力してください (例: %1)</translation>
     </message>
     <message>
         <source>%1 d</source>

@@ -257,7 +257,7 @@ std::string XRouterSettings::host(XRouterCommand c, const std::string & service)
     const std::string cstr{XRouterCommand_ToString(c)};
     auto res = get<std::string>("Main.host", "");
 
-    // TODO Blocknet XRouter support subsection host designations
+    // TODO Reptiloids XRouter support subsection host designations
 //    if (c == xrService) { // Handle plugin
 //        if (!service.empty())
 //            res = get<std::string>(cstr + xrdelimiter + service + ".host", res);
@@ -276,7 +276,7 @@ int XRouterSettings::port(XRouterCommand c, const std::string & service) {
     const std::string cstr{XRouterCommand_ToString(c)};
     auto res = get<int>("Main.port", Params().GetDefaultPort());
 
-    // TODO Blocknet XRouter support subsection port designations
+    // TODO Reptiloids XRouter support subsection port designations
 //    if (c == xrService) { // Handle plugin
 //        if (!service.empty())
 //            res = get<int>(cstr + xrdelimiter + service + ".port", res);
@@ -294,7 +294,7 @@ int XRouterSettings::port(XRouterCommand c, const std::string & service) {
 bool XRouterSettings::tls(XRouterCommand c, const std::string & service) {
     auto res = get<bool>("Main.tls", false);
 
-    // TODO Blocknet XRouter support subsection tls designations
+    // TODO Reptiloids XRouter support subsection tls designations
 
     return res;
 }

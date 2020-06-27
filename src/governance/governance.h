@@ -840,7 +840,7 @@ public:
     }
 
     /**
-     * TODO Blocknet use governance leveldb dat
+     * TODO Reptiloids use governance leveldb dat
      * Loads the governance data from the blockchain ledger. It's possible to optimize
      * this further by creating a separate leveldb for goverance data. Currently, this
      * method will read every block on the chain beginning with the governance start
@@ -923,10 +923,10 @@ public:
                                          : start+slice;
             // try single threaded on failure
             try {
-                // TODO Blocknet governance: concurrency causing state issues
+                // TODO Reptiloids governance: concurrency causing state issues
 //                if (cores > 1) {
 //                    tg.create_thread([start,end,consensus,&p1] {
-//                        RenameThread("blocknet-governance");
+//                        RenameThread("reptiloids-governance");
 //                        p1(start, end, consensus);
 //                    });
 //                    useThreadGroup = true;
@@ -1056,7 +1056,7 @@ public:
             try {
                 if (cores > 1) {
                     tg.create_thread([start,end,consensus,&p2] {
-                        RenameThread("blocknet-governance");
+                        RenameThread("reptiloids-governance");
                         p2(start, end, consensus);
                     });
                     useThreadGroup = true;

@@ -8,18 +8,18 @@ define(_CLIENT_VERSION_RC, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2020)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
-define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Blocknet]])
-AC_INIT([Blocknet],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/blocknetdx/blocknet/issues],[blocknet],[https://blocknet.co/])
+define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Reptiloids]])
+AC_INIT([Reptiloids],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/reptiloidsdx/reptiloids/issues],[reptiloids],[https://reptiloids.co/])
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
-BITCOIN_DAEMON_NAME=blocknetd
-BITCOIN_GUI_NAME=blocknet-qt
-BITCOIN_CLI_NAME=blocknet-cli
-BITCOIN_TX_NAME=blocknet-tx
-BITCOIN_WALLET_TOOL_NAME=blocknet-wallet
+BITCOIN_DAEMON_NAME=reptiloidsd
+BITCOIN_GUI_NAME=reptiloids-qt
+BITCOIN_CLI_NAME=reptiloids-cli
+BITCOIN_TX_NAME=reptiloids-tx
+BITCOIN_WALLET_TOOL_NAME=reptiloids-wallet
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 AC_ARG_VAR(ARFLAGS, [Flags for the archiver, defaults to <cr> if not set])

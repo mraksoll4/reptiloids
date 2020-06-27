@@ -1,33 +1,33 @@
-Blocknet
+Reptiloids
 =====================================
 
-[![Build Status](https://travis-ci.org/blocknetdx/blocknet.svg?branch=4.0.0)](https://travis-ci.org/blocknetdx/blocknet)
+[![Build Status](https://travis-ci.org/reptiloidsdx/reptiloids.svg?branch=4.0.0)](https://travis-ci.org/reptiloidsdx/reptiloids)
 
-https://blocknet.co
+https://reptiloids.co
 
-Welcome to the Blocknet repository. This repo is for the Blocknet Protocol, a 2nd layer blockchain interoperability protocol that enables communication, interaction, and exchange between different blockchains. This allows for the development of multi-chain applications and blockchain microservices, creating exponentially more capabilities and possibilities for the blockchain ecosystem.
+Welcome to the Reptiloids repository. This repo is for the Reptiloids Protocol, a 2nd layer blockchain interoperability protocol that enables communication, interaction, and exchange between different blockchains. This allows for the development of multi-chain applications and blockchain microservices, creating exponentially more capabilities and possibilities for the blockchain ecosystem.
 
-[Contributors are welcome!](https://github.com/blocknetdx/blocknet/blob/master/CONTRIBUTING.md)
+[Contributors are welcome!](https://github.com/reptiloidsdx/reptiloids/blob/master/CONTRIBUTING.md)
 
-[Website](https://blocknet.co) | [API](https://api.blocknet.co) | [Documentation](https://docs.blocknet.co) | [Discord](https://discord.gg/2e6s7H8)
+[Website](https://reptiloids.co) | [API](https://api.reptiloids.co) | [Documentation](https://docs.reptiloids.co) | [Discord](https://discord.gg/2e6s7H8)
 -------------|-------------|-------------|-------------
 
-Blocknet
+Reptiloids
 -------
 
-Started in 2014, [Blocknet](https://docs.blocknet.co/project/introduction) is a decentralized, community-governed, self-funded, open-source project that serves as a connector between different blockchains, markets, and communities. 
+Started in 2014, [Reptiloids](https://docs.reptiloids.co/project/introduction) is a decentralized, community-governed, self-funded, open-source project that serves as a connector between different blockchains, markets, and communities. 
 
-The Blocknet Protocol
+The Reptiloids Protocol
 -------
 
-The Blocknet Protocol enables decentralized communication and exchange between different blockchains in a permissionless and trustless manner through the use of the TCP/IP networking layer for communication, P2P atomic swaps using BIP65 for exchange, and a DHT overlay network ([Service Nodes](https://docs.blocknet.co/service-nodes/introduction)) to host the full nodes of compatible blockchains, host microservices, audit interactions, and perform anti-spam and anti-DOS measures for the network. 
+The Reptiloids Protocol enables decentralized communication and exchange between different blockchains in a permissionless and trustless manner through the use of the TCP/IP networking layer for communication, P2P atomic swaps using BIP65 for exchange, and a DHT overlay network ([Service Nodes](https://docs.reptiloids.co/service-nodes/introduction)) to host the full nodes of compatible blockchains, host microservices, audit interactions, and perform anti-spam and anti-DOS measures for the network. 
 
 Block DX
 -------
 
-[Block DX](https://docs.blocknet.co/blockdx/introduction) is a completely decentralized and trustless exchange built on the Blocknet Protocol that mimics a centralized exchange experience and enables traders to conduct exchanges directly from the wallets of the coins being traded. View Repo: [https://github.com/BlocknetDX/block-dx]
+[Block DX](https://docs.reptiloids.co/blockdx/introduction) is a completely decentralized and trustless exchange built on the Reptiloids Protocol that mimics a centralized exchange experience and enables traders to conduct exchanges directly from the wallets of the coins being traded. View Repo: [https://github.com/ReptiloidsDX/block-dx]
 
-Blocknet Specifications:
+Reptiloids Specifications:
 -------
 
 | BLOCK Detail          |                    |
@@ -43,7 +43,7 @@ Difficulty              | Adjusted per block
 Staking Requirement     | No minimum
 Service Node Requirement| 5000 BLOCK (SPV)
 Circulation             | [View on explorer](https://chainz.cryptoid.info/block/)
-Max Supply              | No maximum supply (PoS), but there is a maximum to [inflation](https://docs.blocknet.co/blockchain/introduction/#inflation)
+Max Supply              | No maximum supply (PoS), but there is a maximum to [inflation](https://docs.reptiloids.co/blockchain/introduction/#inflation)
 
 
 Decentralized Atomic Swap Algo Summary
@@ -68,12 +68,12 @@ Initiator creates TxBp which spends TxBb using privkey i2 and secret X. With the
 License
 -------
 
-Blocknet is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Reptiloids is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2020 The Blocknet Developers
+Copyright (c) 2014-2020 The Reptiloids Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -98,8 +98,8 @@ Development Process
 
 The `master` branch is stable and will match the latest release. Development 
 branches are indicated by the version number and may or may not be stable.
-[Tags](https://github.com/blocknetdx/blocknet/tags) are created
-regularly to indicate new official, stable release versions of Blocknet.
+[Tags](https://github.com/reptiloidsdx/reptiloids/tags) are created
+regularly to indicate new official, stable release versions of Reptiloids.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
 and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).

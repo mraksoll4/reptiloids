@@ -36,7 +36,7 @@ bool CheckStakeKernelHash(const CBlockIndex *pindexPrev, const CBlockIndex *pind
         uint256 & hashProofOfStake, const Consensus::Params & consensus);
 bool GetKernelStakeModifier(const CBlockIndex *pindexPrev, const CBlockIndex *pindexStake, const int64_t & nBlockTime, uint64_t & nStakeModifier, int & nStakeModifierHeight, int64_t & nStakeModifierTime);
 bool GetKernelStakeModifierV03(const CBlockIndex *pindexStake, uint64_t & nStakeModifier, int & nStakeModifierHeight, int64_t & nStakeModifierTime);
-bool GetKernelStakeModifierBlocknet(const CBlockIndex *pindexPrev, const CBlockIndex *pindexStake, const int64_t & blockStakeTime, uint64_t & nStakeModifier, int & nStakeModifierHeight, int64_t & nStakeModifierTime);
+bool GetKernelStakeModifierReptiloids(const CBlockIndex *pindexPrev, const CBlockIndex *pindexStake, const int64_t & blockStakeTime, uint64_t & nStakeModifier, int & nStakeModifierHeight, int64_t & nStakeModifierTime);
 
 // Check kernel hash target and coinstake signature
 // Sets hashProofOfStake on success return

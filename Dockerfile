@@ -1,5 +1,5 @@
 # Build via docker:
-# docker build --build-arg cores=8 -t blocknetdx/blocknet:latest .
+# docker build --build-arg cores=8 -t reptiloidsdx/reptiloids:latest .
 FROM ubuntu:bionic
 
 ARG cores=4
@@ -28,19 +28,19 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
      g++-8-multilib gcc-8-multilib binutils-gold \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV PROJECTDIR=/opt/blocknet/blocknet
+ENV PROJECTDIR=/opt/reptiloids/reptiloids
 ENV BASEPREFIX=$PROJECTDIR/depends
 ENV HOST=x86_64-pc-linux-gnu
 
 # Copy source files
-RUN mkdir -p /opt/blocknet \
-  && cd /opt/blocknet \
-  && git clone --single-branch --branch 4.2.0 https://github.com/mraksoll4/blocknet.git
+RUN mkdir -p /opt/reptiloids \
+  && cd /opt/reptiloids \
+  && git clone --single-branch --branch 4.2.0 https://github.com/mraksoll4/reptiloids.git
 
 # Build source
 RUN mkdir -p /opt/blockchain/config \
   && mkdir -p /opt/blockchain/data \
-  && ln -s /opt/blockchain/config /root/.blocknet \
+  && ln -s /opt/blockchain/config /root/.reptiloids \
   && cd $BASEPREFIX \
   && make -j$ecores && make install \
   && cd $PROJECTDIR \
@@ -51,7 +51,7 @@ RUN mkdir -p /opt/blockchain/config \
   && make -j$ecores \
   && make install
 
-# Write default blocknet.conf (can be overridden on commandline)
+# Write default reptiloids.conf (can be overridden on commandline)
 RUN echo "datadir=/opt/blockchain/data    \n\
                                           \n\
 maxmempoolxbridge=128                     \n\
@@ -66,7 +66,7 @@ logips=1                                  \n\
 rpcbind=0.0.0.0                           \n\
 rpcallowip=127.0.0.1                      \n\
 rpctimeout=60                             \n\
-rpcclienttimeout=30" > /opt/blockchain/config/blocknet.conf
+rpcclienttimeout=30" > /opt/blockchain/config/reptiloids.conf
 
 WORKDIR /opt/blockchain/
 VOLUME ["/opt/blockchain/config", "/opt/blockchain/data"]
@@ -74,4 +74,4 @@ VOLUME ["/opt/blockchain/config", "/opt/blockchain/data"]
 # Port, RPC, Test Port, Test RPC
 EXPOSE 41420 41414 41474 41419
 
-CMD ["blocknetd", "-daemon=0", "-server=0"]
+CMD ["reptiloidsd", "-daemon=0", "-server=0"]

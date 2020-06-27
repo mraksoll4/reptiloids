@@ -754,7 +754,7 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     t.vout[0].scriptPubKey = CScript() << OP_RETURN;
     BOOST_CHECK(IsStandardTx(CTransaction(t), reason));
 
-    // Blocknet 100 TX_NULL_DATA permitted in all cases
+    // Reptiloids 100 TX_NULL_DATA permitted in all cases
     t.vout.resize(101);
     for (int i = 0; i <= 100; ++i)
         t.vout[i].scriptPubKey = CScript() << OP_RETURN << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38");
@@ -772,7 +772,7 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     t.vout[1].scriptPubKey = CScript() << OP_RETURN;
     BOOST_CHECK(!IsStandardTx(CTransaction(t), reason));
 
-    // Blocknet check empty OP_RETURN
+    // Reptiloids check empty OP_RETURN
     for (int i = 0; i <= 100; ++i)
         t.vout[i].scriptPubKey = CScript() << OP_RETURN;
     BOOST_CHECK(!IsStandardTx(CTransaction(t), reason));

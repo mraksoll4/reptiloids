@@ -88,7 +88,7 @@ static void BuildTxs(CMutableTransaction& spendingTx, CCoinsViewCache& coins, CM
     creationTx.vin.resize(1);
     creationTx.vin[0].prevout.SetNull();
     static int BuildTxsHeight{100};
-    creationTx.vin[0].scriptSig = CScript() << ++BuildTxsHeight << OP_0; // Blocknet set block height in coinbase
+    creationTx.vin[0].scriptSig = CScript() << ++BuildTxsHeight << OP_0; // Reptiloids set block height in coinbase
     creationTx.vout.resize(1);
     creationTx.vout[0].nValue = 1;
     creationTx.vout[0].scriptPubKey = scriptPubKey;

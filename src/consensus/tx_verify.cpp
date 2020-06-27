@@ -181,7 +181,7 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state, bool fChe
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-txouttotal-toolarge");
     }
 
-    // TODO Blocknet Always check for duplicates
+    // TODO Reptiloids Always check for duplicates
         std::set<COutPoint> vInOutPoints;
         for (const auto& txin : tx.vin)
         {
@@ -233,7 +233,7 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, CValidationState& state, c
         }
     }
 
-    if (tx.IsCoinStake()) { // Blocknet does not handle PoS coinstake fee checks here (see validation.cpp ConnectBlock)
+    if (tx.IsCoinStake()) { // Reptiloids does not handle PoS coinstake fee checks here (see validation.cpp ConnectBlock)
         txfee = 0;
         return true;
     }
