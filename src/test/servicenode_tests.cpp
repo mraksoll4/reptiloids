@@ -731,7 +731,7 @@ BOOST_AUTO_TEST_CASE(servicenode_tests_immature_collateral)
         const TransactionError err = BroadcastTransaction(MakeTransactionRef(mtx), txid, errstr, 0);
         BOOST_CHECK_MESSAGE(err == TransactionError::OK, strprintf("Failed to send snode collateral tx: %s", errstr));
         pos.StakeBlocks(1), SyncWithValidationInterfaceQueue();
-        xbridge::App::instance().utAddXWallets({"BLOCK","BTC","LTC"});
+        xbridge::App::instance().utAddXWallets({"REPT","BTC","LTC"});
         const auto & jservices = xbridge::App::instance().myServicesJSON();
         auto success = sn::ServiceNodeMgr::instance().sendPing(50, jservices, g_connman.get());
         BOOST_CHECK_MESSAGE(success, "Refresh snode ping before running state check");
@@ -776,7 +776,7 @@ BOOST_AUTO_TEST_CASE(servicenode_tests_registration_pings)
         sn::ServiceNodeMgr::writeSnConfig(std::vector<sn::ServiceNodeConfigEntry>{entry});
         std::set<sn::ServiceNodeConfigEntry> entries;
         smgr.loadSnConfig(entries);
-        xbridge::App::instance().utAddXWallets({"BLOCK","BTC","LTC"});
+        xbridge::App::instance().utAddXWallets({"REPT","BTC","LTC"});
         const auto & jservices = xbridge::App::instance().myServicesJSON();
         auto success = smgr.sendPing(50, jservices, g_connman.get());
         BOOST_CHECK_MESSAGE(success, "Snode ping w/ uncompressed key");
@@ -794,7 +794,7 @@ BOOST_AUTO_TEST_CASE(servicenode_tests_registration_pings)
         sn::ServiceNodeMgr::writeSnConfig(std::vector<sn::ServiceNodeConfigEntry>{entry});
         std::set<sn::ServiceNodeConfigEntry> entries;
         smgr.loadSnConfig(entries);
-        xbridge::App::instance().utAddXWallets({"BLOCK","BTC","LTC"});
+        xbridge::App::instance().utAddXWallets({"REPT","BTC","LTC"});
         const auto & jservices = xbridge::App::instance().myServicesJSON();
         auto success = smgr.sendPing(50, jservices, g_connman.get());
         BOOST_CHECK_MESSAGE(success, "Snode ping w/ compressed key");
@@ -983,7 +983,7 @@ BOOST_AUTO_TEST_CASE(servicenode_tests_registration_pings)
 //        pingValid.sign(key);
 //        BOOST_CHECK_MESSAGE(pingValid.isValid(GetTxFunc, IsServiceNodeBlockValidFunc), "Service node ping should be valid for open tier xrs services");
 //        sn::ServiceNodePing pingInvalid(key.GetPubKey(), bestBlock, bestBlockHash, static_cast<uint32_t>(GetTime()),
-//                R"({"xbridgeversion":50,"xrouterversion":50,"xrouter":{"config":"[Main]\nwallets=BLOCK,LTC\nplugins=CustomPlugin1,CustomPlugin2\nhost=127.0.0.1", "plugins":{"CustomPlugin1":"","CustomPlugin2":""}}})", snode);
+//                R"({"xbridgeversion":50,"xrouterversion":50,"xrouter":{"config":"[Main]\nwallets=REPT,LTC\nplugins=CustomPlugin1,CustomPlugin2\nhost=127.0.0.1", "plugins":{"CustomPlugin1":"","CustomPlugin2":""}}})", snode);
 //        pingInvalid.sign(key);
 //        BOOST_CHECK_MESSAGE(!pingInvalid.isValid(GetTxFunc, IsServiceNodeBlockValidFunc), "Service node ping should be invalid for open tier non-xrs services");
 //        sn::ServiceNodeMgr::writeSnConfig(std::vector<sn::ServiceNodeConfigEntry>(), false); // reset
@@ -1576,7 +1576,7 @@ BOOST_AUTO_TEST_CASE(servicenode_tests_rpc)
 
         // Start snode and send ping
         rpcparams = UniValue(UniValue::VARR);
-        xbridge::App::instance().utAddXWallets({"BLOCK","BTC","LTC"});
+        xbridge::App::instance().utAddXWallets({"REPT","BTC","LTC"});
         BOOST_CHECK_NO_THROW(entry = CallRPC2("servicenodesendping", rpcparams));
         BOOST_CHECK_MESSAGE(entry.isObject(), "Service node ping should return the snode");
         o = entry;

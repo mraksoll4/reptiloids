@@ -281,7 +281,7 @@ static UniValue servicenodecreateinputs(const JSONRPCRequest& request)
         throw std::runtime_error(
             RPCHelpMan{"servicenodecreateinputs",
                 strprintf("\nCreates service node unspent transaction outputs prior to snode registration. This will also create "
-                "a %s BLOCK voting input. The voting input is separate from the service node UTXOs and is used to cast votes.\n", FormatMoney(gov::VOTING_UTXO_INPUT_AMOUNT)),
+                "a %s REPT voting input. The voting input is separate from the service node UTXOs and is used to cast votes.\n", FormatMoney(gov::VOTING_UTXO_INPUT_AMOUNT)),
                 {
                     {"nodeaddress", RPCArg::Type::STR, RPCArg::Optional::NO, "ReptiloidsCoin address for the service node. Funds will be sent here from the wallet."},
                     {"nodecount", RPCArg::Type::NUM, "1", "Number of service nodes to create"},

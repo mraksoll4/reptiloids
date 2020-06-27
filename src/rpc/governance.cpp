@@ -26,7 +26,7 @@ static UniValue createproposal(const JSONRPCRequest& request)
                 {
                     {"name", RPCArg::Type::STR, RPCArg::Optional::NO, R"(Proposal name, only alpha number characters are accepted (example: "My Proposal 1" or "My_Proposal-1"))"},
                     {"superblock", RPCArg::Type::NUM, RPCArg::Optional::NO, strprintf("Block number of Superblock. Specify 0 to automatically submit for the next Superblock %d", gov::NextSuperblock(Params().GetConsensus()))},
-                    {"amount", RPCArg::Type::NUM, RPCArg::Optional::NO, "Amount of BLOCK being requested in the proposal"},
+                    {"amount", RPCArg::Type::NUM, RPCArg::Optional::NO, "Amount of REPT being requested in the proposal"},
                     {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "ReptiloidsCoin payment address"},
                     {"url", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "Url where voters can read more details"},
                     {"description", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "Brief description. Note, if description is too long the proposal submission will fail"},
@@ -37,7 +37,7 @@ static UniValue createproposal(const JSONRPCRequest& request)
                 "  \"txid\":\"xxxx\",                      (string) Hex string of the proposal transaction hash\n"
                 "  \"name\": \"proposal name\",            (string) Service node name\n"
                 "  \"superblock\": n,                      (numeric) Upcoming Superblock to receive payment. Obtain the next Superblock with \"nextsuperblock\" rpc call.\n"
-                "  \"amount\": n,                          (numeric) Amount of BLOCK being requested in the proposal\n"
+                "  \"amount\": n,                          (numeric) Amount of REPT being requested in the proposal\n"
                 "  \"address\":\"reptiloidscoin address\",       (string) ReptiloidsCoin payment address\n"
                 "  \"url\":\"https://forum.reptiloidscoin.co\",  (string) Url where voters can read more details\n"
                 "  \"description\":\"xxxx\"                (string) Brief description. Note, if description is too long the proposal submission will fail\n"
@@ -112,7 +112,7 @@ static UniValue listproposals(const JSONRPCRequest& request)
                 "  \"hash\":\"xxxx\",                (string) Hex string of the proposal hash\n"
                 "  \"name\": \"proposal name\",      (string) Service node name\n"
                 "  \"superblock\": n,                (numeric) Upcoming Superblock to receive payment. Obtain the next Superblock with \"nextsuperblock\" rpc call.\n"
-                "  \"amount\": n,                    (numeric) Amount of BLOCK being requested in the proposal\n"
+                "  \"amount\": n,                    (numeric) Amount of REPT being requested in the proposal\n"
                 "  \"address\":\"reptiloidscoin address\", (string) ReptiloidsCoin payment address\n"
                 "  \"url\":\"xxxx\",                 (string) Url where voters can read more details\n"
                 "  \"description\":\"xxxx\",         (string) Brief description. Note, if description is too long the proposal submission will fail\n"
@@ -196,7 +196,7 @@ static UniValue vote(const JSONRPCRequest& request)
         throw std::runtime_error(
             RPCHelpMan{"vote",
                 "\nVote on a proposal. Specify the proposal's hash and the vote type to cast the vote. This will\n"
-                "attempt to cast as many votes as the wallet allows, which is based on the amount of BLOCK in the\n"
+                "attempt to cast as many votes as the wallet allows, which is based on the amount of REPT in the\n"
                 "wallet.",
                 {
                     {"proposal", RPCArg::Type::STR_HEX, RPCArg::Optional::NO, "Proposal hash to cast votes for"},
@@ -208,7 +208,7 @@ static UniValue vote(const JSONRPCRequest& request)
                 "  \"hash\":\"xxxx\",                      (string) Hex string of the proposal hash\n"
                 "  \"name\": \"proposal name\",            (string) Service node name\n"
                 "  \"superblock\": n,                      (numeric) Upcoming Superblock to receive payment. Obtain the next Superblock with \"nextsuperblock\" rpc call.\n"
-                "  \"amount\": n,                          (numeric) Amount of BLOCK being requested in the proposal\n"
+                "  \"amount\": n,                          (numeric) Amount of REPT being requested in the proposal\n"
                 "  \"address\":\"reptiloidscoin address\",       (string) ReptiloidsCoin payment address\n"
                 "  \"url\":\"https://forum.reptiloidscoin.co\",  (string) Url where voters can read more details\n"
                 "  \"description\":\"xxxx\"                (string) Brief description. Note, if description is too long the proposal submission will fail\n"
@@ -283,7 +283,7 @@ static UniValue proposalfee(const JSONRPCRequest& request)
     if (request.fHelp || !request.params.empty())
         throw std::runtime_error(
             RPCHelpMan{"proposalfee",
-                "\nFee in BLOCK for proposal submissions.\n",
+                "\nFee in REPT for proposal submissions.\n",
                 {},
                 RPCResult{
                 "10\n"

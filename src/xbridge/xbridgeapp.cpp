@@ -319,7 +319,7 @@ bool App::createConf()
                 "ShowAllOrders=false"                                                          + eol +
                 ""                                                                             + eol +
                 "# Sample configuration:"                                                      + eol +
-                "# [BLOCK]"                                                                    + eol +
+                "# [REPT]"                                                                    + eol +
                 "# Title=ReptiloidsCoin"                                                             + eol +
                 "# Address="                                                                   + eol +
                 "# Ip=127.0.0.1"                                                               + eol +
@@ -1803,11 +1803,11 @@ Error App::acceptXBridgeTransaction(const uint256     & id,
     {
         LOCK(m_utxosOrderLock);
 
-        // BLOCK available p2pkh utxos
+        // REPT available p2pkh utxos
         std::vector<wallet::UtxoEntry> feeOutputs;
         if (!rpc::unspentP2PKH(feeOutputs)) {
             ptr->state = priorState;
-            xbridge::LogOrderMsg(id.GetHex(), "insufficient BLOCK funds for service node fee payment", __FUNCTION__);
+            xbridge::LogOrderMsg(id.GetHex(), "insufficient REPT funds for service node fee payment", __FUNCTION__);
             return xbridge::Error::INSIFFICIENT_FUNDS;
         }
 
@@ -2451,7 +2451,7 @@ void App::unlockCoins(const std::string & token, const std::vector<wallet::UtxoE
 //******************************************************************************
 bool App::canAffordFeePayment(const CAmount & fee) {
 #ifdef ENABLE_WALLET
-    const auto & lockedUtxos = getAllLockedUtxos("BLOCK");
+    const auto & lockedUtxos = getAllLockedUtxos("REPT");
     auto coins = availableCoins(true, 1); // at least 1-conf
 
     CAmount running{0};
