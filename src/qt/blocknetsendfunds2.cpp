@@ -55,8 +55,8 @@ void BlocknetSendFunds2List::addRow(int row, const QString addr, const QString a
     amountTi->setObjectName("amount");
     amountTi->setID(addr);
     amountTi->setPlaceholderText(tr("Enter Amount..."));
-    amountTi->setValidator(new BlocknetNumberValidator(0, BLOCKNETGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
-    amountTi->setMaxLength(BLOCKNETGUI_MAXCHARS);
+    amountTi->setValidator(new BlocknetNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setMaxLength(REPTILOIDSGUI_MAXCHARS);
     amountTi->setText(amount);
 
     // col 4: coin

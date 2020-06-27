@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETICONLABEL_H
-#define BLOCKNET_QT_BLOCKNETICONLABEL_H
+#ifndef REPTILOIDS_QT_REPTILOIDSICONLABEL_H
+#define REPTILOIDS_QT_REPTILOIDSICONLABEL_H
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -35,4 +35,4 @@ private:
     bool *iconActiveState = nullptr;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETICONLABEL_H
+#endif // REPTILOIDS_QT_REPTILOIDSICONLABEL_H

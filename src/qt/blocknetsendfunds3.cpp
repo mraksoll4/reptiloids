@@ -166,7 +166,7 @@ void BlocknetSendFunds3::setData(BlocknetSendFundsModel *model) {
     recommendedRb->setChecked(!model->customFee());
     specificRb->setChecked(model->customFee());
     subtractFeeCb->setChecked(model->subtractFee());
-    specificFeeTi->setValidator(new BlocknetNumberValidator(0, BLOCKNETGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    specificFeeTi->setValidator(new BlocknetNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
     if (model->customFee())
         specificFeeTi->setText(BitcoinUnits::format(displayUnit, model->userFee()));
     recommendedRb->blockSignals(false);

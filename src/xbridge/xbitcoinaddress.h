@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_XBITCOINADDRESS_H
-#define BLOCKNET_XBRIDGE_XBITCOINADDRESS_H
+#ifndef REPTILOIDS_XBRIDGE_XBITCOINADDRESS_H
+#define REPTILOIDS_XBRIDGE_XBITCOINADDRESS_H
 
 //*****************************************************************************
 //*****************************************************************************
@@ -114,4 +114,4 @@ public:
 
 } // namespace
 
-#endif // BLOCKNET_XBRIDGE_XBITCOINADDRESS_H
+#endif // REPTILOIDS_XBRIDGE_XBITCOINADDRESS_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETWALLETREPAIR_H
-#define BLOCKNET_QT_BLOCKNETWALLETREPAIR_H
+#ifndef REPTILOIDS_QT_REPTILOIDSWALLETREPAIR_H
+#define REPTILOIDS_QT_REPTILOIDSWALLETREPAIR_H
 
 #include <qt/blocknetformbtn.h>
 #include <qt/blocknettoolspage.h>
@@ -91,4 +91,4 @@ private:
     bool displayConfirmationBox(const QString & title, const QString & msg);
 };
 
-#endif // BLOCKNET_QT_BLOCKNETWALLETREPAIR_H
+#endif // REPTILOIDS_QT_REPTILOIDSWALLETREPAIR_H

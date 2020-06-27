@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETTRANSACTIONHISTORY_H
-#define BLOCKNET_QT_BLOCKNETTRANSACTIONHISTORY_H
+#ifndef REPTILOIDS_QT_REPTILOIDSTRANSACTIONHISTORY_H
+#define REPTILOIDS_QT_REPTILOIDSTRANSACTIONHISTORY_H
 
 #include <qt/blocknetdropdown.h>
 #include <qt/blocknetlineedit.h>
@@ -170,4 +170,4 @@ protected:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETTRANSACTIONHISTORY_H
+#endif // REPTILOIDS_QT_REPTILOIDSTRANSACTIONHISTORY_H

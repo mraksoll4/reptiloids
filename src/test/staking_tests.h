@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_TEST_STAKING_TESTS_H
-#define BLOCKNET_TEST_STAKING_TESTS_H
+#ifndef REPTILOIDS_TEST_STAKING_TESTS_H
+#define REPTILOIDS_TEST_STAKING_TESTS_H
 
 #include <test/test_bitcoin.h>
 
@@ -290,4 +290,4 @@ struct TestChainPoS : public TestingSetup {
     StakeMgr staker;
 };
 
-#endif //BLOCKNET_TEST_STAKING_TESTS_H
+#endif //REPTILOIDS_TEST_STAKING_TESTS_H

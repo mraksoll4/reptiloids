@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETDASHBOARD_H
-#define BLOCKNET_QT_BLOCKNETDASHBOARD_H
+#ifndef REPTILOIDS_QT_REPTILOIDSDASHBOARD_H
+#define REPTILOIDS_QT_REPTILOIDSDASHBOARD_H
 
 #include <qt/blocknetvars.h>
 
@@ -143,4 +143,4 @@ protected:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETDASHBOARD_H
+#endif // REPTILOIDS_QT_REPTILOIDSDASHBOARD_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETBREADCRUMB_H
-#define BLOCKNET_QT_BLOCKNETBREADCRUMB_H
+#ifndef REPTILOIDS_QT_REPTILOIDSBREADCRUMB_H
+#define REPTILOIDS_QT_REPTILOIDSBREADCRUMB_H
 
 #include <QButtonGroup>
 #include <QFrame>
@@ -50,4 +50,4 @@ private:
     int currentCrumb;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETBREADCRUMB_H
+#endif // REPTILOIDS_QT_REPTILOIDSBREADCRUMB_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XROUTER_XROUTERSETTINGS_H
-#define BLOCKNET_XROUTER_XROUTERSETTINGS_H
+#ifndef REPTILOIDS_XROUTER_XROUTERSETTINGS_H
+#define REPTILOIDS_XROUTER_XROUTERSETTINGS_H
 
 #include <xrouter/xrouterpacket.h>
 #include <xrouter/xrouterdef.h>
@@ -226,4 +226,4 @@ bool createConf(const boost::filesystem::path & confDir, const bool & skipPlugin
 
 } // namespace
 
-#endif // BLOCKNET_XROUTER_XROUTERSETTINGS_H
+#endif // REPTILOIDS_XROUTER_XROUTERSETTINGS_H

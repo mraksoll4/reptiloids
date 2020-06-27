@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETTABBTN_H
-#define BLOCKNET_QT_BLOCKNETTABBTN_H
+#ifndef REPTILOIDS_QT_REPTILOIDSTABBTN_H
+#define REPTILOIDS_QT_REPTILOIDSTABBTN_H
 
 #include <QLabel>
 #include <QPushButton>
@@ -23,4 +23,4 @@ private:
     QLabel *subLine;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETTABBTN_H
+#endif // REPTILOIDS_QT_REPTILOIDSTABBTN_H

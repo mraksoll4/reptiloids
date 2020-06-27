@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_BITCOINRPCCONNECTOR_H
-#define BLOCKNET_XBRIDGE_BITCOINRPCCONNECTOR_H
+#ifndef REPTILOIDS_XBRIDGE_BITCOINRPCCONNECTOR_H
+#define REPTILOIDS_XBRIDGE_BITCOINRPCCONNECTOR_H
 
 #include <xbridge/xbridgewallet.h>
 
@@ -64,4 +64,4 @@ namespace rpc
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_BITCOINRPCCONNECTOR_H
+#endif // REPTILOIDS_XBRIDGE_BITCOINRPCCONNECTOR_H

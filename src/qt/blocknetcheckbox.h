@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETCHECKBOX_H
-#define BLOCKNET_QT_BLOCKNETCHECKBOX_H
+#ifndef REPTILOIDS_QT_REPTILOIDSCHECKBOX_H
+#define REPTILOIDS_QT_REPTILOIDSCHECKBOX_H
 
 #include <QCheckBox>
 
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif //BLOCKNET_QT_BLOCKNETCHECKBOX_H
+#endif //REPTILOIDS_QT_REPTILOIDSCHECKBOX_H

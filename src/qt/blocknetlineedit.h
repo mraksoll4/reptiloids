@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETLINEEDIT_H
-#define BLOCKNET_QT_BLOCKNETLINEEDIT_H
+#ifndef REPTILOIDS_QT_REPTILOIDSLINEEDIT_H
+#define REPTILOIDS_QT_REPTILOIDSLINEEDIT_H
 
 #include <qt/blocknetguiutil.h>
 
@@ -25,4 +25,4 @@ private:
     QString id;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETLINEEDIT_H
+#endif // REPTILOIDS_QT_REPTILOIDSLINEEDIT_H

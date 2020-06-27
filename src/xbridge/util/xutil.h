@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_UTIL_XUTIL_H
-#define BLOCKNET_XBRIDGE_UTIL_XUTIL_H
+#ifndef REPTILOIDS_XBRIDGE_UTIL_XUTIL_H
+#define REPTILOIDS_XBRIDGE_UTIL_XUTIL_H
 
 #include <xbridge/util/logger.h>
 #include <xbridge/util/xbridgeerror.h>
@@ -121,4 +121,4 @@ namespace xbridge
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_UTIL_XUTIL_H
+#endif // REPTILOIDS_XBRIDGE_UTIL_XUTIL_H

@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_XBRIDGEDEF_H
-#define BLOCKNET_XBRIDGE_XBRIDGEDEF_H
+#ifndef REPTILOIDS_XBRIDGE_XBRIDGEDEF_H
+#define REPTILOIDS_XBRIDGE_XBRIDGEDEF_H
 
 #include <vector>
 #include <map>
@@ -48,4 +48,4 @@ typedef std::shared_ptr<Transaction> TransactionPtr;
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_XBRIDGEDEF_H
+#endif // REPTILOIDS_XBRIDGE_XBRIDGEDEF_H

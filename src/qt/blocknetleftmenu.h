@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETLEFTMENU_H
-#define BLOCKNET_QT_BLOCKNETLEFTMENU_H
+#ifndef REPTILOIDS_QT_REPTILOIDSLEFTMENU_H
+#define REPTILOIDS_QT_REPTILOIDSLEFTMENU_H
 
 #include <qt/blockneticonlabel.h>
 #include <qt/blocknetvars.h>
@@ -55,4 +55,4 @@ private:
     int selected;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETLEFTMENU_H
+#endif // REPTILOIDS_QT_REPTILOIDSLEFTMENU_H

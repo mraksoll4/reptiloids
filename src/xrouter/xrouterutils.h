@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XROUTER_XROUTERUTILS_H
-#define BLOCKNET_XROUTER_XROUTERUTILS_H
+#ifndef REPTILOIDS_XROUTER_XROUTERUTILS_H
+#define REPTILOIDS_XROUTER_XROUTERUTILS_H
 
 #include <xrouter/xrouterpacket.h>
 #include <xrouter/xroutererror.h>
@@ -133,4 +133,4 @@ UniValue form_reply(const std::string & uuid, const UniValue & reply);
 
 } // namespace
 
-#endif // BLOCKNET_XROUTER_XROUTERUTILS_H
+#endif // REPTILOIDS_XROUTER_XROUTERUTILS_H

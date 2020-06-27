@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETSENDFUNDSDONE_H
-#define BLOCKNET_QT_BLOCKNETSENDFUNDSDONE_H
+#ifndef REPTILOIDS_QT_REPTILOIDSSENDFUNDSDONE_H
+#define REPTILOIDS_QT_REPTILOIDSSENDFUNDSDONE_H
 
 #include <qt/blocknetformbtn.h>
 
@@ -36,4 +36,4 @@ private:
     BlocknetFormBtn *sendBtn;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETSENDFUNDSDONE_H
+#endif // REPTILOIDS_QT_REPTILOIDSSENDFUNDSDONE_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XBRIDGE_XBRIDGEWALLETCONNECTORDGB_H
-#define BLOCKNET_XBRIDGE_XBRIDGEWALLETCONNECTORDGB_H
+#ifndef REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORDGB_H
+#define REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORDGB_H
 
 #include <xbridge/xbridgecryptoproviderbtc.h>
 #include <xbridge/xbridgewalletconnectorbtc.h>
@@ -30,4 +30,4 @@ public:
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_XBRIDGEWALLETCONNECTORDGB_H
+#endif // REPTILOIDS_XBRIDGE_XBRIDGEWALLETCONNECTORDGB_H

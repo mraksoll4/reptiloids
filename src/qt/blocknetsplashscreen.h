@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_BLOCKNETSPLASHSCREEN_H
-#define BITCOIN_QT_BLOCKNETSPLASHSCREEN_H
+#ifndef BITCOIN_QT_REPTILOIDSSPLASHSCREEN_H
+#define BITCOIN_QT_REPTILOIDSSPLASHSCREEN_H
 
 #include <QLabel>
 #include <QWidget>
@@ -65,4 +65,4 @@ private:
     std::list<std::unique_ptr<interfaces::Handler>> m_connected_wallet_handlers;
 };
 
-#endif // BITCOIN_QT_BLOCKNETSPLASHSCREEN_H
+#endif // BITCOIN_QT_REPTILOIDSSPLASHSCREEN_H

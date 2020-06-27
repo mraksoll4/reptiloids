@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETWALLET_H
-#define BLOCKNET_QT_BLOCKNETWALLET_H
+#ifndef REPTILOIDS_QT_REPTILOIDSWALLET_H
+#define REPTILOIDS_QT_REPTILOIDSWALLET_H
 
 #include <qt/blocknetcreateproposal.h>
 #include <qt/blocknetdashboard.h>
@@ -114,4 +114,4 @@ private:
     QProgressDialog *progressDialog = nullptr;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETWALLET_H
+#endif // REPTILOIDS_QT_REPTILOIDSWALLET_H

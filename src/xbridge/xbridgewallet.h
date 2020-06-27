@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_XBRIDGEWALLET_H
-#define BLOCKNET_XBRIDGE_XBRIDGEWALLET_H
+#ifndef REPTILOIDS_XBRIDGE_XBRIDGEWALLET_H
+#define REPTILOIDS_XBRIDGE_XBRIDGEWALLET_H
 
 #include <sync.h>
 
@@ -176,4 +176,4 @@ public:
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_XBRIDGEWALLET_H
+#endif // REPTILOIDS_XBRIDGE_XBRIDGEWALLET_H

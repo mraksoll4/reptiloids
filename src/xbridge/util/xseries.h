@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XBRIDGE_UTIL_XSERIES_H
-#define BLOCKNET_XBRIDGE_UTIL_XSERIES_H
+#ifndef REPTILOIDS_XBRIDGE_UTIL_XSERIES_H
+#define REPTILOIDS_XBRIDGE_UTIL_XSERIES_H
 
 #include <xbridge/currencypair.h>
 #include <xbridge/xbridgetransactiondescr.h>
@@ -247,4 +247,4 @@ private:
     std::unordered_map<pairSymbol, xAggregateContainer> mSparseSeries;
 };
 
-#endif // BLOCKNET_XBRIDGE_UTIL_XSERIES_H
+#endif // REPTILOIDS_XBRIDGE_UTIL_XSERIES_H

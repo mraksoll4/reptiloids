@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XROUTER_XROUTERERROR_H
-#define BLOCKNET_XROUTER_XROUTERERROR_H
+#ifndef REPTILOIDS_XROUTER_XROUTERERROR_H
+#define REPTILOIDS_XROUTER_XROUTERERROR_H
 
 #include <exception>
 
@@ -42,4 +42,4 @@ namespace xrouter
     };
 } // namespace xrouter
 
-#endif // BLOCKNET_XROUTER_XROUTERERROR_H
+#endif // REPTILOIDS_XROUTER_XROUTERERROR_H

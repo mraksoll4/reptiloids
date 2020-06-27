@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETADDRESSEDITOR_H
-#define BLOCKNET_QT_BLOCKNETADDRESSEDITOR_H
+#ifndef REPTILOIDS_QT_REPTILOIDSADDRESSEDITOR_H
+#define REPTILOIDS_QT_REPTILOIDSADDRESSEDITOR_H
 
 #include <utility>
 #include <functional>
@@ -66,4 +66,4 @@ private:
     std::function<bool (QString&)> validator;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETADDRESSEDITOR_H
+#endif // REPTILOIDS_QT_REPTILOIDSADDRESSEDITOR_H

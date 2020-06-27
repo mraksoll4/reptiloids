@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_XBRIDGEEXCHANGE_H
-#define BLOCKNET_XBRIDGE_XBRIDGEEXCHANGE_H
+#ifndef REPTILOIDS_XBRIDGE_XBRIDGEEXCHANGE_H
+#define REPTILOIDS_XBRIDGE_XBRIDGEEXCHANGE_H
 
 #include <xbridge/xbridgepacket.h>
 #include <xbridge/xbridgetransaction.h>
@@ -279,4 +279,4 @@ private:
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_XBRIDGEEXCHANGE_H
+#endif // REPTILOIDS_XBRIDGE_XBRIDGEEXCHANGE_H

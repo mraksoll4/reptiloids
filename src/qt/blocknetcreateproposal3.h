@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETCREATEPROPOSAL3_H
-#define BLOCKNET_QT_BLOCKNETCREATEPROPOSAL3_H
+#ifndef REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL3_H
+#define REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL3_H
 
 #include <qt/blocknetcreateproposalutil.h>
 #include <qt/blocknetformbtn.h>
@@ -54,4 +54,4 @@ private:
     int collateralConfirmations();
 };
 
-#endif // BLOCKNET_QT_BLOCKNETCREATEPROPOSAL3_H
+#endif // REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL3_H

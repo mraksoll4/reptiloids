@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_GOVERNANCE_GOVERNANCEWALLET_H
-#define BLOCKNET_GOVERNANCE_GOVERNANCEWALLET_H
+#ifndef REPTILOIDS_GOVERNANCE_GOVERNANCEWALLET_H
+#define REPTILOIDS_GOVERNANCE_GOVERNANCEWALLET_H
 
 #include <governance/governance.h>
 
@@ -65,4 +65,4 @@ bool RevoteOnStake(const int & stakedHeight, const COutPoint & utxo, const CKey 
 
 }
 
-#endif //BLOCKNET_GOVERNANCE_GOVERNANCEWALLET_H
+#endif //REPTILOIDS_GOVERNANCE_GOVERNANCEWALLET_H

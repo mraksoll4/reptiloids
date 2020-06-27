@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XROUTER_XROUTERSNODECONFIG_H
-#define BLOCKNET_XROUTER_XROUTERSNODECONFIG_H
+#ifndef REPTILOIDS_XROUTER_XROUTERSNODECONFIG_H
+#define REPTILOIDS_XROUTER_XROUTERSNODECONFIG_H
 
 #include <servicenode/servicenode.h>
 #include <util/memory.h>
@@ -26,4 +26,4 @@ typedef std::unique_ptr<XRouterSnodeConfig> XRouterSnodeConfigPtr;
 
 }
 
-#endif //BLOCKNET_XROUTER_XROUTERSNODECONFIG_H
+#endif //REPTILOIDS_XROUTER_XROUTERSNODECONFIG_H

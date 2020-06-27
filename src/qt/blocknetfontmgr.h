@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETFONTMGR_H
-#define BLOCKNET_QT_BLOCKNETFONTMGR_H
+#ifndef REPTILOIDS_QT_REPTILOIDSFONTMGR_H
+#define REPTILOIDS_QT_REPTILOIDSFONTMGR_H
 
 #include <QFont>
 #include <QHash>
@@ -19,4 +19,4 @@ private:
     static QHash<Fonts, int> fonts;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETFONTMGR_H
+#endif // REPTILOIDS_QT_REPTILOIDSFONTMGR_H

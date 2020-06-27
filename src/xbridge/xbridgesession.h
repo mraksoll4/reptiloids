@@ -5,8 +5,8 @@
 //*****************************************************************************
 //*****************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_XBRIDGESESSION_H
-#define BLOCKNET_XBRIDGE_XBRIDGESESSION_H
+#ifndef REPTILOIDS_XBRIDGE_XBRIDGESESSION_H
+#define REPTILOIDS_XBRIDGE_XBRIDGESESSION_H
 
 #include <xbridge/bitcoinrpcconnector.h>
 #include <xbridge/xbitcointransaction.h>
@@ -139,4 +139,4 @@ private:
 
 } // namespace xbridge
 
-#endif // BLOCKNET_XBRIDGE_XBRIDGESESSION_H
+#endif // REPTILOIDS_XBRIDGE_XBRIDGESESSION_H

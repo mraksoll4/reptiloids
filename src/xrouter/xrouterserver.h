@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XROUTER_XROUTERSERVER_H
-#define BLOCKNET_XROUTER_XROUTERSERVER_H
+#ifndef REPTILOIDS_XROUTER_XROUTERSERVER_H
+#define REPTILOIDS_XROUTER_XROUTERSERVER_H
 
 #include <xrouter/xrouterdef.h>
 #include <xrouter/xrouterutils.h>

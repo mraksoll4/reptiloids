@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_SERVICENODE_SERVICENODEMGR_H
-#define BLOCKNET_SERVICENODE_SERVICENODEMGR_H
+#ifndef REPTILOIDS_SERVICENODE_SERVICENODEMGR_H
+#define REPTILOIDS_SERVICENODE_SERVICENODEMGR_H
 
 #include <amount.h>
 #include <key_io.h>
@@ -1255,4 +1255,4 @@ protected:
 
 }
 
-#endif //BLOCKNET_SERVICENODE_SERVICENODEMGR_H
+#endif //REPTILOIDS_SERVICENODE_SERVICENODEMGR_H

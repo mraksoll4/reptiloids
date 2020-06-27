@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETACTIONBTN_H
-#define BLOCKNET_QT_BLOCKNETACTIONBTN_H
+#ifndef REPTILOIDS_QT_REPTILOIDSACTIONBTN_H
+#define REPTILOIDS_QT_REPTILOIDSACTIONBTN_H
 
 #include <QPushButton>
 #include <QStyle>
@@ -28,4 +28,4 @@ private:
     qreal s;
 };
 
-#endif // BLOCKNET_QT_BLOCKNETACTIONBTN_H
+#endif // REPTILOIDS_QT_REPTILOIDSACTIONBTN_H

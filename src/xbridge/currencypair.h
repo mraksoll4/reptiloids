@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XBRIDGE_CURRENCYPAIR_H
-#define BLOCKNET_XBRIDGE_CURRENCYPAIR_H
+#ifndef REPTILOIDS_XBRIDGE_CURRENCYPAIR_H
+#define REPTILOIDS_XBRIDGE_CURRENCYPAIR_H
 
 #include <xbridge/currency.h>
 
@@ -42,4 +42,4 @@ public:
     std::string error() const { return tag == Tag::Error ? xid_or_error : std::string{}; }
 };
 
-#endif // BLOCKNET_XBRIDGE_CURRENCYPAIR_H
+#endif // REPTILOIDS_XBRIDGE_CURRENCYPAIR_H

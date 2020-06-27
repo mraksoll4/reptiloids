@@ -60,8 +60,8 @@ BlocknetQuickSend::BlocknetQuickSend(WalletModel *w, QWidget *parent) : QFrame(p
     amountBox->setLayout(amountBoxLayout);
     amountTi = new BlocknetLineEdit;
     amountTi->setPlaceholderText(tr("Enter Amount..."));
-    amountTi->setValidator(new BlocknetNumberValidator(0, BLOCKNETGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
-    amountTi->setMaxLength(BLOCKNETGUI_MAXCHARS);
+    amountTi->setValidator(new BlocknetNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setMaxLength(REPTILOIDSGUI_MAXCHARS);
     auto *coinLbl = new QLabel(displayUnitName);
     coinLbl->setObjectName("coin");
     coinLbl->setFixedHeight(amountTi->minimumHeight());
@@ -365,7 +365,7 @@ void BlocknetQuickSend::onEncryptionStatus() {
 
 void BlocknetQuickSend::onDisplayUnit(int unit) {
     displayUnit = unit;
-    amountTi->setValidator(new BlocknetNumberValidator(0, BLOCKNETGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setValidator(new BlocknetNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
     onAmountChanged();
 }
 

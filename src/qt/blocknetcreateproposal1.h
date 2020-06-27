@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETCREATEPROPOSAL1_H
-#define BLOCKNET_QT_BLOCKNETCREATEPROPOSAL1_H
+#ifndef REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL1_H
+#define REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL1_H
 
 #include <qt/blocknetcreateproposalutil.h>
 #include <qt/blocknetformbtn.h>
@@ -64,4 +64,4 @@ private:
     static int nextSuperblock();
 };
 
-#endif // BLOCKNET_QT_BLOCKNETCREATEPROPOSAL1_H
+#endif // REPTILOIDS_QT_REPTILOIDSCREATEPROPOSAL1_H

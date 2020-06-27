@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_XBRIDGE_XUICONNECTOR_H
-#define BLOCKNET_XBRIDGE_XUICONNECTOR_H
+#ifndef REPTILOIDS_XBRIDGE_XUICONNECTOR_H
+#define REPTILOIDS_XBRIDGE_XUICONNECTOR_H
 
 #include <uint256.h>
 
@@ -32,5 +32,5 @@ public:
 
 extern XUIConnector xuiConnector;
 
-#endif // BLOCKNET_XBRIDGE_XUICONNECTOR_H
+#endif // REPTILOIDS_XBRIDGE_XUICONNECTOR_H
 

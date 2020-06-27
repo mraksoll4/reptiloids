@@ -81,8 +81,8 @@ BlocknetTransactionHistory::BlocknetTransactionHistory(WalletModel *w, QWidget *
     amountTi->setFixedWidth(BGU::spi(120));
     amountTi->setParent(this);
     amountTi->setPlaceholderText(tr("Min amount"));
-    amountTi->setValidator(new BlocknetNumberValidator(0, BLOCKNETGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
-    amountTi->setMaxLength(BLOCKNETGUI_MAXCHARS);
+    amountTi->setValidator(new BlocknetNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setMaxLength(REPTILOIDSGUI_MAXCHARS);
 
     searchBoxLayout->addWidget(dateCb);
     searchBoxLayout->addWidget(typeCb);
@@ -215,7 +215,7 @@ void BlocknetTransactionHistory::hideEvent(QHideEvent *event) {
 
 void BlocknetTransactionHistory::onDisplayUnit(int unit) {
     displayUnit = unit;
-    amountTi->setValidator(new BlocknetNumberValidator(0, BLOCKNETGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
+    amountTi->setValidator(new BlocknetNumberValidator(0, REPTILOIDSGUI_FUNDS_MAX, BitcoinUnits::decimals(displayUnit)));
 }
 
 void BlocknetTransactionHistory::addressChanged(const QString &prefix) {

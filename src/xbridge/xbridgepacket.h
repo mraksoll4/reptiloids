@@ -5,8 +5,8 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef BLOCKNET_XBRIDGE_XBRIDGEPACKET_H
-#define BLOCKNET_XBRIDGE_XBRIDGEPACKET_H
+#ifndef REPTILOIDS_XBRIDGE_XBRIDGEPACKET_H
+#define REPTILOIDS_XBRIDGE_XBRIDGEPACKET_H
 
 #include <xbridge/util/logger.h>
 #include <xbridge/version.h>
@@ -569,4 +569,4 @@ private:
 typedef std::shared_ptr<XBridgePacket> XBridgePacketPtr;
 typedef std::deque<XBridgePacketPtr>   XBridgePacketQueue;
 
-#endif // BLOCKNET_XBRIDGE_XBRIDGEPACKET_H
+#endif // REPTILOIDS_XBRIDGE_XBRIDGEPACKET_H

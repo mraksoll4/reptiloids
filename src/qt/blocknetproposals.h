@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BLOCKNET_QT_BLOCKNETPROPOSALS_H
-#define BLOCKNET_QT_BLOCKNETPROPOSALS_H
+#ifndef REPTILOIDS_QT_REPTILOIDSPROPOSALS_H
+#define REPTILOIDS_QT_REPTILOIDSPROPOSALS_H
 
 #include <qt/blocknetdropdown.h>
 #include <qt/blocknetformbtn.h>
@@ -178,4 +178,4 @@ protected:
 private:
 };
 
-#endif // BLOCKNET_QT_BLOCKNETPROPOSALS_H
+#endif // REPTILOIDS_QT_REPTILOIDSPROPOSALS_H
