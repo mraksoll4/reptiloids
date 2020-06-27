@@ -319,7 +319,7 @@ bool App::createConf()
                 "ShowAllOrders=false"                                                          + eol +
                 ""                                                                             + eol +
                 "# Sample configuration:"                                                      + eol +
-                "# [REPT]"                                                                    + eol +
+                "# [BLOCK]"                                                                    + eol +
                 "# Title=ReptiloidsCoin"                                                             + eol +
                 "# Address="                                                                   + eol +
                 "# Ip=127.0.0.1"                                                               + eol +
@@ -985,13 +985,13 @@ void App::updateActiveWallets()
         }
 
         // Check maker locktime reqs
-        if (wp.blockTime * XMIN_LOCKTIME_REPTS > XMAKER_LOCKTIME_TARGET_SECONDS) {
+        if (wp.blockTime * XMIN_LOCKTIME_BLOCKS > XMAKER_LOCKTIME_TARGET_SECONDS) {
             ERR() << wp.currency << " \"" << wp.title << "\"" << " Failed maker locktime requirements";
             removeConnector(wp.currency);
             continue;
         }
         // Check taker locktime reqs (non-slow chains)
-        if (wp.blockTime < XSLOW_REPTTIME_SECONDS && wp.blockTime * XMIN_LOCKTIME_REPTS > XTAKER_LOCKTIME_TARGET_SECONDS) {
+        if (wp.blockTime < XSLOW_BLOCKTIME_SECONDS && wp.blockTime * XMIN_LOCKTIME_BLOCKS > XTAKER_LOCKTIME_TARGET_SECONDS) {
             ERR() << wp.currency << " \"" << wp.title << "\"" << " Failed taker locktime requirements";
             removeConnector(wp.currency);
             continue;
@@ -999,14 +999,14 @@ void App::updateActiveWallets()
         // If this coin is a slow blockchain check to make sure locktime drift checks
         // are compatible with this chain. If not then ignore loading the token.
         // locktime calc should be less than taker locktime target
-        if (wp.blockTime >= XSLOW_REPTTIME_SECONDS && wp.blockTime * XMIN_LOCKTIME_REPTS > XSLOW_TAKER_LOCKTIME_TARGET_SECONDS) {
+        if (wp.blockTime >= XSLOW_BLOCKTIME_SECONDS && wp.blockTime * XMIN_LOCKTIME_BLOCKS > XSLOW_TAKER_LOCKTIME_TARGET_SECONDS) {
             ERR() << wp.currency << " \"" << wp.title << "\"" << " Failed taker locktime requirements";
             removeConnector(wp.currency);
             continue;
         }
 
         // Confirmation compatibility check
-        const auto maxConfirmations = std::max<uint32_t>(XLOCKTIME_DRIFT_SECONDS/wp.blockTime, XMAX_LOCKTIME_DRIFT_REPTS);
+        const auto maxConfirmations = std::max<uint32_t>(XLOCKTIME_DRIFT_SECONDS/wp.blockTime, XMAX_LOCKTIME_DRIFT_BLOCKS);
         if (wp.requiredConfirmations > maxConfirmations) {
             ERR() << wp.currency << " \"" << wp.title << "\"" << " Failed confirmation check, max allowed for this token is " << maxConfirmations;
             removeConnector(wp.currency);
@@ -1803,11 +1803,11 @@ Error App::acceptXBridgeTransaction(const uint256     & id,
     {
         LOCK(m_utxosOrderLock);
 
-        // REPT available p2pkh utxos
+        // BLOCK available p2pkh utxos
         std::vector<wallet::UtxoEntry> feeOutputs;
         if (!rpc::unspentP2PKH(feeOutputs)) {
             ptr->state = priorState;
-            xbridge::LogOrderMsg(id.GetHex(), "insufficient REPT funds for service node fee payment", __FUNCTION__);
+            xbridge::LogOrderMsg(id.GetHex(), "insufficient BLOCK funds for service node fee payment", __FUNCTION__);
             return xbridge::Error::INSIFFICIENT_FUNDS;
         }
 
@@ -2451,7 +2451,7 @@ void App::unlockCoins(const std::string & token, const std::vector<wallet::UtxoE
 //******************************************************************************
 bool App::canAffordFeePayment(const CAmount & fee) {
 #ifdef ENABLE_WALLET
-    const auto & lockedUtxos = getAllLockedUtxos("REPT");
+    const auto & lockedUtxos = getAllLockedUtxos("BLOCK");
     auto coins = availableCoins(true, 1); // at least 1-conf
 
     CAmount running{0};

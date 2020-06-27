@@ -45,7 +45,7 @@ private:
         COLUMN_VERSION,
         COLUMN_PING_TIME,
         COLUMN_BAN_SCORE,
-        COLUMN_LATEST_REPT
+        COLUMN_LATEST_BLOCK
     };
 };
 

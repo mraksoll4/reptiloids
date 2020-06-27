@@ -584,7 +584,7 @@ std::string ArgsManager::GetHelpMessage() const
             case OptionsCategory::NODE_RELAY:
                 usage += HelpMessageGroup("Node relay options:");
                 break;
-            case OptionsCategory::REPT_CREATION:
+            case OptionsCategory::BLOCK_CREATION:
                 usage += HelpMessageGroup("Block creation options:");
                 break;
             case OptionsCategory::RPC:

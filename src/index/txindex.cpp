@@ -11,9 +11,9 @@
 
 #include <boost/thread.hpp>
 
-constexpr char DB_BEST_REPT = 'B';
+constexpr char DB_BEST_BLOCK = 'B';
 constexpr char DB_TXINDEX = 't';
-constexpr char DB_TXINDEX_REPT = 'T';
+constexpr char DB_TXINDEX_BLOCK = 'T';
 
 std::unique_ptr<TxIndex> g_txindex;
 
@@ -110,20 +110,20 @@ bool TxIndex::DB::MigrateData(CBlockTreeDB& block_tree_db, const CBlockLocator& 
     // and presence was indicated with a boolean DB flag. If the flag is set,
     // this means the txindex from a previous version is valid and in sync with
     // the chain tip. The first step of the migration is to unset the flag and
-    // write the chain hash to a separate key, DB_TXINDEX_REPT. After that, the
+    // write the chain hash to a separate key, DB_TXINDEX_BLOCK. After that, the
     // index entries are copied over in batches to the new database. Finally,
-    // DB_TXINDEX_REPT is erased from the old database and the block hash is
+    // DB_TXINDEX_BLOCK is erased from the old database and the block hash is
     // written to the new database.
     //
     // Unsetting the boolean flag ensures that if the node is downgraded to a
     // previous version, it will not see a corrupted, partially migrated index
     // -- it will see that the txindex is disabled. When the node is upgraded
     // again, the migration will pick up where it left off and sync to the block
-    // with hash DB_TXINDEX_REPT.
+    // with hash DB_TXINDEX_BLOCK.
     bool f_legacy_flag = false;
     block_tree_db.ReadFlag("txindex", f_legacy_flag);
     if (f_legacy_flag) {
-        if (!block_tree_db.Write(DB_TXINDEX_REPT, best_locator)) {
+        if (!block_tree_db.Write(DB_TXINDEX_BLOCK, best_locator)) {
             return error("%s: cannot write block indicator", __func__);
         }
         if (!block_tree_db.WriteFlag("txindex", false)) {
@@ -132,7 +132,7 @@ bool TxIndex::DB::MigrateData(CBlockTreeDB& block_tree_db, const CBlockLocator& 
     }
 
     CBlockLocator locator;
-    if (!block_tree_db.Read(DB_TXINDEX_REPT, locator)) {
+    if (!block_tree_db.Read(DB_TXINDEX_BLOCK, locator)) {
         return true;
     }
 
@@ -205,8 +205,8 @@ bool TxIndex::DB::MigrateData(CBlockTreeDB& block_tree_db, const CBlockLocator& 
     // that the former is fully caught up to that point in the blockchain and
     // that all txindex entries have been removed from the latter.
     if (!interrupted) {
-        batch_olddb.Erase(DB_TXINDEX_REPT);
-        batch_newdb.Write(DB_BEST_REPT, locator);
+        batch_olddb.Erase(DB_TXINDEX_BLOCK);
+        batch_newdb.Write(DB_BEST_BLOCK, locator);
     }
 
     WriteTxIndexMigrationBatches(*this, block_tree_db,

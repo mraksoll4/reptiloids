@@ -2302,16 +2302,16 @@ uint32_t BtcWalletConnector<CryptoProvider>::lockTime(const char role) const
     {
         uint32_t makerTime = XMAKER_LOCKTIME_TARGET_SECONDS;
         uint32_t blocks = makerTime / blockTime;
-        if (blocks < XMIN_LOCKTIME_REPTS) blocks = XMIN_LOCKTIME_REPTS;
+        if (blocks < XMIN_LOCKTIME_BLOCKS) blocks = XMIN_LOCKTIME_BLOCKS;
         lt = info.blocks + blocks;
     }
     else if (role == 'B')
     {
         uint32_t takerTime = XTAKER_LOCKTIME_TARGET_SECONDS;
-        if (blockTime >= XSLOW_REPTTIME_SECONDS)
+        if (blockTime >= XSLOW_BLOCKTIME_SECONDS)
             takerTime = XSLOW_TAKER_LOCKTIME_TARGET_SECONDS; // allow more time for slower chains
         uint32_t blocks = takerTime / blockTime;
-        if (blocks < XMIN_LOCKTIME_REPTS) blocks = XMIN_LOCKTIME_REPTS;
+        if (blocks < XMIN_LOCKTIME_BLOCKS) blocks = XMIN_LOCKTIME_BLOCKS;
         lt = info.blocks + blocks;
     }
 
@@ -2333,7 +2333,7 @@ bool BtcWalletConnector<CryptoProvider>::acceptableLockTimeDrift(const char role
     //
     // If drift determination changes here, update wallet validation checks and unit
     // tests.
-    int64_t drift = std::max<int64_t>(XLOCKTIME_DRIFT_SECONDS, XMAX_LOCKTIME_DRIFT_REPTS * blockTime);
+    int64_t drift = std::max<int64_t>(XLOCKTIME_DRIFT_SECONDS, XMAX_LOCKTIME_DRIFT_BLOCKS * blockTime);
     return diff * static_cast<int64_t>(blockTime) <= drift;
 }
 

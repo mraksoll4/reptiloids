@@ -206,7 +206,7 @@ bool App::openConnections(enum XRouterCommand command, const std::string & servi
 {
     const auto fqService = (command == xrService) ? pluginCommandKey(service) // plugin
                                                   : walletCommandKey(service, XRouterCommand_ToString(command)); // spv wallet
-    // use top-level wallet key (e.g. xr::REPT)
+    // use top-level wallet key (e.g. xr::BLOCK)
     const auto fqServiceAdjusted = (command == xrService) ? fqService
                                                           : walletCommandKey(service);
     // Initially set to 0
@@ -615,7 +615,7 @@ bool App::snodeMatchesCriteria(const sn::ServiceNode & snode, xrouter::XRouterSe
         return false;
     if (!snode.running()) // skip if not running
         return false;
-    if (!snode.hasService(command == xrService ? fqCmd : walletCommandKey(service))) // use top-level wallet key (e.g. xr::REPT)
+    if (!snode.hasService(command == xrService ? fqCmd : walletCommandKey(service))) // use top-level wallet key (e.g. xr::BLOCK)
         return false; // Ignore snodes that don't have the service
 
     // Only select nodes with a fee smaller than the max fee we're willing to pay
@@ -691,7 +691,7 @@ std::vector<CNode*> App::availableNodesRetained(enum XRouterCommand command, con
             continue; // skip exr compatible snodes, they're handled elsewhere
         if (!snodec[nodeAddr].running()) // skip if not running
             continue;
-        if (!snodec[nodeAddr].hasService(command == xrService ? fqCmd : walletCommandKey(service))) // use top-level wallet key (e.g. xr::REPT)
+        if (!snodec[nodeAddr].hasService(command == xrService ? fqCmd : walletCommandKey(service))) // use top-level wallet key (e.g. xr::BLOCK)
             continue; // Ignore snodes that don't have the service
 
         // This is the node whose config we are looking at now
@@ -1219,7 +1219,7 @@ std::string App::xrouterCall(enum XRouterCommand command, std::string & uuidRet,
                 queryMgr.updateSentRequest(addr, fqService);
             } else { // query EXR snode
                 const bool tls = getConfig(addr)->tls(command, service);
-                // Set the fully qualified service url to the form /xr/REPT/xrGetBlockCount
+                // Set the fully qualified service url to the form /xr/BLOCK/xrGetBlockCount
                 const auto & fqUrl = fqServiceToUrl((command == xrService) ? pluginCommandKey(service) // plugin
                                                        : walletCommandKey(service, commandStr, true)); // spv wallet
                 try {
@@ -1625,7 +1625,7 @@ std::map<NodeAddr, std::pair<XRouterSettingsPtr, sn::ServiceNode::Tier>> App::xr
     if (!xrsplit(fqService, xrdelimiter, nparts))
         throw XRouterError("Bad service name, acceptable characters [a-z A-Z 0-9 $], sample format: xrs::ExampleServiceName123", BAD_REQUEST);
 
-    const auto msg = "Missing top-level namespace (xr:: or xrs::) Example xr::REPT or xrs::CustomServiceName";
+    const auto msg = "Missing top-level namespace (xr:: or xrs::) Example xr::BLOCK or xrs::CustomServiceName";
     if (nparts.size() <= 1)
         throw XRouterError(msg, BAD_REQUEST);
 

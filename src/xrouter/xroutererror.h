@@ -22,7 +22,7 @@ namespace xrouter
         BAD_ADDRESS             = 1026,
         INSUFFICIENT_FUNDS      = 1027,
         INSUFFICIENT_FEE        = 1028,
-        UNSUPPORTED_REPTCHAIN  = 1030,
+        UNSUPPORTED_BLOCKCHAIN  = 1030,
         UNSUPPORTED_SERVICE     = 1031,
         NOT_ENOUGH_NODES        = 1032,
         MAXFEE_TOO_LOW          = 1033,

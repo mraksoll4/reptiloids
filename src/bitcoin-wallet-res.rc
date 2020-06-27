@@ -12,9 +12,9 @@ PRODUCTVERSION  VER_PRODUCTVERSION
 FILEOS          VOS_NT_WINDOWS32
 FILETYPE        VFT_APP
 BEGIN
-    REPT "StringFileInfo"
+    BLOCK "StringFileInfo"
     BEGIN
-        REPT "040904E4" // U.S. English - multilingual (hex)
+        BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "Bitcoin"
             VALUE "FileDescription",    "bitcoin-wallet (CLI tool for " PACKAGE_NAME " wallets)"
@@ -28,7 +28,7 @@ BEGIN
         END
     END
 
-    REPT "VarFileInfo"
+    BLOCK "VarFileInfo"
     BEGIN
         VALUE "Translation", 0x0, 1252 // language neutral - multilingual (decimal)
     END

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_REPTENCODINGS_H
-#define BITCOIN_REPTENCODINGS_H
+#ifndef BITCOIN_BLOCKENCODINGS_H
+#define BITCOIN_BLOCKENCODINGS_H
 
 #include <primitives/block.h>
 
@@ -124,7 +124,7 @@ typedef enum ReadStatus_t
     READ_STATUS_OK,
     READ_STATUS_INVALID, // Invalid object, peer is sending bogus crap
     READ_STATUS_FAILED, // Failed to process object
-    READ_STATUS_CHECKREPT_FAILED, // Used only by FillBlock to indicate a
+    READ_STATUS_CHECKBLOCK_FAILED, // Used only by FillBlock to indicate a
                                    // failure in CheckBlock.
 } ReadStatus;
 
@@ -209,4 +209,4 @@ public:
     ReadStatus FillBlock(CBlock& block, const std::vector<CTransactionRef>& vtx_missing);
 };
 
-#endif // BITCOIN_REPTENCODINGS_H
+#endif // BITCOIN_BLOCKENCODINGS_H

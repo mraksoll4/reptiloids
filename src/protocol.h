@@ -97,17 +97,17 @@ extern const char *INV;
 extern const char *GETDATA;
 /**
  * The merkleblock message is a reply to a getdata message which requested a
- * block using the inventory type MSG_MERKLEREPT.
+ * block using the inventory type MSG_MERKLEBLOCK.
  * @since protocol version 70001 as described by BIP37.
  * @see https://bitcoin.org/en/developer-reference#merkleblock
  */
-extern const char *MERKLEREPT;
+extern const char *MERKLEBLOCK;
 /**
  * The getblocks message requests an inv message that provides block header
  * hashes starting from a particular point in the block chain.
  * @see https://bitcoin.org/en/developer-reference#getblocks
  */
-extern const char *GETREPTS;
+extern const char *GETBLOCKS;
 /**
  * The getheaders message requests a headers message that provides block
  * headers starting from a particular point in the block chain.
@@ -131,7 +131,7 @@ extern const char *HEADERS;
  * The block message transmits a single serialized block.
  * @see https://bitcoin.org/en/developer-reference#block
  */
-extern const char *REPT;
+extern const char *BLOCK;
 /**
  * The getaddr message requests an addr message from the receiving node,
  * preferably one with lots of IP addresses of other receiving nodes.
@@ -225,19 +225,19 @@ extern const char *SENDCMPCT;
  * list of "short txids".
  * @since protocol version 70014 as described by BIP 152
  */
-extern const char *CMPCTREPT;
+extern const char *CMPCTBLOCK;
 /**
  * Contains a BlockTransactionsRequest
  * Peer should respond with "blocktxn" message.
  * @since protocol version 70014 as described by BIP 152
  */
-extern const char *GETREPTTXN;
+extern const char *GETBLOCKTXN;
 /**
  * Contains a BlockTransactions.
  * Sent in response to a "getblocktxn" message.
  * @since protocol version 70014 as described by BIP 152
  */
-extern const char *REPTTXN;
+extern const char *BLOCKTXN;
 /**
  * Contains an XBridge message.
  * @since protocol version 70712
@@ -405,13 +405,13 @@ enum GetDataMsg
 {
     UNDEFINED = 0,
     MSG_TX = 1,
-    MSG_REPT = 2,
-    // The following can only occur in getdata. Invs always use TX or REPT.
-    MSG_FILTERED_REPT = 3,  //!< Defined in BIP37
-    MSG_CMPCT_REPT = 4,     //!< Defined in BIP152
-    MSG_WITNESS_REPT = MSG_REPT | MSG_WITNESS_FLAG, //!< Defined in BIP144
+    MSG_BLOCK = 2,
+    // The following can only occur in getdata. Invs always use TX or BLOCK.
+    MSG_FILTERED_BLOCK = 3,  //!< Defined in BIP37
+    MSG_CMPCT_BLOCK = 4,     //!< Defined in BIP152
+    MSG_WITNESS_BLOCK = MSG_BLOCK | MSG_WITNESS_FLAG, //!< Defined in BIP144
     MSG_WITNESS_TX = MSG_TX | MSG_WITNESS_FLAG,       //!< Defined in BIP144
-    MSG_FILTERED_WITNESS_REPT = MSG_FILTERED_REPT | MSG_WITNESS_FLAG,
+    MSG_FILTERED_WITNESS_BLOCK = MSG_FILTERED_BLOCK | MSG_WITNESS_FLAG,
 };
 
 /** inv message data */

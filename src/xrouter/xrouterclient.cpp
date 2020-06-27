@@ -718,7 +718,7 @@ std::string XRouterClient::xrouterCall(enum XRouterCommand command, std::string 
 
             // Query Enterprise XRouter snodes
             const auto tls = settings[addr]->settings()->tls(command, service);
-            // Set the fully qualified service url to the form /xr/REPT/xrGetBlockCount
+            // Set the fully qualified service url to the form /xr/BLOCK/xrGetBlockCount
             const auto & fqUrl = fqServiceToUrl((command == xrService) ? pluginCommandKey(service) // plugin
                                                                        : walletCommandKey(service, commandStr, true)); // spv wallet
             try {

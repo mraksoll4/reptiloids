@@ -128,7 +128,7 @@ private:
         COLUMN_COLOR,
         COLUMN_PADDING1,
         COLUMN_NAME,
-        COLUMN_SUPERREPT,
+        COLUMN_SUPERBLOCK,
         COLUMN_AMOUNT,
         COLUMN_TALLY,
         COLUMN_URL,

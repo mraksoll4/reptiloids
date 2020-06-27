@@ -84,7 +84,7 @@ bool WalletInit::ParameterInteraction() const
 
     const bool is_multiwallet = gArgs.GetArgs("-wallet").size() > 1;
 
-    if (gArgs.GetBoolArg("-blocksonly", DEFAULT_REPTSONLY) && gArgs.SoftSetBoolArg("-walletbroadcast", false)) {
+    if (gArgs.GetBoolArg("-blocksonly", DEFAULT_BLOCKSONLY) && gArgs.SoftSetBoolArg("-walletbroadcast", false)) {
         LogPrintf("%s: parameter interaction: -blocksonly=1 -> setting -walletbroadcast=0\n", __func__);
     }
 

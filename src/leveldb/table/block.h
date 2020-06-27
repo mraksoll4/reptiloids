@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
-#ifndef STORAGE_LEVELDB_TABLE_REPT_H_
-#define STORAGE_LEVELDB_TABLE_REPT_H_
+#ifndef STORAGE_LEVELDB_TABLE_BLOCK_H_
+#define STORAGE_LEVELDB_TABLE_BLOCK_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -41,4 +41,4 @@ class Block {
 
 }  // namespace leveldb
 
-#endif  // STORAGE_LEVELDB_TABLE_REPT_H_
+#endif  // STORAGE_LEVELDB_TABLE_BLOCK_H_

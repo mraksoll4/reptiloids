@@ -64,7 +64,7 @@ class LockImpl : public Chain::Lock
     bool haveBlockOnDisk(int height) override
     {
         CBlockIndex* block = ::chainActive[height];
-        return block && ((block->nStatus & REPT_HAVE_DATA) != 0) && block->nTx > 0;
+        return block && ((block->nStatus & BLOCK_HAVE_DATA) != 0) && block->nTx > 0;
     }
     Optional<int> findFirstBlockWithTime(int64_t time, uint256* hash) override
     {
@@ -94,7 +94,7 @@ class LockImpl : public Chain::Lock
         if (::fPruneMode) {
             CBlockIndex* block = stop_height ? ::chainActive[*stop_height] : ::chainActive.Tip();
             while (block && block->nHeight >= start_height) {
-                if ((block->nStatus & REPT_HAVE_DATA) == 0) {
+                if ((block->nStatus & BLOCK_HAVE_DATA) == 0) {
                     return block->nHeight;
                 }
                 block = block->pprev;

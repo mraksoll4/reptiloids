@@ -46,7 +46,7 @@ static const int GETSERVICES_VERSION = 70714;
 static const int FEEFILTER_VERSION = 70714;
 
 //! short-id-based block download starts with this version
-static const int SHORT_IDS_REPTS_VERSION = 70714;
+static const int SHORT_IDS_BLOCKS_VERSION = 70714;
 
 //! not banning for invalid compact blocks starts with this version
 static const int INVALID_CB_NO_BAN_VERSION = 70714;

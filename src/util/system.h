@@ -120,7 +120,7 @@ enum class OptionsCategory {
     DEBUG_TEST,
     CHAINPARAMS,
     NODE_RELAY,
-    REPT_CREATION,
+    BLOCK_CREATION,
     RPC,
     GUI,
     COMMANDS,

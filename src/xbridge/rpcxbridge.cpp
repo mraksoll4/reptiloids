@@ -358,17 +358,17 @@ UniValue dxGetOrderFills(const JSONRPCRequest& request)
                 "only return orders that have been filled in your current session.\n",
                 {
                     {"maker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token sold by the maker (e.g. LTC)."},
-                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token sold by the taker (e.g. REPT)."},
+                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token sold by the taker (e.g. BLOCK)."},
                     {"combined", RPCArg::Type::BOOL, "true", "If true, combines the results to return orders with the maker and taker as specified and orders with inverse."},
                 },
                 RPCResult{
                 "\n"
                 },
                 RPCExamples{
-                    HelpExampleCli("dxGetOrderFills", "REPT LTC")
-                  + HelpExampleRpc("dxGetOrderFills", "\"REPT\", \"LTC\"")
-                  + HelpExampleCli("dxGetOrderFills", "REPT LTC true")
-                  + HelpExampleRpc("dxGetOrderFills", "\"REPT\", \"LTC\", true")
+                    HelpExampleCli("dxGetOrderFills", "BLOCK LTC")
+                  + HelpExampleRpc("dxGetOrderFills", "\"BLOCK\", \"LTC\"")
+                  + HelpExampleCli("dxGetOrderFills", "BLOCK LTC true")
+                  + HelpExampleRpc("dxGetOrderFills", "\"BLOCK\", \"LTC\", true")
                 },
             }.ToString());
     Value js; json_spirit::read_string(request.params.write(), js); Array params = js.get_array();
@@ -431,7 +431,7 @@ UniValue dxGetOrderHistory(const JSONRPCRequest& request)
                 "\nReturns the order history over a specified time interval.\n",
                 {
                     {"maker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token sold by the maker (e.g. LTC)."},
-                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token sold by the taker (e.g. REPT)."},
+                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token sold by the taker (e.g. BLOCK)."},
                     {"start_time", RPCArg::Type::NUM, RPCArg::Optional::NO, "The Unix time in seconds for the start time boundary to search."},
                     {"end_time", RPCArg::Type::NUM, RPCArg::Optional::NO, "The Unix time in seconds for the end time boundary to search."},
                     {"granularity", RPCArg::Type::NUM, RPCArg::Optional::NO, "Time interval slice in seconds. The slice options are: " + xQuery::supported_seconds_csv()},
@@ -585,7 +585,7 @@ UniValue dxMakeOrder(const JSONRPCRequest& request)
                     {"maker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token being sold by the maker (e.g. LTC)."},
                     {"maker_size", RPCArg::Type::STR, RPCArg::Optional::NO, "The amount of the maker token being sent."},
                     {"maker_address", RPCArg::Type::STR, RPCArg::Optional::NO, "The maker address containing tokens being sent."},
-                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token being bought by the maker (e.g. REPT)."},
+                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token being bought by the maker (e.g. BLOCK)."},
                     {"taker_size", RPCArg::Type::STR, RPCArg::Optional::NO, "The amount of the taker token to be received."},
                     {"taker_address", RPCArg::Type::STR, RPCArg::Optional::NO, "The taker address for the receiving token."},
                     {"type", RPCArg::Type::STR, RPCArg::Optional::NO, "The order type. Options: exact"},
@@ -595,10 +595,10 @@ UniValue dxMakeOrder(const JSONRPCRequest& request)
                 "\n"
                 },
                 RPCExamples{
-                    HelpExampleCli("dxMakeOrder", "LTC 25 LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H REPT 1000 BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR exact")
-                  + HelpExampleRpc("dxMakeOrder", "\"LTC\", \"25\", \"LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H\", \"REPT\", \"1000\", \"BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR\", \"exact\"")
-                  + HelpExampleCli("dxMakeOrder", "LTC 25 LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H REPT 1000 BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR exact dryrun")
-                  + HelpExampleRpc("dxMakeOrder", "\"LTC\", \"25\", \"LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H\", \"REPT\", \"1000\", \"BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR\", \"exact\", \"dryrun\"")
+                    HelpExampleCli("dxMakeOrder", "LTC 25 LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H BLOCK 1000 BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR exact")
+                  + HelpExampleRpc("dxMakeOrder", "\"LTC\", \"25\", \"LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H\", \"BLOCK\", \"1000\", \"BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR\", \"exact\"")
+                  + HelpExampleCli("dxMakeOrder", "LTC 25 LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H BLOCK 1000 BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR exact dryrun")
+                  + HelpExampleRpc("dxMakeOrder", "\"LTC\", \"25\", \"LLZ1pgb6Jqx8hu84fcr5WC5HMoKRUsRE8H\", \"BLOCK\", \"1000\", \"BWQrvmuHB4C68KH5V7fcn9bFtWN8y5hBmR\", \"exact\", \"dryrun\"")
                 },
             }.ToString());
     Value js; json_spirit::read_string(request.params.write(), js); Array params = js.get_array();
@@ -769,7 +769,7 @@ UniValue dxTakeOrder(const JSONRPCRequest& request)
         throw std::runtime_error(
             RPCHelpMan{"dxTakeOrder",
                 "\nThis call is used to accept an order. You can only take orders for markets\n"
-                "with tokens supported by your node. Taking an order has a 0.015 REPT fee.\n"
+                "with tokens supported by your node. Taking an order has a 0.015 BLOCK fee.\n"
                 "[dryrun] will evaluate input without accepting the order (test run).\n"
                 "\nNote:\n"
                 "XBridge will first attempt to use funds from the specified from_address.\n"
@@ -1064,17 +1064,17 @@ UniValue dxGetOrderBook(const JSONRPCRequest& request)
                 {
                     {"detail", RPCArg::Type::NUM, RPCArg::Optional::NO, "The detail level."},
                     {"maker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token being sold by the maker (e.g. LTC)."},
-                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token being sold by the taker (e.g. REPT)."},
+                    {"taker", RPCArg::Type::STR, RPCArg::Optional::NO, "The symbol of the token being sold by the taker (e.g. BLOCK)."},
                     {"max_orders", RPCArg::Type::NUM, "50", "The maximum total orders to display for bids and asks combined."},
                 },
                 RPCResult{
                 "\n"
                 },
                 RPCExamples{
-                    HelpExampleCli("dxGetOrderBook", "3 REPT LTC")
-                  + HelpExampleRpc("dxGetOrderBook", "3, \"REPT\", \"LTC\"")
-                  + HelpExampleCli("dxGetOrderBook", "3 REPT LTC 60")
-                  + HelpExampleRpc("dxGetOrderBook", "3, \"REPT\", \"LTC\", 60")
+                    HelpExampleCli("dxGetOrderBook", "3 BLOCK LTC")
+                  + HelpExampleRpc("dxGetOrderBook", "3, \"BLOCK\", \"LTC\"")
+                  + HelpExampleCli("dxGetOrderBook", "3 BLOCK LTC 60")
+                  + HelpExampleRpc("dxGetOrderBook", "3, \"BLOCK\", \"LTC\", 60")
                 },
             }.ToString());
     Value js; json_spirit::read_string(request.params.write(), js); Array params = js.get_array();
@@ -1810,7 +1810,7 @@ UniValue gettradingdata(const JSONRPCRequest& request)
                 "  \"txid\":       \"4b409r5c5fb1986p30cf7c19afec2c8\",     (string) The ReptiloidsCoin trade fee transaction ID.\n"
                 "  \"to\":         \"Bqtes8j14rE65kcpsEors5JDzDaHiaMtLG\",  (string) The address of the Service Node that received the trade fee.\n"
                 "  \"xid\":        \"9eb57bas331eab3zf3daefd8364cdbL\",     (string) The XBridge transaction ID.\n"
-                "  \"from\":       \"REPT\",                               (string) The symbol of the token bought by the maker.\n"
+                "  \"from\":       \"BLOCK\",                               (string) The symbol of the token bought by the maker.\n"
                 "  \"fromAmount\": 0.001111,                              (uint64) The amount of the token that was bought by the maker.\n"
                 "  \"to\":         \"SYS\",                                 (string) The symbol of the token sold by the maker.\n"
                 "  \"toAmount\":   0.001000,                              (uint64) The amount of the token that was sold by the maker.\n"
@@ -1912,7 +1912,7 @@ UniValue dxGetTradingData(const JSONRPCRequest& request)
         "fee_txid": "4b409e5c5fb1986930cf7c19afec2c89ac2ad4fddc13c1d5479b66ddf4a8fefb",
         "nodepubkey": "Bqtms8j1zrE65kcpsEorE5JDzDaHidMtLG",
         "id": "9eb57bac331eab34f3daefd8364cdb2bb05259c407d805d0bd0c",
-        "taker": "REPT",
+        "taker": "BLOCK",
         "taker_size": 0.001111,
         "maker": "SYS",
         "maker_size": 0.001000
@@ -1922,7 +1922,7 @@ UniValue dxGetTradingData(const JSONRPCRequest& request)
         "fee_txid": "3de7479e8a88ebed986d3b7e7e135291d3fd10e4e6d4c6238663db42c5019286",
         "nodepubkey": "Bqtms8j1zrE65kcpsEorE5JDzDaHidMtLG",
         "id": "fd0fed3ee9fe557d5735768c9bdcd4ab2908165353e0f0cef0d5",
-        "taker": "REPT",
+        "taker": "BLOCK",
         "taker_size": 0.001577,
         "maker": "SYS",
         "maker_size": 0.001420
@@ -1932,7 +1932,7 @@ UniValue dxGetTradingData(const JSONRPCRequest& request)
         "fee_txid": "9cc4a0dae46f2f1849b3ab6f93ea1c59aeaf0e95662d90398814113f12127eae",
         "nodepubkey": "BbrQKtutGBLuWHvq26EmHKuNaztnfBFWVB",
         "id": "f74c614489bd77efe545c239d1f9a57363c5428e7401b2018d350",
-        "taker": "REPT",
+        "taker": "BLOCK",
         "taker_size": 0.000231,
         "maker": "SYS",
         "maker_size": 0.001100

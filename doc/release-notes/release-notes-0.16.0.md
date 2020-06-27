@@ -346,7 +346,7 @@ Testing changes
 - #12092 `fd4ca17` Replaces numbered place marker %2 with %1 (251Labs)
 - #12173 `bbc91b7` Use flexible font size for QRCode image address (jonasschnelli)
 - #12211 `10d10d7` Avoid potential null dereference in ReceiveCoinsDialog constructor (ryanofsky)
-- #12261 `f359afc` Bump REPT_CHAIN_SIZE to 200GB (laanwj)
+- #12261 `f359afc` Bump BLOCK_CHAIN_SIZE to 200GB (laanwj)
 - #11991 `062c8b6` Receive: checkbox for bech32 address (Sjors)
 - #11644 `045a809` Fix qt build broken by 5a5e4e9 (TheBlueMatt)
 - #11448 `d473e6d` reset addrProxy/addrSeparateProxyTor if colon char missing (mess110)

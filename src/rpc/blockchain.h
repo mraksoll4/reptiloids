@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_RPC_REPTCHAIN_H
-#define BITCOIN_RPC_REPTCHAIN_H
+#ifndef BITCOIN_RPC_BLOCKCHAIN_H
+#define BITCOIN_RPC_BLOCKCHAIN_H
 
 #include <vector>
 #include <stdint.h>
@@ -13,7 +13,7 @@ class CBlock;
 class CBlockIndex;
 class UniValue;
 
-static constexpr int NUM_GETREPTSTATS_PERCENTILES = 5;
+static constexpr int NUM_GETBLOCKSTATS_PERCENTILES = 5;
 
 /**
  * Get the difficulty of the net wrt to the given block index.
@@ -39,6 +39,6 @@ UniValue mempoolToJSON(bool fVerbose = false);
 UniValue blockheaderToJSON(const CBlockIndex* tip, const CBlockIndex* blockindex);
 
 /** Used by getblockstats to get feerates at different percentiles by weight  */
-void CalculatePercentilesByWeight(CAmount result[NUM_GETREPTSTATS_PERCENTILES], std::vector<std::pair<CAmount, int64_t>>& scores, int64_t total_weight);
+void CalculatePercentilesByWeight(CAmount result[NUM_GETBLOCKSTATS_PERCENTILES], std::vector<std::pair<CAmount, int64_t>>& scores, int64_t total_weight);
 
 #endif

@@ -18,15 +18,15 @@
  * Maximum amount of time that a block timestamp is allowed to exceed the
  * current network-adjusted time before the block will be accepted.
  */
-static constexpr int64_t MAX_FUTURE_REPT_TIME = 2 * 60 * 60;
+static constexpr int64_t MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60;
 
 /**
  * Timestamp window used as a grace period by code that compares external
  * timestamps (such as timestamps passed to RPCs, or wallet key creation times)
  * to block timestamps. This should be set at least as high as
- * MAX_FUTURE_REPT_TIME.
+ * MAX_FUTURE_BLOCK_TIME.
  */
-static constexpr int64_t TIMESTAMP_WINDOW = MAX_FUTURE_REPT_TIME;
+static constexpr int64_t TIMESTAMP_WINDOW = MAX_FUTURE_BLOCK_TIME;
 
 /**
  * Maximum gap between node time and block time used
@@ -34,7 +34,7 @@ static constexpr int64_t TIMESTAMP_WINDOW = MAX_FUTURE_REPT_TIME;
  *
  * Ref: https://github.com/bitcoin/bitcoin/pull/1026
  */
-static constexpr int64_t MAX_REPT_TIME_GAP = 15 * 60; // ReptiloidsCoin 15 minutes
+static constexpr int64_t MAX_BLOCK_TIME_GAP = 15 * 60; // ReptiloidsCoin 15 minutes
 
 class CBlockFileInfo
 {
@@ -132,42 +132,42 @@ struct CDiskBlockPos
 
 enum BlockStatus: uint32_t {
     //! Unused.
-    REPT_VALID_UNKNOWN      =    0,
+    BLOCK_VALID_UNKNOWN      =    0,
 
     //! Parsed, version ok, hash satisfies claimed PoW, 1 <= vtx count <= max, timestamp not in future
-    REPT_VALID_HEADER       =    1,
+    BLOCK_VALID_HEADER       =    1,
 
     //! All parent headers found, difficulty matches, timestamp >= median previous, checkpoint. Implies all parents
     //! are also at least TREE.
-    REPT_VALID_TREE         =    2,
+    BLOCK_VALID_TREE         =    2,
 
     /**
      * Only first tx is coinbase, 2 <= coinbase input script length <= 100, transactions valid, no duplicate txids,
      * sigops, size, merkle root. Implies all parents are at least TREE but not necessarily TRANSACTIONS. When all
      * parent blocks also have TRANSACTIONS, CBlockIndex::nChainTx will be set.
      */
-    REPT_VALID_TRANSACTIONS =    3,
+    BLOCK_VALID_TRANSACTIONS =    3,
 
     //! Outputs do not overspend inputs, no double spends, coinbase output ok, no immature coinbase spends, BIP30.
     //! Implies all parents are also at least CHAIN.
-    REPT_VALID_CHAIN        =    4,
+    BLOCK_VALID_CHAIN        =    4,
 
     //! Scripts & signatures ok. Implies all parents are also at least SCRIPTS.
-    REPT_VALID_SCRIPTS      =    5,
+    BLOCK_VALID_SCRIPTS      =    5,
 
     //! All validity bits.
-    REPT_VALID_MASK         =   REPT_VALID_HEADER | REPT_VALID_TREE | REPT_VALID_TRANSACTIONS |
-                                 REPT_VALID_CHAIN | REPT_VALID_SCRIPTS,
+    BLOCK_VALID_MASK         =   BLOCK_VALID_HEADER | BLOCK_VALID_TREE | BLOCK_VALID_TRANSACTIONS |
+                                 BLOCK_VALID_CHAIN | BLOCK_VALID_SCRIPTS,
 
-    REPT_HAVE_DATA          =    8, //!< full block available in blk*.dat
-    REPT_HAVE_UNDO          =   16, //!< undo data available in rev*.dat
-    REPT_HAVE_MASK          =   REPT_HAVE_DATA | REPT_HAVE_UNDO,
+    BLOCK_HAVE_DATA          =    8, //!< full block available in blk*.dat
+    BLOCK_HAVE_UNDO          =   16, //!< undo data available in rev*.dat
+    BLOCK_HAVE_MASK          =   BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO,
 
-    REPT_FAILED_VALID       =   32, //!< stage after last reached validness failed
-    REPT_FAILED_CHILD       =   64, //!< descends from failed block
-    REPT_FAILED_MASK        =   REPT_FAILED_VALID | REPT_FAILED_CHILD,
+    BLOCK_FAILED_VALID       =   32, //!< stage after last reached validness failed
+    BLOCK_FAILED_CHILD       =   64, //!< descends from failed block
+    BLOCK_FAILED_MASK        =   BLOCK_FAILED_VALID | BLOCK_FAILED_CHILD,
 
-    REPT_OPT_WITNESS       =   128, //!< block data in blk*.data was received with a witness-enforcing client
+    BLOCK_OPT_WITNESS       =   128, //!< block data in blk*.data was received with a witness-enforcing client
 };
 
 /** The block chain is a tree shaped structure starting with the
@@ -237,9 +237,9 @@ public:
     CAmount nStakeAmount;
     uint256 hashStakeBlock;
     enum {
-        REPT_PROOF_OF_STAKE = (1 << 0), // is proof-of-stake block
-        REPT_STAKE_ENTROPY = (1 << 1),  // entropy bit for stake modifier
-        REPT_STAKE_MODIFIER = (1 << 2), // regenerated stake modifier
+        BLOCK_PROOF_OF_STAKE = (1 << 0), // is proof-of-stake block
+        BLOCK_STAKE_ENTROPY = (1 << 1),  // entropy bit for stake modifier
+        BLOCK_STAKE_MODIFIER = (1 << 2), // regenerated stake modifier
     };
 
     void SetNull()
@@ -296,7 +296,7 @@ public:
 
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
-        if (nStatus & REPT_HAVE_DATA) {
+        if (nStatus & BLOCK_HAVE_DATA) {
             ret.nFile = nFile;
             ret.nPos  = nDataPos;
         }
@@ -305,7 +305,7 @@ public:
 
     CDiskBlockPos GetUndoPos() const {
         CDiskBlockPos ret;
-        if (nStatus & REPT_HAVE_UNDO) {
+        if (nStatus & BLOCK_HAVE_UNDO) {
             ret.nFile = nFile;
             ret.nPos  = nUndoPos;
         }
@@ -378,23 +378,23 @@ public:
     }
 
     //! Check whether this block index entry is valid up to the passed validity level.
-    bool IsValid(enum BlockStatus nUpTo = REPT_VALID_TRANSACTIONS) const
+    bool IsValid(enum BlockStatus nUpTo = BLOCK_VALID_TRANSACTIONS) const
     {
-        assert(!(nUpTo & ~REPT_VALID_MASK)); // Only validity flags allowed.
-        if (nStatus & REPT_FAILED_MASK)
+        assert(!(nUpTo & ~BLOCK_VALID_MASK)); // Only validity flags allowed.
+        if (nStatus & BLOCK_FAILED_MASK)
             return false;
-        return ((nStatus & REPT_VALID_MASK) >= nUpTo);
+        return ((nStatus & BLOCK_VALID_MASK) >= nUpTo);
     }
 
     //! Raise the validity level of this block index entry.
     //! Returns true if the validity was changed.
     bool RaiseValidity(enum BlockStatus nUpTo)
     {
-        assert(!(nUpTo & ~REPT_VALID_MASK)); // Only validity flags allowed.
-        if (nStatus & REPT_FAILED_MASK)
+        assert(!(nUpTo & ~BLOCK_VALID_MASK)); // Only validity flags allowed.
+        if (nStatus & BLOCK_FAILED_MASK)
             return false;
-        if ((nStatus & REPT_VALID_MASK) < nUpTo) {
-            nStatus = (nStatus & ~REPT_VALID_MASK) | nUpTo;
+        if ((nStatus & BLOCK_VALID_MASK) < nUpTo) {
+            nStatus = (nStatus & ~BLOCK_VALID_MASK) | nUpTo;
             return true;
         }
         return false;
@@ -409,27 +409,27 @@ public:
 
     // ppcoin: PoS
     void SetProofOfStake() {
-        nFlags |= REPT_PROOF_OF_STAKE;
+        nFlags |= BLOCK_PROOF_OF_STAKE;
     }
     bool IsProofOfStake() {
-        return nFlags & REPT_PROOF_OF_STAKE;
+        return nFlags & BLOCK_PROOF_OF_STAKE;
     }
     bool SetStakeEntropyBit(const unsigned int & ebit) {
         if (ebit > 1)
             return false;
-        nFlags |= (ebit ? REPT_STAKE_ENTROPY : 0);
+        nFlags |= (ebit ? BLOCK_STAKE_ENTROPY : 0);
         return true;
     }
     unsigned int GetStakeEntropyBit() const {
-        return ((nFlags & REPT_STAKE_ENTROPY) >> 1);
+        return ((nFlags & BLOCK_STAKE_ENTROPY) >> 1);
     }
     void SetStakeModifier(uint64_t modifer, bool didGenStakeModifer) {
         nStakeModifier = modifer;
         if (didGenStakeModifer)
-            nFlags |= REPT_STAKE_MODIFIER;
+            nFlags |= BLOCK_STAKE_MODIFIER;
     }
     bool GeneratedStakeModifier() const {
-        return nFlags & REPT_STAKE_MODIFIER;
+        return nFlags & BLOCK_STAKE_MODIFIER;
     }
 };
 
@@ -466,11 +466,11 @@ public:
         READWRITE(VARINT(nHeight, VarIntMode::NONNEGATIVE_SIGNED));
         READWRITE(VARINT(nStatus));
         READWRITE(VARINT(nTx));
-        if (nStatus & (REPT_HAVE_DATA | REPT_HAVE_UNDO))
+        if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
             READWRITE(VARINT(nFile, VarIntMode::NONNEGATIVE_SIGNED));
-        if (nStatus & REPT_HAVE_DATA)
+        if (nStatus & BLOCK_HAVE_DATA)
             READWRITE(VARINT(nDataPos));
-        if (nStatus & REPT_HAVE_UNDO)
+        if (nStatus & BLOCK_HAVE_UNDO)
             READWRITE(VARINT(nUndoPos));
 
         // block header

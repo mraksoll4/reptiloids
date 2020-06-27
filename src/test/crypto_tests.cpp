@@ -111,7 +111,7 @@ static void TestAES128CBC(const std::string &hexkey, const std::string &hexiv, b
     std::vector<unsigned char> iv = ParseHex(hexiv);
     std::vector<unsigned char> in = ParseHex(hexin);
     std::vector<unsigned char> correctout = ParseHex(hexout);
-    std::vector<unsigned char> realout(in.size() + AES_REPTSIZE);
+    std::vector<unsigned char> realout(in.size() + AES_BLOCKSIZE);
 
     // Encrypt the plaintext and verify that it equals the cipher
     AES128CBCEncrypt enc(key.data(), iv.data(), pad);
@@ -132,7 +132,7 @@ static void TestAES128CBC(const std::string &hexkey, const std::string &hexiv, b
     for(std::vector<unsigned char>::iterator i(in.begin()); i != in.end(); ++i)
     {
         std::vector<unsigned char> sub(i, in.end());
-        std::vector<unsigned char> subout(sub.size() + AES_REPTSIZE);
+        std::vector<unsigned char> subout(sub.size() + AES_BLOCKSIZE);
         int _size = enc.Encrypt(sub.data(), sub.size(), subout.data());
         if (_size != 0)
         {
@@ -152,7 +152,7 @@ static void TestAES256CBC(const std::string &hexkey, const std::string &hexiv, b
     std::vector<unsigned char> iv = ParseHex(hexiv);
     std::vector<unsigned char> in = ParseHex(hexin);
     std::vector<unsigned char> correctout = ParseHex(hexout);
-    std::vector<unsigned char> realout(in.size() + AES_REPTSIZE);
+    std::vector<unsigned char> realout(in.size() + AES_BLOCKSIZE);
 
     // Encrypt the plaintext and verify that it equals the cipher
     AES256CBCEncrypt enc(key.data(), iv.data(), pad);
@@ -173,7 +173,7 @@ static void TestAES256CBC(const std::string &hexkey, const std::string &hexiv, b
     for(std::vector<unsigned char>::iterator i(in.begin()); i != in.end(); ++i)
     {
         std::vector<unsigned char> sub(i, in.end());
-        std::vector<unsigned char> subout(sub.size() + AES_REPTSIZE);
+        std::vector<unsigned char> subout(sub.size() + AES_BLOCKSIZE);
         int _size = enc.Encrypt(sub.data(), sub.size(), subout.data());
         if (_size != 0)
         {

@@ -23,7 +23,7 @@ import abc
 
 from test_framework.messages import CTransaction, CTxIn, CTxOut, COutPoint
 from test_framework import script as sc
-from test_framework.blocktools import create_tx_with_script, MAX_REPT_SIGOPS
+from test_framework.blocktools import create_tx_with_script, MAX_BLOCK_SIGOPS
 
 basic_p2sh = sc.CScript([sc.OP_HASH160, sc.hash160(sc.CScript([sc.OP_0])), sc.OP_EQUAL])
 
@@ -168,7 +168,7 @@ class TooManySigops(BadTxTemplate):
     expect_disconnect = False
 
     def get_tx(self):
-        lotsa_checksigs = sc.CScript([sc.OP_CHECKSIG] * (MAX_REPT_SIGOPS))
+        lotsa_checksigs = sc.CScript([sc.OP_CHECKSIG] * (MAX_BLOCK_SIGOPS))
         return create_tx_with_script(
             self.spend_tx, 0,
             script_pub_key=lotsa_checksigs,

@@ -37,7 +37,7 @@ void test_one_input(std::vector<uint8_t> buffer)
         return;
     }
 
-#if REPT_DESERIALIZE
+#if BLOCK_DESERIALIZE
             try
             {
                 CBlock block;
@@ -48,13 +48,13 @@ void test_one_input(std::vector<uint8_t> buffer)
             {
                 CTransaction tx(deserialize, ds);
             } catch (const std::ios_base::failure& e) {return;}
-#elif REPTLOCATOR_DESERIALIZE
+#elif BLOCKLOCATOR_DESERIALIZE
             try
             {
                 CBlockLocator bl;
                 ds >> bl;
             } catch (const std::ios_base::failure& e) {return;}
-#elif REPTMERKLEROOT
+#elif BLOCKMERKLEROOT
             try
             {
                 CBlock block;
@@ -68,7 +68,7 @@ void test_one_input(std::vector<uint8_t> buffer)
                 CAddrMan am;
                 ds >> am;
             } catch (const std::ios_base::failure& e) {return;}
-#elif REPTHEADER_DESERIALIZE
+#elif BLOCKHEADER_DESERIALIZE
             try
             {
                 CBlockHeader bh;
@@ -86,7 +86,7 @@ void test_one_input(std::vector<uint8_t> buffer)
                 CTxUndo tu;
                 ds >> tu;
             } catch (const std::ios_base::failure& e) {return;}
-#elif REPTUNDO_DESERIALIZE
+#elif BLOCKUNDO_DESERIALIZE
             try
             {
                 CBlockUndo bu;
@@ -136,7 +136,7 @@ void test_one_input(std::vector<uint8_t> buffer)
                 CBloomFilter bf;
                 ds >> bf;
             } catch (const std::ios_base::failure& e) {return;}
-#elif DISKREPTINDEX_DESERIALIZE
+#elif DISKBLOCKINDEX_DESERIALIZE
             try
             {
                 CDiskBlockIndex dbi;
@@ -149,13 +149,13 @@ void test_one_input(std::vector<uint8_t> buffer)
             {
                 ds >> toc;
             } catch (const std::ios_base::failure& e) {return;}
-#elif REPTTRANSACTIONS_DESERIALIZE
+#elif BLOCKTRANSACTIONS_DESERIALIZE
             try
             {
                 BlockTransactions bt;
                 ds >> bt;
             } catch (const std::ios_base::failure& e) {return;}
-#elif REPTTRANSACTIONSREQUEST_DESERIALIZE
+#elif BLOCKTRANSACTIONSREQUEST_DESERIALIZE
             try
             {
                 BlockTransactionsRequest btr;

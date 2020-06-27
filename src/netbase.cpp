@@ -260,7 +260,7 @@ static IntrRecvError InterruptibleRecv(uint8_t* data, size_t len, int timeout, c
             return IntrRecvError::Disconnected;
         } else { // Other error or blocking
             int nErr = WSAGetLastError();
-            if (nErr == WSAEINPROGRESS || nErr == WSAEWOULDREPT || nErr == WSAEINVAL) {
+            if (nErr == WSAEINPROGRESS || nErr == WSAEWOULDBLOCK || nErr == WSAEINVAL) {
                 if (!IsSelectableSocket(hSocket)) {
                     return IntrRecvError::NetworkError;
                 }
@@ -505,7 +505,7 @@ bool ConnectSocketDirectly(const CService &addrConnect, const SOCKET& hSocket, i
     {
         int nErr = WSAGetLastError();
         // WSAEINVAL is here because some legacy version of winsock uses it
-        if (nErr == WSAEINPROGRESS || nErr == WSAEWOULDREPT || nErr == WSAEINVAL)
+        if (nErr == WSAEINPROGRESS || nErr == WSAEWOULDBLOCK || nErr == WSAEINVAL)
         {
 #ifdef USE_POLL
             struct pollfd pollfd = {};
@@ -722,7 +722,7 @@ bool SetSocketNonBlocking(const SOCKET& hSocket, bool fNonBlocking)
         if (ioctlsocket(hSocket, FIONBIO, &nOne) == SOCKET_ERROR) {
 #else
         int fFlags = fcntl(hSocket, F_GETFL, 0);
-        if (fcntl(hSocket, F_SETFL, fFlags | O_NONREPT) == SOCKET_ERROR) {
+        if (fcntl(hSocket, F_SETFL, fFlags | O_NONBLOCK) == SOCKET_ERROR) {
 #endif
             return false;
         }
@@ -732,7 +732,7 @@ bool SetSocketNonBlocking(const SOCKET& hSocket, bool fNonBlocking)
         if (ioctlsocket(hSocket, FIONBIO, &nZero) == SOCKET_ERROR) {
 #else
         int fFlags = fcntl(hSocket, F_GETFL, 0);
-        if (fcntl(hSocket, F_SETFL, fFlags & ~O_NONREPT) == SOCKET_ERROR) {
+        if (fcntl(hSocket, F_SETFL, fFlags & ~O_NONBLOCK) == SOCKET_ERROR) {
 #endif
             return false;
         }

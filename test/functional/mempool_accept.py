@@ -14,7 +14,7 @@ from test_framework.messages import (
     COutPoint,
     CTransaction,
     CTxOut,
-    MAX_REPT_BASE_SIZE,
+    MAX_BLOCK_BASE_SIZE,
 )
 from test_framework.script import (
     hash160,
@@ -199,7 +199,7 @@ class MempoolAcceptanceTest(BitcoinTestFramework):
 
         self.log.info('A really large transaction')
         tx.deserialize(BytesIO(hex_str_to_bytes(raw_tx_reference)))
-        tx.vin = [tx.vin[0]] * math.ceil(MAX_REPT_BASE_SIZE / len(tx.vin[0].serialize()))
+        tx.vin = [tx.vin[0]] * math.ceil(MAX_BLOCK_BASE_SIZE / len(tx.vin[0].serialize()))
         self.check_mempool_result(
             result_expected=[{'txid': tx.rehash(), 'allowed': False, 'reject-reason': '16: bad-txns-oversize'}],
             rawtxs=[bytes_to_hex_str(tx.serialize())],

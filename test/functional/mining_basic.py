@@ -13,12 +13,12 @@ from decimal import Decimal
 
 from test_framework.blocktools import (
     create_coinbase,
-    TIME_GENESIS_REPT,
+    TIME_GENESIS_BLOCK,
 )
 from test_framework.messages import (
     CBlock,
     CBlockHeader,
-    REPT_HEADER_SIZE
+    BLOCK_HEADER_SIZE
 )
 from test_framework.mininode import (
     P2PDataStore,
@@ -47,7 +47,7 @@ class MiningTest(BitcoinTestFramework):
 
     def mine_chain(self):
         self.log.info('Create some old blocks')
-        for t in range(TIME_GENESIS_REPT, TIME_GENESIS_REPT + 200 * 600, 600):
+        for t in range(TIME_GENESIS_BLOCK, TIME_GENESIS_BLOCK + 200 * 600, 600):
             self.nodes[0].setmocktime(t)
             self.nodes[0].generate(1)
         mining_info = self.nodes[0].getmininginfo()
@@ -151,8 +151,8 @@ class MiningTest(BitcoinTestFramework):
         self.log.info("getblocktemplate: Test bad tx count")
         # The tx count is immediately after the block header
         bad_block_sn = bytearray(block.serialize())
-        assert_equal(bad_block_sn[REPT_HEADER_SIZE], 1)
-        bad_block_sn[REPT_HEADER_SIZE] += 1
+        assert_equal(bad_block_sn[BLOCK_HEADER_SIZE], 1)
+        bad_block_sn[BLOCK_HEADER_SIZE] += 1
         assert_raises_rpc_error(-22, "Block decode failed", node.getblocktemplate, {'data': b2x(bad_block_sn), 'mode': 'proposal', 'rules': ['segwit']})
 
         self.log.info("getblocktemplate: Test bad bits")
@@ -182,8 +182,8 @@ class MiningTest(BitcoinTestFramework):
         assert_submitblock(bad_block, 'prev-blk-not-found', 'prev-blk-not-found')
 
         self.log.info('submitheader tests')
-        assert_raises_rpc_error(-22, 'Block header decode failed', lambda: node.submitheader(hexdata='xx' * REPT_HEADER_SIZE))
-        assert_raises_rpc_error(-22, 'Block header decode failed', lambda: node.submitheader(hexdata='ff' * (REPT_HEADER_SIZE-2)))
+        assert_raises_rpc_error(-22, 'Block header decode failed', lambda: node.submitheader(hexdata='xx' * BLOCK_HEADER_SIZE))
+        assert_raises_rpc_error(-22, 'Block header decode failed', lambda: node.submitheader(hexdata='ff' * (BLOCK_HEADER_SIZE-2)))
         assert_raises_rpc_error(-25, 'Must submit previous header', lambda: node.submitheader(hexdata=b2x(super(CBlock, bad_block).serialize())))
 
         block.nTime += 1

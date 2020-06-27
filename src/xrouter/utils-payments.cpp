@@ -48,7 +48,7 @@ bool createAndSignTransaction(const std::string & toaddress, const CAmount & toa
 
     raw_tx.clear(); // clean ret transaction tx
     // Exclude the used uxtos
-    const auto excludedUtxos = xbridge::App::instance().getAllLockedUtxos("REPT");
+    const auto excludedUtxos = xbridge::App::instance().getAllLockedUtxos("BLOCK");
 
     // Available utxos from from wallet
     std::vector<xbridge::wallet::UtxoEntry> inputs;
